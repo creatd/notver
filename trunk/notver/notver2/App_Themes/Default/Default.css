@@ -1,0 +1,136 @@
+﻿* 
+{
+	font-family : Verdana;
+	font-size : 10pt;
+	color:rgb(0,0,0);
+}
+
+div , p
+{
+	padding:5px;
+}
+
+p 
+{
+	font-size: 10pt;
+}
+
+h1 
+{
+	font-size : 16pt;
+}
+
+h2 
+{
+	font-size : 14pt;
+}
+
+h3 
+{
+	font-size : 12pt;
+}
+
+.stretch
+{
+	width:100%;
+}
+
+.squeeze
+{
+	width: 900px;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+div#Container
+{
+	background-color:rgb(225,225,225); 
+	padding-top:50px; 
+	padding-bottom:50px;
+}
+
+/* s: Arama Sonuclari */
+
+.AramaSonuclariHocalarHeader
+{
+	color:rgb(150,150,150);
+}
+
+.AramaSonuclariHocalarRow
+{
+	color:rgb(100,100,100);
+	background-color:rgb(150,150,150);
+}
+
+.AramaSonuclariHocalarRow2
+{
+	color:rgb(200,200,200);
+	background-color:rgb(50,50,50);
+}
+/* e: Arama Sonuclari */
+
+/* s: Genel amacli siniflar */
+.pad
+{
+	
+}
+
+.fltRight
+{
+	float:right;
+}
+/* e: Genel amacli siniflar */
+
+/* s: Hoca Puan uc */
+
+.hocaPuanSolSutun
+{
+	color:Blue;
+	padding-left:50px;
+}
+
+.hocaPuanSagSutun
+{
+	padding-left:0px;
+}
+/* e: Hoca Puan uc */
+
+/* s: Hoca Yorum */
+.HocaYorumRow
+{
+}
+
+.HocaYorumRow2
+{
+}
+
+.HocaYorumHeader
+{
+}
+/* e: Hoca Yorum */
+
+/*s: HocaYorumYap user controlu */
+.HocaYorumYapSutunSol
+{
+	width:100px;
+}
+
+.HocaYorumYapSutunSag
+{
+}
+
+.HocaYorumYapTextbox
+{
+	width : 500px;
+	height: 100px;
+}
+/*e: HocaYorumYap user controlu */
+
+/* s: Ajax Rating */
+
+	.bosYildiz { background: url(Images/stars.gif) left ; width: 18px; height: 25px; }
+    .doluYildiz { background: url(Images/stars.gif) left top; width: 18px; height: 25px; }
+    .bekleYildiz { background: url(Images/stars.gif) left 25px; width: 18px; height: 25px; }
+
+/* e: Ajax Rating */
