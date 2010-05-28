@@ -16,6 +16,9 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 {
     static string[] dersIsimleri;
     static List<string> hocaKullaniciDersler = new List<string>();
+    //static List<int> hocaKullaniciDersler_ID = new List<int>();
+    //static Hashtable hocaKullaniciDersler = new Hashtable();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -28,8 +31,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             }
             else
             {
-
                 hocaKullaniciDersler = new List<string>();
+                //hocaKullaniciDersler = new Hashtable();
             }
             pnlPuanYorum.Visible = true;
             if (HocaID <= 0)
@@ -60,7 +63,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 {
                     //baslikPuan.Text = "Benim de puanlarim var!";
                     //pnlPuanVer.Visible = true;
-                    puanKaydiVar = false;
+                    puanVar = false;
                 }
                 else
                 {
@@ -75,7 +78,6 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 
                     //pnlPuanVer.Visible = true;
                     //baslikPuan.Text = "Verdiginiz puanlari degistirmek icin tiklayin";
-                    puanKaydiVar = true;
                     //pnlPuanDegistir.Visible = true;
                 }
 
@@ -159,14 +161,29 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     {
         dersIsim.Text = "";
         int selectedIndex = dropHocaDersler.SelectedIndex;
-        if(selectedIndex > 1 && dersIsimleri!= null)
+
+        if (selectedIndex > 0)
         {
-            if (dersIsimleri.Length > selectedIndex - 2)
+            dropDersEkle.Visible = true;
+            //Ders ismini getir
+            if (selectedIndex > 1 && dersIsimleri != null)
             {
-                dersIsim.Text = dersIsimleri[selectedIndex - 2];
+                if (dersIsimleri.Length > selectedIndex - 2)
+                {
+                    dersIsim.Text = dersIsimleri[selectedIndex - 2];
+                }
+            }
+            else if (selectedIndex == 1) //Diger secildi
+            {
+
             }
         }
-        dropDersEkle.Visible = true;
+        else
+        {
+            dropDersEkle.Visible = false;
+        }
+            
+        
         
     }
 
@@ -191,6 +208,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 
     protected void repeaterDersSil(object sender, RepeaterCommandEventArgs e)
     {
+        //hocaKullaniciDersler.Remove(e.Item.ItemIndex);
         hocaKullaniciDersler.RemoveAt(e.Item.ItemIndex);
 
         repeaterDersler.DataSource = hocaKullaniciDersler;
@@ -198,6 +216,154 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         //hocaDersler.RemoveAt
     }
 
+    /// <summary>
+    /// Hoca icin daha once girilen puani gunceller
+    /// </summary>
+    protected bool PuanGuncelle()
+    {
+        int[] puanlar = null;
+        puanlar = new int[5];
+        puanlar[0] = Puan1.CurrentRating;
+        puanlar[1] = Puan2.CurrentRating;
+        puanlar[2] = Puan3.CurrentRating;
+        puanlar[3] = Puan4.CurrentRating;
+        puanlar[4] = Puan5.CurrentRating;
+        if (HocaPuanGuncelle(KullaniciID, HocaID, puanlar))
+        {
+            ltrDurum.Text = "Puaniniz guncellenmistir";
+            return true;
+        }
+        else
+        {
+            ltrDurum.Text = "Puan guncellenirken bir hata olustu, lutfen tekrar deneyin";
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Yorum ve puanlari kaydeder
+    /// Hem yorum hem puan girmek zorunlu degil ancak bir puan girerse tum 5 puani da girmeli kullanici
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void PuanYorumKaydet(object sender, EventArgs e)
+    {
+        bool puanKaydet = false;
+        bool yorumKaydet = false;
+        if(Puan1.CurrentRating == 0 && Puan2.CurrentRating == 0 && Puan3.CurrentRating == 0 && Puan4.CurrentRating == 0 && Puan5.CurrentRating ==0) //Hic puan girmedi
+        {
+        }
+        else if (!(Puan1.CurrentRating > 0 && Puan2.CurrentRating > 0 && Puan3.CurrentRating > 0 && Puan4.CurrentRating > 0 && Puan5.CurrentRating > 0))    //Puanlarin hepsini girmedi
+        {
+            ltrDurum.Text = "Puanlariniz eksik. Her kategoride puan girmelisiniz";
+            return;
+        }
+        else
+        {
+            puanKaydet = true;
+        }
+
+        if (textOlumlu.Text.Length > 0 || textOlumsuz.Text.Length > 0 || textOzet.Text.Length > 0)
+        {
+            yorumKaydet = true;
+        }
+
+        if (puanKaydet || yorumKaydet)
+        {
+            //Yorum/puanlarin yonelik oldugu derslerin listesini olustur
+            //hocaKullaniciDersler
+
+            if (puanKaydet)
+            {
+                //Puanlari kaydet
+                int[] puanlar = new int[5];
+                puanlar[0] = Puan1.CurrentRating;
+                puanlar[1] = Puan2.CurrentRating;
+                puanlar[2] = Puan3.CurrentRating;
+                puanlar[3] = Puan4.CurrentRating;
+                puanlar[4] = Puan5.CurrentRating;
+                if (HocaPuanKaydet(KullaniciID, HocaID, puanlar))
+                {
+                    ltrDurum.Text = "Puanlariniz basariyla kaydedildi!";
+                }
+                else
+                {
+                    ltrDurum.Text = "Puan kaydederken bir hata olustu, lutfen tekrar deneyiniz.";
+                }
+            }
+            if (yorumKaydet)
+            {
+                string[] yorumlar = new string[3];
+                yorumlar[0] = textOlumlu.Text;
+                yorumlar[1] = textOlumsuz.Text;
+                yorumlar[2] = textOzet.Text;
+                int kullaniciPuanaraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
+                if (!HocaYorumKaydet(KullaniciID, HocaID, yorumlar, kullaniciPuanaraligi))
+                {
+                    ltrDurum.Text = ltrDurum.Text + "<br />Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
+                }
+                else
+                {
+                    ltrDurum.Text = ltrDurum.Text + "<br />Yorumunuz basariyla kaydedildi!";
+                }  
+            }
+        }
+   
+    }
+
+    protected void PuanYorumGuncelle(object sender, EventArgs e)
+    {
+        int[] puanlar = null;
+        puanlar = new int[5];
+        puanlar[0] = Puan1.CurrentRating;
+        puanlar[1] = Puan2.CurrentRating;
+        puanlar[2] = Puan3.CurrentRating;
+        puanlar[3] = Puan4.CurrentRating;
+        puanlar[4] = Puan5.CurrentRating;
+        if (HocaPuanGuncelle(KullaniciID, HocaID, puanlar))
+        {
+            ltrDurum.Text = "Puaniniz guncellendi!";
+        }
+        else
+        {
+            ltrDurum.Text = "Puan guncellenirken bir hata olustu, lutfen tekrar deneyin";
+        }
+
+        string[] yorumlar = null;
+
+        if (textOlumlu.Text.Length > 0 || textOlumsuz.Text.Length > 0 || textOzet.Text.Length > 0)
+        {
+            yorumlar = new string[3];
+            yorumlar[0] = textOlumlu.Text;
+            yorumlar[1] = textOlumsuz.Text;
+            yorumlar[2] = textOzet.Text;
+        }
+
+        int kullaniciPuanaraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
+        if (!HocaYorumGuncelle(KullaniciID, HocaID, yorumlar, kullaniciPuanaraligi))
+        {
+            ltrDurum.Text = ltrDurum.Text + "<br />Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
+        }
+        else
+        {
+            ltrDurum.Text = ltrDurum.Text + "<br />Yorumunuz guncellendi!";
+        }
+    }
+
+    void KontroluSakla()
+    {
+        pnlPuanYorum.Visible = false;
+        pnlUyeOl.Visible = false;
+        baslikPuanYorum.Visible = false;
+        dugmeYorumGonder.Visible = false;
+        dugmeYorumGuncelle.Visible = false;
+        dropDersEkle.Visible = false;
+    }
+}
+
+/***
+ * 
+ * 
     /// <summary>
     /// Puan girildigi zaman cagirilir. Tum puanlar da girildiginde veritabanina kaydeder.
     /// </summary>
@@ -249,98 +415,5 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             ltrPuanDurum.Text = "Puan kaydederken bir hata olustu, lutfen tekrar deneyiniz.";
         }
     }
+*/
 
-    /// <summary>
-    /// Hoca icin daha once girilen puani gunceller
-    /// </summary>
-    protected bool PuanGuncelle()
-    {
-        int[] puanlar = null;
-        puanlar = new int[5];
-        puanlar[0] = Puan1.CurrentRating;
-        puanlar[1] = Puan2.CurrentRating;
-        puanlar[2] = Puan3.CurrentRating;
-        puanlar[3] = Puan4.CurrentRating;
-        puanlar[4] = Puan5.CurrentRating;
-        if (HocaPuanGuncelle(KullaniciID, HocaID, puanlar))
-        {
-            ltrPuanDurum.Text = "Puaniniz guncellenmistir";
-            return true;
-        }
-        else
-        {
-            ltrPuanDurum.Text = "Puan guncellenirken bir hata olustu, lutfen tekrar deneyin";
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Yorum ve puanlari gonderir
-    /// Hem yorum hem puan girmek zorunlu degil ancak bir puan girerse tum 5 puani da girmeli kullanici
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    protected void YorumKaydet(object sender, EventArgs e)
-    {
-        string[] yorumlar = null;
-
-        if (textOlumlu.Text.Length > 0 || textOlumsuz.Text.Length > 0 || textOzet.Text.Length > 0)
-        {
-            yorumlar = new string[3];
-            yorumlar[0] = textOlumlu.Text;
-            yorumlar[1] = textOlumsuz.Text;
-            yorumlar[2] = textOzet.Text;
-        }
-        else
-        {
-            ltrYorumDurum.Text = "Hicbir yorum girmediniz. En az bir kutuya yorum girmeniz gereklidir.";
-            return;
-        }
-        int kullaniciPuanaraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
-        if (!HocaYorumKaydet(KullaniciID, HocaID, yorumlar, kullaniciPuanaraligi))
-        {
-            ltrYorumDurum.Text = "Bir hata olustu. Lutfen tekrar deneyiniz.";
-        }
-        else
-        {
-            ltrYorumDurum.Text = "Yorumunuz kaydedilmistir!";
-        }     
-    }
-
-    protected void YorumGuncelle(object sender, EventArgs e)
-    {
-        string[] yorumlar = null;
-
-        if (textOlumlu.Text.Length > 0 || textOlumsuz.Text.Length > 0 || textOzet.Text.Length > 0)
-        {
-            yorumlar = new string[3];
-            yorumlar[0] = textOlumlu.Text;
-            yorumlar[1] = textOlumsuz.Text;
-            yorumlar[2] = textOzet.Text;
-        }
-        else
-        {
-            ltrYorumDurum.Text = "Hicbir yorum girmediniz. En az bir kutuya yorum girmeniz gereklidir.";
-            return;
-        }
-        int kullaniciPuanaraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
-        if (!HocaYorumGuncelle(KullaniciID, HocaID, yorumlar, kullaniciPuanaraligi))
-        {
-            ltrYorumDurum.Text = "Bir hata olustu. Lutfen tekrar deneyiniz.";
-        }
-        else
-        {
-            ltrYorumDurum.Text = "Yorumunuz guncellenmistir!";
-        }
-    }
-
-    void KontroluSakla()
-    {
-        pnlPuanYorum.Visible = false;
-        pnlUyeOl.Visible = false;
-        baslikPuanYorum.Visible = false;
-        dugmeYorumGonder.Visible = false;
-        dugmeYorumGuncelle.Visible = false;
-        dropDersEkle.Visible = false;
-    }
-}

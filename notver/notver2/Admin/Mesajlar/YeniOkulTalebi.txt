@@ -1,0 +1,4 @@
+﻿Okul Ismi : ||OKUL_ISMI||
+Aciklama : ||ACIKLAMA||
+Talep eden : ||TALEP_EDEN||
+Talep tarihi : ||TALEP_TARIHI||

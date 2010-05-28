@@ -1,0 +1,5 @@
+﻿Hoca Ismi : ||HOCA_ISMI||
+Okulu : ||OKUL_ISIMLERI||
+Aciklama : ||ACIKLAMA||
+Talep eden : ||TALEP_EDEN||
+Talep tarihi : ||TALEP_TARIHI||

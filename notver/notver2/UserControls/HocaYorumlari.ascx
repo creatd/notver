@@ -27,32 +27,32 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         Seviyorum cunku
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         <%# DataBinder.Eval(Container.DataItem, "YORUM_OLUMLU") %>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         Sevmiyorum cunku
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         <%# DataBinder.Eval(Container.DataItem, "YORUM_OLUMSUZ")%>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         Ozet olarak
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         <%# DataBinder.Eval(Container.DataItem, "YORUM_OZET")%>
                     </td>
                 </tr>
@@ -60,6 +60,41 @@
             <br />
         </ItemTemplate>
     </asp:Repeater>
+    <asp:Panel ID="pnlPager" runat="server">
+        <table>
+            <tr>
+                <td>
+                    <asp:LinkButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiYorumlaraGit" runat="server"></asp:LinkButton>
+                </td>
+                <td>
+                    <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
+                        <HeaderTemplate>
+                            <ol>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                                <li><asp:LinkButton runat="server" Text="<%# Container.DataItem %>" CommandName="SayfayaGit" CommandArgument="<%# Container.DataItem %>" ID="lnkSayfa"></asp:LinkButton></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ol></FooterTemplate>
+                    </asp:Repeater>
+                </td>
+                <td>
+                    <asp:LinkButton ID="lnkSonraki" Text="Sonraki" OnClick="SonrakiYorumlaraGit" runat="server"></asp:LinkButton>
+                </td>
+                <td>
+                    <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" AutoPostBack="True">
+                        <asp:ListItem Text="1" Value="1" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                        <asp:ListItem Text="10" Value="10"></asp:ListItem>
+                        <asp:ListItem Text="20" Value="20"></asp:ListItem>
+                        <asp:ListItem Text="40" Value="40"></asp:ListItem>
+                        <asp:ListItem Text="Hepsi" Value="0"></asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false">
     <asp:Label ID="lblYorumYok" runat="server">(Daha önce yorum yapilmamis). İlk yorum yapan </asp:Label><asp:HyperLink

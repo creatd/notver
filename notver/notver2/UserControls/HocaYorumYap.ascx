@@ -131,10 +131,10 @@
         </tr>
         <tr>
             <td align="right" colspan="2" style="color: Red;">
-                <asp:Literal runat="server" ID="ltrYorumDurum"></asp:Literal>
-                <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="YorumKaydet"
+                <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
+                <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="PuanYorumKaydet"
                     CssClass="fltRight" />
-                <asp:Button ID="dugmeYorumGuncelle" Text="Guncelle" runat="server" OnClick="YorumGuncelle"
+                <asp:Button ID="dugmeYorumGuncelle" Text="Guncelle" runat="server" OnClick="PuanYorumGuncelle"
                     CssClass="fltRight" />
             </td>
         </tr>

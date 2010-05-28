@@ -15,6 +15,70 @@ using System.Text;
 
 public partial class UserControls_HocaYorum : BaseUserControl
 {
+    public int MevcutSayfa
+    {
+        get
+        {
+            object o = this.ViewState["_MevcutSayfa"];
+            if (o == null)
+                return 0;
+            else
+                return (int)o;
+        }
+
+        set
+        {
+            this.ViewState["_MevcutSayfa"] = value;
+        }
+    }
+
+    public int SayfaBoyutu
+    {
+        get
+        {
+            object o = this.ViewState["_SayfaBoyutu"];
+            if (o == null)
+                return 0;
+            else
+                return (int)o;
+        }
+
+        set
+        {
+            this.ViewState["_SayfaBoyutu"] = value;
+        }
+    }
+
+    protected void rptPager_Command(object sender, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName == "SayfayaGit")
+        {
+            MevcutSayfa = Convert.ToInt32(e.CommandArgument);
+            YorumlariDoldur();
+        }
+    }
+
+    protected void SayfaBoyutuDegisti(object sender, EventArgs e)
+    {
+        SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+        MevcutSayfa = 1;
+        YorumlariDoldur();
+    }
+
+    protected void OncekiYorumlaraGit(object sender, EventArgs e)
+    {
+        MevcutSayfa -= 1;
+        YorumlariDoldur();
+    }
+
+    protected void SonrakiYorumlaraGit(object sender, EventArgs e)
+    {
+        MevcutSayfa += 1;
+        YorumlariDoldur();
+    }
+
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -24,25 +88,67 @@ public partial class UserControls_HocaYorum : BaseUserControl
                 KontroluSakla();
                 return;
             }
-            DataTable yorumlar = HocaYorumlariniDondur(HocaID);
-            if (yorumlar.Rows.Count > 0)
+            MevcutSayfa = 1;
+            SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+            YorumlariDoldur();            
+        }
+    }
+
+    private void YorumlariDoldur()
+    {
+        DataTable yorumlar = HocaYorumlariniDondur(HocaID);
+        if (yorumlar.Rows.Count > 0)
+        {
+            pnlYorumlar.Visible = true;
+            pnlYorumYok.Visible = false;
+
+            PagedDataSource pds = new PagedDataSource();
+            pds.DataSource = yorumlar.DefaultView;
+            pds.AllowPaging = true;
+
+            if (SayfaBoyutu == 0)   //Hepsini goster
             {
-                pnlYorumlar.Visible = true;
-                pnlYorumYok.Visible = false;
-                repeaterYorumlar.DataSource = yorumlar;
-                repeaterYorumlar.DataBind();
+                pds.PageSize = yorumlar.Rows.Count;
             }
             else
             {
-                pnlYorumlar.Visible = false;
-                pnlYorumYok.Visible = true;
+                pds.PageSize = SayfaBoyutu;
             }
+
+            pds.CurrentPageIndex = MevcutSayfa - 1;
+            lnkOnceki.Enabled = !pds.IsFirstPage;
+            lnkSonraki.Enabled = !pds.IsLastPage;
+
+            ArrayList arrList = new ArrayList(pds.PageCount);
+            for (int i = 0; i < pds.PageCount; i++)
+            {
+                arrList.Add((i + 1).ToString());
+            }
+            rptPager.DataSource = arrList;
+            rptPager.DataBind();
+
+            repeaterYorumlar.DataSource = pds;
+            repeaterYorumlar.DataBind();
+        }
+        else
+        {
+            pnlYorumlar.Visible = false;
+            pnlYorumYok.Visible = true;
         }
     }
 
     protected void repeaterYorumlar_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString();
+    }
+
+    protected void rptPager_DataBound(object sender, RepeaterItemEventArgs e)
+    {
+        LinkButton but = e.Item.FindControl("lnkSayfa") as LinkButton;
+        if (but != null && Convert.ToInt32(but.CommandArgument) == MevcutSayfa)
+        {
+            but.Enabled = false;
+        }
     }
 
     protected string YorumBasligiOlustur(object KullaniciAdi , object Tarih , object KullaniciPuanAraligi)
