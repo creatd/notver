@@ -17,12 +17,17 @@ public partial class Register : BasePage
     {
         if (!Page.IsPostBack)
         {
+            if (IsLoggedIn())
+            {
+                GoToDefaultPage();
+            }
             if (dtOkullar == null)
             {
                 dtOkullar = OkullariDondur();
             }
 
             DropDownList Okullar = (DropDownList)CreateUserWizardStep1.ContentTemplateContainer.FindControl("Okullar");
+            Okullar.Items.Add(new ListItem("-", "-1"));
             foreach (DataRow dr in dtOkullar.Rows)
             {
                 Okullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));

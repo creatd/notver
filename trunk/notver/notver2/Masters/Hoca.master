@@ -50,7 +50,7 @@
             </table>
         </div>
                 
-        <div class="squeeze">
+        <div class="squeeze" id="Content">
             <asp:ContentPlaceHolder ID="content" runat="server">
             </asp:ContentPlaceHolder>
         </div>

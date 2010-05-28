@@ -22,4 +22,11 @@ public class Enums
         HocaDersYorum,  //2
         OkulYorum       //3
     }
+
+    public enum AdminMesajTipi
+    {
+        YeniHocaTalebi,
+        YeniDersTalebi,
+        YeniOkulTalebi
+    }
 }

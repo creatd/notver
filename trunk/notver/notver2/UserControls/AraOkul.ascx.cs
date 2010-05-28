@@ -22,6 +22,7 @@ public partial class UserControls_AraOkul : BaseUserControl
                 dtOkullar = OkullariDondur();                
             }
 
+            okulIsmi.Items.Add(new ListItem("-", "-1"));
             foreach (DataRow dr in dtOkullar.Rows)
             {
                 okulIsmi.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));

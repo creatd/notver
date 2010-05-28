@@ -15,7 +15,7 @@ using System.Text;
 /// </summary>
 public class BasePage : System.Web.UI.Page
 {
-    static SqlConnection connection;
+    
     public static DataTable dtOkullar;
     
     public static int kullaniciID;
@@ -83,7 +83,7 @@ public class BasePage : System.Web.UI.Page
         DataTable dt = new DataTable();
         try
         {
-            cmd.Connection = GetSqlConnection();
+            cmd.Connection = Util.GetSqlConnection();
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             adapter.Fill(dt);
@@ -101,7 +101,7 @@ public class BasePage : System.Web.UI.Page
         try
         {
             SqlCommand cmd = new SqlCommand(SqlExpression);
-            cmd.Connection = GetSqlConnection();
+            cmd.Connection = Util.GetSqlConnection();
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             adapter.Fill(dt);
@@ -117,7 +117,7 @@ public class BasePage : System.Web.UI.Page
     {
         try
         {
-            cmd.Connection = GetSqlConnection();
+            cmd.Connection = Util.GetSqlConnection();
             return cmd.ExecuteNonQuery();
         }
         catch
@@ -130,7 +130,7 @@ public class BasePage : System.Web.UI.Page
     {
         try
         {
-            cmd.Connection = GetSqlConnection();
+            cmd.Connection = Util.GetSqlConnection();
             return cmd.ExecuteScalar();
         }
         catch
@@ -281,19 +281,6 @@ public class BasePage : System.Web.UI.Page
         Response.Redirect( "~\\Default.aspx" , true);
     }
 
-    public static SqlConnection GetSqlConnection()
-    {
-        if (connection == null)
-        {
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalSqlServer"].ToString());
-            connection.Open();
-        }
-        else if (connection.State != ConnectionState.Open)
-        {
-            connection.Open();
-        }
-        return connection;
-    }
 
     /// <summary>
     /// Hoca.aspx sayfasindan, bir hocanin profil sayfasindaki veriyi dondurmek icin cagirilir
