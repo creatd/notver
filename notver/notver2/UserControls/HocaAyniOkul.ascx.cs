@@ -15,6 +15,25 @@ public partial class UserControls_HocaAyniOkul : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            DataTable dt = Hocalar.AyniOkuldakiHocalariDondur(HocaID, 4);
+            if (dt != null)
+            {
+                rptHocalar.DataSource = dt;
+                rptHocalar.DataBind();
+            }
+        }
+    }
 
+    protected void ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        Literal ltr = e.Item.FindControl("ltrHoca") as Literal;
+        if (ltr != null)
+        {
+            string hocaID = ((System.Data.DataRowView)(e.Item.DataItem)).Row["HOCA_ID"].ToString();
+            string isim = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ISIM"].ToString();
+            ltr.Text = HocaLinkiniDondur(isim, hocaID);
+        }
     }
 }

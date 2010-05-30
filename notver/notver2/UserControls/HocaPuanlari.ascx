@@ -21,10 +21,15 @@ function setRating(rating,n)
 
 
 <asp:Panel ID="panelPuanlar" runat="server">
-<table border="1" cellpadding="50" width="450" style="border:solid 3pt;">
+<table border="0" cellpadding="10" width="450" style="border:none;" id="HocaPuanlari">
 <tr>
     <td align="center" colspan="2">
         <h1>NotVer.com karnesi</h1>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <img src="App_Themes/Default/Images/diger/cizgi.png" ID="cizgi"/>
     </td>
 </tr>
 <tr>

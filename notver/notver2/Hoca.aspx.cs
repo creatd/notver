@@ -27,27 +27,35 @@ public partial class Hoca : BasePage
                 HocaID = Convert.ToInt32(Request.Params["HocaID"].ToString());
                 
                 //s: HocaProfil
-                DataTable dtProfil = HocaProfilDondur(HocaID);
+                DataTable dtProfil = Hocalar.HocaProfilDondur(HocaID);
                 if(dtProfil == null || dtProfil.Rows.Count ==0)    //Hoca bulunamadi ya da hata olustu
                 {
                     hocaIsim.Text = "Hoca bulunamadi";                    
                     return;
                 }
-                //TODO: null donmez ama okul bilgisi donmeyebilir
                 HocaIsim = dtProfil.Rows[0]["HOCA_ISIM"].ToString();
+                if (dtProfil.Rows[0]["HOCA_UNVAN"] != System.DBNull.Value)
+                {
+                    string hocaUnvan = dtProfil.Rows[0]["HOCA_UNVAN"].ToString();
+                    if (!string.IsNullOrEmpty(hocaUnvan))
+                    {
+                        HocaIsim = hocaUnvan + " " + HocaIsim;
+                    }
+                }                
                 hocaIsim.Text = HocaIsim;
                 //Hocanin kayitli oldugu bir okul yok!
                 if (dtProfil.Rows[0]["OKUL_ISIM"] == null || dtProfil.Rows[0]["OKUL_ISIM"] == System.DBNull.Value)
                 {
-                    hocaOkullar.Text = "(Okul bilgisi bulunamadi!)";
+                    hocaOkullar.Text = "<span class=\"HocaOkullar\"(Okul bilgisi bulunamadi!)</span>";
                 }
                 else
                 {
                     StringBuilder sb = new StringBuilder();
+                    sb.Append("<span class=\"HocaOkullar\">");
                     foreach (DataRow dr in dtProfil.Rows)
                     {
 
-                        sb.Append(dr["OKUL_ISIM"] + " (" + dr["START_YEAR"] + " - ");
+                        sb.Append(dr["OKUL_ISIM"] + "<br />(" + dr["START_YEAR"] + " - ");
                         if (dr["END_YEAR"] != System.DBNull.Value)
                         {
                             sb.Append(dr["END_YEAR"]);
@@ -56,8 +64,9 @@ public partial class Hoca : BasePage
                         {
                             sb.Append("...");
                         }
-                        sb.Append(") <br />");
+                        sb.Append(") <br /><br />");
                     }
+                    sb.Append("</span>");
                     hocaOkullar.Text = sb.ToString();
                 }
                 //e: HocaProfil

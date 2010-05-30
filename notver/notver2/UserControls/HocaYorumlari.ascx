@@ -4,7 +4,7 @@
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true">
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
-            <table style="border: solid 1pt;" border="1" width="600">
+            <table style="border: none;" border="0" width="600">
                 <tr>
                     <td style="font-style: italic; color: rgb(150,150,150); font-size: 8pt;">
                         <%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
@@ -61,7 +61,7 @@
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel ID="pnlPager" runat="server">
-        <table>
+        <table class="pager">
             <tr>
                 <td>
                     <asp:LinkButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiYorumlaraGit" runat="server"></asp:LinkButton>

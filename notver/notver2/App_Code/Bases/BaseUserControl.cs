@@ -797,8 +797,8 @@ public class BaseUserControl : System.Web.UI.UserControl
         }
     }
 
-    protected string HocaLinkiDondur()
+    public string HocaLinkiniDondur(string HocaIsmi, string HocaID)
     {
-        return "";
+        return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";
     }
 }
