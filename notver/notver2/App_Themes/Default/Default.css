@@ -187,28 +187,28 @@ li.kirmiziayrac
 {
 	
 }
-
 .fltRight
 {
 	float:right;
 }
-
 .fltLeft
 {
 	float:left;
 }
-
 .seffafTextBox
 {
 	border:hidden;
 	background-color:Transparent;
 }
-
 .sessiz
 {
-	font-size:8pt;
+	font-size:11px;
 	color:Gray;
 }
+.hata
+{
+	color:Orange;
+}	
 /* e: Genel amacli siniflar */
 
 /* s: Hoca Puan uc */
@@ -280,12 +280,24 @@ div#LoginBox div#LoginBox_Sonra
 {
 	width:100%;
 	height:100%;
-	background:url(Images/postit/giris_kutusu.png) no-repeat;
+	background:url(Images/postit/giris_kutusu3_sonra.png) no-repeat;
+	color:Blue;
+	padding-top:60px;
+	padding-left:18px;
+	text-align:left;
 }
-
+div#LoginBox div#LoginBox_Sonra span
+{
+	color:rgb(4,10,176);
+}
+div#LoginBox div#LoginBox_Sonra a
+{
+	padding-right:55px;
+	font-size:13px;
+}
 div#LoginBox input 
 {
-	color:Blue;
+	color:rgb(4,10,176);
 	font-size:9pt;
 }
 /*e: Loginbox uc */

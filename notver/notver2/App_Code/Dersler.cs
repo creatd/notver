@@ -13,12 +13,7 @@ using System.Xml.Linq;
 /// <summary>
 /// Summary description for Ders
 /// </summary>
-public class Ders
+public class Dersler
 {
-	public Ders()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+
 }

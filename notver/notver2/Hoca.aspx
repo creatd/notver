@@ -12,10 +12,10 @@
 
 <table>
 <tr>
-<td>
+<td style="vertical-align:top; padding-top:350px;">
     <uc1:HocaAyniOkul runat="server" ID="hocaAyniOkul"></uc1:HocaAyniOkul>
 </td>
-<td style="padding-top:0px;">
+<td style="padding-top:0px;vertical-align:top;">
     <table>
         <tr>
             <td style="padding-top:0px;">
