@@ -1,7 +1,7 @@
 ﻿* 
 {
-	font-family : Verdana;
-	font-size : 10pt;
+	font-family : Georgia;
+	font-size : 18px;
 	color:rgb(0,0,0);
 }
 
@@ -43,6 +43,15 @@ h3
 	margin-right:auto;
 }
 
+td
+{
+	padding : 5px;
+} 
+a
+{
+	text-decoration:none;
+}
+
 div#Container
 {
 	height: 100%;
@@ -63,6 +72,7 @@ div#Content
     background-image: url(Images/defter/6.jpg);
     background-repeat: repeat-y;
     position: static;
+    padding:0;
 }
 
 /* s: Arama Sonuclari */
@@ -85,6 +95,93 @@ div#Content
 }
 /* e: Arama Sonuclari */
 
+/* s: Hoca Resmi uc */
+div.HocaResmi
+{
+	position:relative;
+	top:0;
+	width:235px;
+	height:120px;
+	padding:0;
+	margin:0;
+	text-align:left;
+}
+
+div.HocaResmi img
+{
+	margin-left:100px;
+}
+
+img.HocaResmi
+{
+	padding-top:5px;
+}
+/* e: Hoca Resmi uc */
+
+/* s: Hoca.aspx */
+span.HocaIsim
+{
+	display:inline;
+	background-color:Yellow;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:5px;
+	padding-right:5px;
+	font-weight:bold;
+	text-align:center;
+}
+span.HocaOkullar
+{
+	display:block;
+	text-align:right;
+	margin-top:17px;
+}
+/* e: Hoca.aspx */
+
+/* s: Hoca Ayni Okul uc */
+div.HocaAyniOkul
+{
+	width:30px;
+	height:100%;
+}
+ol.HocaAyniOkul
+{
+	text-align:left;
+	position:relative;
+	left:-120px;
+}
+
+li.HocaAyniOkul
+{
+	width:150px;
+	height:43px;
+	margin-bottom:10px;	
+}
+li.HocaAyniOkul a
+{
+	width:140px;
+	height:43px;
+	padding-left:28px;
+	padding-top:3px;
+	padding-right:5px;
+	display:block;
+}
+li.maviayrac
+{
+	background:url(Images/postit/ayrac_mavi2.png) no-repeat;
+}
+
+li.sariayrac
+{
+	background:url(Images/postit/ayrac_sari2.png) no-repeat;
+}
+
+li.kirmiziayrac
+{
+	background:url(Images/postit/ayrac_kirmizi.png) no-repeat;
+}
+/* e: Hoca Ayni Okul uc */
+
 /* s: Genel amacli siniflar */
 .pad
 {
@@ -95,10 +192,33 @@ div#Content
 {
 	float:right;
 }
+
+.fltLeft
+{
+	float:left;
+}
+
+.seffafTextBox
+{
+	border:hidden;
+	background-color:Transparent;
+}
+
+.sessiz
+{
+	font-size:8pt;
+	color:Gray;
+}
 /* e: Genel amacli siniflar */
 
 /* s: Hoca Puan uc */
 
+table#HocaPuanlari
+{
+	width : 440px;
+	height: 100%;
+	margin-top:20px;
+}
 .hocaPuanSolSutun
 {
 	color:Blue;
@@ -142,6 +262,34 @@ div#Content
 }
 /*e: HocaYorumYap user controlu */
 
+/*s: Loginbox uc */
+div#LoginBox
+{	
+	width:200px;
+	height:140px;
+}
+
+div#LoginBox div#LoginBox_Once
+{
+	width:100%;
+	height:100%;
+	background:url(Images/postit/giris_kutusu3.png) no-repeat;
+}
+
+div#LoginBox div#LoginBox_Sonra
+{
+	width:100%;
+	height:100%;
+	background:url(Images/postit/giris_kutusu.png) no-repeat;
+}
+
+div#LoginBox input 
+{
+	color:Blue;
+	font-size:9pt;
+}
+/*e: Loginbox uc */
+
 /* s: Ajax Rating */
 
 	.bosYildiz { background: url(Images/stars.gif) left ; width: 18px; height: 25px; }
@@ -149,3 +297,16 @@ div#Content
     .bekleYildiz { background: url(Images/stars.gif) left 25px; width: 18px; height: 25px; }
 
 /* e: Ajax Rating */
+
+/* s: Pager */
+table.pager
+{
+	width:100%;
+}
+
+table.pager li
+{
+	float:left;
+	margin-left:10px;
+}
+/* e: Pager */

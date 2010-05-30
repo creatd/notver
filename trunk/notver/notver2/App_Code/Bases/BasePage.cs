@@ -282,31 +282,7 @@ public class BasePage : System.Web.UI.Page
     }
 
 
-    /// <summary>
-    /// Hoca.aspx sayfasindan, bir hocanin profil sayfasindaki veriyi dondurmek icin cagirilir
-    /// </summary>
-    /// <param name="HocaID"></param>
-    /// <returns></returns>
-    public DataTable HocaProfilDondur(int HocaID)
-    {
-        try
-        {
-            SqlCommand cmd = new SqlCommand("HocaProfilDondur");
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlParameter param = new SqlParameter("HocaID", HocaID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-            DataTable dt = GetDataTable(cmd);
-            return dt;
-        }
-        catch (Exception)
-        {
-            return null;
-        }
-    }
+    
 
     /// <summary>
     /// Kayitli tum aktif okullarin ISIM,OKUL_ID 'lerini dondurur
@@ -318,48 +294,6 @@ public class BasePage : System.Web.UI.Page
         return GetDataTable(SQL);
     }
 
-    /// <summary>
-    /// Bir hocanin vermis oldugu dersleri ve ders id'lerini dondurur
-    /// </summary>
-    /// <param name="hocaID"></param>
-    /// <returns></returns>
-    public string[][] HocaDersleriniDondur(int hocaID)
-    {
-        try
-        {            
-            SqlCommand cmd = new SqlCommand("HocaDersleriniDondur");
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlParameter param = new SqlParameter("HocaID", hocaID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-
-            StringBuilder sb = new StringBuilder();
-            DataTable dt = GetDataTable(cmd);
-            if (! (dt.Rows.Count > 0) )
-            {
-                return null;
-            }
-            else
-            {
-                string[][] result = new string[dt.Rows.Count][];
-                int i = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    result[i][0] = Convert.ToString(dr["ISIM"]);
-                    result[i][1] = Convert.ToString(dr["DERS_ID"]);
-                    i++;
-                }
-                return result;
-            }
-        }
-        catch (Exception)
-        {
-            return null;
-        }
-    }
 
 
     /// <summary>
@@ -381,13 +315,13 @@ public class BasePage : System.Web.UI.Page
 
 
             StringBuilder sb = new StringBuilder();
-            DataTable dt = GetDataTable(cmd);
-            foreach(DataRow dr in dt.Rows)
+            DataTable dt = Util.GetDataTable(cmd);
+            foreach (DataRow dr in dt.Rows)
             {
                 sb.Append("<a href=\"" + Page.ResolveUrl("~/Okul.aspx") + "?OkulID=" + dr["OKUL_ID"] + "\">" + dr["ISIM"] + "</a>");
             }
             string result = sb.ToString().Replace("</a><a", "</a><br /><a");    //Her okul ismi arasina <br /> koy
-            return result;            
+            return result;
         }
         catch (Exception)
         {
@@ -399,7 +333,7 @@ public class BasePage : System.Web.UI.Page
     {
         return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";
     }
-
+    
     /// <summary>
     /// Ilk int degeri :
     /// Eger ilk defa puan veriliyorsa 1,

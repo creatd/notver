@@ -19,15 +19,6 @@ caption  {
 	background: transparent;
 }
 
-
-/* s: degisiklik */
-/* tr, th, td, tbody, tfoot, thead, table */
-td
-{
-	padding : 10px;
-} 
-/* e: degisiklik */
-
 body {
 	line-height: 1;
 }
