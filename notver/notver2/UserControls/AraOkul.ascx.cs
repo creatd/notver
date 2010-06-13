@@ -17,13 +17,8 @@ public partial class UserControls_AraOkul : BaseUserControl
     {
         if (!Page.IsPostBack)
         {
-            if (dtOkullar == null)
-            {
-                dtOkullar = OkullariDondur();                
-            }
-
             okulIsmi.Items.Add(new ListItem("-", "-1"));
-            foreach (DataRow dr in dtOkullar.Rows)
+            foreach (DataRow dr in session.dtOkullar.Rows)
             {
                 okulIsmi.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
             }

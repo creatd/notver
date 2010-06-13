@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
+using System.Security.Cryptography;
 
 /// <summary>
 /// Summary description for Util
@@ -98,5 +99,31 @@ public class Util
         {
             return null;
         }
+    }
+
+    public static object GetResult(SqlCommand cmd)
+    {
+        try
+        {
+            cmd.Connection = Util.GetSqlConnection();
+            cmd.ExecuteNonQuery();
+            return cmd.Parameters[cmd.Parameters.Count - 1].Value;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public static string HashString(string input)
+    {
+        MD5 md5Hasher = MD5.Create();
+        byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < data.Length; i++)
+        {
+            sb.Append(data[i].ToString("x2"));
+        }
+        return sb.ToString();
     }
 }

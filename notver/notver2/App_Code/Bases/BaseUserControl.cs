@@ -16,39 +16,19 @@ using System.Data.SqlClient;
 public class BaseUserControl : System.Web.UI.UserControl
 {
     //CACHE (gibi) degiskenler
-    public static DataTable dtOkullar;
     public static string[] hocaPuanAciklamalari;
     
     public static SqlConnection connection;
 
-    private static int hocaID;
-    public static int HocaID
-    {
-        set { hocaID = value; }
-        get { return hocaID; }
-    }
+    public Session session;
 
-    private static int kullaniciID = -1;
-    public static int KullaniciID
+    public BaseUserControl()
     {
-        set { kullaniciID = value; }
-        get { return kullaniciID; }
+        if (session == null)
+        {
+            session = new Session();
+        }
     }
-
-	public BaseUserControl()
-    {
-        if (IsLoggedIn())
-        {
-            if (kullaniciID <= 0)
-            {
-                kullaniciID = KullaniciIDDondur();
-            }
-        }
-        else
-        {
-            kullaniciID = -1;
-        }
-	}
 
     /// <summary>
     /// Kullanici hocaya daha once yorum yaptiysa true dondurur; yoksa false dondurur
@@ -224,7 +204,7 @@ public class BaseUserControl : System.Web.UI.UserControl
     /// <summary>
     /// Called when a user logs in
     /// </summary>
-    public static void LogInUser()
+    public void LogInUser()
     {
         isLoggedIn = true;
     }
@@ -232,17 +212,17 @@ public class BaseUserControl : System.Web.UI.UserControl
     /// <summary>
     /// Called when a user logs out
     /// </summary>
-    public static void LogOutUser()
+    public void LogOutUser()
     {
         isLoggedIn = false;
-        kullaniciID = 0;;
+        session.KullaniciID = -1;
     }
 
-    public static int KullaniciIDDondur()
+    public int KullaniciIDDondur()
     {
-        if (kullaniciID > 0)
+        if (session.KullaniciID > 0)
         {
-            return kullaniciID;
+            return session.KullaniciID;
         }
         else
         {

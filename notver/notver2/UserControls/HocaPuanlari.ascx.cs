@@ -38,12 +38,12 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
 
                 //s: Hoca puanlarini doldur
                 //javascript kullanacagiz
-                if (HocaID <= 0)
+                if (session.HocaID <= 0)
                 {
                     KontroluSakla();
                     return;
                 }
-                float[] puanlar = HocaPuanlariniDondur(HocaID);
+                float[] puanlar = HocaPuanlariniDondur(session.HocaID);
                 StringBuilder sb = new StringBuilder();
                 if (puanlar == null) //Hata olustu ya da hocanin hic puani yok
                 {
