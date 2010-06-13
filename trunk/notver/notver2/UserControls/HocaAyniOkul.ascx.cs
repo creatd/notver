@@ -17,7 +17,7 @@ public partial class UserControls_HocaAyniOkul : BaseUserControl
     {
         if (!IsPostBack)
         {
-            DataTable dt = Hocalar.AyniOkuldakiHocalariDondur(HocaID, 4);
+            DataTable dt = Hocalar.AyniOkuldakiHocalariDondur(session.HocaID, 4);
             if (dt != null)
             {
                 rptHocalar.DataSource = dt;

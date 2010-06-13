@@ -17,32 +17,39 @@ public partial class Register : BasePage
     {
         if (!Page.IsPostBack)
         {
-            if (IsLoggedIn())
+            if (session.IsLoggedIn)
             {
                 GoToDefaultPage();
             }
-            if (dtOkullar == null)
-            {
-                dtOkullar = OkullariDondur();
-            }
 
-            DropDownList Okullar = (DropDownList)CreateUserWizardStep1.ContentTemplateContainer.FindControl("Okullar");
+            DropDownList Okullar = ddOkullar as DropDownList;
             Okullar.Items.Add(new ListItem("-", "-1"));
-            foreach (DataRow dr in dtOkullar.Rows)
+            foreach (DataRow dr in session.dtOkullar.Rows)
             {
                 Okullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
             }
         }
     }
 
+
     protected void KullaniciOlustur(object sender, EventArgs e)
     {
-        string userName = CreateUserWizard1.UserName;
-        string email = CreateUserWizard1.Email;
-        string question = CreateUserWizard1.Question;
-        string answer = CreateUserWizard1.Answer;
-        int okulID = Convert.ToInt32(((DropDownList) CreateUserWizardStep1.ContentTemplateContainer.FindControl("Okullar") ).SelectedValue);
-        string isim = ((TextBox)CreateUserWizardStep1.ContentTemplateContainer.FindControl("Isim")).Text;
-        KullaniciID = UyeOlustur(Membership.GetUser(userName).ProviderUserKey, userName, email, okulID, isim);
+        string kullaniciAdi = txtKullaniciAdi.Text.Trim();
+        string sifre = txtSifre.Text.Trim();
+        int result = Uyelik.KullaniciOlustur(kullaniciAdi, sifre);
+        lblDurum.Text = "";
+        if (result == -1)
+        {
+            lblDurum.Text = "Kullanici adi alinmis, lutfen baska bir kullanici adi secin.";
+        }
+        else if (result == 0)
+        {
+            lblDurum.Text = "Bilinmeyen hata, lutfen tekrar deneyin.";
+        }
+        else if (result == 1)
+        {
+            Uyelik.GirisYap(kullaniciAdi, sifre);
+            Response.Redirect(Page.ResolveUrl("~/Default.aspx"));
+        }
     }
 }

@@ -17,16 +17,30 @@ public class Enums
 {
     public enum YorumTipi
     {
-        HocaYorum,      //0
-        DersYorum,      //1
-        HocaDersYorum,  //2
-        OkulYorum       //3
+        HocaYorum = 0,      
+        DersYorum = 1,      
+        HocaDersYorum = 2,  
+        OkulYorum = 3       
     }
 
+    //Uyeler
     public enum AdminMesajTipi
     {
-        YeniHocaTalebi,
-        YeniDersTalebi,
-        YeniOkulTalebi
+        YeniHocaTalebi = 0,
+        YeniDersTalebi = 1,
+        YeniOkulTalebi = 2
+    }
+
+    public enum UyelikDurumu
+    {
+        EpostaOnayBekliyor = 0, 
+        EpostaOnayli = 1,       
+        UniEpostaOnayli = 2     
+    }
+
+    public enum Cinsiyet
+    {
+        Erkek = 0,  
+        Kiz = 1     
     }
 }

@@ -11,29 +11,51 @@ using System.Web.UI.WebControls.WebParts;
 
 public partial class UserControls_LoginBox : BaseUserControl
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
-        if (IsLoggedIn())   //Page.User.Identity.IsAuthenticated de kullanilabilirdi veya Request.IsAuthenticated
+        if (session.IsLoggedIn)
         {
+            GirisiGoster();
         }
         else
         {
+            CikisiGoster();
         }
     }
 
-    protected void LogOut(object sender, EventArgs e)
+    protected void GirisiGoster()
     {
-        FormsAuthentication.SignOut();
-        LogOutUser();
-        Response.Clear();
-        RefreshPage();
-
+        pnlNoLogin.Visible = false;
+        pnlLogin.Visible = true;
     }
 
-    protected void LoggedIn(object sender, EventArgs e)
+    protected void CikisiGoster()
     {
-        //LogInUser();
+        pnlNoLogin.Visible = true;
+        pnlLogin.Visible = false;
     }
+
+    protected void GirisYap(object sender, EventArgs e)
+    {
+        if (Uyelik.GirisYap(txtKullaniciAdi.Text, txtSifre.Text))
+        {
+            Uyelik.KullaniciYukle(txtKullaniciAdi.Text.Trim());
+            //session.LoggedIn = true;
+            //session.KullaniciAdi = txtUsername.Text.Trim();
+            lblDurum.Text = "";
+        }
+        else
+        {
+            lblDurum.Text = "Giris yapilamadi. Lutfen kullanici adi/sifrenizi kontrol edin.";
+        }
+    }
+
+    protected void CikisYap(object sender, EventArgs e)
+    {
+        Uyelik.CikisYap();
+
+    }
+    
 
 
 }

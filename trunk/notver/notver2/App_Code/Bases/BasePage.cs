@@ -15,47 +15,20 @@ using System.Text;
 /// </summary>
 public class BasePage : System.Web.UI.Page
 {
-    
-    public static DataTable dtOkullar;
-    
-    public static int kullaniciID;
-    public static int KullaniciID
-    {
-        set { kullaniciID = value; }
-        get { return kullaniciID; }
-    }
-
+    public Session session;
 	public BasePage()
 	{
-        if (IsLoggedIn())
+        if (session == null)
         {
-            if (kullaniciID <= 0)
-            {
-                kullaniciID = KullaniciIDDondur();
-            }
-        }
-        else
-        {
-            kullaniciID = -1;
+            session = new Session();
         }
 	}
 
-    //TODO: kontrol et
-    private static bool isLoggedIn = false;
-    /// <summary>
-    /// Returns whether a user is logged in
-    /// </summary>
-    /// <returns></returns>
-    public static bool IsLoggedIn()
+    public int KullaniciIDDondur()
     {
-        return isLoggedIn || (Membership.GetUser() != null);
-    }
-
-    public static int KullaniciIDDondur()
-    {
-        if (kullaniciID > 0)
+        if (session.KullaniciID > 0)
         {
-            return kullaniciID;
+            return session.KullaniciID;
         }
         else
         {

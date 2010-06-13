@@ -19,7 +19,6 @@ public partial class Hoca : BasePage
     public string HocaIsim = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-       // dummy2.Text = "ege";
         if (!Page.IsPostBack)
         {
             try
@@ -76,8 +75,8 @@ public partial class Hoca : BasePage
                 //HocaPuanlari1.HocaID = HocaID;
                 //HocaYorumlari1.HocaID = HocaID;
                 //HocaYorumYap1.HocaID = HocaID;
-                BaseUserControl.HocaID = HocaID;
-                BaseUserControl.KullaniciID = kullaniciID;
+                session.HocaID = HocaID;
+                //session.KullaniciID = kullaniciID;
                 //HocaPuanAciklamalariniDondur();
             }
             catch
