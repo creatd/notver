@@ -31,12 +31,31 @@ public class Enums
         YeniOkulTalebi = 2
     }
 
+    public enum DosyaKategoriTipi
+    {
+        SinavVeCozum = 0,
+        DersNotu = 1,
+        Odev = 2,
+        Proje = 3,
+        YararliKaynak = 4,
+        Diger = 5
+    }
+
+    //s: Uyelik
     public enum UyelikDurumu
     {
         EpostaOnayBekliyor = 0, 
         EpostaOnayli = 1,       
         UniEpostaOnayli = 2     
     }
+
+    public enum UyelikRol
+    {
+        Kullanici = 0,
+        Moderator = 1,
+        Admin =2
+    }
+    //e: Uyelik
 
     public enum Cinsiyet
     {

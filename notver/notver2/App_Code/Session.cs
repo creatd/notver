@@ -36,6 +36,35 @@ public class Session
         }        
     }
 
+    public int DersID
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersID"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["DersID"]);
+            }
+            else
+            {
+                var obj = HttpContext.Current.Request.QueryString.Get("DersID");
+                if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+                {
+                    int dersID = Convert.ToInt32(obj.ToString());
+                    DersID = dersID;
+                    return dersID;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["DersID"] = value;
+        }
+    }
+
     public int HocaID
     {
         get

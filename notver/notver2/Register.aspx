@@ -51,9 +51,20 @@
                     <asp:Label ID="IsimLabel" runat="server">Isminiz (Ad Soyad):</asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="Isim" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="IsimRequired" runat="server" ControlToValidate="Isim"
+                    <asp:TextBox ID="txtIsim" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="IsimRequired" runat="server" ControlToValidate="txtIsim"
                         ErrorMessage="Isim girilmelidir" ToolTip="Isim girilmelidir" ValidationGroup="vg1">*</asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <asp:Label ID="lblCinsiyet" runat="server">Cinsiyetiniz :</asp:Label>
+                </td>
+                <td>
+                    <asp:RadioButtonList runat="server" ID="rdCinsiyetler">
+                        <asp:ListItem Text="Bay" Selected="True" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Bayan" Value="1"></asp:ListItem>
+                    </asp:RadioButtonList>
                 </td>
             </tr>
             <tr>
@@ -88,6 +99,12 @@
             <tr>
                 <td align="center" colspan="2" style="color: Red;">
                     <asp:Literal ID="lblDurum" runat="server" EnableViewState="False"></asp:Literal>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" colspan="2">
+                    <asp:LinkButton runat="server" Text="Uye Ol" OnClick="KullaniciOlustur" CausesValidation="true"
+                    ValidationGroup="vg1"></asp:LinkButton>
                 </td>
             </tr>
         </table>

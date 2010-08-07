@@ -34,7 +34,6 @@ public class Uyelik
             DataRow dr = dt.Rows[0];
             
             int kullaniciID = Convert.ToInt32(dr["UYE_ID"].ToString());
-            //string kullaniciAdi = dr["KULLANICI_ADI"].ToString();
             string isim = dr["ISIM"].ToString();
             int uyelikDurumu = Convert.ToInt32(dr["UYELIK_DURUMU"].ToString());
             int rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
@@ -46,6 +45,7 @@ public class Uyelik
                 cinsiyet = (int)Enums.Cinsiyet.Kiz;
             string eposta = dr["EPOSTA"].ToString();
             Session session = new Session();
+            session.IsLoggedIn = true;
             session.KullaniciAdi = kullaniciAdi;
             session.KullaniciID = kullaniciID;
             return true;
@@ -65,20 +65,19 @@ public class Uyelik
 
     /// <summary>
     /// Return codes :
-    /// -1  Username exists
-    /// 0   Unknown error
-    /// 1   Success
+    /// -2  Eposta adresi kullanimda
+    /// -1  Kullanici adi kullanimda
+    /// 0   Bilinmeyen hata
+    /// 1   Basari
     /// </summary>
     /// <param name="username"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public static int KullaniciOlustur(string kullaniciAdi, string sifre)
+    public static int KullaniciOlustur(string kullaniciAdi, string isim, int okulId, string eposta,
+        Enums.UyelikDurumu uyelikDurumu, Enums.UyelikRol uyelikRol, string sifre, Enums.Cinsiyet cinsiyet)
     {
         try
         {
-            kullaniciAdi = kullaniciAdi.Trim();
-            sifre = sifre.Trim();
-
             //Kullanici adi var mi kontrol et
             SqlCommand cmd = new SqlCommand("KullaniciAdiVarMi");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -100,6 +99,27 @@ public class Uyelik
                 return 0;
             }
 
+            //Eposta adresi var mi kontrol et
+            cmd = new SqlCommand("EpostaAdresiVarMi");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            param = new SqlParameter("Eposta", eposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+            obj = Util.ExecuteScalar(cmd);
+            if (obj != null)
+            {
+                if ((int)obj == 1)
+                {
+                    return -2;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+
             cmd = new SqlCommand("KullaniciKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -108,16 +128,48 @@ public class Uyelik
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
 
+            param = new SqlParameter("Isim", isim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OkulID",SqlDbType.Int);
+            if (okulId > 0)
+            {
+                param.Value = okulId;
+            }
+            param.Direction = ParameterDirection.Input;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Eposta", eposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("UyelikDurumu", (int)uyelikDurumu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("UyelikRol", (int)uyelikRol);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
             param = new SqlParameter("Sifre", Util.HashString(sifre));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
 
-            if (Util.ExecuteNonQuery(cmd) != -99)
+            param = new SqlParameter("Cinsiyet", (bool)((int)cinsiyet==1));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            if (Util.ExecuteNonQuery(cmd) != -1)
             {
                 return 1;
             }
-
         }
         catch (Exception)
         {
@@ -145,7 +197,7 @@ public class Uyelik
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Result", SqlDbType.Int);
+            param = new SqlParameter("Sonuc", SqlDbType.Int);
             param.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(param);
 
@@ -154,9 +206,10 @@ public class Uyelik
             {
                 if ((int)obj == 1)
                 {
+                    KullaniciYukle(kullaniciAdi); 
                     return true;
                 }
-            }
+            }                       
         }
         catch
         {
