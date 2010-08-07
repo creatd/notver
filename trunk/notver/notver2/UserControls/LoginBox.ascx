@@ -25,7 +25,7 @@
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlLogin" Visible="false" class="doldur">
         <div id="LoginBox_Sonra">
-            <asp:LoginName ID="LoginName1" runat="Server"></asp:LoginName>
+            <%= session.KullaniciAdi.ToString() %>
             !
             <br />
             <br />

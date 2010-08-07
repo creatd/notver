@@ -15,7 +15,6 @@ using System.Text;
 
 public partial class Hoca : BasePage
 {
-    public int HocaID = -1;
     public string HocaIsim = "";
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,10 +22,10 @@ public partial class Hoca : BasePage
         {
             try
             {
-                HocaID = Convert.ToInt32(Request.Params["HocaID"].ToString());
+                session.HocaID = Convert.ToInt32(Request.Params["HocaID"].ToString());
                 
                 //s: HocaProfil
-                DataTable dtProfil = Hocalar.HocaProfilDondur(HocaID);
+                DataTable dtProfil = Hocalar.HocaProfilDondur(session.HocaID);
                 if(dtProfil == null || dtProfil.Rows.Count ==0)    //Hoca bulunamadi ya da hata olustu
                 {
                     hocaIsim.Text = "Hoca bulunamadi";                    
@@ -75,7 +74,6 @@ public partial class Hoca : BasePage
                 //HocaPuanlari1.HocaID = HocaID;
                 //HocaYorumlari1.HocaID = HocaID;
                 //HocaYorumYap1.HocaID = HocaID;
-                session.HocaID = HocaID;
                 //session.KullaniciID = kullaniciID;
                 //HocaPuanAciklamalariniDondur();
             }

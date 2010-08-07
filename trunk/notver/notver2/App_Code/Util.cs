@@ -126,4 +126,45 @@ public class Util
         }
         return sb.ToString();
     }
+
+    //TODO: gereksiz bosluklari ayir ne demek ya?
+    /// <summary>
+    /// Turns the given input into a proper LIKE expression
+    /// Gereksiz bosluklari ayir
+    /// Not : Basa ve sona tirnak isareti koymaz
+    /// </summary>
+    /// <param name="initialInput"></param>
+    /// <returns></returns>
+    public static string BuildLikeExpression(string initialInput)
+    {
+        string[] words = initialInput.Split(' ');
+        StringBuilder sb = new StringBuilder();
+        sb.Append("%");
+        foreach (string word in words)
+        {
+            string latinWord = word;
+            latinWord = latinWord.ToUpper();
+            latinWord = latinWord.Replace("I", "$1$");
+            latinWord = latinWord.Replace("İ", "$1$");
+            latinWord = latinWord.Replace("$1$", "[Iİ]");
+            latinWord = latinWord.Replace("O", "$2$");
+            latinWord = latinWord.Replace("Ö", "$2$");
+            latinWord = latinWord.Replace("$2$", "[OÖ]");
+            latinWord = latinWord.Replace("U", "$3$");
+            latinWord = latinWord.Replace("Ü", "$3$");
+            latinWord = latinWord.Replace("$3$", "[UÜ]");
+            latinWord = latinWord.Replace("C", "$4$");
+            latinWord = latinWord.Replace("Ç", "$4$");
+            latinWord = latinWord.Replace("$4$", "[CÇ]");
+            latinWord = latinWord.Replace("S", "$5$");
+            latinWord = latinWord.Replace("Ş", "$5$");
+            latinWord = latinWord.Replace("$5$", "[SŞ]");
+            latinWord = latinWord.Replace("G", "$6$");
+            latinWord = latinWord.Replace("Ğ", "$6$");
+            latinWord = latinWord.Replace("$6$", "[GĞ]");
+            sb.Append(latinWord + "%");
+        }
+
+        return sb.ToString();
+    }
 }

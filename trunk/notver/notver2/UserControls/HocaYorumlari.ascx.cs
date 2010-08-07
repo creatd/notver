@@ -97,7 +97,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
     private void YorumlariDoldur()
     {
         DataTable yorumlar = HocaYorumlariniDondur(session.HocaID);
-        if (yorumlar.Rows.Count > 0)
+        if (yorumlar!= null && yorumlar.Rows.Count > 0)
         {
             pnlYorumlar.Visible = true;
             pnlYorumYok.Visible = false;

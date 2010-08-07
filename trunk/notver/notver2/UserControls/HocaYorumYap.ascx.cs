@@ -14,6 +14,7 @@ using System.Collections.Generic;
 
 public partial class UserControls_HocaYorumYap : BaseUserControl
 {
+    Session sess;
     static string[] dersIsimleri;
     static List<string> hocaKullaniciDersler = new List<string>();
     //static List<int> hocaKullaniciDersler_ID = new List<int>();
@@ -21,6 +22,10 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (sess == null)
+        {
+            sess = new Session();
+        }
         if (!Page.IsPostBack)
         {
             KontroluSakla();
@@ -39,7 +44,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             {
                 return;
             }
-            if (IsLoggedIn() && session.KullaniciID > 0)
+            if (sess.IsLoggedIn && session.KullaniciID > 0)
             {
                 baslikPuanYorum.Visible = true;
                 

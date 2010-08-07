@@ -39,7 +39,6 @@ public partial class UserControls_LoginBox : BaseUserControl
     {
         if (Uyelik.GirisYap(txtKullaniciAdi.Text, txtSifre.Text))
         {
-            Uyelik.KullaniciYukle(txtKullaniciAdi.Text.Trim());
             //session.LoggedIn = true;
             //session.KullaniciAdi = txtUsername.Text.Trim();
             lblDurum.Text = "";

@@ -9,7 +9,6 @@
 <AlternatingItemStyle CssClass="AramaSonuclariHocalarRow2" />
 <HeaderStyle CssClass="AramaSonuclariHocalarHeader" />
 <Columns>
-
     <asp:TemplateColumn>
         <HeaderTemplate>Hoca Ismi</HeaderTemplate>
         <ItemTemplate><%# HocaLinkiniDondur(DataBinder.Eval(Container.DataItem, "ISIM").ToString(), DataBinder.Eval(Container.DataItem, "HOCA_ID").ToString())%></ItemTemplate>
