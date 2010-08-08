@@ -106,4 +106,60 @@ public class Dersler
         }
     }
 
+    public static void DersDosyasiniKaydet(int dersID, Enums.DosyaKategoriTipi dosyaKategoriTipi, string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("DersDosyasiniKaydet");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", dersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaKategoriTipi", (int)dosyaKategoriTipi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaIsmi",SqlDbType.NVarChar);
+            if (string.IsNullOrEmpty(dosyaIsmi))
+            {
+                param.Value = dosyaIsmi;
+            }
+            param.Direction = ParameterDirection.Input;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaAdres", dosyaAdresi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YukleyenKullaniciID", yukleyenKullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Aciklama", aciklama);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YuklemeTarihi", System.DateTime.Now);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.DateTime;
+            cmd.Parameters.Add(param);
+
+            if (Util.ExecuteNonQuery(cmd) == -1)
+            {
+                //TODO: ciddi sorun, admine haber ver (kaydedemedik dosyayi)
+            }
+        }
+        catch (Exception)
+        {
+            //TODO: ciddi sorun, admine haber ver (kaydedemedik dosyayi)
+        }
+    }
+
 }

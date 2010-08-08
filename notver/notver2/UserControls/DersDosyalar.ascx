@@ -32,16 +32,18 @@ $(document).ready(function($) {
             <p>
                 <asp:LinkButton runat="server" Text="Odevler" ID="butKlasor2" CommandArgument="2" oncommand="KlasorSec"/></p>
             <p>
-                <asp:LinkButton runat="server" Text="Yararli Kaynaklar" ID="butKlasor3" CommandArgument="3" oncommand="KlasorSec"/></p>
+                <asp:LinkButton runat="server" Text="Projeler" ID="butKlasor3" CommandArgument="3" oncommand="KlasorSec"/></p>
             <p>
-                <asp:LinkButton runat="server" Text="Diger" ID="butKlasor4" CommandArgument="4" oncommand="KlasorSec"/></p>
+                <asp:LinkButton runat="server" Text="Yararli Kaynaklar" ID="butKlasor4" CommandArgument="4" oncommand="KlasorSec"/></p>
+            <p>
+                <asp:LinkButton runat="server" Text="Diger" ID="butKlasor5" CommandArgument="5" oncommand="KlasorSec"/></p>
             <p>
             <br /><br /><br />
-                <a href="#dosyaYukle" rel="facebox">Dosya yuklemek icin tiklayin</a>            
+                <a href="DersDosyaYukle.aspx" rel="facebox">Dosya yuklemek icin tiklayin</a>            
             </p>
         </div>
         <asp:Panel runat="server" ID="pnlDosyalar">
-        <div id="divDosyalar" style="float: left;">
+        <div id="divDosyalar" style="float: left;width:670px;">
             <asp:DataGrid runat="server" ID="gridDosyalar" AutoGenerateColumns="false"
                  onitemdatabound="gridDosyalar_ItemDataBound" AllowSorting="true" AllowPaging="false">
             <Columns>

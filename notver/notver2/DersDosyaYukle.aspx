@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>NotVer - Hocalarla ogrencilerin rol degistirdigi yer..</title>
-    <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
-    <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
 
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
 
@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Panel runat="server" ID="pnlDersAramaSonuclari">
+                    <asp:Panel runat="server" ID="pnlDersAramaSonuclari" Visible="false">
                         <asp:DataGrid runat="server" ID="gridDersAramaSonuclari" AutoGenerateColumns="false"
                             AllowPaging="false" AllowSorting="false" OnItemCommand="ItemCommand">
                             <Columns>
@@ -110,20 +110,30 @@
                 </td>
             </tr>
             <tr>
-                <td>Aciklama :</td>
+                <td>Dosya isim:
+                <br /><span class="sessiz">(Opsiyonel)</span>
+                </td>
                 <td>
-                    <asp:TextBox runat="server" TextMode="MultiLine" Width="250" Height="100" ID="txtDosyaAciklama"></asp:TextBox>
+                    <asp:TextBox runat="server" TextMode="SingleLine" Width="250" ID="txtDosyaIsim"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" align="right">
+                <td>Aciklama :
+                <br /><span class="sessiz">(Opsiyonel)</span>
+                </td>
+                <td>
+                    <asp:TextBox runat="server" TextMode="MultiLine" Width="250" Height="100" ID="txtDosyaAciklama"></asp:TextBox>
+                </td>
+            </tr>            
+            <tr>
+                <td colspan="2" align="center">
                     <asp:FileUpload runat="server" ID="fileUpload" />
                 </td>
             </tr>
             <tr>
-                <td colspan="2" align="center">
-                    <asp:LinkButton runat="server" ID="btnYukle" Text="Yukle" OnClick="DosyaYukle"></asp:LinkButton>
-                    <asp:Label runat="server" ID="lblYuklemeDurum"></asp:Label>
+                <td colspan="2" align="right">
+                    <asp:Label runat="server" ID="lblYuklemeDurum" CssClass="hata"></asp:Label>
+                    <asp:LinkButton runat="server" ID="btnYukle" Text="Yukle" OnClick="DosyaYukle" ValidationGroup="vg1" CausesValidation="true"></asp:LinkButton>
                 </td>
             </tr>
         </table>
