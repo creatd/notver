@@ -112,6 +112,8 @@ public partial class DersDosyaYukle : BasePage
                 SeciliDersID = session.DersID;
                 DersSec(null);
             }
+            MevcutSayfa = 1;
+            SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
         }
     }
 
@@ -143,9 +145,6 @@ public partial class DersDosyaYukle : BasePage
             }
 
             pds.CurrentPageIndex = MevcutSayfa-1;
-            //TODO: bu niye ortaya cikti anlamadim? ilk acilista tek sayfalik bir sey cikinca oluyor sanirim
-            if (pds.CurrentPageIndex < 0)
-                pds.CurrentPageIndex = 0;
 
             lnkOnceki.Enabled = !pds.IsFirstPage;
             lnkSonraki.Enabled = !pds.IsLastPage;
@@ -199,12 +198,31 @@ public partial class DersDosyaYukle : BasePage
 
     protected void DosyaYukle(object sender, EventArgs e)
     {
+        if (SeciliDersID <= 0)
+        {
+            lblYuklemeDurum.Text = "Ders secmeniz gerekmektedir";
+            return;
+        }
         if (fileUpload.HasFile)
         {
             try
             {
-                string filename = Path.GetFileName(fileUpload.FileName);
-                fileUpload.SaveAs(Server.MapPath("~/") + filename);
+                string dosyaAdres = Path.GetFileName(fileUpload.FileName);
+                string dosyaUzunAdres = Server.MapPath("~/Dosyalar/Dersler/" + SeciliDersID.ToString().Trim() + "/" + rbDosyaTipleri.SelectedValue.ToString().Trim() + "/" + dosyaAdres);
+                string dosyaIsim = txtDosyaIsim.Text;
+                //Ders icin klasorlerin oldugunu kontrol et, yoksa yarat
+                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Dosyalar/Dersler/" + SeciliDersID.ToString().Trim()));
+                if (!dir.Exists)
+                {
+                    dir.Create();
+                }
+                dir = new DirectoryInfo(Server.MapPath("~/Dosyalar/Dersler/" + SeciliDersID.ToString().Trim() + "/" + rbDosyaTipleri.SelectedValue.ToString().Trim()));
+                if (!dir.Exists)
+                {
+                    dir.Create();
+                }
+                fileUpload.SaveAs(dosyaUzunAdres);
+                Dersler.DersDosyasiniKaydet(SeciliDersID, (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsim, dosyaAdres, session.KullaniciID, txtDosyaAciklama.Text);
                 lblYuklemeDurum.Text = "Yuklendi! Tesekkurler :)";
             }
             catch (Exception ex)
@@ -212,6 +230,9 @@ public partial class DersDosyaYukle : BasePage
                 lblYuklemeDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
             }
         }
-
+        else
+        {
+            lblYuklemeDurum.Text = "Dosya secmeyi unuttunuz";
+        }
     }
 }

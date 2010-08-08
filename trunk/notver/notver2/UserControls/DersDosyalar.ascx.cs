@@ -166,6 +166,8 @@ public partial class UserControls_DersDosyalar : BaseUserControl
     protected void KlasorSec(object sender, CommandEventArgs e)
     {
         DosyaKategoriTipi = Convert.ToInt32(e.CommandArgument);
+        MevcutSayfa = 1;
+        SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
         GridDoldur();
     }
 
@@ -180,6 +182,12 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 if( drv.Row.ItemArray.Length > 5 )
                 {                    
                     dosyaTooltip = DosyaTooltipDondur(drv.Row.ItemArray[6].ToString() , drv.Row.ItemArray[4].ToString());
+                }
+                //1 isim 2 adres
+                if (string.IsNullOrEmpty(drv.Row.ItemArray[1].ToString()))
+                {
+                    e.Item.Cells[0].Text = drv.Row.ItemArray[2].ToString();
+                    e.Item.Cells[2].Text = drv.Row.ItemArray[2].ToString();
                 }
                 e.Item.Cells[2].Text = DosyaAdresDondur(e.Item.Cells[2].Text,dosyaTooltip);
             }
@@ -198,9 +206,9 @@ public partial class UserControls_DersDosyalar : BaseUserControl
 
     protected string DosyaAdresDondur(string dosyaAdres, string dosyaTooltip)
     {
-        if (HttpContext.Current.Session != null && HttpContext.Current.Session["DosyaKategoriTipi"] != null )
+        if (DosyaKategoriTipi >=0)
         {
-            return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + session.DersID.ToString() + "/" + ((int)HttpContext.Current.Session["DosyaKategoriTipi"]).ToString() + "/" + dosyaAdres.Trim()) + 
+            return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + session.DersID.ToString() + "/" + DosyaKategoriTipi.ToString() + "/" + dosyaAdres.Trim()) + 
                 "' tooltip='" + dosyaTooltip +"'><img src='" +
                 Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
         }

@@ -1,4 +1,4 @@
-* {
+/** {
   margin: 0;
   padding: 0;
 }
@@ -31,7 +31,7 @@ ul li {
 
 li {
   padding: 2px 5px;
-}
+}*/
 
 .right {
   float: right;
