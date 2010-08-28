@@ -14,151 +14,141 @@ using System.Collections.Generic;
 
 public partial class UserControls_HocaYorumYap : BaseUserControl
 {
-    Session sess;
     static string[] dersIsimleri;
     static List<string> hocaKullaniciDersler = new List<string>();
     //static List<int> hocaKullaniciDersler_ID = new List<int>();
     //static Hashtable hocaKullaniciDersler = new Hashtable();
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_PreRender(object sender, EventArgs e)
     {
-        if (sess == null)
-        {
-            sess = new Session();
-        }
-        if (!Page.IsPostBack)
-        {
-            KontroluSakla();
+        KontroluSakla();
 
-            if (hocaKullaniciDersler != null)
+        if (hocaKullaniciDersler != null)
+        {
+            hocaKullaniciDersler.Clear();
+        }
+        else
+        {
+            hocaKullaniciDersler = new List<string>();
+            //hocaKullaniciDersler = new Hashtable();
+        }
+        pnlPuanYorum.Visible = true;
+        if (session.HocaID <= 0)
+        {
+            return;
+        }
+        if (session.IsLoggedIn && session.KullaniciID > 0)
+        {
+            baslikPuanYorum.Visible = true;
+            
+            if (hocaPuanAciklamalari == null)
             {
-                hocaKullaniciDersler.Clear();
+                hocaPuanAciklamalari = HocaPuanAciklamalariniDondur();
+            }
+            if (hocaPuanAciklamalari.Length == 5)
+            {
+                Aciklama1.Text = hocaPuanAciklamalari[0];
+                Aciklama2.Text = hocaPuanAciklamalari[1];
+                Aciklama3.Text = hocaPuanAciklamalari[2];
+                Aciklama4.Text = hocaPuanAciklamalari[3];
+                Aciklama5.Text = hocaPuanAciklamalari[4];
+            }
+
+            bool yorumVar = false;
+            bool puanVar = false;
+
+            if (!KullaniciHocayaPuanVermis(session.KullaniciID, session.HocaID))
+            {
+                //baslikPuan.Text = "Benim de puanlarim var!";
+                //pnlPuanVer.Visible = true;
+                puanVar = false;
             }
             else
             {
-                hocaKullaniciDersler = new List<string>();
-                //hocaKullaniciDersler = new Hashtable();
+                puanVar = true;
+                //Kullanicinin daha once vermis oldugu puanlari yukle
+                int[] eskiPuanlar = KullaniciHocaPuanlariniDondur(session.KullaniciID, session.HocaID);
+                Puan1.CurrentRating = eskiPuanlar[0];
+                Puan2.CurrentRating = eskiPuanlar[1];
+                Puan3.CurrentRating = eskiPuanlar[2];
+                Puan4.CurrentRating = eskiPuanlar[3];
+                Puan5.CurrentRating = eskiPuanlar[4];
+
+                //pnlPuanVer.Visible = true;
+                //baslikPuan.Text = "Verdiginiz puanlari degistirmek icin tiklayin";
+                //pnlPuanDegistir.Visible = true;
             }
-            pnlPuanYorum.Visible = true;
-            if (session.HocaID <= 0)
+
+            if (!KullaniciHocayaYorumYapmis(session.KullaniciID, session.HocaID))
             {
-                return;
+                //baslikYorum.Text = "Benim de soyleyeceklerim var!";
+                dugmeYorumGonder.Visible = true;
             }
-            if (sess.IsLoggedIn && session.KullaniciID > 0)
+            else
             {
-                baslikPuanYorum.Visible = true;
-                
-                if (hocaPuanAciklamalari == null)
-                {
-                    hocaPuanAciklamalari = HocaPuanAciklamalariniDondur();
-                }
-                if (hocaPuanAciklamalari.Length == 5)
-                {
-                    Aciklama1.Text = hocaPuanAciklamalari[0];
-                    Aciklama2.Text = hocaPuanAciklamalari[1];
-                    Aciklama3.Text = hocaPuanAciklamalari[2];
-                    Aciklama4.Text = hocaPuanAciklamalari[3];
-                    Aciklama5.Text = hocaPuanAciklamalari[4];
-                }
+                yorumVar = true;
+                //Kullanicinin daha once yaptigi yorumlari yukle
+                string[] eskiYorumlar = KullaniciHocaYorumlariniDondur(session.KullaniciID, session.HocaID);
+                textOlumlu.Text = eskiYorumlar[0];
+                textOlumsuz.Text = eskiYorumlar[1];
+                textOzet.Text = eskiYorumlar[2];
 
-                bool yorumVar = false;
-                bool puanVar = false;
+                //baslikYorum.Text = "Yaptiginiz yorumu degistirmek icin tiklayin";
+                //pnlYorumYap.Visible = true;
+                //dugmeYorumGuncelle.Visible = true;
+                //pnlYorumDegistir.Visible = true;
+            }
 
-                if (!KullaniciHocayaPuanVermis(session.KullaniciID, session.HocaID))
+            if (yorumVar)
+            {
+                if (puanVar)
                 {
-                    //baslikPuan.Text = "Benim de puanlarim var!";
-                    //pnlPuanVer.Visible = true;
-                    puanVar = false;
-                }
-                else
-                {
-                    puanVar = true;
-                    //Kullanicinin daha once vermis oldugu puanlari yukle
-                    int[] eskiPuanlar = KullaniciHocaPuanlariniDondur(session.KullaniciID, session.HocaID);
-                    Puan1.CurrentRating = eskiPuanlar[0];
-                    Puan2.CurrentRating = eskiPuanlar[1];
-                    Puan3.CurrentRating = eskiPuanlar[2];
-                    Puan4.CurrentRating = eskiPuanlar[3];
-                    Puan5.CurrentRating = eskiPuanlar[4];
-
-                    //pnlPuanVer.Visible = true;
-                    //baslikPuan.Text = "Verdiginiz puanlari degistirmek icin tiklayin";
-                    //pnlPuanDegistir.Visible = true;
-                }
-
-                if (!KullaniciHocayaYorumYapmis(session.KullaniciID, session.HocaID))
-                {
-                    //baslikYorum.Text = "Benim de soyleyeceklerim var!";
-                    dugmeYorumGonder.Visible = true;
-                }
-                else
-                {
-                    yorumVar = true;
-                    //Kullanicinin daha once yaptigi yorumlari yukle
-                    string[] eskiYorumlar = KullaniciHocaYorumlariniDondur(session.KullaniciID, session.HocaID);
-                    textOlumlu.Text = eskiYorumlar[0];
-                    textOlumsuz.Text = eskiYorumlar[1];
-                    textOzet.Text = eskiYorumlar[2];
-
-                    //baslikYorum.Text = "Yaptiginiz yorumu degistirmek icin tiklayin";
-                    //pnlYorumYap.Visible = true;
-                    //dugmeYorumGuncelle.Visible = true;
-                    //pnlYorumDegistir.Visible = true;
-                }
-
-                if (yorumVar)
-                {
-                    if (puanVar)
-                    {
-                        baslikPuanYorum.Text = "Puan/yorumlarimi degistirecegim";
-                        dugmeYorumGuncelle.Visible = true;
-                    }
-                    else
-                    {
-                        baslikPuanYorum.Text = "Puan verecegim";
-                        dugmeYorumGuncelle.Visible = true;
-                    }
-                }
-                else if (puanVar)
-                {
-                    baslikPuanYorum.Text = "Yorum yapacagim";
+                    baslikPuanYorum.Text = "Puan/yorumlarimi degistirecegim";
                     dugmeYorumGuncelle.Visible = true;
                 }
                 else
                 {
-                    baslikPuanYorum.Text = "Benim de diyeceklerim var";
-                    dugmeYorumGonder.Visible = true;
+                    baslikPuanYorum.Text = "Puan verecegim";
+                    dugmeYorumGuncelle.Visible = true;
                 }
-                //Hocanin verdigi dersleri yukleyip dropdown'a yukle
-                dropHocaDersler.Items.Add(new ListItem("", "-1"));
-                dropHocaDersler.Items.Add(new ListItem("Diger" , "0"));
-                string[][] hocaDersler = HocaDersleriniDondur(session.HocaID);
-
-                if(hocaDersler != null)
-                {
-                    dersIsimleri = new string[hocaDersler.Length];
-                    for (int i = 0; i < hocaDersler.Length; i++)
-                    {
-                        //Okul ismi uzunsa kisalt
-                        string okulIsmi = hocaDersler[i][3];
-                        if (okulIsmi.Length > 20)
-                        {
-                            dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 18) + "..)", hocaDersler[i][1]));
-                        }
-                        else
-                        {
-                            dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
-                        }
-                        dersIsimleri[i] = hocaDersler[i][2];
-                    }
-                }
+            }
+            else if (puanVar)
+            {
+                baslikPuanYorum.Text = "Yorum yapacagim";
+                dugmeYorumGuncelle.Visible = true;
             }
             else
             {
-                pnlUyeOl.Visible = true;
+                baslikPuanYorum.Text = "Benim de diyeceklerim var";
+                dugmeYorumGonder.Visible = true;
             }
+            //Hocanin verdigi dersleri yukleyip dropdown'a yukle
+            dropHocaDersler.Items.Add(new ListItem("", "-1"));
+            dropHocaDersler.Items.Add(new ListItem("Diger" , "0"));
+            string[][] hocaDersler = HocaDersleriniDondur(session.HocaID);
 
-
+            if(hocaDersler != null)
+            {
+                dersIsimleri = new string[hocaDersler.Length];
+                for (int i = 0; i < hocaDersler.Length; i++)
+                {
+                    //Okul ismi uzunsa kisalt
+                    string okulIsmi = hocaDersler[i][3];
+                    if (okulIsmi.Length > 20)
+                    {
+                        dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 18) + "..)", hocaDersler[i][1]));
+                    }
+                    else
+                    {
+                        dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
+                    }
+                    dersIsimleri[i] = hocaDersler[i][2];
+                }
+            }
+        }
+        else
+        {
+            pnlUyeOl.Visible = true;
         }
     }
 

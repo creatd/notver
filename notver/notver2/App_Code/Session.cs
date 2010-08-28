@@ -94,6 +94,35 @@ public class Session
         }  
     }
 
+    public int OkulID
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulID"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["OkulID"]);
+            }
+            else
+            {
+                var obj = HttpContext.Current.Request.QueryString.Get("OkulID");
+                if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+                {
+                    int okulID = Convert.ToInt32(obj.ToString());
+                    OkulID = okulID;
+                    return okulID;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulID"] = value;
+        }
+    }
+
     public int KullaniciID
     {
         get
