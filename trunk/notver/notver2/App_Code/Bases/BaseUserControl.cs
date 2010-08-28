@@ -251,7 +251,7 @@ public class BaseUserControl : System.Web.UI.UserControl
     /// <param name="okulID"></param>
     public void OkulaGit(string okulID)
     {
-        Response.Redirect(Page.ResolveUrl("~/Okul.aspx") + "?id=" + okulID , true);
+        Response.Redirect(Page.ResolveUrl("~/Okul.aspx") + "?OkulID=" + okulID , true);
     }
 
     /// <summary>
