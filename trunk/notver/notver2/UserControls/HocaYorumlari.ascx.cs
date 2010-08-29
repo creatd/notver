@@ -96,7 +96,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
 
     private void YorumlariDoldur()
     {
-        DataTable yorumlar = HocaYorumlariniDondur(session.HocaID);
+        DataTable yorumlar = Hocalar.HocaYorumlariniDondur(session.HocaID);
         if (yorumlar!= null && yorumlar.Rows.Count > 0)
         {
             pnlYorumlar.Visible = true;
@@ -197,7 +197,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
     protected void yorumSev_click(object sender, EventArgs e)
     {
         Literal ltrYorumPuanDurumu = ((LinkButton)sender).Parent.FindControl("yorumPuanDurumu") as Literal;
-        if (!BaseUserControl.IsLoggedIn())
+        if (!session.IsLoggedIn)
         {
             ltrYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
             return;
@@ -227,7 +227,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
     protected void yorumSevme_click(object sender, EventArgs e)
     {
         Literal ltrYorumPuanDurumu = ((LinkButton)sender).Parent.FindControl("yorumPuanDurumu") as Literal;
-        if (!BaseUserControl.IsLoggedIn())
+        if (!session.IsLoggedIn)
         {
             ltrYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
             return;

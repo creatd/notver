@@ -41,4 +41,25 @@ public class Okullar
             return null;
         }
     }
+
+
+    /// <summary>
+    /// Kayitli tum aktif okullarin ISIM,OKUL_ID 'lerini dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable OkullariDondur()
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("OkullariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            DataTable dt = Util.GetDataTable(cmd);
+            return dt;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
 }

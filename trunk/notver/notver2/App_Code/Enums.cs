@@ -19,8 +19,7 @@ public class Enums
     {
         HocaYorum = 0,      
         DersYorum = 1,      
-        HocaDersYorum = 2,  
-        OkulYorum = 3       
+        OkulYorum = 2
     }
 
     //Uyeler

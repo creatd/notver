@@ -22,17 +22,17 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
             try
             {
                 //s: Puan aciklamalarini doldur
-                if (hocaPuanAciklamalari == null)
+                if (session.hocaPuanAciklamalari.Length == 5)
                 {
-                    hocaPuanAciklamalari = HocaPuanAciklamalariniDondur();
+                    Aciklama1.Text = session.hocaPuanAciklamalari[0];
+                    Aciklama2.Text = session.hocaPuanAciklamalari[1];
+                    Aciklama3.Text = session.hocaPuanAciklamalari[2];
+                    Aciklama4.Text = session.hocaPuanAciklamalari[3];
+                    Aciklama5.Text = session.hocaPuanAciklamalari[4];
                 }
-                if (hocaPuanAciklamalari.Length == 5)
+                else
                 {
-                    Aciklama1.Text = hocaPuanAciklamalari[0];
-                    Aciklama2.Text = hocaPuanAciklamalari[1];
-                    Aciklama3.Text = hocaPuanAciklamalari[2];
-                    Aciklama4.Text = hocaPuanAciklamalari[3];
-                    Aciklama5.Text = hocaPuanAciklamalari[4];
+                    //TODO: admin mesaj
                 }
                 //e: Puan aciklamalarini doldur
 
@@ -43,7 +43,7 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                     KontroluSakla();
                     return;
                 }
-                float[] puanlar = HocaPuanlariniDondur(session.HocaID);
+                float[] puanlar = Hocalar.HocaPuanlariniDondur(session.HocaID);
                 StringBuilder sb = new StringBuilder();
                 if (puanlar == null) //Hata olustu ya da hocanin hic puani yok
                 {
