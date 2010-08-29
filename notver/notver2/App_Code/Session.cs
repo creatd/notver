@@ -36,6 +36,27 @@ public class Session
         }        
     }
 
+    public string[] hocaPuanAciklamalari
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["hocaPuanAciklamalari"] != null)
+            {
+                return (string[])HttpContext.Current.Session["hocaPuanAciklamalari"];
+            }
+            else
+            {
+                string[] aciklamalar = Hocalar.HocaPuanAciklamalariniDondur();
+                HttpContext.Current.Session["hocaPuanAciklamalari"] = aciklamalar;
+                return aciklamalar;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["hocaPuanAciklamalari"] = value;
+        }   
+    }
+
     public int DersID
     {
         get
@@ -69,52 +90,48 @@ public class Session
     {
         get
         {
-            if (HttpContext.Current.Session != null && HttpContext.Current.Session["HocaID"] != null)
+            //First check query string
+            var obj = HttpContext.Current.Request.QueryString.Get("HocaID");
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                int hocaID = Convert.ToInt32(obj.ToString());
+                HocaID = hocaID;
+                return hocaID;
+            }
+            else if (HttpContext.Current.Session != null && HttpContext.Current.Session["HocaID"] != null)
             {
                 return Convert.ToInt32(HttpContext.Current.Session["HocaID"]);
             }
             else
             {
-                var obj = HttpContext.Current.Request.QueryString.Get("HocaID");
-                if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
-                {
-                    int hocaID = Convert.ToInt32(obj.ToString());
-                    HocaID = hocaID;
-                    return hocaID;
-                }
-                else
-                {
-                    return -1;
-                }
+                return -1;
             }
         }
         set
         {
             HttpContext.Current.Session["HocaID"] = value;
-        }  
+        }
     }
 
     public int OkulID
     {
         get
         {
-            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulID"] != null)
+            //First check query string
+            var obj = HttpContext.Current.Request.QueryString.Get("OkulID");
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                int okulID = Convert.ToInt32(obj.ToString());
+                OkulID = okulID;
+                return okulID;
+            }
+            else if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulID"] != null)
             {
                 return Convert.ToInt32(HttpContext.Current.Session["OkulID"]);
             }
             else
             {
-                var obj = HttpContext.Current.Request.QueryString.Get("OkulID");
-                if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
-                {
-                    int okulID = Convert.ToInt32(obj.ToString());
-                    OkulID = okulID;
-                    return okulID;
-                }
-                else
-                {
-                    return -1;
-                }
+                return -1;
             }
         }
         set
