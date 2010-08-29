@@ -16,8 +16,6 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 {
     static string[] dersIsimleri;
     static List<string> hocaKullaniciDersler = new List<string>();
-    //static List<int> hocaKullaniciDersler_ID = new List<int>();
-    //static Hashtable hocaKullaniciDersler = new Hashtable();
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
@@ -176,10 +174,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         else
         {
             dropDersEkle.Visible = false;
-        }
-            
-        
-        
+        }         
     }
 
     

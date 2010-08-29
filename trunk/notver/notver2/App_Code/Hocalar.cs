@@ -22,6 +22,10 @@ public class Hocalar
     {
         try
         {
+            if (hocaID < 0 || sayi < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("AyniOkuldakiHocalariDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -53,6 +57,10 @@ public class Hocalar
     {
         try
         {
+            if (HocaID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("HocaProfilDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -82,6 +90,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0 || puanlar == null)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("HocaPuanKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -132,6 +144,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0 || yorumlar == null || kullaniciPuanaraligi < 0 || kullaniciPuanaraligi > 5)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("HocaYorumKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -180,14 +196,18 @@ public class Hocalar
         }
     }
 
-    public static bool HocaYorumGuncelle(int uyeID, int hocaID, string[] yorumlar, int kullaniciPuanaraligi)
+    public static bool HocaYorumGuncelle(int kullaniciID, int hocaID, string[] yorumlar, int kullaniciPuanaraligi)
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0 || yorumlar == null || kullaniciPuanaraligi < 0 || kullaniciPuanaraligi > 5)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("HocaYorumGuncelle");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("UyeID", uyeID);
+            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -236,6 +256,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0 || puanlar == null || yorumlar == null || kullaniciPuanaraligi < 0 || kullaniciPuanaraligi > 5)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("HocaYorumPuanKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -309,10 +333,45 @@ public class Hocalar
         }
     }
 
+    /// <summary>
+    /// Hocanin ders vermis oldugu okullari dondurur
+    /// </summary>
+    /// <param name="hocaID"></param>
+    /// <returns></returns>
+    public static DataTable HocaOkullariniDondur(int hocaID)
+    {
+        try 
+	    {
+            if (hocaID < 0)
+            {
+                return null;
+            }
+
+            SqlCommand cmd = new SqlCommand("HocaOkullariniDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", hocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+	    }
+	    catch (Exception)
+	    {
+            return null;	
+	    }
+    }
+
+
     public static bool HocaPuanGuncelle(int kullaniciID, int hocaID, int[] puanlar)
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0 || puanlar == null)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("HocaPuanGuncelle");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -368,6 +427,10 @@ public class Hocalar
     {
         try
         {
+            if (hocaID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("HocaDersleriniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -415,6 +478,10 @@ public class Hocalar
     {
         try
         {
+            if (HocaID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("HocaYorumlariniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -442,6 +509,10 @@ public class Hocalar
     {
         try
         {
+            if (HocaID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("HocaPuanlariniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -509,6 +580,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("KullaniciHocayaYorumYapmis");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -545,6 +620,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("KullaniciHocaPuanlariniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -584,6 +663,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("KullaniciHocaYorumlariniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -630,6 +713,10 @@ public class Hocalar
     {
         try
         {
+            if (kullaniciID < 0 || hocaID < 0)
+            {
+                return false;
+            }
             SqlCommand cmd = new SqlCommand("KullaniciHocayaPuanVermis");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -657,5 +744,17 @@ public class Hocalar
         {
             return false;
         }
+    }
+
+    /// <summary>
+    /// Returns data from Hocalar table performing the given like expression on their names
+    /// Returns null on error
+    /// </summary>
+    /// <param name="likeExpression"></param>
+    /// <returns></returns>
+    public static DataTable IsmeGoreHocalariDondur(string likeExpression)
+    {
+        string sql = "SELECT * FROM HOCALAR WHERE ISIM LIKE " + likeExpression + " AND IS_ACTIVE=1";
+        return Util.GetDataTable(sql);
     }
 }
