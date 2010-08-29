@@ -21,6 +21,10 @@ public class Dersler
     {
         try
         {
+            if (string.IsNullOrEmpty(dersIsmi))
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("KodaGoreDersleriDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -42,6 +46,10 @@ public class Dersler
     {
         try
         {
+            if (dersID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("IDyeGoreDersiDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -63,6 +71,10 @@ public class Dersler
     {
         try
         {
+            if (dersID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("DersDosyalariniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -84,6 +96,10 @@ public class Dersler
     {
         try
         {
+            if (dersID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("DersDosyalariniDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -110,6 +126,11 @@ public class Dersler
     {
         try
         {
+            if (dersID < 0)
+            {
+                //TODO: admine msj (dosyayi kaydettik ama veritabanina yazamadik)
+                return;
+            }
             SqlCommand cmd = new SqlCommand("DersDosyasiniKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -153,12 +174,12 @@ public class Dersler
 
             if (Util.ExecuteNonQuery(cmd) == -1)
             {
-                //TODO: ciddi sorun, admine haber ver (kaydedemedik dosyayi)
+                //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
             }
         }
         catch (Exception)
         {
-            //TODO: ciddi sorun, admine haber ver (kaydedemedik dosyayi)
+            //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
         }
     }
 

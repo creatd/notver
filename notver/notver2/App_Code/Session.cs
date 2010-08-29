@@ -25,7 +25,7 @@ public class Session
             }
             else
             {
-                DataTable dt = Genel.OkullariDondur();
+                DataTable dt = Okullar.OkullariDondur();
                 HttpContext.Current.Session["dtOkullar"] = dt;
                 return dt;
             }

@@ -10,10 +10,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-
 using System.Text;
 
-public partial class UserControls_HocaYorum : BaseUserControl
+public partial class UserControls_OkulYorumlari : BaseUserControl
 {
     public int MevcutSayfa
     {
@@ -83,21 +82,21 @@ public partial class UserControls_HocaYorum : BaseUserControl
     {
         if (!Page.IsPostBack)
         {
-            if (session.HocaID <= 0)
+            if (session.OkulID <= 0)
             {
                 KontroluSakla();
                 return;
             }
             MevcutSayfa = 1;
             SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
-            YorumlariDoldur();            
+            YorumlariDoldur();
         }
     }
 
     private void YorumlariDoldur()
     {
-        DataTable yorumlar = Hocalar.HocaYorumlariniDondur(session.HocaID);
-        if (yorumlar!= null && yorumlar.Rows.Count > 0)
+        DataTable yorumlar = Okullar.OkulYorumlariniDondur(session.OkulID);
+        if (yorumlar != null && yorumlar.Rows.Count > 0)
         {
             pnlYorumlar.Visible = true;
             pnlYorumYok.Visible = false;
@@ -151,42 +150,14 @@ public partial class UserControls_HocaYorum : BaseUserControl
         }
     }
 
-    protected string YorumBasligiOlustur(object KullaniciAdi , object Tarih , object KullaniciPuanAraligi)
+    protected string YorumBasligiOlustur(object KullaniciAdi, object Tarih)
     {
         try
         {
             StringBuilder sb = new StringBuilder();
             DateTime tarih = Convert.ToDateTime(Tarih.ToString());
             sb.Append(KullaniciAdi + " tarafindan, " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year + " tarihinde yazilmistir.");
-            if (KullaniciPuanAraligi != System.DBNull.Value)
-            {
-                sb.Append(" (" + KullaniciAdi + " hocadan " + KullaniciPuanAraligi.ToString() + "/5 not almis.)");
-            }
             return sb.ToString();
-        }
-        catch
-        {
-            return "";
-        }
-    }
-
-    protected string YorumBaslikGenelPuanResmiOlustur(object GenelPuan)
-    {
-        try
-        {
-            if (GenelPuan != System.DBNull.Value && Convert.ToInt32(GenelPuan.ToString()) >0)
-            {
-                int yildizGenisligi = (int)Math.Round((Convert.ToInt32(GenelPuan.ToString()) * 20) * ((float)84 / 100));
-                StringBuilder sb = new StringBuilder();
-                sb.Append(" <ul class=\"star\" id=\"star1\"> ");
-                sb.Append(" <li id=\"puan1\" style=\"BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; width:" + yildizGenisligi + "px;\" > ");
-                sb.Append(" </li></ul> ");
-                return sb.ToString();
-            }
-            else
-            {
-                return "";
-            }
         }
         catch
         {
@@ -205,8 +176,8 @@ public partial class UserControls_HocaYorum : BaseUserControl
         Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
         HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
-        int[] result = Genel.YorumPuanVer(true, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
-        if (result == null || result.Length!= 2) //Bir hata olustu
+        int[] result = Genel.YorumPuanVer(true, session.KullaniciID, yorumID, Enums.YorumTipi.OkulYorum);
+        if (result == null || result.Length != 2) //Bir hata olustu
         {
             ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
         }
@@ -235,7 +206,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
         Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
         HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
-        int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
+        int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.OkulYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
             ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
@@ -260,6 +231,3 @@ public partial class UserControls_HocaYorum : BaseUserControl
         pnlYorumlar.Visible = false;
     }
 }
-
-
-
