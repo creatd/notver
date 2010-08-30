@@ -80,4 +80,14 @@ public class BasePage : System.Web.UI.Page
     {
         return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";
     }
+
+    protected string OkulLinkiniDondur(string okulIsim, string okulID)
+    {
+        return "<a href=\"" + Page.ResolveUrl("~/Okul.aspx") + "?OkulID=" + okulID + "\">" + okulIsim + "</a>";
+    }
+
+    protected string DersLinkiniDondur(string dersKod, string dersIsim, string dersID)
+    {
+        return "<a href='" + Page.ResolveUrl("~/Ders.aspx") + "?DersID=" + dersID + "' tooltip='" + dersIsim + "'\">" + dersKod + "</a>";
+    }
 }

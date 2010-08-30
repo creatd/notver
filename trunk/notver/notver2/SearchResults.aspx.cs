@@ -27,21 +27,13 @@ public partial class SearchResults : BasePage
                 {
                     case 1: //Hoca
                         BindGridHoca(searchParameters);
-                        PanelHocalar.Visible = true;
-                        PanelOkullar.Visible = false;
-                        PanelDersler.Visible = false;
+                        pnlHocalar.Visible = true;
+                        pnlDersler.Visible = false;
                         break;
-                    case 2: //Okul
-                        BindGridOkul(searchParameters);
-                        PanelHocalar.Visible = false;
-                        PanelOkullar.Visible = true;
-                        PanelDersler.Visible = false;
-                        break;
-                    case 3: //Ders
+                    case 2: //Ders
                         BindGridDers(searchParameters);
-                        PanelHocalar.Visible = false;
-                        PanelOkullar.Visible = false;
-                        PanelDersler.Visible = true;
+                        pnlHocalar.Visible = false;
+                        pnlDersler.Visible = true;
                         break;
                 }
 	        }
@@ -66,11 +58,34 @@ public partial class SearchResults : BasePage
         dataGridHoca.DataBind();
     }
 
-    void BindGridOkul(string expression)
-    {
-    }
-
     void BindGridDers(string expression)
     {
+        DataTable dt = Dersler.KodaGoreDersleriDondur(expression);
+        DataTable dt2 = Dersler.IsmeGoreDersleriDondur(expression);
+        DataTable dtSonuc = null;
+        if (dt != null && dt2 != null)
+        {
+            dt2.Merge(dt);
+            dtSonuc = dt2;
+        }
+        else if (dt != null)
+        {
+            dtSonuc = dt;
+        }
+        else if (dt2 != null)
+        {
+            dtSonuc = dt2;
+        }
+        
+        DataSet ds = new DataSet();
+        if (dtSonuc != null)
+        {
+            ds.Tables.Add(dtSonuc);
+        }
+
+        dataGridDersler.DataSource = ds;
+        dataGridDersler.DataBind();
     }
+
+    
 }

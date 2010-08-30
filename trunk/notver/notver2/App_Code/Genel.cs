@@ -34,6 +34,10 @@ public class Genel
     {
         try
         {
+            if (kullaniciID < 0 || yorumID < 0)
+            {
+                return null;
+            }
             SqlCommand cmd = new SqlCommand("YorumPuanVer");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -82,5 +86,4 @@ public class Genel
             return null;
         }
     }
-
 }

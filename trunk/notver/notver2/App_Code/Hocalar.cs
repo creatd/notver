@@ -752,9 +752,27 @@ public class Hocalar
     /// </summary>
     /// <param name="likeExpression"></param>
     /// <returns></returns>
-    public static DataTable IsmeGoreHocalariDondur(string likeExpression)
+    public static DataTable IsmeGoreHocalariDondur(string hocaIsmi)
     {
-        string sql = "SELECT * FROM HOCALAR WHERE ISIM LIKE " + likeExpression + " AND IS_ACTIVE=1";
-        return Util.GetDataTable(sql);
+        try
+        {
+            if (string.IsNullOrEmpty(hocaIsmi))
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("IsmeGoreHocalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaIsim", Util.BuildLikeExpression(hocaIsmi));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 }

@@ -20,6 +20,10 @@ public class Uyelik
 {
     public static bool KullaniciYukle(string kullaniciAdi)
     {
+        if (string.IsNullOrEmpty(kullaniciAdi))
+        {
+            return false;
+        }
         SqlCommand cmd = new SqlCommand("KullaniciYukle");
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -181,6 +185,11 @@ public class Uyelik
     {
         try
         {
+            //Bu kontrol giris kutusunda yapilmis olmali ama yine de burada da yapalim
+            if (string.IsNullOrEmpty(kullaniciAdi) || string.IsNullOrEmpty(sifre))
+            {
+                return false;
+            }
             kullaniciAdi = kullaniciAdi.Trim();
             sifre = sifre.Trim();
 
