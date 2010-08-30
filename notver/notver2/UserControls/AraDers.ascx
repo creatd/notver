@@ -1,32 +1,44 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AraDers.ascx.cs" Inherits="UserControls_AraDers" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 <script type="text/javascript">
-function SetFocus(e)
+function SetFocusDers(e)
 {
     var keycode;
     if(window.event)
     {
         keycode = window.event.keyCode;
     }
-    else if(e)
+    else if(e.which)
     {
         keycode = e.which;
+    }
+    else if(e.keyCode)
+    {
+        keycode = e.keyCode;
     }
 
     if(keycode == 13)
     {
-        document.getElementById('<%= buttonAra.ClientID %>').focus();
+        document.getElementById('<%= buttonDersAra.ClientID %>').focus();
     }
+}
+
+function Temizle(obj)
+{
+    obj.value='';
 }
 </script>
 
 <table>
 <tr>
     <td>
-        <asp:TextBox ID="dersIsmi" runat="server" OnTextChanged="DersIsmiGirildi" AutoPostBack="true" OnKeyDown="javascript:return SetFocus(this);"></asp:TextBox>
+        <asp:TextBox ID="dersIsmi" runat="server" OnKeyDown="javascript:return SetFocusDers(event);" 
+        onclick="javascript:return Temizle(this);">Ders ismini ya da kodunu girin</asp:TextBox>
     </td>
     <td>
-        <asp:Button ID="buttonAra" runat="server" Text="Ders Ara" />
+        <asp:Button ID="buttonDersAra" runat="server" Text="Ders Ara" OnClick="Ara" />
     </td>
 </tr>
 </table>

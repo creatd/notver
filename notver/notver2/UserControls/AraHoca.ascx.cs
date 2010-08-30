@@ -17,7 +17,7 @@ public partial class UserControls_AraHoca : BaseUserControl
 
     }
 
-    protected void buttonAra_Click(object sender, EventArgs e)
+    protected void Ara(object sender, EventArgs e)
     {
         string searchParams = hocaIsmi.Text.ToString().Trim();
 
@@ -34,10 +34,5 @@ public partial class UserControls_AraHoca : BaseUserControl
         }
         //Sonda gereksiz bir + kaldi ama onemli degil
         Response.Redirect(Page.ResolveUrl("~/SearchResults.aspx") + "?SearchType=1&SearchParams=" + sb.ToString());
-    }
-
-    protected void HocaIsmiGirildi(object sender, EventArgs e)
-    {
-        buttonAra.Focus();
     }
 }

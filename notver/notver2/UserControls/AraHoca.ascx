@@ -3,7 +3,7 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <script type="text/javascript">
-function SetFocus(e)
+function SetFocusHoca(e)
 {
     var keycode;
     if(window.event)
@@ -21,18 +21,24 @@ function SetFocus(e)
 
     if(keycode == 13)
     {
-        document.getElementById('<%= buttonAra.ClientID %>').focus();
+        document.getElementById('<%= buttonHocaAra.ClientID %>').focus();
     }
+}
+
+function Temizle(obj)
+{
+    obj.value='';
 }
 </script>
 
 <table>
 <tr>
     <td>
-        <asp:TextBox ID="hocaIsmi" runat="server" OnKeyDown="javascript:return SetFocus(event);"></asp:TextBox>
+        <asp:TextBox ID="hocaIsmi" runat="server" OnKeyDown="javascript:return SetFocusHoca(event);" 
+        onclick="javascript:return Temizle(this);">Hoca ismini girin</asp:TextBox>
     </td>
     <td>
-        <asp:Button ID="buttonAra" runat="server" Text="Hoca Ara" OnClick="buttonAra_Click" />
+        <asp:Button ID="buttonHocaAra" runat="server" Text="Hoca Ara" OnClick="Ara" />
     </td>
 </tr>
 </table>

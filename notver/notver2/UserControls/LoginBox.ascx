@@ -1,4 +1,36 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LoginBox.ascx.cs" Inherits="UserControls_LoginBox" %>
+
+<script type="text/javascript">
+function SetFocusLogin(e)
+{
+    var keycode;
+    if(window.event)
+    {
+        keycode = window.event.keyCode;
+    }
+    else if(e.which)
+    {
+        keycode = e.which;
+    }
+    else if(e.keyCode)
+    {
+        keycode = e.keyCode;
+    }
+
+    if(keycode == 13)
+    {
+        document.getElementById('<%= LoginButton.ClientID %>').focus();
+    }
+}
+
+function Temizle(obj)
+{
+    obj.value='';
+}
+</script>
+
+
+
 <div id="LoginBox">
     <a name="login"></a>
     <!-- Buraya erismek icin kullanilan bos link -->
@@ -6,12 +38,12 @@
         <div id="LoginBox_Once">
             <span style="padding-top: 31px; padding-left: 70px; float: left;">
                 <asp:TextBox runat="server" ID="txtKullaniciAdi" Width="70" Class="seffafTextBox"
-                    ValidationGroup="vg"></asp:TextBox></span>
+                    ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" onclick="javascript:return Temizle(this);">Buraya</asp:TextBox></span>
             <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtKullaniciAdi"
                 CssClass="Hata" ErrorMessage="*" ToolTip="Kullanici adi girmelisiniz" ValidationGroup="vg" />
             <span style="padding-top: 10px; padding-left: 70px; float: left;">
                 <asp:TextBox runat="server" ID="txtSifre" Width="70" Class="seffafTextBox" TextMode="Password"
-                    ValidationGroup="vg"></asp:TextBox>
+                    ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" onclick="javascript:return Temizle(this);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
                     ErrorMessage="*" ToolTip="Sifre girmelisiniz" ValidationGroup="vg" CssClass="Hata" /></span>
             <span class="sessiz fltLeft" style="padding-top: 5px;">

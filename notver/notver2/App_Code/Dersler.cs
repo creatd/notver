@@ -17,7 +17,31 @@ using System.Data.SqlClient;
 public class Dersler
 {
 
-    public static DataTable KodaGoreDersleriDondur(string dersIsmi)
+    public static DataTable KodaGoreDersleriDondur(string dersKodu)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(dersKodu))
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("KodaGoreDersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersKodu", Util.BuildLikeExpression(dersKodu));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    public static DataTable IsmeGoreDersleriDondur(string dersIsmi)
     {
         try
         {
@@ -25,16 +49,15 @@ public class Dersler
             {
                 return null;
             }
-            SqlCommand cmd = new SqlCommand("KodaGoreDersleriDondur");
+            SqlCommand cmd = new SqlCommand("IsmeGoreDersleriDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("DersKodu", Util.BuildLikeExpression(dersIsmi));
+            SqlParameter param = new SqlParameter("DersIsim", Util.BuildLikeExpression(dersIsmi));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            return Util.GetDataTable(cmd);
         }
         catch (Exception)
         {
@@ -58,8 +81,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            return Util.GetDataTable(cmd);
         }
         catch (Exception)
         {
@@ -83,8 +105,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            return Util.GetDataTable(cmd);
         }
         catch (Exception)
         {
@@ -113,8 +134,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            return Util.GetDataTable(cmd);
         }
         catch (Exception)
         {
