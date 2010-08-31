@@ -174,7 +174,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
         {
             if (string.IsNullOrEmpty(dersIsim))
             {
-                DataTable dtDers = Dersler.IDyeGoreDersiDondur(SeciliDersID);
+                DataTable dtDers = Dersler.DersProfilDondur(SeciliDersID);
                 if (dtDers != null)
                 {
                     lblSecilenDers.Text = dtDers.Rows[0]["KOD"].ToString() + " (" + dtDers.Rows[0]["OKUL_ISIM"].ToString() + ")";

@@ -71,4 +71,9 @@
         </asp:DataGrid> 
     </div>                   
     </asp:Panel>
+    <asp:Panel runat="server" ID="pnlSonucYok" Visible="false" CssClass="pnlSonucYok">
+        <p>
+            <asp:Label runat="server" ID="lblSonucYok"></asp:Label>
+        </p>
+    </asp:Panel>
 </asp:Content>

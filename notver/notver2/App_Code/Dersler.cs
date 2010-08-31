@@ -65,7 +65,7 @@ public class Dersler
         }
     }
 
-    public static DataTable IDyeGoreDersiDondur(int dersID)
+    public static DataTable DersProfilDondur(int dersID)
     {
         try
         {
@@ -73,7 +73,7 @@ public class Dersler
             {
                 return null;
             }
-            SqlCommand cmd = new SqlCommand("IDyeGoreDersiDondur");
+            SqlCommand cmd = new SqlCommand("DersProfilDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlParameter param = new SqlParameter("DersID", dersID);
@@ -200,6 +200,215 @@ public class Dersler
         catch (Exception)
         {
             //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
+        }
+    }
+
+    /// <summary>
+    /// Bir okuldaki tum dersleri dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable OkuldakiDersleriDondur(int OkulID)
+    {
+        try
+        {
+            if (OkulID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("OkuldakiDersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Bir ders hakkinda yapilan yorumlari dondurur
+    /// Eger yorum yoksa null dondurur
+    /// </summary>
+    /// <param name="DersID"></param>
+    /// <returns></returns>
+    public static DataTable DersYorumlariniDondur(int DersID)
+    {
+        try
+        {
+            if (DersID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("DersYorumlariniDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Kullanici derse daha once yorum yaptiysa true dondurur; yoksa false dondurur
+    /// </summary>
+    /// <param name="kullaniciID"></param>
+    /// <param name="dersID"></param>
+    /// <returns></returns>
+    public static bool KullaniciDersYorumYapmis(int kullaniciID, int dersID)
+    {
+        try
+        {
+            if (kullaniciID < 0 || dersID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("KullaniciDerseYorumYapmis");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            SqlParameter param2 = new SqlParameter("DersID", dersID);
+            param2.Direction = ParameterDirection.Input;
+            param2.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param2);
+
+            DataTable dt = Util.GetDataTable(cmd);
+            if (Convert.ToInt32(dt.Rows[0][0]) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Kullanicinin ders icin yaptigi yorumu dondurur
+    /// </summary>
+    /// <param name="kullaniciID"></param>
+    /// <param name="okulID"></param>
+    /// <returns></returns>
+    public static string KullaniciDersYorumunuDondur(int kullaniciID, int dersID)
+    {
+        try
+        {
+            if (kullaniciID < 0 || dersID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("KullaniciDersYorumunuDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DersID", dersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            DataRow dr = (Util.GetDataTable(cmd)).Rows[0];
+            if (dr["YORUM"] != null && dr["YORUM"] != System.DBNull.Value)
+            {
+                return dr["YORUM"].ToString();
+            }
+            return null;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public static bool DersYorumKaydet(int kullaniciID, int dersID, string yorum)
+    {
+        try
+        {
+            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("DersYorumKaydet");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DersID", dersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Yorum", yorum);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return (Util.ExecuteNonQuery(cmd) > 0);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public static bool DersYorumGuncelle(int kullaniciID, int dersID, string yorum)
+    {
+        try
+        {
+            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("DersYorumGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DersID", dersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Yorum", yorum);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return (Util.ExecuteNonQuery(cmd) > 0);
+        }
+        catch
+        {
+            return false;
         }
     }
 

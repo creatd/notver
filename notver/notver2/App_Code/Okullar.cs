@@ -37,8 +37,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            return Util.GetDataTable(cmd);
         }
         catch (Exception)
         {
@@ -58,8 +57,7 @@ public class Okullar
             SqlCommand cmd = new SqlCommand("OkullariDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+           return Util.GetDataTable(cmd);
         }
         catch (Exception)
         {
@@ -89,8 +87,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            return Util.GetDataTable(cmd);
         }
         catch
         {
