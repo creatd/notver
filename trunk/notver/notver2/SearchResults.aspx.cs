@@ -26,14 +26,34 @@ public partial class SearchResults : BasePage
                 switch (searchType)
                 {
                     case 1: //Hoca
-                        BindGridHoca(searchParameters);
-                        pnlHocalar.Visible = true;
-                        pnlDersler.Visible = false;
+                        if (BindGridHoca(searchParameters))
+                        {
+                            pnlHocalar.Visible = true;
+                            pnlDersler.Visible = false;
+                            pnlSonucYok.Visible = false;
+                        }
+                        else
+                        {
+                            pnlHocalar.Visible = false;
+                            pnlDersler.Visible = false;
+                            pnlSonucYok.Visible = true;
+                            lblSonucYok.Text = searchParameters + " isminde bir hoca biz bilmiyoruz";
+                        }
                         break;
                     case 2: //Ders
-                        BindGridDers(searchParameters);
-                        pnlHocalar.Visible = false;
-                        pnlDersler.Visible = true;
+                        if (BindGridDers(searchParameters))
+                        {
+                            pnlHocalar.Visible = false;
+                            pnlDersler.Visible = true;
+                            pnlSonucYok.Visible = false;
+                        }
+                        else
+                        {
+                            pnlHocalar.Visible = false;
+                            pnlDersler.Visible = false;
+                            pnlSonucYok.Visible = true;
+                            lblSonucYok.Text = "Dersin kodunda veya isminde " + searchParameters + " gectiginden emin misiniz? Biz bulamadik da...";
+                        }
                         break;
                 }
 	        }
@@ -47,18 +67,23 @@ public partial class SearchResults : BasePage
         }
     }
 
-    void BindGridHoca(string expression)
+    bool BindGridHoca(string expression)
     {
         string likeExpression = Util.BuildLikeExpression(expression);
         DataTable dt = Hocalar.IsmeGoreHocalariDondur(likeExpression);
-        DataSet ds = new DataSet();
-        ds.Tables.Add(dt);
+        if (dt != null && dt.Rows.Count > 0)
+        {
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
 
-        dataGridHoca.DataSource = ds;
-        dataGridHoca.DataBind();
+            dataGridHoca.DataSource = ds;
+            dataGridHoca.DataBind();
+            return true;
+        }
+        return false;
     }
 
-    void BindGridDers(string expression)
+    bool BindGridDers(string expression)
     {
         DataTable dt = Dersler.KodaGoreDersleriDondur(expression);
         DataTable dt2 = Dersler.IsmeGoreDersleriDondur(expression);
@@ -77,14 +102,16 @@ public partial class SearchResults : BasePage
             dtSonuc = dt2;
         }
         
-        DataSet ds = new DataSet();
-        if (dtSonuc != null)
+        
+        if (dtSonuc != null && dtSonuc.Rows.Count>0 )
         {
+            DataSet ds = new DataSet();
             ds.Tables.Add(dtSonuc);
+            dataGridDersler.DataSource = ds;
+            dataGridDersler.DataBind();            
+            return true;
         }
-
-        dataGridDersler.DataSource = ds;
-        dataGridDersler.DataBind();
+        return false;
     }
 
     
