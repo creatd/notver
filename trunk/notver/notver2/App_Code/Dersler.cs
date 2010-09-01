@@ -267,7 +267,7 @@ public class Dersler
     /// <param name="kullaniciID"></param>
     /// <param name="dersID"></param>
     /// <returns></returns>
-    public static bool KullaniciDersYorumYapmis(int kullaniciID, int dersID)
+    public static bool KullaniciDerseYorumYapmis(int kullaniciID, int dersID)
     {
         try
         {
