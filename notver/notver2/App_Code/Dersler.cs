@@ -232,6 +232,34 @@ public class Dersler
     }
 
     /// <summary>
+    /// Dersi veren tum hocalari dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable DersiVerenHocalariDondur(int DersID)
+    {
+        try
+        {
+            if (DersID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("DersiVerenHocalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Bir ders hakkinda yapilan yorumlari dondurur
     /// Eger yorum yoksa null dondurur
     /// </summary>
@@ -310,7 +338,7 @@ public class Dersler
     /// <param name="kullaniciID"></param>
     /// <param name="okulID"></param>
     /// <returns></returns>
-    public static string KullaniciDersYorumunuDondur(int kullaniciID, int dersID)
+    public static DataTable KullaniciDersYorumunuDondur(int kullaniciID, int dersID)
     {
         try
         {
@@ -331,12 +359,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataRow dr = (Util.GetDataTable(cmd)).Rows[0];
-            if (dr["YORUM"] != null && dr["YORUM"] != System.DBNull.Value)
-            {
-                return dr["YORUM"].ToString();
-            }
-            return null;
+            return Util.GetDataTable(cmd);
         }
         catch
         {
@@ -344,7 +367,7 @@ public class Dersler
         }
     }
 
-    public static bool DersYorumKaydet(int kullaniciID, int dersID, string yorum)
+    public static bool DersYorumKaydet(int kullaniciID, int dersID, string yorum, int hocaID)
     {
         try
         {
@@ -365,6 +388,14 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
+            if (hocaID > 0)
+            {
+                param = new SqlParameter("HocaID", hocaID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
             param = new SqlParameter("Yorum", yorum);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
@@ -378,7 +409,7 @@ public class Dersler
         }
     }
 
-    public static bool DersYorumGuncelle(int kullaniciID, int dersID, string yorum)
+    public static bool DersYorumGuncelle(int kullaniciID, int dersID, string yorum, int hocaID)
     {
         try
         {
@@ -398,6 +429,14 @@ public class Dersler
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
+
+            if (hocaID > 0)
+            {
+                param = new SqlParameter("HocaID", hocaID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
 
             param = new SqlParameter("Yorum", yorum);
             param.Direction = ParameterDirection.Input;

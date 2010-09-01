@@ -61,23 +61,21 @@ public class Session
     {
         get
         {
-            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersID"] != null)
+            //First check query string
+            var obj = HttpContext.Current.Request.QueryString.Get("DersID");
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                int dersID = Convert.ToInt32(obj.ToString());
+                DersID = dersID;
+                return dersID;
+            }
+            else if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersID"] != null)
             {
                 return Convert.ToInt32(HttpContext.Current.Session["DersID"]);
             }
             else
             {
-                var obj = HttpContext.Current.Request.QueryString.Get("DersID");
-                if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
-                {
-                    int dersID = Convert.ToInt32(obj.ToString());
-                    DersID = dersID;
-                    return dersID;
-                }
-                else
-                {
-                    return -1;
-                }
+                return -1;
             }
         }
         set

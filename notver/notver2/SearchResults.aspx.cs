@@ -69,8 +69,7 @@ public partial class SearchResults : BasePage
 
     bool BindGridHoca(string expression)
     {
-        string likeExpression = Util.BuildLikeExpression(expression);
-        DataTable dt = Hocalar.IsmeGoreHocalariDondur(likeExpression);
+        DataTable dt = Hocalar.IsmeGoreHocalariDondur(expression);
         if (dt != null && dt.Rows.Count > 0)
         {
             DataSet ds = new DataSet();
