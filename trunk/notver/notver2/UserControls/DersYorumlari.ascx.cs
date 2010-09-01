@@ -210,7 +210,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
         HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
-        int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.OkulYorum);
+        int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
             ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";

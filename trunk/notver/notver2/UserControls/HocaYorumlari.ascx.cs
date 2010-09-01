@@ -205,7 +205,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
         Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
         HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
-        int[] result = Genel.YorumPuanVer(true, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
+        int[] result = Genel.YorumPuanVer(true, session.KullaniciID, yorumID, Enums.YorumTipi.HocaYorum);
         if (result == null || result.Length!= 2) //Bir hata olustu
         {
             ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
@@ -235,7 +235,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
         Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
         HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
-        int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
+        int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.HocaYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
             ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";

@@ -17,6 +17,14 @@
             </td>
         </tr>
         <tr>
+            <td class="DersYorumYapSutunSol">
+                Hangi hocadan aldiniz (opsiyonel)
+            </td>
+            <td class="DersYorumYapSutunSag">
+                <asp:DropDownList runat="server" ID="drpDersHocalar"></asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
             <td align="right" colspan="2" style="color: Red;">
                 <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
                 <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="YorumKaydet"
