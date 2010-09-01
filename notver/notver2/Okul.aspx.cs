@@ -24,7 +24,7 @@ public partial class Okul : BasePage
                 if (dtOkul != null && dtOkul.Rows.Count > 0)
                 {
                     //Okul isim
-                    if (dtOkul.Rows[0]["ISIM"] != System.DBNull.Value)
+                    if (Util.GecerliString(dtOkul.Rows[0]["ISIM"]))
                     {
                         lblOkulIsim.Text = dtOkul.Rows[0]["ISIM"].ToString();
                     }
@@ -34,22 +34,22 @@ public partial class Okul : BasePage
                         lblOkulKurulusTarihi.Text = dtOkul.Rows[0]["KURULUS_TARIHI"].ToString();
                     }
                     //Okul adresi
-                    if (dtOkul.Rows[0]["ADRES"] != System.DBNull.Value)
+                    if (Util.GecerliString(dtOkul.Rows[0]["ADRES"]))
                     {
                         lblOkulAdres.Text = dtOkul.Rows[0]["ADRES"].ToString();
                     }
                     //Ogrenci sayisi
-                    if (dtOkul.Rows[0]["OGRENCI_SAYISI"] != System.DBNull.Value)
+                    if (Util.GecerliString(dtOkul.Rows[0]["OGRENCI_SAYISI"]))
                     {
                         lblOgrenciSayisi.Text = dtOkul.Rows[0]["OGRENCI_SAYISI"].ToString();
                     }
                     //Akademik personel sayisi
-                    if (dtOkul.Rows[0]["AKADEMIK_SAYISI"] != System.DBNull.Value)
+                    if (Util.GecerliString(dtOkul.Rows[0]["AKADEMIK_SAYISI"]))
                     {
                         lblAkademikPersonelSayisi.Text = dtOkul.Rows[0]["AKADEMIK_SAYISI"].ToString();
                     }
                     //Web adresi
-                    if (dtOkul.Rows[0]["WEB_ADRESI"] != System.DBNull.Value)
+                    if (Util.GecerliString(dtOkul.Rows[0]["WEB_ADRESI"]))
                     {
                         hpOkulWeb.NavigateUrl = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
                     }

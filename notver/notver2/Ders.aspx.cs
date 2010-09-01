@@ -15,17 +15,29 @@ public partial class Ders : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (!Page.IsPostBack)
         {
-            try
+            if (session.DersID > 0)
             {
-                session.DersID = Convert.ToInt32(Request.Params["DersID"].ToString());
-            }
-            catch
-            {
-                GoToDefaultPage();
+                DataTable dtDers = Dersler.DersProfilDondur(session.DersID);
+                if (dtDers != null && dtDers.Rows.Count > 0)
+                {
+                    //Ders kod ve isim
+                    if (Util.GecerliString(dtDers.Rows[0]["KOD"]) && Util.GecerliString(dtDers.Rows[0]["ISIM"]))
+                    {
+                        lblDersIsim.Text = dtDers.Rows[0]["KOD"].ToString() + " - " + dtDers.Rows[0]["ISIM"].ToString();
+                    }
+                    //Ders aciklama
+                    if (Util.GecerliString(dtDers.Rows[0]["ACIKLAMA"]))
+                    {
+                        lblDersAciklama.Text = dtDers.Rows[0]["ACIKLAMA"].ToString();
+                    }
+                    if (Util.GecerliString(dtDers.Rows[0]["OKUL_ISIM"]))
+                    {
+                        lblDersOkulIsim.Text = dtDers.Rows[0]["OKUL_ISIM"].ToString();
+                    }
+                }
             }
         }
-
     }
 }

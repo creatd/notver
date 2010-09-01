@@ -32,7 +32,7 @@ public partial class Hoca : BasePage
                     return;
                 }
                 HocaIsim = dtProfil.Rows[0]["HOCA_ISIM"].ToString();
-                if (dtProfil.Rows[0]["HOCA_UNVAN"] != System.DBNull.Value)
+                if (Util.GecerliString(dtProfil.Rows[0]["HOCA_UNVAN"]))
                 {
                     string hocaUnvan = dtProfil.Rows[0]["HOCA_UNVAN"].ToString();
                     if (!string.IsNullOrEmpty(hocaUnvan))
@@ -42,7 +42,7 @@ public partial class Hoca : BasePage
                 }                
                 hocaIsim.Text = HocaIsim;
                 //Hocanin kayitli oldugu bir okul yok!
-                if (dtProfil.Rows[0]["OKUL_ISIM"] == null || dtProfil.Rows[0]["OKUL_ISIM"] == System.DBNull.Value)
+                if (!Util.GecerliString(dtProfil.Rows[0]["OKUL_ISIM"]))
                 {
                     hocaOkullar.Text = "<span class=\"HocaOkullar\"(Okul bilgisi bulunamadi!)</span>";
                 }

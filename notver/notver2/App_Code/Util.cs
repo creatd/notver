@@ -167,4 +167,34 @@ public class Util
 
         return sb.ToString();
     }
+
+    public static bool Gecerli(object obj)
+    {
+        try
+        {
+            if (obj != null && obj != System.DBNull.Value)
+            {
+                return true;
+            }
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+
+    public static bool GecerliString(object obj)
+    {
+        try
+        {
+            if (obj != null && obj != System.DBNull.Value && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                return true;
+            }
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
 }
