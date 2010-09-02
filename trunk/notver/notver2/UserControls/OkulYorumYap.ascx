@@ -32,7 +32,7 @@
     ExpandDirection="Vertical">
 </asp:CollapsiblePanelExtender>
 <asp:Panel ID="pnlUyeOl" runat="server">
-    Puan vermek ve/veya yorum yapabilmek icin (sag ust koseden) giris yapmaniz gereklidir.
+    Puan vermek ve/veya yorum yapabilmek icin (sag ust koseden) <a href="#login">giris yapmaniz</a> gereklidir.
     Uyeliginiz yoksa
     <asp:HyperLink ID="HyperLink1" runat="server" Text="uye olmak icin tiklayin!" NavigateUrl="~/Register.aspx"></asp:HyperLink>
 </asp:Panel>

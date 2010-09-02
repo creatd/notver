@@ -1,0 +1,61 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Ders.master.cs" Inherits="Masters_Ders" %>
+
+<%@ Register TagPrefix="uc1" TagName="LoginBox" Src="~/UserControls/LoginBox.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="AraHoca" Src="~/UserControls/AraHoca.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="AraOkul" Src="~/UserControls/AraOkul.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="AraDers" Src="~/UserControls/AraDers.ascx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>NotVer - Hocalarla ogrencilerin rol degistirdigi yer..</title>
+    <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
+    <link href="../App_Themes/Default/thickbox.css" rel="stylesheet" type="text/css" />
+    
+    <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript" ></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="Container" class="stretch">
+    
+        <div id="Top" class="squeeze">
+            <table class="stretch">
+            <tr>
+            <td>
+                <h1><a id="A1" href="~/Default.aspx" runat="server">NotVer.com</a></h1>
+            </td>
+            <td style="float:right;">
+                <uc1:LoginBox runat="server" ID="loginBox1"></uc1:LoginBox>
+            </td>
+            </tr>      
+            </table>
+        </div>
+        
+        <div id="Menu" class="squeeze">
+            <table class="stretch">
+            <tr>
+                <td>
+                    <uc1:AraDers runat="server" ID="araDers1" />
+                </td>
+                <td>
+                    <uc1:AraHoca runat="server" ID="araHoca1" />
+                </td>
+                <td>
+                    <uc1:AraOkul runat="server" ID="araOkul1" />
+                </td>
+            </tr>
+            </table>
+        </div>
+        
+        <div class="squeeze">
+            <asp:ContentPlaceHolder ID="content" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>        
+    </form>
+</body>
+</html>
