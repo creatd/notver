@@ -260,6 +260,39 @@ public class Dersler
     }
 
     /// <summary>
+    /// Dersi veren hocalardan, kullanicinin aktif yorumu bulunmayanlari dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable DersiVerenHocalariKullaniciyaGoreDondur(int DersID, int KullaniciID)
+    {
+        try
+        {
+            if (DersID < 0 || KullaniciID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("DersiVerenHocalariKullaniciyaGoreDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Bir ders hakkinda yapilan yorumlari dondurur
     /// Eger yorum yoksa null dondurur
     /// </summary>
@@ -316,15 +349,42 @@ public class Dersler
             param2.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param2);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            if (Convert.ToInt32(dt.Rows[0][0]) == 1)
-            {
-                return true;
-            }
-            else
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Kullanici derse daha once genel yorum yaptiysa true dondurur; yoksa false dondurur
+    /// </summary>
+    /// <param name="kullaniciID"></param>
+    /// <param name="dersID"></param>
+    /// <returns></returns>
+    public static bool KullaniciDerseGenelYorumYapmis(int kullaniciID, int dersID)
+    {
+        try
+        {
+            if (kullaniciID < 0 || dersID < 0)
             {
                 return false;
             }
+            SqlCommand cmd = new SqlCommand("KullaniciDerseGenelYorumYapmis");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            SqlParameter param2 = new SqlParameter("DersID", dersID);
+            param2.Direction = ParameterDirection.Input;
+            param2.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param2);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch
         {
@@ -367,11 +427,11 @@ public class Dersler
         }
     }
 
-    public static bool DersYorumKaydet(int kullaniciID, int dersID, string yorum, int hocaID)
+    public static bool DersYorumKaydet(int kullaniciID, int dersID, string yorum, int ZorlukPuani, int hocaID, int TavsiyePuani)
     {
         try
         {
-            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0)
+            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0 || ZorlukPuani < 1 || ZorlukPuani > 5)
             {
                 return false;
             }
@@ -394,6 +454,11 @@ public class Dersler
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.Int;
                 cmd.Parameters.Add(param);
+
+                param = new SqlParameter("TavsiyePuani", TavsiyePuani);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
             }
 
             param = new SqlParameter("Yorum", yorum);
@@ -401,7 +466,12 @@ public class Dersler
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            return (Util.ExecuteNonQuery(cmd) > 0);
+            param = new SqlParameter("ZorlukPuani", ZorlukPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch
         {
@@ -409,11 +479,11 @@ public class Dersler
         }
     }
 
-    public static bool DersYorumGuncelle(int kullaniciID, int dersID, string yorum, int hocaID)
+    public static bool DersYorumGuncelle(int kullaniciID, int dersID, string yorum, int ZorlukPuani, int hocaID, int TavsiyePuani)
     {
         try
         {
-            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0)
+            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0 || ZorlukPuani < 1 || ZorlukPuani > 5)
             {
                 return false;
             }
@@ -430,9 +500,14 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (hocaID > 0)
+            if (hocaID > 0 && TavsiyePuani >= 1 && TavsiyePuani <= 5)
             {
                 param = new SqlParameter("HocaID", hocaID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+
+                param = new SqlParameter("TavsiyePuani", TavsiyePuani);
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.Int;
                 cmd.Parameters.Add(param);
@@ -443,7 +518,12 @@ public class Dersler
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            return (Util.ExecuteNonQuery(cmd) > 0);
+            param = new SqlParameter("ZorlukPuani", ZorlukPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch
         {

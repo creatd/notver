@@ -101,6 +101,11 @@ public class Util
         }
     }
 
+    /// <summary>
+    /// Prosedure verilen son parametrenin degerini dondurur (son parametre output parametre olmali)
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <returns></returns>
     public static object GetResult(SqlCommand cmd)
     {
         try
@@ -112,6 +117,37 @@ public class Util
         catch
         {
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Prosedurden return ile donen deger 0 ise true, degilse false dondurur
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <returns></returns>
+    public static bool ExecuteAndCheckReturnValue(SqlCommand cmd)
+    {
+        try
+        {
+            SqlParameter param = new SqlParameter("Return_Value", DbType.Int32);
+            param.Direction = ParameterDirection.ReturnValue;
+            cmd.Parameters.Add(param);
+
+            cmd.Connection = Util.GetSqlConnection();
+            cmd.ExecuteNonQuery();
+            int result = Convert.ToInt32(cmd.Parameters["Return_Value"].Value);
+            if (result == null)
+            {
+                return false;
+            }
+            else
+            {
+                return (result == 0);
+            }
+        }
+        catch
+        {
+            return false;
         }
     }
 
