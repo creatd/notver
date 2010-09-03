@@ -39,7 +39,6 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             {
                 drpDersHocalar.Items.Add(new ListItem("-", "-1"));
             }
-            
             if (dtDersiVerenHocalar != null && dtDersiVerenHocalar.Rows.Count > 0)
             {
                 foreach (DataRow dr in dtDersiVerenHocalar.Rows)
@@ -51,19 +50,9 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             {
                 //TODO: Admin'e haber ver
             }
+            drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
             //e: drpDersHocalar'i duzenle
-
             
-
-            if (drpDersHocalar.Items.Count > 0)
-            {
-                dugmeYorumGonder.Visible = true;
-            }
-            else
-            {
-                dugmeYorumGonder.Visible = false;
-            }
-
             /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, session.DersID))
             {
                 dugmeYorumGonder.Visible = true;
@@ -88,6 +77,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                 
             }*/
 
+            dugmeYorumGonder.Visible = true;
             dugmeYorumGuncelle.Visible = false;
             if (yorumVar)
             {
@@ -112,13 +102,14 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
-        if (!Dersler.DersYorumKaydet(session.KullaniciID, session.DersID, textYorum.Text, puanDersZorluk.CurrentRating , Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating))
+        if (!Dersler.DersYorumKaydet(session.KullaniciID, session.DersID, textYorum.Text, puanDersZorluk.CurrentRating , Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text))
         {
             ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
         }
         else
         {
             ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
+            RefreshPage();
         }
     }
 

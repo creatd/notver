@@ -237,6 +237,13 @@ table#HocaPuanlari
 }
 /* e: Hoca Puan uc */
 
+/* s: Ders Yorumlar */
+div.dersYorumlar
+{
+	background-color:White;
+}
+/* e: Ders Yorumlar */
+
 /* s: Hoca Yorum */
 .HocaYorumRow
 {

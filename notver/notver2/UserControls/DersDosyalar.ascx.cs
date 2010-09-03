@@ -106,6 +106,7 @@ public partial class UserControls_DersDosyalar : BaseUserControl
         if (!IsPostBack)
         {
             MevcutSayfa = 1;
+            DosyaKategoriTipi = (int)Enums.DosyaKategoriTipi.SinavVeCozum;
             SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
             GridDoldur();
         }
@@ -113,12 +114,12 @@ public partial class UserControls_DersDosyalar : BaseUserControl
 
     protected void GridDoldur()
     {
-        DataTable dt;
-        if (DosyaKategoriTipi >= 0)
+        DataTable dt = null;
+        if (DosyaKategoriTipi >= 0 && DosyaKategoriTipi < (int)Enums.DosyaKategoriTipi.Hepsi)
         {
             dt = Dersler.DersDosyalariniDondur(session.DersID, (Enums.DosyaKategoriTipi)DosyaKategoriTipi);
         }
-        else
+        else if (DosyaKategoriTipi == (int)Enums.DosyaKategoriTipi.Hepsi)
         {
             dt = Dersler.DersDosyalariniDondur(session.DersID);
         }

@@ -1,13 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersYorumlari.ascx.cs" Inherits="UserControls_DersYorumlari" %>
 
-<asp:Panel ID="pnlYorumlar" runat="server" Visible="true">
+<asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="dersYorumlar">
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
             <table style="border: none;" border="0" width="600">
                 <tr>
                     <td style="font-style: italic; color: rgb(150,150,150); font-size: 8pt;">
                         <%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
-                                                            DataBinder.Eval(Container.DataItem, "TARIH"), DataBinder.Eval(Container.DataItem, "HOCA_ISIM"))%>
+                            DataBinder.Eval(Container.DataItem, "TARIH"), DataBinder.Eval(Container.DataItem, "HOCA_ISIM"), 
+                            DataBinder.Eval(Container.DataItem, "KAYITSIZ_HOCA_ISIM"))%>
                     </td>
                     <td>
                         <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>' />

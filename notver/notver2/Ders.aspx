@@ -12,20 +12,25 @@ MaintainScrollPositionOnPostback="true" %>
                 <asp:Label runat="server" ID="lblDersIsim"></asp:Label>
                 <br />
                 <asp:Label runat="server" ID="lblDersOkulIsim"></asp:Label>
-                <br />
-                <br />
+            </td>
+            <td>
+                <asp:HyperLink runat="server" ID="lnkDersDosyalar">Dersle ilgili bircok dosya icin tiklayin</asp:HyperLink>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
                 <asp:Label runat="server" ID="lblDersAciklama"></asp:Label>
                 <br />                
                 <!-- Dersi veren hocalari link olarak buraya koy -->
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 <uc1:DersYorumlari runat="server" ID="dersYorumlari"></uc1:DersYorumlari>
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 <uc1:DersYorumYap runat="server" ID="dersYorumYap"></uc1:DersYorumYap>
             </td>
         </tr>

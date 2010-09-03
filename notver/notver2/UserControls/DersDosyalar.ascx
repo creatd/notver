@@ -45,6 +45,9 @@ $(document).ready(function($) {
         <asp:LinkButton runat="server" Text="Diger" ID="butKlasor5" CommandArgument="5" OnCommand="KlasorSec" /></p>
     <p>
         <br />
+        <asp:LinkButton runat="server" Text="Hepsi" ID="LinkButton1" CommandArgument="6" OnCommand="KlasorSec" /></p>        
+    <p>
+        <br />
         <br />
         <br />
         <a href="DersDosyaYukle.aspx?KeepThis=true&TB_iframe=true&modal=true&height=400&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>

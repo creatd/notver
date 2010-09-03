@@ -8,10 +8,16 @@ function HocaSecildi(obj)   {
     var Text = ddlReport.options[ddlReport.selectedIndex].text;  */
     var dropDownList = obj;
     var hocaIsim = dropDownList.options[dropDownList.selectedIndex].text; 
+    var hocaID = dropDownList.options[dropDownList.selectedIndex].value;
     if(hocaIsim.length > 1)    {
         document.getElementById('trPuanDersHoca').style.visibility='visible';
     }   else    {
         document.getElementById('trPuanDersHoca').style.visibility='hidden';
+    }
+    if(hocaID == -2)    {   //Diger secildi
+        document.getElementById('trBilinmeyenHoca').style.visibility='visible';
+    }   else    {
+        document.getElementById('trBilinmeyenHoca').style.visibility='hidden';
     }
 }
 </script>
@@ -111,6 +117,14 @@ $(document).ready(function() {
             </td>
             <td class="DersYorumYapSutunSag">
                 <asp:DropDownList runat="server" ID="drpDersHocalar" onchange="javascript:HocaSecildi(this);"></asp:DropDownList>
+            </td>
+        </tr>
+        <tr id="trBilinmeyenHoca">
+            <td class="DersYorumYapSutunSol">
+                Hocanin ismini girin
+            </td>
+            <td class="DersYorumYapSutunSag">
+                <asp:TextBox runat="server" ID="txtBilinmeyenHocaIsmi"></asp:TextBox>
             </td>
         </tr>
         <tr id="trPuanDersHoca">

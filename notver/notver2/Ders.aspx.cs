@@ -37,6 +37,7 @@ public partial class Ders : BasePage
                         lblDersOkulIsim.Text = dtDers.Rows[0]["OKUL_ISIM"].ToString();
                     }
                 }
+                lnkDersDosyalar.NavigateUrl = DersDosyaURLDondur(session.DersID);
             }
         }
     }

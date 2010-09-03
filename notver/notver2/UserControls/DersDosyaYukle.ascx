@@ -1,9 +1,38 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersDosyaYukle.ascx.cs"
     Inherits="UserControls_DersDosyaYukle" %>
+<script type="text/javascript">
+function SetFocusDersDosya(e)
+{
+    var keycode;
+    if(window.event)
+    {
+        keycode = window.event.keyCode;
+    }
+    else if(e.which)
+    {
+        keycode = e.which;
+    }
+    else if(e.keyCode)
+    {
+        keycode = e.keyCode;
+    }
+
+    if(keycode == 13)
+    {
+        document.getElementById('<%= btnDersAra.ClientID %>').focus();
+    }
+}
+
+function Temizle(obj)
+{
+    obj.value='';
+}
+</script>
 <table>
     <tr>
         <td>
-            <asp:TextBox runat="server" ID="txtDersKodu" Text="Ders kodu" Width="100"></asp:TextBox>
+            <asp:TextBox runat="server" ID="txtDersKodu" Text="Ders kodu" Width="100" onclick="javascript:return Temizle(this);"
+            OnKeyDown="javascript:return SetFocusDersAra(event);"></asp:TextBox>
             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDersKodu" Display="Dynamic"
                 ErrorMessage="*" ID="reqDersIsmi" ValidationGroup="vgDersAra"></asp:RequiredFieldValidator>
         </td>
