@@ -76,6 +76,11 @@ public class BasePage : System.Web.UI.Page
         }
     }
 
+    public string DersDosyaURLDondur(int DersID)
+    {
+        return Page.ResolveUrl("~/DersDosya.aspx" + "?DersID=" + DersID);
+    }
+
     public string HocaLinkiniDondur(string HocaIsmi, string HocaID)
     {
         return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";
