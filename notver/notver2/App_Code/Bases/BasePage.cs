@@ -86,6 +86,18 @@ public class BasePage : System.Web.UI.Page
         return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";
     }
 
+    protected string OkulURLDondur(object okulID)
+    {
+        if (Util.GecerliString(okulID))
+        {
+            return Page.ResolveUrl("~/Okul.aspx?OkulID=" + okulID);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     protected string OkulLinkiniDondur(string okulIsim, string okulID)
     {
         return "<a href=\"" + Page.ResolveUrl("~/Okul.aspx") + "?OkulID=" + okulID + "\">" + okulIsim + "</a>";

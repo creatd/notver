@@ -215,6 +215,16 @@ li.kirmiziayrac
 {
 	color:Orange;
 }	
+
+ol.dizin
+{
+	width:100%;
+}
+ol.dizin li	
+{
+	display:inline;
+	margin-right:20px;
+}
 /* e: Genel amacli siniflar */
 
 /* s: Hoca Puan uc */
