@@ -45,6 +45,17 @@ public class BaseUserControl : System.Web.UI.UserControl
         Page.Response.Redirect(Page.Request.Url.ToString(), true);
     }
 
+    public string DersURLDondur(object DersID)
+    {
+        if (Util.GecerliString(DersID))
+        {
+            return Page.ResolveUrl("~/Ders.aspx?DersID=" + DersID.ToString());
+        }
+        else
+        {
+            return "";
+        }
+    }
     public string HocaLinkiniDondur(string HocaIsmi, string HocaID)
     {
         return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";

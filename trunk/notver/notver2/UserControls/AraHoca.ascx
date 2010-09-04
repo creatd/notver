@@ -41,4 +41,9 @@ function Temizle(obj)
         <asp:Button ID="buttonHocaAra" runat="server" Text="Hoca Ara" OnClick="Ara" />
     </td>
 </tr>
+<tr>
+    <td colspan="2" style="text-align:right;">
+        <asp:HyperLink runat="server" ID="lnkTumHocalar" NavigateUrl="~/TumHocalar.aspx">Tumu...</asp:HyperLink>
+    </td>
+</tr>
 </table>
