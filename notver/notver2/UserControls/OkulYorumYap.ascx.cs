@@ -17,7 +17,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
     {
         KontroluSakla();
         pnlPuanYorum.Visible = true;
-        if (session.OkulID <= 0)
+        if (Query.GetInt("OkulID") <= 0)
         {
             return;
         }
@@ -27,7 +27,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
 
             bool yorumVar = false;
 
-            if (!Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, session.OkulID))
+            if (!Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID")))
             {
                 dugmeYorumGonder.Visible = true;
             }
@@ -35,7 +35,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
             {
                 yorumVar = true;
                 //Kullanicinin daha once yaptigi yorumu yukle
-                string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, session.OkulID);
+                string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
                 textYorum.Text = eskiYorum;
             }
 
@@ -63,7 +63,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
-        if (!Okullar.OkulYorumKaydet(session.KullaniciID, session.OkulID, textYorum.Text))
+        if (!Okullar.OkulYorumKaydet(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text))
         {
             ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
         }
@@ -75,7 +75,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
 
     protected void YorumGuncelle(object sender, EventArgs e)
     {
-        if (!Okullar.OkulYorumGuncelle(session.KullaniciID, session.OkulID, textYorum.Text))
+        if (!Okullar.OkulYorumGuncelle(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text))
         {
             ltrDurum.Text = "Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
         }

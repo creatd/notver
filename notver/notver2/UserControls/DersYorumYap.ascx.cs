@@ -17,7 +17,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     {
         KontroluSakla();
         pnlPuanYorum.Visible = true;
-        if (session.DersID <= 0)
+        if (Query.GetInt("DersID") <= 0)
         {
             return;
         }
@@ -25,7 +25,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         {
             baslikPuanYorum.Visible = true;
             bool yorumVar = false;
-            if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, session.DersID))
+            if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
             {
                 yorumVar = true;
             }
@@ -34,8 +34,8 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             drpDersHocalar.Items.Clear();
 
             //Dersi veren hocalari doldur
-            DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(session.DersID,session.KullaniciID);
-            if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, session.DersID))
+            DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(Query.GetInt("DersID"),session.KullaniciID);
+            if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
             {
                 drpDersHocalar.Items.Add(new ListItem("-", "-1"));
             }
@@ -53,7 +53,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
             //e: drpDersHocalar'i duzenle
             
-            /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, session.DersID))
+            /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.Get("DersID")))
             {
                 dugmeYorumGonder.Visible = true;
             }
@@ -61,7 +61,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             {
                 yorumVar = true;
                 //Kullanicinin daha once yaptigi yorumu yukle
-                DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, session.DersID);
+                DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.Get("DersID"));
                 if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
                 {
                     if(Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
@@ -102,7 +102,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
-        if (!Dersler.DersYorumKaydet(session.KullaniciID, session.DersID, textYorum.Text, puanDersZorluk.CurrentRating , Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text))
+        if (!Dersler.DersYorumKaydet(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text, puanDersZorluk.CurrentRating , Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text))
         {
             ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
         }
@@ -115,7 +115,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
 
     protected void YorumGuncelle(object sender, EventArgs e)
     {
-        if (!Dersler.DersYorumGuncelle(session.KullaniciID, session.DersID, textYorum.Text, puanDersZorluk.CurrentRating,Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating))
+        if (!Dersler.DersYorumGuncelle(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text, puanDersZorluk.CurrentRating,Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating))
         {
             ltrDurum.Text = "Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
         }

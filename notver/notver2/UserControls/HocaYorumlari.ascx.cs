@@ -83,7 +83,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
     {
         if (!Page.IsPostBack)
         {
-            if (session.HocaID <= 0)
+            if (Query.GetInt("HocaID") <= 0)
             {
                 KontroluSakla();
                 return;
@@ -96,7 +96,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
 
     private void YorumlariDoldur()
     {
-        DataTable yorumlar = Hocalar.HocaYorumlariniDondur(session.HocaID);
+        DataTable yorumlar = Hocalar.HocaYorumlariniDondur(Query.GetInt("HocaID"));
         if (yorumlar!= null && yorumlar.Rows.Count > 0)
         {
             pnlYorumlar.Visible = true;

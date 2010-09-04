@@ -82,7 +82,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
     {
         if (!Page.IsPostBack)
         {
-            if (session.DersID <= 0)
+            if (Query.GetInt("DersID") <= 0)
             {
                 KontroluSakla();
                 return;
@@ -95,7 +95,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
 
     private void YorumlariDoldur()
     {
-        DataTable yorumlar = Dersler.DersYorumlariniDondur(session.DersID);
+        DataTable yorumlar = Dersler.DersYorumlariniDondur(Query.GetInt("DersID"));
         if (yorumlar != null && yorumlar.Rows.Count > 0)
         {
             pnlYorumlar.Visible = true;

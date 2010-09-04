@@ -1,8 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumDersler.aspx.cs" Inherits="TumDersler" MasterPageFile="~/Masters/Ders.master" %>
 
 <%@ Register TagPrefix="uc1" TagName="OkulTumDersler" Src="~/UserControls/OkulTumDersler.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="content1">
+<uc1:Ayrac runat="server" ID="ayrac" />
 <a name='tepe'></a>
 <asp:Literal runat="server" ID="ltrHarfDizini"></asp:Literal>
 <br /><br />
