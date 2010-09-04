@@ -15,32 +15,33 @@ using System.Text;
 
 public partial class Hoca : BasePage
 {
-    public string HocaIsim = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
             try
             {
-                session.HocaID = Convert.ToInt32(Request.Params["HocaID"].ToString());
-                
                 //s: HocaProfil
-                DataTable dtProfil = Hocalar.HocaProfilDondur(session.HocaID);
+                DataTable dtProfil = Hocalar.HocaProfilDondur(Query.GetInt("HocaID"));
                 if(dtProfil == null || dtProfil.Rows.Count ==0)    //Hoca bulunamadi ya da hata olustu
                 {
                     hocaIsim.Text = "Hoca bulunamadi";                    
                     return;
                 }
-                HocaIsim = dtProfil.Rows[0]["HOCA_ISIM"].ToString();
-                if (Util.GecerliString(dtProfil.Rows[0]["HOCA_UNVAN"]))
+                if (Util.GecerliString(dtProfil.Rows[0]["HOCA_ISIM"]))
                 {
-                    string hocaUnvan = dtProfil.Rows[0]["HOCA_UNVAN"].ToString();
-                    if (!string.IsNullOrEmpty(hocaUnvan))
+                    session.HocaIsim = dtProfil.Rows[0]["HOCA_ISIM"].ToString();
+                    hocaIsim.Text = session.HocaIsim;
+                    if (Util.GecerliString(dtProfil.Rows[0]["HOCA_UNVAN"]))
                     {
-                        HocaIsim = hocaUnvan + " " + HocaIsim;
-                    }
-                }                
-                hocaIsim.Text = HocaIsim;
+                        string hocaUnvan = dtProfil.Rows[0]["HOCA_UNVAN"].ToString();
+                        if (!string.IsNullOrEmpty(hocaUnvan))
+                        {
+                            hocaIsim.Text = hocaUnvan + " " + session.HocaIsim;
+                        }
+                    }    
+                }
+                
                 //Hocanin kayitli oldugu bir okul yok!
                 if (!Util.GecerliString(dtProfil.Rows[0]["OKUL_ISIM"]))
                 {
@@ -69,13 +70,7 @@ public partial class Hoca : BasePage
                 }
                 //e: HocaProfil
 
-                Page.Title = "NotVer.com - " + HocaIsim;
-                //HocaResmi1.HocaID = HocaID;
-                //HocaPuanlari1.HocaID = HocaID;
-                //HocaYorumlari1.HocaID = HocaID;
-                //HocaYorumYap1.HocaID = HocaID;
-                //session.KullaniciID = kullaniciID;
-                //HocaPuanAciklamalariniDondur();
+                Page.Title = "NotVer.com - " + session.HocaIsim;
             }
             catch
             {

@@ -117,11 +117,11 @@ public partial class UserControls_DersDosyalar : BaseUserControl
         DataTable dt = null;
         if (DosyaKategoriTipi >= 0 && DosyaKategoriTipi < (int)Enums.DosyaKategoriTipi.Hepsi)
         {
-            dt = Dersler.DersDosyalariniDondur(session.DersID, (Enums.DosyaKategoriTipi)DosyaKategoriTipi);
+            dt = Dersler.DersDosyalariniDondur(Query.GetInt("DersID"), (Enums.DosyaKategoriTipi)DosyaKategoriTipi);
         }
         else if (DosyaKategoriTipi == (int)Enums.DosyaKategoriTipi.Hepsi)
         {
-            dt = Dersler.DersDosyalariniDondur(session.DersID);
+            dt = Dersler.DersDosyalariniDondur(Query.GetInt("DersID"));
         }
 
         if (dt!= null && dt.Rows.Count > 0)
@@ -209,7 +209,7 @@ public partial class UserControls_DersDosyalar : BaseUserControl
     {
         if (DosyaKategoriTipi >=0)
         {
-            return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + session.DersID.ToString() + "/" + DosyaKategoriTipi.ToString() + "/" + dosyaAdres.Trim()) + 
+            return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + Query.GetInt("DersID").ToString() + "/" + DosyaKategoriTipi.ToString() + "/" + dosyaAdres.Trim()) + 
                 "' tooltip='" + dosyaTooltip +"'><img src='" +
                 Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
         }

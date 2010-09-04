@@ -18,15 +18,16 @@ public partial class Okul : BasePage
     {
         if (!Page.IsPostBack)
         {
-            if(session.OkulID > 0)
+            if(Query.GetInt("OkulID") > 0)
             {
-                DataTable dtOkul = Okullar.OkulProfilDondur(session.OkulID);
+                DataTable dtOkul = Okullar.OkulProfilDondur(Query.GetInt("OkulID"));
                 if (dtOkul != null && dtOkul.Rows.Count > 0)
                 {
                     //Okul isim
                     if (Util.GecerliString(dtOkul.Rows[0]["ISIM"]))
                     {
                         lblOkulIsim.Text = dtOkul.Rows[0]["ISIM"].ToString();
+                        session.OkulIsim = dtOkul.Rows[0]["ISIM"].ToString();
                     }
                     //Kurulus tarihi
                     if (dtOkul.Rows[0]["KURULUS_TARIHI"] != System.DBNull.Value)
@@ -54,7 +55,7 @@ public partial class Okul : BasePage
                         hpOkulWeb.NavigateUrl = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
                     }
                     //Okul resmi
-                    string imageRelativePath = "~/Images/Okullar/p" + session.OkulID + ".jpg";
+                    string imageRelativePath = "~/Images/Okullar/p" + Query.GetInt("OkulID") + ".jpg";
                     string imageFilePath = Server.MapPath(imageRelativePath);
                     if (File.Exists(imageFilePath))
                     {

@@ -15,17 +15,6 @@ public partial class DersDosya : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            session.DersID = Convert.ToInt32(Request.Params["DersID"].ToString());
-        }
-        catch
-        {
-            if (session.DersID <= 0)    //Ders.aspx sayfasindan gelen kullanici
-            {
-                GoToDefaultPage();
-            }
-        }
 
     }
 }

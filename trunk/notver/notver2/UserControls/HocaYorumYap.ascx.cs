@@ -47,7 +47,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         
 
         pnlPuanYorum.Visible = true;
-        if (session.HocaID <= 0)
+        if (Query.GetInt("HocaID") <= 0)
         {
             return;
         }
@@ -71,7 +71,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             bool yorumVar = false;
             bool puanVar = false;
 
-            if (!Hocalar.KullaniciHocayaPuanVermis(session.KullaniciID, session.HocaID))
+            if (!Hocalar.KullaniciHocayaPuanVermis(session.KullaniciID, Query.GetInt("HocaID")))
             {
                 //baslikPuan.Text = "Benim de puanlarim var!";
                 //pnlPuanVer.Visible = true;
@@ -81,7 +81,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             {
                 puanVar = true;
                 //Kullanicinin daha once vermis oldugu puanlari yukle
-                int[] eskiPuanlar = Hocalar.KullaniciHocaPuanlariniDondur(session.KullaniciID, session.HocaID);
+                int[] eskiPuanlar = Hocalar.KullaniciHocaPuanlariniDondur(session.KullaniciID, Query.GetInt("HocaID"));
                 Puan1.CurrentRating = eskiPuanlar[0];
                 Puan2.CurrentRating = eskiPuanlar[1];
                 Puan3.CurrentRating = eskiPuanlar[2];
@@ -93,7 +93,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 //pnlPuanDegistir.Visible = true;
             }
 
-            if (!Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, session.HocaID))
+            if (!Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID")))
             {
                 //baslikYorum.Text = "Benim de soyleyeceklerim var!";
                 dugmeYorumGonder.Visible = true;
@@ -102,7 +102,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             {
                 yorumVar = true;
                 //Kullanicinin daha once yaptigi yorumlari yukle
-                string[] eskiYorumlar = Hocalar.KullaniciHocaYorumlariniDondur(session.KullaniciID, session.HocaID);
+                string[] eskiYorumlar = Hocalar.KullaniciHocaYorumlariniDondur(session.KullaniciID, Query.GetInt("HocaID"));
                 textOlumlu.Text = eskiYorumlar[0];
                 textOlumsuz.Text = eskiYorumlar[1];
                 textOzet.Text = eskiYorumlar[2];
@@ -142,7 +142,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 //Hocanin verdigi dersleri yukleyip dropdown'a yukle
                 dropHocaDersler.Items.Add(new ListItem("", "-1"));
                 dropHocaDersler.Items.Add(new ListItem("Diger", "0"));
-                string[][] hocaDersler = Hocalar.HocaDersleriniDondur(session.HocaID);
+                string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
 
                 if (hocaDersler != null)
                 {
@@ -241,7 +241,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         puanlar[2] = Puan3.CurrentRating;
         puanlar[3] = Puan4.CurrentRating;
         puanlar[4] = Puan5.CurrentRating;
-        if (Hocalar.HocaPuanGuncelle(session.KullaniciID, session.HocaID, puanlar))
+        if (Hocalar.HocaPuanGuncelle(session.KullaniciID, Query.GetInt("HocaID"), puanlar))
         {
             ltrDurum.Text = "Puaniniz guncellenmistir";
             return true;
@@ -295,7 +295,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 puanlar[2] = Puan3.CurrentRating;
                 puanlar[3] = Puan4.CurrentRating;
                 puanlar[4] = Puan5.CurrentRating;
-                if (Hocalar.HocaPuanKaydet(session.KullaniciID, session.HocaID, puanlar))
+                if (Hocalar.HocaPuanKaydet(session.KullaniciID, Query.GetInt("HocaID"), puanlar))
                 {
                     ltrDurum.Text = "Puanlariniz basariyla kaydedildi!";
                 }
@@ -311,7 +311,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 yorumlar[1] = textOlumsuz.Text;
                 yorumlar[2] = textOzet.Text;
                 int kullaniciPuanaraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
-                if (!Hocalar.HocaYorumKaydet(session.KullaniciID, session.HocaID, yorumlar, kullaniciPuanaraligi))
+                if (!Hocalar.HocaYorumKaydet(session.KullaniciID, Query.GetInt("HocaID"), yorumlar, kullaniciPuanaraligi))
                 {
                     ltrDurum.Text = ltrDurum.Text + "<br />Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
                 }
@@ -333,7 +333,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         puanlar[2] = Puan3.CurrentRating;
         puanlar[3] = Puan4.CurrentRating;
         puanlar[4] = Puan5.CurrentRating;
-        if (Hocalar.HocaPuanGuncelle(session.KullaniciID, session.HocaID, puanlar))
+        if (Hocalar.HocaPuanGuncelle(session.KullaniciID, Query.GetInt("HocaID"), puanlar))
         {
             ltrDurum.Text = "Puaniniz guncellendi!";
         }
@@ -353,7 +353,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         }
 
         int kullaniciPuanaraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
-        if (!Hocalar.HocaYorumGuncelle(session.KullaniciID, session.HocaID, yorumlar, kullaniciPuanaraligi))
+        if (!Hocalar.HocaYorumGuncelle(session.KullaniciID, Query.GetInt("HocaID"), yorumlar, kullaniciPuanaraligi))
         {
             ltrDurum.Text = ltrDurum.Text + "<br />Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
         }

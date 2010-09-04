@@ -19,7 +19,7 @@ public partial class UserControls_HocaResmi : BaseUserControl
     {
         if (!Page.IsPostBack)
         {
-            string imageRelativePath = "~/Images/Hocalar/p" + session.HocaID + ".jpg";
+            string imageRelativePath = "~/Images/Hocalar/p" + Query.GetInt("HocaID") + ".jpg";
             string imageFilePath = Server.MapPath(imageRelativePath);
             if (File.Exists(imageFilePath))
             {

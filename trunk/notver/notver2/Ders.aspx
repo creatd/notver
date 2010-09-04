@@ -1,10 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Ders.aspx.cs" Inherits="Ders" MasterPageFile="~/Masters/Giris.master" 
 MaintainScrollPositionOnPostback="true" %>
 
-<%@ Register runat="server" TagPrefix="uc1" TagName="DersYorumlari" Src="~/UserControls/DersYorumlari.ascx" %>
-<%@ Register runat="server" TagPrefix="uc1" TagName="DersYorumYap" Src="~/UserControls/DersYorumYap.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="DersYorumlari" Src="~/UserControls/DersYorumlari.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="DersYorumYap" Src="~/UserControls/DersYorumYap.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="tumContent">
+<uc1:Ayrac runat="server" ID="ayrac" />
 <div>
     <table>
         <tr>

@@ -56,6 +56,19 @@ public class BaseUserControl : System.Web.UI.UserControl
             return "";
         }
     }
+
+    public string OkulURLDondur(object OkulID)
+    {
+        if (Util.GecerliString(OkulID))
+        {
+            return Page.ResolveUrl("~/Okul.aspx?OkulID=" + OkulID.ToString());
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     public string HocaLinkiniDondur(string HocaIsmi, string HocaID)
     {
         return "<a href=\"" + Page.ResolveUrl("~/Hoca.aspx") + "?HocaID=" + HocaID + "\">" + HocaIsmi + "</a>";

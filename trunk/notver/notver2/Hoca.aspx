@@ -6,10 +6,11 @@
 <%@ Register Src="~/UserControls/HocaYorumlari.ascx" TagName="HocaYorumlari" TagPrefix="uc1" %>
 <%@ Register Src="~/UserControls/HocaYorumYap.ascx" TagName="HocaYorumYap" TagPrefix="uc1" %>
 <%@ Register Src="~/UserControls/HocaAyniOkul.ascx" TagName="HocaAyniOkul" TagPrefix="uc1" %>
+<%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
-
+<uc1:Ayrac runat="server" ID="ayrac" />
 <table>
 <tr>
 <td style="vertical-align:top; padding-top:350px;">

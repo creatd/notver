@@ -57,84 +57,98 @@ public class Session
         }   
     }
 
-    public int DersID
+    public string DersKod
     {
         get
         {
-            //First check query string
-            var obj = HttpContext.Current.Request.QueryString.Get("DersID");
-            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersKod"] != null)
             {
-                int dersID = Convert.ToInt32(obj.ToString());
-                DersID = dersID;
-                return dersID;
-            }
-            else if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersID"] != null)
-            {
-                return Convert.ToInt32(HttpContext.Current.Session["DersID"]);
+                return HttpContext.Current.Session["DersKod"].ToString();
             }
             else
             {
-                return -1;
+                return "";
             }
         }
         set
         {
-            HttpContext.Current.Session["DersID"] = value;
+            HttpContext.Current.Session["DersKod"] = value;
         }
     }
 
-    public int HocaID
+    public int DersOkulID
     {
         get
         {
-            //First check query string
-            var obj = HttpContext.Current.Request.QueryString.Get("HocaID");
-            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersOkulID"] != null)
             {
-                int hocaID = Convert.ToInt32(obj.ToString());
-                HocaID = hocaID;
-                return hocaID;
+                if (Util.GecerliStringSayi(HttpContext.Current.Session["DersOkulID"]))
+                {
+                    return Convert.ToInt32(HttpContext.Current.Session["DersOkulID"]);
+                }
             }
-            else if (HttpContext.Current.Session != null && HttpContext.Current.Session["HocaID"] != null)
-            {
-                return Convert.ToInt32(HttpContext.Current.Session["HocaID"]);
-            }
-            else
-            {
-                return -1;
-            }
+            return -1;
         }
         set
         {
-            HttpContext.Current.Session["HocaID"] = value;
+            HttpContext.Current.Session["DersOkulID"] = value;
         }
     }
 
-    public int OkulID
+    public string DersOkulIsim
     {
         get
         {
-            //First check query string
-            var obj = HttpContext.Current.Request.QueryString.Get("OkulID");
-            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersOkulIsim"] != null)
             {
-                int okulID = Convert.ToInt32(obj.ToString());
-                OkulID = okulID;
-                return okulID;
-            }
-            else if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulID"] != null)
-            {
-                return Convert.ToInt32(HttpContext.Current.Session["OkulID"]);
+                return HttpContext.Current.Session["DersOkulIsim"].ToString();
             }
             else
             {
-                return -1;
+                return "";
             }
         }
         set
         {
-            HttpContext.Current.Session["OkulID"] = value;
+            HttpContext.Current.Session["DersOkulIsim"] = value;
+        }
+    }
+
+    public string HocaIsim
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["HocaIsim"] != null)
+            {
+                return HttpContext.Current.Session["HocaIsim"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["HocaIsim"] = value;
+        }
+    }
+
+    public string OkulIsim
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulIsim"] != null)
+            {
+                return HttpContext.Current.Session["OkulIsim"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulIsim"] = value;
         }
     }
 
@@ -202,4 +216,5 @@ public class Session
             HttpContext.Current.Session.Clear();
         }
     }
+
 }

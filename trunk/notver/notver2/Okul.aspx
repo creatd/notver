@@ -2,11 +2,13 @@
 
 <%@ Register TagName="OkulYorumlari" TagPrefix="uc1" Src="~/UserControls/OkulYorumlari.ascx" %>
 <%@ Register TagName="OkulYorumYap" TagPrefix="uc1" Src="~/UserControls/OkulYorumYap.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
+<uc1:Ayrac runat="server" ID="ayrac" />
 <div>
     <table>
         <tr>

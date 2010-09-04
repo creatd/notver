@@ -107,9 +107,9 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
         if (!IsPostBack)
         {
             //Sayfa ilk acildiginda, hangi sayfadan geldiysen onu aktar
-            if (SeciliDersID <= 0 && session.DersID > 0)
+            if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
             {
-                SeciliDersID = session.DersID;
+                SeciliDersID = Query.GetInt("DersID");
                 DersSec(null);
             }
             MevcutSayfa = 1;
