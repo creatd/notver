@@ -87,9 +87,9 @@ public partial class UserControls_Ayrac : BaseUserControl
                 lnkSeviye1.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx");
                 lnkSeviye1.Text = "Tum dersler";
                 lnkSeviye1.Visible = true;
-                if (Util.GecerliString(session.DersOkulIsim))
+                if (Util.GecerliString(session.DersOkulIsim) && session.DersOkulID > 0)
                 {
-                    lnkSeviye2.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx?OkulID=" + Query.GetInt("OkulID"));
+                    lnkSeviye2.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx?OkulID=" + session.DersOkulID);
                     lnkSeviye2.Text = " -> " + session.DersOkulIsim + "'ndeki dersler";
                     lnkSeviye2.Visible = true;
                     lnkSeviye2.Enabled = true;
