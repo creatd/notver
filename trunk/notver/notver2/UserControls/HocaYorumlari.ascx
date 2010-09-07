@@ -28,32 +28,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        Seviyorum cunku
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <%# DataBinder.Eval(Container.DataItem, "YORUM_OLUMLU") %>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        Sevmiyorum cunku
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <%# DataBinder.Eval(Container.DataItem, "YORUM_OLUMSUZ")%>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        Ozet olarak
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <%# DataBinder.Eval(Container.DataItem, "YORUM_OZET")%>
+                        <%# DataBinder.Eval(Container.DataItem, "YORUM")%>
                     </td>
                 </tr>
             </table>

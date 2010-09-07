@@ -12,13 +12,14 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Text;
 
-public partial class TumDersler : BasePage
+public partial class TumHocalar : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
             DataTable dtOkullar = null;
+            //Query string'de OkulID varsa o okul icin dondurecegiz
             if(Query.GetInt("OkulID") > 0)
             {
                 try
@@ -40,8 +41,8 @@ public partial class TumDersler : BasePage
             {
                 dtOkullar = Okullar.OkullariDondur();
             }
-            
-            if(dtOkullar != null)
+
+            if (dtOkullar != null)
             {
                 repeaterOkullar.DataSource = dtOkullar;
                 repeaterOkullar.DataBind();
@@ -52,7 +53,7 @@ public partial class TumDersler : BasePage
             {
                 repeaterOkullar.Visible = false;
             }
-            
+
         }
     }
 
@@ -68,7 +69,7 @@ public partial class TumDersler : BasePage
         sb.Append("<ol class='dizin'>");
         for (int i = 0; i < 29; i++)
         {
-            if(harfSayimi.ContainsKey(curChar))
+            if (harfSayimi.ContainsKey(curChar))
             {
                 sb.Append("<li><b><a href='#" + curChar + "'>" + curChar + "</a></b></li>");
             }
@@ -86,7 +87,7 @@ public partial class TumDersler : BasePage
     {
         if (Util.GecerliString(OkulIsim) && Util.GecerliString(OkulID))
         {
-            return "<a href='" + OkulURLDondur(OkulID) + "' name='" + OkulIsim.ToString()[0] + "'>" 
+            return "<a href='" + OkulURLDondur(OkulID) + "' name='" + OkulIsim.ToString()[0] + "'>"
                 + OkulIsim.ToString() + "</a>";
         }
         else
