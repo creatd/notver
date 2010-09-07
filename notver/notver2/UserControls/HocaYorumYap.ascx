@@ -62,28 +62,10 @@
     <table style="border: solid 1pt;" border="1" width="600">
         <tr>
             <td class="HocaYorumYapSutunSol">
-                Seviyorum cunku
-            </td>
-            <td class="HocaYorumYapSutunSag"">
-                <asp:TextBox ID="textOlumlu" runat="server" MaxLength="2000" TextMode="MultiLine"
-                    CssClass="HocaYorumYapTextbox" />
-            </td>
-        </tr>
-        <tr>
-            <td class="HocaYorumYapSutunSol">
-                Sevmiyorum cunku
-            </td>
-            <td class="HocaYorumYapSutunSag"">
-                <asp:TextBox ID="textOlumsuz" runat="server" MaxLength="2000" TextMode="MultiLine"
-                    CssClass="HocaYorumYapTextbox" />
-            </td>
-        </tr>
-        <tr>
-            <td class="HocaYorumYapSutunSol">
-                Ozet olarak
+                Yorumunuz
             </td>
             <td class="HocaYorumYapSutunSag">
-                <asp:TextBox ID="textOzet" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="HocaYorumYapTextbox" />
+                <asp:TextBox ID="textYorum" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="HocaYorumYapTextbox" />
             </td>
         </tr>
         <tr>
@@ -107,6 +89,7 @@
                         OnSelectedIndexChanged="dropHocaDersler_Secildi">
                     </asp:DropDownList>
                     <asp:Label runat="server" ID="dersIsim"></asp:Label>
+                    <asp:TextBox runat="server" ID="txtDersKodDiger" Width="100" ToolTip="Ders kodunu ya da ismini belirtin"></asp:TextBox>
                     <asp:Button runat="server" ID="dropDersEkle" OnClick="dropDersEkle_Click" Text="+"/>
                     <br />
                     <asp:Repeater ID="repeaterDersler" runat="server" OnItemCommand="repeaterDersSil">
@@ -133,7 +116,7 @@
                 <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
                 <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="PuanYorumKaydet"
                     CssClass="fltRight" />
-                <asp:Button ID="dugmeYorumGuncelle" Text="Guncelle" runat="server" OnClick="PuanYorumGuncelle"
+                <asp:Button ID="dugmeYorumGuncelle" Text="Guncelle" runat="server" 
                     CssClass="fltRight" />
             </td>
         </tr>

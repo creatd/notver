@@ -11,13 +11,47 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Data.SqlClient;
 using System.Text;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for Hoca
 /// </summary>
 public class Hocalar
 {
+    /// <summary>
+    /// Bir okuldaki tum hocalar dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable OkuldakiHocalariDondur(int OkulID)
+    {
+        try
+        {
+            if (OkulID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("OkuldakiHocalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
 
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Verilen hocayla ayni okuldaki diger hocalari dondurur (populerlik sirasina gore)
+    /// </summary>
+    /// <param name="hocaID"></param>
+    /// <param name="sayi"></param>
+    /// <returns></returns>
     public static DataTable AyniOkuldakiHocalariDondur(int hocaID, int sayi)
     {
         try
@@ -78,123 +112,193 @@ public class Hocalar
         }
     }
 
+    /*
     /// <summary>
     /// Hocaya verilen puanlari kaydeder.
     /// Basarili olursa true, aksi takdirde false dondurur.
     /// </summary>
-    /// <param name="kullaniciID"></param>
-    /// <param name="hocaID"></param>
-    /// <param name="puanlar"></param>
+    /// <param name="KullaniciID"></param>
+    /// <param name="HocaID"></param>
+    /// <param name="Puanlar"></param>
     /// <returns></returns>
-    public static bool HocaPuanKaydet(int kullaniciID, int hocaID, int[] puanlar)
+    public static bool HocaPuanKaydet(int KullaniciID, int HocaID, int[] Puanlar)
     {
         try
         {
-            if (kullaniciID < 0 || hocaID < 0 || puanlar == null)
+            if (KullaniciID < 0 || HocaID < 0 || Puanlar == null)
             {
                 return false;
             }
+            else
+            {
+                for (int i = 0; i < Puanlar.Length; i++)
+                {
+                    if (Puanlar[i] < 1 || Puanlar[i] > 5)
+                    {
+                        return false;
+                    }
+                }
+            }
+
             SqlCommand cmd = new SqlCommand("HocaPuanKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("HocaID", hocaID);
+            param = new SqlParameter("HocaID", HocaID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan1", puanlar[0]);
+            param = new SqlParameter("puan1", Puanlar[0]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan2", puanlar[1]);
+            param = new SqlParameter("puan2", Puanlar[1]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan3", puanlar[2]);
+            param = new SqlParameter("puan3", Puanlar[2]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan4", puanlar[3]);
+            param = new SqlParameter("puan4", Puanlar[3]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan5", puanlar[4]);
+            param = new SqlParameter("puan5", Puanlar[4]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            return (Util.ExecuteNonQuery(cmd) > 0);
+            return Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch
         {
             return false;
         }
-    }
-
-    public static bool HocaYorumKaydet(int kullaniciID, int hocaID, string[] yorumlar, int kullaniciPuanaraligi)
+    }*/
+    /*
+    public static bool HocaYorumKaydet(int KullaniciID, int HocaID, string Yorum, int KullaniciPuanaraligi, 
+        List<int> DersIDleri, List<string> BilinmeyenDersIsimleri)
     {
         try
         {
-            if (kullaniciID < 0 || hocaID < 0 || yorumlar == null || kullaniciPuanaraligi < 0 || kullaniciPuanaraligi > 5)
+            if (KullaniciID < 0 || HocaID < 0 || string.IsNullOrEmpty(Yorum) || KullaniciPuanaraligi < 0 
+                || KullaniciPuanaraligi > 5)
             {
                 return false;
+            }
+            if (DersIDleri.Count > 0)
+            {
+                foreach (int ID in DersIDleri)
+                {
+                    if (ID < 0)
+                        return false;
+                }
+            }
+            if (BilinmeyenDersIsimleri.Count > 0)
+            {
+                foreach (string bilinmeyenDersIsmi in BilinmeyenDersIsimleri)
+                {
+                    if (string.IsNullOrEmpty(bilinmeyenDersIsmi))
+                    {
+                        return false;
+                    }
+                }
             }
             SqlCommand cmd = new SqlCommand("HocaYorumKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("HocaID", hocaID);
+            param = new SqlParameter("HocaID", HocaID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (yorumlar[0].Length > 0)
-            {
-                param = new SqlParameter("Yorum_Olumlu", yorumlar[0]);
-                param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.NVarChar;
-                cmd.Parameters.Add(param);
-            }
-            if (yorumlar[1].Length > 0)
-            {
-                param = new SqlParameter("Yorum_Olumsuz", yorumlar[1]);
-                param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.NVarChar;
-                cmd.Parameters.Add(param);
-            }
-            if (yorumlar[2].Length > 0)
-            {
-                param = new SqlParameter("Yorum_Ozet", yorumlar[2]);
-                param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.NVarChar;
-                cmd.Parameters.Add(param);
-            }
+            param = new SqlParameter("Yorum", Yorum);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Kullanici_Puanaraligi", kullaniciPuanaraligi);
+            param = new SqlParameter("Kullanici_Puanaraligi", KullaniciPuanaraligi);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            return (Util.ExecuteNonQuery(cmd) > 0);
+            param = new SqlParameter("HocaYorumID", SqlDbType.Int);
+            param.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(param);
+
+            if (Util.ExecuteAndCheckReturnValue(cmd))
+            {
+                if(Util.GecerliStringSayi(cmd.Parameters["HocaYorumID"]))
+                {
+                    int hocaYorumID = Convert.ToInt32(cmd.Parameters["HocaYorumID"]);
+                    if (hocaYorumID > 0)
+                    {
+                        foreach (int DersID in DersIDleri)
+                        {
+                            cmd = new SqlCommand("HocaYorumDersKaydet");
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            param = new SqlParameter("HocaYorumID", hocaYorumID);
+                            param.Direction = ParameterDirection.Input;
+                            param.SqlDbType = SqlDbType.Int;
+                            cmd.Parameters.Add(param);
+
+                            param = new SqlParameter("DersID", DersID);
+                            param.Direction = ParameterDirection.Input;
+                            param.SqlDbType = SqlDbType.Int;
+                            cmd.Parameters.Add(param);
+
+                            if (!Util.ExecuteAndCheckReturnValue(cmd))
+                            {
+                                return false;
+                            }
+                        }
+                        foreach (string bilinmeyenDersIsmi in BilinmeyenDersIsimleri)
+                        {
+                            cmd = new SqlCommand("HocaYorumDersKaydet");
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            param = new SqlParameter("HocaYorumID", hocaYorumID);
+                            param.Direction = ParameterDirection.Input;
+                            param.SqlDbType = SqlDbType.Int;
+                            cmd.Parameters.Add(param);
+
+                            param = new SqlParameter("BilinmeyenDersIsmi", bilinmeyenDersIsmi);
+                            param.Direction = ParameterDirection.Input;
+                            param.SqlDbType = SqlDbType.NChar;
+                            cmd.Parameters.Add(param);
+
+                            if (!Util.ExecuteAndCheckReturnValue(cmd))
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         catch
         {
             return false;
         }
-    }
+    }*/
 
     public static bool HocaYorumGuncelle(int kullaniciID, int hocaID, string[] yorumlar, int kullaniciPuanaraligi)
     {
@@ -252,80 +356,133 @@ public class Hocalar
         }
     }
 
-    public static bool HocaYorumPuanKaydet(int kullaniciID, int hocaID, int[] puanlar, string[] yorumlar, int kullaniciPuanaraligi)
+    public static bool HocaYorumPuanKaydet(int KullaniciID, int HocaID, int[] Puanlar, string Yorum,
+        int KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri)
     {
         try
         {
-            if (kullaniciID < 0 || hocaID < 0 || puanlar == null || yorumlar == null || kullaniciPuanaraligi < 0 || kullaniciPuanaraligi > 5)
+            if (KullaniciID < 0 || HocaID < 0 || Puanlar == null || Yorum == null || string.IsNullOrEmpty(Yorum) ||
+                KullaniciPuanaraligi < 1 || KullaniciPuanaraligi > 5)
             {
                 return false;
+            }
+            else
+            {
+                for (int i = 0; i < Puanlar.Length; i++)
+                {
+                    if (Puanlar[i] < 1 || Puanlar[i] > 5)
+                    {
+                        return false;
+                    }
+                }
+            }
+            foreach (int dersID in DersIDleri)
+            {
+                if (dersID <= 0 && dersID != -2)
+                {
+                    return false;
+                }
+            }
+            foreach (string dersIsmi in BilinmeyenDersIsimleri)
+            {
+                if (string.IsNullOrEmpty(dersIsmi))
+                {
+                    return false;
+                }
             }
             SqlCommand cmd = new SqlCommand("HocaYorumPuanKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("HocaID", hocaID);
+            param = new SqlParameter("HocaID", HocaID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan1", puanlar[0]);
+            param = new SqlParameter("puan1", Puanlar[0]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan2", puanlar[1]);
+            param = new SqlParameter("puan2", Puanlar[1]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan3", puanlar[2]);
+            param = new SqlParameter("puan3", Puanlar[2]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan4", puanlar[3]);
+            param = new SqlParameter("puan4", Puanlar[3]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("puan5", puanlar[4]);
+            param = new SqlParameter("puan5", Puanlar[4]);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (yorumlar[0].Length > 0)
+            param = new SqlParameter("Yorum", Yorum);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Kullanici_Puanaraligi", KullaniciPuanaraligi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("HocaYorumID", SqlDbType.Int);
+            param.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(param);
+
+            if (Util.ExecuteAndCheckReturnValue(cmd))
             {
-                param = new SqlParameter("Yorum_Olumlu", yorumlar[0]);
-                param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.NVarChar;
-                cmd.Parameters.Add(param);
-            }
-            if (yorumlar[1].Length > 0)
-            {
-                param = new SqlParameter("Yorum_Olumsuz", yorumlar[1]);
-                param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.NVarChar;
-                cmd.Parameters.Add(param);
-            }
-            if (yorumlar[2].Length > 0)
-            {
-                param = new SqlParameter("Yorum_Ozet", yorumlar[2]);
-                param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.NVarChar;
-                cmd.Parameters.Add(param);
-            }
+                if (Util.GecerliStringSayi(cmd.Parameters["HocaYorumID"].Value))
+                {
+                    int hocaYorumID = Convert.ToInt32(cmd.Parameters["HocaYorumID"].Value);
+                    if (hocaYorumID > 0)
+                    {
+                        for (int i = 0; i < DersIDleri.Count; i++)
+                        {
+                            int DersID = DersIDleri[i];
+                            cmd = new SqlCommand("HocaYorumDersKaydet");
+                            cmd.CommandType = CommandType.StoredProcedure;
 
-            param = new SqlParameter("Kullanici_Puanaraligi", kullaniciPuanaraligi);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-            return (Util.ExecuteNonQuery(cmd) > 0);
+                            param = new SqlParameter("HocaYorumID", hocaYorumID);
+                            param.Direction = ParameterDirection.Input;
+                            param.SqlDbType = SqlDbType.Int;
+                            cmd.Parameters.Add(param);
+                            if (DersID == -2)  //Bilinmeyen ders ismiyle kaydet
+                            {
+                                param = new SqlParameter("BilinmeyenDersIsmi", bilinmeyenDersIsmi);
+                                param.Direction = ParameterDirection.Input;
+                                param.SqlDbType = SqlDbType.NChar;
+                                cmd.Parameters.Add(param);
+                            }
+                            else  //DersID ile kaydet
+                            {
+                                param = new SqlParameter("DersID", DersID);
+                                param.Direction = ParameterDirection.Input;
+                                param.SqlDbType = SqlDbType.Int;
+                                cmd.Parameters.Add(param);
+                            }
+                            if (!Util.ExecuteAndCheckReturnValue(cmd))
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         catch
         {
@@ -654,48 +811,94 @@ public class Hocalar
 
 
     /// <summary>
-    /// Kullanicinin hoca icin yaptigi yorumlari string[3] olarak dondurur
+    /// Kullanicinin hoca icin yaptigi yorum bilgisini dondurur
     /// </summary>
-    /// <param name="kullaniciID"></param>
-    /// <param name="hocaID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <param name="HocaID"></param>
     /// <returns></returns>
-    public static string[] KullaniciHocaYorumlariniDondur(int kullaniciID, int hocaID)
+    public static List<object> KullaniciHocaYorumunuDondur(int KullaniciID, int HocaID)
     {
         try
         {
-            if (kullaniciID < 0 || hocaID < 0)
+            if (KullaniciID < 0 || HocaID < 0)
             {
                 return null;
             }
-            SqlCommand cmd = new SqlCommand("KullaniciHocaYorumlariniDondur");
+            //Ders yorumu
+            SqlCommand cmd = new SqlCommand("KullaniciHocaYorumunuDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("HocaID", hocaID);
+            param = new SqlParameter("HocaID", HocaID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            DataRow dr = (Util.GetDataTable(cmd)).Rows[0];
-            string[] yorumlar = new string[3];
+            DataTable dtHocaYorumu = Util.GetDataTable(cmd);
+            if(dtHocaYorumu != null && dtHocaYorumu.Rows.Count == 1)
+            {
+                //Yorumun ilgili oldugu dersler
+                cmd = new SqlCommand("HocaYorumDersleriDondur");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            if (dr["YORUM_OLUMLU"] != null && dr["YORUM_OLUMLU"] != System.DBNull.Value)
-            {
-                yorumlar[0] = dr["YORUM_OLUMLU"].ToString();
+                param = new SqlParameter("HocaYorumID", Convert.ToInt32(dtHocaYorumu.Rows[0]["HOCAYORUM_ID"]));
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+
+                DataTable dtIlgiliDersler = Util.GetDataTable(cmd);
+
+                if (dtIlgiliDersler != null)  //Not: dtIlgiliDersler bos olabilir ancak null olmamali
+                {
+                    //Puanlar
+                    cmd = new SqlCommand("KullaniciHocaPuanlariniDondur");
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    param = new SqlParameter("KullaniciID", KullaniciID);
+                    param.Direction = ParameterDirection.Input;
+                    param.SqlDbType = SqlDbType.Int;
+                    cmd.Parameters.Add(param);
+
+                    param = new SqlParameter("HocaID", HocaID);
+                    param.Direction = ParameterDirection.Input;
+                    param.SqlDbType = SqlDbType.Int;
+                    cmd.Parameters.Add(param);
+
+                    DataTable dtHocaPuanlari = Util.GetDataTable(cmd);
+                    if (dtHocaPuanlari != null && dtHocaPuanlari.Rows.Count == 1)
+                    {
+                        //List<object> olustur
+                        //yorum - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu)| (-1 - Ders Ismi) }(*)
+                        List<object> sonuc = new List<object>();
+                        sonuc.Add(dtHocaYorumu.Rows[0]["YORUM"].ToString());
+                        DataRow drPuanlar = dtHocaPuanlari.Rows[0];
+                        sonuc.Add(Convert.ToInt32(drPuanlar["PUAN1"]));
+                        sonuc.Add(Convert.ToInt32(drPuanlar["PUAN2"]));
+                        sonuc.Add(Convert.ToInt32(drPuanlar["PUAN3"]));
+                        sonuc.Add(Convert.ToInt32(drPuanlar["PUAN4"]));
+                        sonuc.Add(Convert.ToInt32(drPuanlar["PUAN5"]));
+                        foreach (DataRow dr in dtIlgiliDersler.Rows)
+                        {
+                            if(Util.GecerliStringSayi(dr["DERS_ID"]) && Util.GecerliString(dr["DERS_KODU"]))
+                            {
+                                sonuc.Add(Convert.ToInt32(dr["DERS_ID"]));
+                                sonuc.Add(dr["DERS_KODU"].ToString());
+                            }
+                            else if (Util.GecerliString(dr["KAYITSIZ_DERS_ISMI"]))
+                            {
+                                sonuc.Add(-1);
+                                sonuc.Add(dr["KAYITSIZ_DERS_ISMI"].ToString());
+                            }
+                        }
+                        return sonuc;
+                    }
+                }
             }
-            if (dr["YORUM_OLUMSUZ"] != null && dr["YORUM_OLUMSUZ"] != System.DBNull.Value)
-            {
-                yorumlar[1] = dr["YORUM_OLUMSUZ"].ToString();
-            }
-            if (dr["YORUM_OZET"] != null && dr["YORUM_OZET"] != System.DBNull.Value)
-            {
-                yorumlar[2] = dr["YORUM_OZET"].ToString();
-            }
-            return yorumlar;
+            return null;
         }
         catch
         {
