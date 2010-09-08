@@ -18,6 +18,28 @@ using System.Data.SqlClient;
 /// </summary>
 public class Uyelik
 {
+    public static int KullaniciAktifYorumSayisiniDondur(int KullaniciID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("KullaniciAktifYorumSayisiniDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YorumSayisi", SqlDbType.Int);
+            param.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(param);
+
+            return Convert.ToInt32(Util.GetResult(cmd));
+        }
+        catch (Exception) { }
+        return -1;
+    }
+
     public static bool KullaniciYukle(string kullaniciAdi)
     {
         if (string.IsNullOrEmpty(kullaniciAdi))
@@ -36,18 +58,29 @@ public class Uyelik
         if(dt != null && dt.Rows.Count == 1)
         {
             DataRow dr = dt.Rows[0];
-            
-            int kullaniciID = Convert.ToInt32(dr["UYE_ID"].ToString());
-            string isim = dr["ISIM"].ToString();
-            int uyelikDurumu = Convert.ToInt32(dr["UYELIK_DURUMU"].ToString());
-            int rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
-            int cinsiyet;
-            bool erkek = Convert.ToBoolean(dr["CINSIYET"].ToString());
-            if(erkek)
-                cinsiyet = (int)Enums.Cinsiyet.Erkek;
-            else
-                cinsiyet = (int)Enums.Cinsiyet.Kiz;
-            string eposta = dr["EPOSTA"].ToString();
+            int kullaniciID = -1;
+            if (Util.GecerliStringSayi(dr["UYE_ID"]))
+                kullaniciID = Convert.ToInt32(dr["UYE_ID"].ToString());
+            string isim = "";
+            if(Util.GecerliString(dr["ISIM"]))
+                isim = dr["ISIM"].ToString();
+            int uyelikDurumu = -1;
+            if(Util.GecerliStringSayi(dr["UYELIK_DURUMU"]))
+                uyelikDurumu = Convert.ToInt32(dr["UYELIK_DURUMU"].ToString());
+            int rolID = -1;
+            if(Util.GecerliStringSayi(dr["ROL_ID"]))
+                rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
+            Enums.Cinsiyet cinsiyet;
+            if(Util.GecerliString(dr["CINSIYET"]))
+            {
+                if(Convert.ToBoolean(dr["CINSIYET"].ToString()))
+                    cinsiyet = Enums.Cinsiyet.Erkek;
+                else
+                    cinsiyet = Enums.Cinsiyet.Kiz;
+            }
+            string eposta = "";
+            if(Util.GecerliString(dr["EPOSTA"]))
+                eposta = dr["EPOSTA"].ToString();
             Session session = new Session();
             session.IsLoggedIn = true;
             session.KullaniciAdi = kullaniciAdi;

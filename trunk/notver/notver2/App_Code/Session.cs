@@ -190,6 +190,34 @@ public class Session
         }
     }
 
+    public int KullaniciAktifYorumSayisi
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["KullaniciAktifYorumSayisi"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["KullaniciAktifYorumSayisi"]);
+            }
+            else
+            {
+                int aktifYorumSayisi = Uyelik.KullaniciAktifYorumSayisiniDondur(KullaniciID);
+                if (aktifYorumSayisi >= 0)
+                {
+                    KullaniciAktifYorumSayisi = aktifYorumSayisi;
+                    return aktifYorumSayisi;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["KullaniciAktifYorumSayisi"] = value;
+        }
+    }
+
     public bool IsLoggedIn
     {
         get

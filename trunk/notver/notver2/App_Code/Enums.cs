@@ -17,9 +17,18 @@ public class Enums
 {
     public enum YorumTipi
     {
+        Gecersiz = -1,
         HocaYorum = 0,      
         DersYorum = 1,      
         OkulYorum = 2
+    }
+
+    public enum YorumDurum
+    {
+        OnayBekliyor = 0,
+        Onaylanmis = 1,
+        KullaniciTarafindanSilinmis = 2,
+        SistemTarafindanSilinmis = 3
     }
 
     //Uyeler

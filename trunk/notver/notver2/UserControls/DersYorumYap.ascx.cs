@@ -82,11 +82,14 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             if (yorumVar)
             {
                 baslikPuanYorum.Text = "Bir yorumum daha var";
+                lnkKullaniciYorumlar.NavigateUrl = DersYorumlarimURLDondur(Query.GetInt("DersID"));
+                lnkKullaniciYorumlar.Visible = true;
                 
             }
             else
             {
                 baslikPuanYorum.Text = "Benim de diyeceklerim var";
+                lnkKullaniciYorumlar.Visible = false;
             }
         }
         else

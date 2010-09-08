@@ -45,7 +45,7 @@ $(document).ready(function($) {
         <asp:LinkButton runat="server" Text="Diger" ID="butKlasor5" CommandArgument="5" OnCommand="KlasorSec" /></p>
     <p>
         <br />
-        <asp:LinkButton runat="server" Text="Hepsi" ID="LinkButton1" CommandArgument="6" OnCommand="KlasorSec" /></p>        
+        <asp:LinkButton runat="server" Text="Hepsi" ID="butKlasor6" CommandArgument="6" OnCommand="KlasorSec" /></p>        
     <p>
         <br />
         <br />
@@ -105,7 +105,7 @@ $(document).ready(function($) {
 </asp:Panel>
 <asp:Panel ID="pnlDosyaYok" runat="server" Visible="false">
     <asp:Label ID="lblYorumYok" runat="server">(Daha önce dosya eklenmemis) Sol taraftaki menuden dosya ekleyerek ilk dosya ekleyen </asp:Label><asp:HyperLink
-        ID="linkYorumYap" Text="siz olun!" runat="server" NavigateUrl="~/DersDosya.aspx#DosyaEkle"></asp:HyperLink>
+        ID="linkYorumYap" Text="siz olun!" runat="server" NavigateUrl="#DosyaEkle"></asp:HyperLink>
 </asp:Panel>
 <div id="dosyaYukle" style="display: none;">
     <uc1:DersDosyaYukle runat="server"></uc1:DersDosyaYukle>

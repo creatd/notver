@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HocaYorumYap.ascx.cs"
     Inherits="UserControls_HocaYorumYap" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<asp:HyperLink Text="Yapmis oldugunuz yorumlari goruntulemek veya degistirmek icin tiklayin"
+                runat="server" ID="lnkKullaniciYorumlar" ></asp:HyperLink>
 <asp:Label runat="server" ID="baslikPuanYorum" Width="600" Style="background-color: Gray;
     font-weight: bold;"></asp:Label>
 <asp:Panel ID="pnlPuanYorum" runat="server">

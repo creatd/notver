@@ -139,6 +139,35 @@ public class Okullar
     }
 
     /// <summary>
+    /// Kullanicinin yaptigi tum okul yorumlarini dondurur
+    /// (Silinmis, onaylanmamis yorumlari da dondurur)
+    /// Basarisiz olursa null dondurur
+    /// </summary>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static DataTable KullaniciOkulYorumlariniDondur(int KullaniciID)
+    {
+        try
+        {
+            if (KullaniciID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("KullaniciOkulYorumlariniDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception) { }
+        return null;
+    }
+
+    /// <summary>
     /// Kullanicinin okul icin yaptigi yorumu dondurur
     /// </summary>
     /// <param name="kullaniciID"></param>

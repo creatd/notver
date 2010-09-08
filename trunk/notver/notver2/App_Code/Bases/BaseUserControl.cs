@@ -57,6 +57,18 @@ public class BaseUserControl : System.Web.UI.UserControl
         }
     }
 
+    public string DersYorumlarimURLDondur(object DersID)
+    {
+        if (Util.GecerliString(DersID))
+        {
+            return Page.ResolveUrl("~/Yorumlarim.aspx?DersID=" + DersID.ToString());
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     public string OkulURLDondur(object OkulID)
     {
         if (Util.GecerliString(OkulID))
@@ -69,11 +81,35 @@ public class BaseUserControl : System.Web.UI.UserControl
         }
     }
 
+    public string OkulYorumlarimURLDondur(object OkulID)
+    {
+        if (Util.GecerliString(OkulID))
+        {
+            return Page.ResolveUrl("~/Yorumlarim.aspx?OkulID=" + OkulID.ToString());
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     public string HocaURLDondur(object HocaID)
     {
         if (Util.GecerliString(HocaID))
         {
             return Page.ResolveUrl("~/Hoca.aspx?HocaID=" + HocaID.ToString());
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public string HocaYorumlarimURLDondur(object HocaID)
+    {
+        if (Util.GecerliString(HocaID))
+        {
+            return Page.ResolveUrl("~/Yorumlarim.aspx?HocaID=" + HocaID.ToString());
         }
         else
         {
