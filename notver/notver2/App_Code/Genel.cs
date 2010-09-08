@@ -86,4 +86,46 @@ public class Genel
             return null;
         }
     }
+
+    /// <summary>
+    /// Kullanicinin yaptigi yorumu siler. Basarili olursa true, yoksa false dondurur.
+    /// </summary>
+    /// <param name="KullaniciID"></param>
+    /// <param name="YorumTipi"></param>
+    /// <param name="YorumID"></param>
+    /// <returns></returns>
+    public static bool YorumSil(int KullaniciID, Enums.YorumTipi YorumTipi, int YorumID, bool KullaniciIstegiyle)
+    {
+        try
+        {
+            if (KullaniciID < 0 || YorumID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("YorumSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("YorumTipi", (int)YorumTipi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YorumID", YorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciIstegiyle", KullaniciIstegiyle);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+
+        }
+        catch (Exception) { }
+        return false;
+    }
+
+
 }

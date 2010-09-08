@@ -249,4 +249,20 @@ public class Util
         }
         return false;
     }
+
+    public static bool GecerliSayi(object obj)
+    {
+        try
+        {
+            if (obj != null && obj != System.DBNull.Value)
+            {
+                int deger = Convert.ToInt32(obj);
+                return true;
+            }
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
 }

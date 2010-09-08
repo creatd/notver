@@ -89,6 +89,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             {
                 yorumVar = true;
                 //Kullanicinin daha once yaptigi yorumlari yukle
+                /*
                 List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, Query.GetInt("HocaID"));
                 //yorum - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu)| (-1 - Ders Ismi) }(*)
                 textYorum.Text = (string)listEskiYorum[0];
@@ -117,7 +118,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 hocaKullaniciDerslerIDler = hocaKullaniciDerslerIDlerObj;
 
                 dropHocaDersler.DataSource = hocaKullaniciDersler;
-                dropHocaDersler.DataBind();
+                dropHocaDersler.DataBind();*/
             }
 
             if (yorumVar)
@@ -125,12 +126,15 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 baslikPuanYorum.Text = "Puan/yorumlarimi degistirecegim";
                 dugmeYorumGuncelle.Visible = true;
                 dugmeYorumGonder.Visible = false;
+                lnkKullaniciYorumlar.Visible = true;
+                lnkKullaniciYorumlar.NavigateUrl = HocaYorumlarimURLDondur(Query.GetInt("HocaID"));
             }
             else
             {
                 baslikPuanYorum.Text = "Puan verecegim";
                 dugmeYorumGuncelle.Visible = false;
                 dugmeYorumGonder.Visible = true;
+                lnkKullaniciYorumlar.Visible = false;
             }
 
             if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
@@ -267,30 +271,6 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     }
 
     /// <summary>
-    /// Hoca icin daha once girilen puani gunceller
-    /// </summary>
-    protected bool PuanGuncelle()
-    {
-        int[] puanlar = null;
-        puanlar = new int[5];
-        puanlar[0] = Puan1.CurrentRating;
-        puanlar[1] = Puan2.CurrentRating;
-        puanlar[2] = Puan3.CurrentRating;
-        puanlar[3] = Puan4.CurrentRating;
-        puanlar[4] = Puan5.CurrentRating;
-        if (Hocalar.HocaPuanGuncelle(session.KullaniciID, Query.GetInt("HocaID"), puanlar))
-        {
-            ltrDurum.Text = "Puaniniz guncellenmistir";
-            return true;
-        }
-        else
-        {
-            ltrDurum.Text = "Puan guncellenirken bir hata olustu, lutfen tekrar deneyin";
-            return false;
-        }
-    }
-
-    /// <summary>
     /// Yorum ve puanlari kaydeder
     /// Hem yorum hem puan girmek zorunlu degil ancak bir puan girerse tum 5 puani da girmeli kullanici
     /// </summary>
@@ -369,6 +349,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         dugmeYorumGuncelle.Visible = false;
         dropDersEkle.Visible = false;
         txtDersKodDiger.Visible = false;
+        lnkKullaniciYorumlar.Visible = false;
     }
 }
 
