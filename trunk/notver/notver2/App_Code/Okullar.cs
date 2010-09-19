@@ -267,7 +267,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            return (Util.ExecuteNonQuery(cmd) > 0);
+            return Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch
         {

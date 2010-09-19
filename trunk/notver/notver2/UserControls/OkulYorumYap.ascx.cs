@@ -42,7 +42,6 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
             if (yorumVar)
             {
                 baslikPuanYorum.Text = "Yorumumu degistirecegim";
-                dugmeYorumGuncelle.Visible = true;
                 lnkKullaniciYorumlar.Visible = true;
                 lnkKullaniciYorumlar.NavigateUrl = OkulYorumlarimURLDondur(Query.GetInt("OkulID"));
             }
@@ -94,7 +93,6 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         pnlUyeOl.Visible = false;
         baslikPuanYorum.Visible = false;
         dugmeYorumGonder.Visible = false;
-        dugmeYorumGuncelle.Visible = false;
     }
 
 }

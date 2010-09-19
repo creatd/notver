@@ -78,7 +78,6 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             }*/
 
             dugmeYorumGonder.Visible = true;
-            dugmeYorumGuncelle.Visible = false;
             if (yorumVar)
             {
                 baslikPuanYorum.Text = "Bir yorumum daha var";
@@ -116,24 +115,11 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         }
     }
 
-    protected void YorumGuncelle(object sender, EventArgs e)
-    {
-        if (!Dersler.DersYorumGuncelle(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text, puanDersZorluk.CurrentRating,Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating))
-        {
-            ltrDurum.Text = "Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
-        }
-        else
-        {
-            ltrDurum.Text = "Yorumunuz guncellendi!";
-        }
-    }
-
     void KontroluSakla()
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
         baslikPuanYorum.Visible = false;
         dugmeYorumGonder.Visible = false;
-        dugmeYorumGuncelle.Visible = false;
     }
 }
