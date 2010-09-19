@@ -14,12 +14,21 @@
     <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/thickbox.css" rel="stylesheet" type="text/css" />
     
-    <link href="../Scripts/facebox/faceplant.css" rel="stylesheet" type="text/css" />
-    <link href="../Scripts/facebox/facebox.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript" ></script>
+    <script src="/Scripts/thickbox.js" type="text/javascript" ></script>
+    
+    <script src="./Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="./Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript" ></script>
+    <script src="./Scripts/thickbox.js" type="text/javascript" ></script>
+    
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <script src="Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript" ></script>
-    <script src="Scripts/facebox/facebox.js" type="text/javascript" ></script>
     <script src="Scripts/thickbox.js" type="text/javascript" ></script>
+    
+    <script src="../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="../Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript" ></script>
+    <script src="../Scripts/thickbox.js" type="text/javascript" ></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

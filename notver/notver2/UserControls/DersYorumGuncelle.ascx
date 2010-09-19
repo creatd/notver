@@ -1,6 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersYorumYap.ascx.cs" Inherits="UserControls_DersYorumYap" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersYorumGuncelle.ascx.cs" Inherits="UserControls_DersYorumGuncelle" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
 
 <script type="text/javascript">
 function HocaSecildi(obj)   {
@@ -85,11 +84,6 @@ $(document).ready(function() {
 });
 </script>
 
-
-<asp:HyperLink Text="Yapmis oldugunuz yorumlari goruntulemek veya degistirmek icin tiklayin"
-                runat="server" ID="lnkKullaniciYorumlar" ></asp:HyperLink>
-<asp:Label runat="server" ID="baslikPuanYorum" Width="600" Style="background-color: Gray;
-    font-weight: bold;"></asp:Label>
 <asp:Panel ID="pnlPuanYorum" runat="server">
     <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
     <br />
@@ -140,19 +134,15 @@ $(document).ready(function() {
         <tr>
             <td align="right" colspan="2" style="color: Red;">
                 <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
-                <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="YorumKaydet"
+                <asp:Button ID="dugmeYorumGuncelle" Text="Guncelle" runat="server" OnClick="YorumGuncelle"
                     CssClass="fltRight" />
             </td>
         </tr>
     </table>
 </asp:Panel>
-<asp:CollapsiblePanelExtender ID="pnlPuanYorum_CollapsiblePanelExtender" runat="server"
-    Enabled="True" TargetControlID="pnlPuanYorum" AutoCollapse="false" AutoExpand="false"
-    CollapseControlID="baslikPuanYorum" ExpandControlID="baslikPuanYorum" Collapsed="true"
-    ExpandDirection="Vertical">
-</asp:CollapsiblePanelExtender>
 <asp:Panel ID="pnlUyeOl" runat="server">
     Puan vermek ve/veya yorum yapabilmek icin (sag ust koseden) <a href="#login">giris yapmaniz</a> gereklidir.
     Uyeliginiz yoksa
     <asp:HyperLink ID="HyperLink1" runat="server" Text="uye olmak icin tiklayin!" NavigateUrl="~/Register.aspx"></asp:HyperLink>
 </asp:Panel>
+<asp:Literal runat="server" ID="ltrScript"></asp:Literal>

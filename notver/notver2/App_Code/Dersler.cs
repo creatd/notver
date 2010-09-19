@@ -531,30 +531,25 @@ public class Dersler
         }
     }
 
-    public static bool DersYorumGuncelle(int kullaniciID, int dersID, string yorum, int ZorlukPuani, int hocaID, int TavsiyePuani)
+    public static bool DersYorumGuncelle(int DersYorumID, string Yorum, int ZorlukPuani, int HocaID, int TavsiyePuani, string KayitsizHocaIsim)
     {
         try
         {
-            if (dersID < 0 || string.IsNullOrEmpty(yorum) || kullaniciID < 0 || ZorlukPuani < 1 || ZorlukPuani > 5)
+            if (DersYorumID < 0 || string.IsNullOrEmpty(Yorum) || ZorlukPuani < 1 || ZorlukPuani > 5)
             {
                 return false;
             }
             SqlCommand cmd = new SqlCommand("DersYorumGuncelle");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
+            SqlParameter param = new SqlParameter("DersYorumID", DersYorumID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("DersID", dersID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-            if (hocaID > 0 && TavsiyePuani >= 1 && TavsiyePuani <= 5)
+            if (HocaID > 0)
             {
-                param = new SqlParameter("HocaID", hocaID);
+                param = new SqlParameter("HocaID", HocaID);
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.Int;
                 cmd.Parameters.Add(param);
@@ -564,8 +559,20 @@ public class Dersler
                 param.SqlDbType = SqlDbType.Int;
                 cmd.Parameters.Add(param);
             }
+            else if (!string.IsNullOrEmpty(KayitsizHocaIsim) && HocaID == -2)
+            {
+                param = new SqlParameter("KayitsizHocaIsim", KayitsizHocaIsim);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", yorum);
+                param = new SqlParameter("TavsiyePuani", TavsiyePuani);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            param = new SqlParameter("Yorum", Yorum);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);

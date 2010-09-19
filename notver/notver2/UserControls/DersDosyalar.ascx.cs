@@ -192,7 +192,6 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 }
                 e.Item.Cells[2].Text = DosyaAdresDondur(e.Item.Cells[2].Text,dosyaTooltip);
             }
-            
         }
     }
 
