@@ -176,7 +176,7 @@ public partial class UserControls_DersDosyalar : BaseUserControl
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            if (e.Item.Cells.Count > 2)
+            if (e.Item.Cells.Count > 3)
             {
                 string dosyaTooltip = "";
                 System.Data.DataRowView drv = (System.Data.DataRowView)(e.Item.DataItem);
@@ -188,9 +188,9 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 if (string.IsNullOrEmpty(drv.Row.ItemArray[1].ToString()))
                 {
                     e.Item.Cells[0].Text = drv.Row.ItemArray[2].ToString();
-                    e.Item.Cells[2].Text = drv.Row.ItemArray[2].ToString();
+                    e.Item.Cells[3].Text = drv.Row.ItemArray[2].ToString();
                 }
-                e.Item.Cells[2].Text = DosyaAdresDondur(e.Item.Cells[2].Text,dosyaTooltip);
+                e.Item.Cells[3].Text = DosyaAdresDondur(e.Item.Cells[3].Text,dosyaTooltip,Convert.ToInt32(drv.Row.ItemArray[7]));
             }
         }
     }
@@ -204,11 +204,11 @@ public partial class UserControls_DersDosyalar : BaseUserControl
         return tooltip;
     }
 
-    protected string DosyaAdresDondur(string dosyaAdres, string dosyaTooltip)
+    protected string DosyaAdresDondur(string dosyaAdres, string dosyaTooltip, int dosyaKategoriTipi)
     {
         if (DosyaKategoriTipi >=0)
         {
-            return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + Query.GetInt("DersID").ToString() + "/" + DosyaKategoriTipi.ToString() + "/" + dosyaAdres.Trim()) + 
+            return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + Query.GetInt("DersID").ToString() + "/" + dosyaKategoriTipi.ToString() + "/" + dosyaAdres.Trim()) + 
                 "' tooltip='" + dosyaTooltip +"'><img src='" +
                 Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
         }

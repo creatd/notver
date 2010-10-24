@@ -11,6 +11,7 @@
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
 <uc1:Ayrac runat="server" ID="ayrac" />
+<div id="Defter">
 <table>
 <tr>
 <td style="vertical-align:top; padding-top:350px;">
@@ -44,4 +45,5 @@
 </td>
 </tr>
 </table>
+</div>
 </asp:Content>

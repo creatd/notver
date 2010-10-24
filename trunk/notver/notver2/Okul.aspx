@@ -10,25 +10,33 @@
 <asp:Content ContentPlaceHolderID="content" runat="server">
 <uc1:Ayrac runat="server" ID="ayrac" />
 <div>
-    <table>
+    <table style="width:100%;">
         <tr>
-            <td style="width:350px;">
-                <asp:Label runat="server" ID="lblOkulIsim"></asp:Label>
-                <br />
-                Sehir : <asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
-                <br />
-                Kurulus Tarihi : <asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
-                <br />
-                Ogrenci sayisi : <asp:Label runat="server" ID="lblOgrenciSayisi"></asp:Label>
-                <br />
-                Akademik personel sayisi : <asp:Label runat="server" ID="lblAkademikPersonelSayisi"></asp:Label>
-                <br />
-                Web adresi : <asp:HyperLink runat="server" ID="hpOkulWeb"></asp:HyperLink>
-                <br />
-            </td>
             <td>
-                <asp:Image runat="server" ID="imgOkul" Width="500" Height="250" />
+                <div id="OkulGenelBilgi" style="width:350px; background: url(App_Themes/Default/Images/defter/10.jpg) repeat;
+                     padding:10px; vertical-align:top;">
+                <asp:Label runat="server" ID="lblOkulIsim" CssClass="bold"></asp:Label>
+                <br /><br />
+                <u>Sehir :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
+                <br />
+                <u>Kurulus tarihi :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
+                <br />
+                <u>Ogrenci sayisi :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOgrenciSayisi"></asp:Label>
+                <br />
+                <u>Akademik personel sayisi :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblAkademikPersonelSayisi"></asp:Label>
+                <br />
+                <u>Web adresi :</u>&nbsp;&nbsp;&nbsp;<asp:HyperLink runat="server" ID="hpOkulWeb" Target="_blank"></asp:HyperLink>
+                <br />
+                </div>
             </td>
+            <td style="padding-left:20px;">
+                <div id="OkulResim" style="text-align:right;">
+                    <img src="./App_Themes/Default/Images/Diger/bant.png" style="position:relative; top:25px; left:-100px; width:25px;" />
+                    <br />
+                    <asp:Image runat="server" ID="imgOkul" Height="250" />
+                </div>
+            </td>      
+
         </tr>
         <tr>
             <td colspan="2">

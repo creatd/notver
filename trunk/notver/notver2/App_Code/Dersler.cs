@@ -153,7 +153,7 @@ public class Dersler
         }
     }
 
-    public static void DersDosyasiniKaydet(int dersID, Enums.DosyaKategoriTipi dosyaKategoriTipi, string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama)
+    public static void DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama)
     {
         try
         {
@@ -169,6 +169,14 @@ public class Dersler
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
+
+            if (HocaID >= 0)
+            {
+                param = new SqlParameter("HocaID", HocaID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
 
             param = new SqlParameter("DosyaKategoriTipi", (int)dosyaKategoriTipi);
             param.Direction = ParameterDirection.Input;
