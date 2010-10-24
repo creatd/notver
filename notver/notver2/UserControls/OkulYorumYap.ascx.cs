@@ -23,8 +23,6 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         }
         if (session.IsLoggedIn && session.KullaniciID > 0)
         {
-            baslikPuanYorum.Visible = true;
-
             bool yorumVar = false;
 
             if (!Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID")))
@@ -41,13 +39,13 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
 
             if (yorumVar)
             {
-                baslikPuanYorum.Text = "Yorumumu degistirecegim";
+                baslikPuanYorum.Visible = false;
                 lnkKullaniciYorumlar.Visible = true;
                 lnkKullaniciYorumlar.NavigateUrl = OkulYorumlarimURLDondur(Query.GetInt("OkulID"));
             }
             else
             {
-                baslikPuanYorum.Text = "Benim de diyeceklerim var";
+                baslikPuanYorum.Visible = true;
                 dugmeYorumGonder.Visible = true;
                 lnkKullaniciYorumlar.Visible = false;
             }            

@@ -13,6 +13,7 @@ using System.Xml.Linq;
 
 public partial class UserControls_Ayrac : BaseUserControl
 {
+    static string ayrac = "&nbsp;/&nbsp;&nbsp;";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -31,7 +32,7 @@ public partial class UserControls_Ayrac : BaseUserControl
                 if (Query.GetInt("OkulID") > 0 && Util.GecerliString(session.OkulIsim))
                 {
                     //lnkSeviye2.NavigateUrl = OkulURLDondur(Query.Get("OkulID"));
-                    lnkSeviye2.Text = " -> " + session.OkulIsim + "'ndeki dersler";
+                    lnkSeviye2.Text = ayrac + session.OkulIsim + "'ndeki dersler";
                     lnkSeviye2.Enabled = false;
                     lnkSeviye2.Visible = true;
                 }
@@ -44,7 +45,7 @@ public partial class UserControls_Ayrac : BaseUserControl
                 if (Query.GetInt("OkulID") > 0 && Util.GecerliString(session.OkulIsim))
                 {
                     //lnkSeviye2.NavigateUrl = OkulURLDondur(Query.Get("OkulID"));
-                    lnkSeviye2.Text = " -> " + session.OkulIsim + "'ndeki hocalar";
+                    lnkSeviye2.Text = ayrac + session.OkulIsim + "'ndeki hocalar";
                     lnkSeviye2.Enabled = false;
                     lnkSeviye2.Visible = true;
                 }
@@ -57,13 +58,13 @@ public partial class UserControls_Ayrac : BaseUserControl
                 if (Util.GecerliString(session.DersOkulIsim) && session.DersOkulID > 0)
                 {
                     lnkSeviye2.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx?OkulID=" + session.DersOkulID);
-                    lnkSeviye2.Text = " -> " + session.DersOkulIsim + "'ndeki dersler";
+                    lnkSeviye2.Text = ayrac + session.DersOkulIsim + "'ndeki dersler";
                     lnkSeviye2.Visible = true;
                     lnkSeviye2.Enabled = true;
                     if(Query.GetInt("DersID") > 0 && Util.GecerliString(session.DersKod))
                     {
                         //lnkSeviye3.NavigateUrl = DersURLDondur(Query.Get("DersID"));
-                        lnkSeviye3.Text = " -> " + session.DersKod;
+                        lnkSeviye3.Text = ayrac + session.DersKod;
                         lnkSeviye3.Enabled = false;
                         lnkSeviye3.Visible = true;
                     }
@@ -77,7 +78,7 @@ public partial class UserControls_Ayrac : BaseUserControl
                 if (Query.GetInt("HocaID") > 0 && Util.GecerliString(session.HocaIsim))
                 {
                     //lnkSeviye2.NavigateUrl = HocaURLDondur(Query.Get("HocaID"));
-                    lnkSeviye2.Text = " -> " + session.HocaIsim;
+                    lnkSeviye2.Text = ayrac + session.HocaIsim;
                     lnkSeviye2.Enabled = false;
                     lnkSeviye2.Visible = true;
                 }
@@ -90,17 +91,17 @@ public partial class UserControls_Ayrac : BaseUserControl
                 if (Util.GecerliString(session.DersOkulIsim) && session.DersOkulID > 0)
                 {
                     lnkSeviye2.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx?OkulID=" + session.DersOkulID);
-                    lnkSeviye2.Text = " -> " + session.DersOkulIsim + "'ndeki dersler";
+                    lnkSeviye2.Text = ayrac + session.DersOkulIsim + "'ndeki dersler";
                     lnkSeviye2.Visible = true;
                     lnkSeviye2.Enabled = true;
                     if (Query.GetInt("DersID") > 0 && Util.GecerliString(session.DersKod))
                     {
                         lnkSeviye3.NavigateUrl = DersURLDondur(Query.GetInt("DersID"));
-                        lnkSeviye3.Text = " -> " + session.DersKod;
+                        lnkSeviye3.Text = ayrac + session.DersKod;
                         lnkSeviye3.Enabled = true;
                         lnkSeviye3.Visible = true;
 
-                        lnkSeviye4.Text = " -> " + session.DersKod + " dosyalari";
+                        lnkSeviye4.Text = ayrac + session.DersKod + " dosyalari";
                         lnkSeviye4.Enabled = false;
                         lnkSeviye4.Visible = true;
                     }

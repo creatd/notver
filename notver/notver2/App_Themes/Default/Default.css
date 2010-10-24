@@ -1,17 +1,14 @@
 ﻿* 
 {
-	font-family : Georgia;
-	font-size : 18px;
+	font-family : Garamond;
+	font-size : 14pt;
 	color:rgb(0,0,0);
-}
-
-div , p
-{
-	padding:5px;
+	line-height:120%;
 }
 
 p 
 {
+	padding:5px;
 	font-size: 10pt;
 }
 
@@ -30,6 +27,15 @@ h3
 	font-size : 12pt;
 }
 
+td
+{
+	padding : 5px;
+} 
+a
+{
+	text-decoration:none;
+}
+
 .stretch
 {
 	width:100%;
@@ -43,42 +49,62 @@ h3
 	margin-right:auto;
 }
 
+.bitisik
+{
+	padding:0;
+	margin:0;
+}
+
 .doldur
 {
 	width:100%;
 	height:100%;
 }
 
-td
+.bold
 {
-	padding : 5px;
-} 
-a
-{
-	text-decoration:none;
+	font-weight:bold;
 }
+
+.underline
+{
+	text-decoration:underline;
+}
+
 
 div#Container
 {
 	height: 100%;
 	width: 100%;
-	background: url(Images/tahta/1.jpg) no-repeat scroll center top transparent;
+	/*background: url(Images/tahta/1.jpg) no-repeat scroll center top transparent;*/
+	background: url(Images/pano/4.png) repeat scroll center top transparent;
 	display:block;
 	overflow:hidden;
 	position:relative;
+	padding:0;
+	margin:0;
 }
 
 div#Content
 {
-	width: 800px;
+	width: 900px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    margin-bottom: 50px;
-    background-image: url(Images/defter/6.jpg);
-    background-repeat: repeat-y;
+    margin-bottom: 50px;    
     position: static;
     padding:0;
+}
+
+div#Defter
+{
+	background-image: url(Images/defter/6.jpg);
+    background-repeat: repeat-y;
+}
+
+div#Arkaplan
+{
+	padding:15px;
 }
 
 /* s: Arama Sonuclari */
@@ -219,11 +245,14 @@ li.kirmiziayrac
 ol.dizin
 {
 	width:100%;
+	height:25px;
+	font-weight:bold;
+	
 }
 ol.dizin li	
 {
 	display:inline;
-	margin-right:20px;
+	margin-right:5px;
 }
 /* e: Genel amacli siniflar */
 
@@ -345,3 +374,12 @@ table.pager li
 	margin-left:10px;
 }
 /* e: Pager */
+
+/* s: OkulYorumYap uc */
+div.OkulYorumYap
+{
+	background: url("Images/defter/bigtexture96.png") no-repeat scroll 0 0 White;
+	width:600px;
+	height:413px;
+}
+/* e: HocaYorumYap uc */

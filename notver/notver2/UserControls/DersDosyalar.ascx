@@ -50,7 +50,7 @@ $(document).ready(function($) {
         <br />
         <br />
         <br />
-        <a href="DersDosyaYukle.aspx?KeepThis=true&TB_iframe=true&modal=true&height=400&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>
+        <a href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>
     </p>
 </div>
 <asp:Panel runat="server" ID="pnlDosyalar">
@@ -59,6 +59,7 @@ $(document).ready(function($) {
             AllowSorting="true" AllowPaging="false">
             <Columns>
                 <asp:BoundColumn DataField="DOSYA_ISMI" HeaderText="Dosya Ismi"></asp:BoundColumn>
+                <asp:BoundColumn DataField="HOCA_ISIM" HeaderText="Hoca Ismi"></asp:BoundColumn>
                 <asp:BoundColumn DataField="EKLENME_TARIHI" HeaderText="Eklenme Tarihi"></asp:BoundColumn>
                 <asp:BoundColumn DataField="DOSYA_ADRES"></asp:BoundColumn>
             </Columns>

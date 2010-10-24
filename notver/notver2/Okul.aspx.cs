@@ -32,7 +32,9 @@ public partial class Okul : BasePage
                     //Kurulus tarihi
                     if (dtOkul.Rows[0]["KURULUS_TARIHI"] != System.DBNull.Value)
                     {
-                        lblOkulKurulusTarihi.Text = dtOkul.Rows[0]["KURULUS_TARIHI"].ToString();
+                        DateTime dateTime;
+                        DateTime.TryParse(dtOkul.Rows[0]["KURULUS_TARIHI"].ToString(), out dateTime);
+                        lblOkulKurulusTarihi.Text = dateTime.ToString("dd/MM/yyyy");
                     }
                     //Okul adresi
                     if (Util.GecerliString(dtOkul.Rows[0]["ADRES"]))
@@ -52,6 +54,7 @@ public partial class Okul : BasePage
                     //Web adresi
                     if (Util.GecerliString(dtOkul.Rows[0]["WEB_ADRESI"]))
                     {
+                        hpOkulWeb.Text = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
                         hpOkulWeb.NavigateUrl = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
                     }
                     //Okul resmi

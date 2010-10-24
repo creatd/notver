@@ -110,7 +110,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
             if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
             {
                 SeciliDersID = Query.GetInt("DersID");
-                DersSec(null);
+                DersSec(null);                
             }
             MevcutSayfa = 1;
             SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
@@ -169,6 +169,8 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
 
     protected void DersSec(string dersIsim)
     {
+        drpDersHocalar.Items.Clear();
+        drpDersHocalar.Items.Add(new ListItem("-", "-1"));
         lblSecilenDers.Text = "";
         if (SeciliDersID > 0)
         {
@@ -184,7 +186,17 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
             {
                 lblSecilenDers.Text = dersIsim;
             }
+            //Bu dersi veren hocalari doldur
+            DataTable dtHocalar = Dersler.DersiVerenHocalariDondur(SeciliDersID);
+            if (dtHocalar != null)
+            {
+                foreach (DataRow dr in dtHocalar.Rows)
+                {
+                    drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString() , dr["HOCA_ID"].ToString()));
+                }
+            }
         }
+
     }
     protected void ItemCommand(object sender, DataGridCommandEventArgs e)
     {
@@ -222,8 +234,9 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                     dir.Create();
                 }
                 fileUpload.SaveAs(dosyaUzunAdres);
-                Dersler.DersDosyasiniKaydet(SeciliDersID, (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsim, dosyaAdres, session.KullaniciID, txtDosyaAciklama.Text);
+                Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue), (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsim, dosyaAdres, session.KullaniciID, txtDosyaAciklama.Text);
                 lblYuklemeDurum.Text = "Yuklendi! Tesekkurler :)";
+                ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
             }
             catch (Exception ex)
             {

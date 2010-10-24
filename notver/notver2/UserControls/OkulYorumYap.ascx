@@ -3,26 +3,29 @@
 
 <asp:HyperLink Text="Yapmis oldugunuz yorumlari goruntulemek veya degistirmek icin tiklayin"
                 runat="server" ID="lnkKullaniciYorumlar" ></asp:HyperLink>
-<asp:Label runat="server" ID="baslikPuanYorum" Width="600" Style="background-color: Gray;
-    font-weight: bold;"></asp:Label>
-<asp:Panel ID="pnlPuanYorum" runat="server">
+
+<asp:Image ID="baslikPuanYorum" runat="server" ImageUrl="~/App_Themes/Default/Images/postit/diyeceklerim_var.gif" CssClass="fltRight"/>
+<asp:Panel ID="pnlPuanYorum" runat="server" Height="300" CssClass="OkulYorumYap">
     <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
     <br />
     <br />
-    <table style="border: solid 1pt;" border="1" width="600">
+    <table border="0" style="height:358px;" border="1" width="600">
         <tr>
-            <td class="OkulYorumYapSutunSol">
+            <td style="padding-left:80px;">
                 Yorumunuz
-            </td>
-            <td class="OkulYorumYapSutunSag">
-                <asp:TextBox ID="textYorum" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="OkulYorumYapTextbox" />
             </td>
         </tr>
         <tr>
-            <td align="right" colspan="2" style="color: Red;">
+            <td style="padding-left:90px;">
+                <asp:TextBox ID="textYorum" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="OkulYorumYapTextbox" BackColor="Transparent"
+                Width="490" Height="185"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="color: Red; padding-right:20px;">
                 <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
                 <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="YorumKaydet"
-                    CssClass="fltRight" />
+                    CssClass="fltRight" BorderStyle="None" BackColor="Transparent"/>
             </td>
         </tr>
     </table>

@@ -138,6 +138,16 @@ function Temizle(obj)
     </tr>
     <tr>
         <td>
+            Hoca :
+            <br />
+            <span class="sessiz">(Opsiyonel)</span>
+        </td>
+        <td>
+            <asp:DropDownList runat="server" ID="drpDersHocalar"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td>
             Aciklama :
             <br />
             <span class="sessiz">(Opsiyonel)</span>
@@ -159,3 +169,4 @@ function Temizle(obj)
         </td>
     </tr>
 </table>
+<asp:Literal runat="server" ID="ltrScript"></asp:Literal>

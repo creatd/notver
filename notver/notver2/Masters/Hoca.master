@@ -21,43 +21,82 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div id="Container" class="stretch">
-    
-        <div id="Top" class="squeeze">
-            <table class="stretch">
-            <tr>
-            <td>
-                <h1><a href="~/Default.aspx" runat="server">NotVer.com</a></h1>
-            </td>
-            <td style="float:right;">
-                <uc1:LoginBox runat="server" ID="loginBox1"></uc1:LoginBox>
-            </td>
-            </tr>      
-            </table>
-        </div>
-        
-        <div id="Menu" class="squeeze">
-            <table class="stretch">
-            <tr>
-                <td>
-                    <uc1:AraDers runat="server" ID="araDers1" />
+    <div id="Arkaplan">
+        <table style="padding: 0;" width="100%">
+            <tr style="height: 31px; width: 100%;">
+                <td class="bitisik">
+                    <span style="width: 21px; height:31px; display: block; overflow: hidden; background: url('App_Themes/Default/Images/pano/ustsol2.png') repeat scroll 0 0 Black;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </td>
-                <td>
-                    <uc1:AraHoca runat="server" ID="araHoca1" />
+                <td class="bitisik">
+                    <span style="width: 100%; height:31px; display: block; overflow: hidden; background: url('App_Themes/Default/Images/pano/ust2.png') repeat scroll 0 0 Black;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </td>
-                <td>
-                    <uc1:AraOkul runat="server" ID="araOkul1" />
+                <td class="bitisik">
+                    <span style="width: 23px; height:31px; display: block; overflow: hidden; background: url('App_Themes/Default/Images/pano/ustsag2.png') repeat scroll 0 0 Black;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </td>
             </tr>
-            </table>
-        </div>
-                
-        <div class="squeeze" id="Content">
-            <asp:ContentPlaceHolder ID="content" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        
-    </div>   
+            <tr>
+                <td class="bitisik" style="width: 21px; height:100%; background: url('App_Themes/Default/Images/pano/ortasol.png') repeat scroll 0 0 Black;">
+                        <span>&nbsp;</span>
+                </td>
+                <td class="bitisik">
+                    <div id="Container" class="stretch">
+                        <div id="Top" class="squeeze">
+                            <table class="stretch">
+                                <tr>
+                                    <td>
+                                        <h1>
+                                            <a id="A1" href="~/Default.aspx" runat="server">NotVer.com</a></h1>
+                                    </td>
+                                    <td style="float: right;">
+                                        <uc1:LoginBox runat="server" ID="loginBox1"></uc1:LoginBox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="Menu" class="squeeze">
+                            <table class="stretch">
+                                <tr>
+                                    <td>
+                                        <uc1:AraDers runat="server" ID="araDers1" />
+                                    </td>
+                                    <td>
+                                        <uc1:AraHoca runat="server" ID="araHoca1" />
+                                    </td>
+                                    <td>
+                                        <uc1:AraOkul runat="server" ID="araOkul1" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div ID="Content" class="squeeze">
+                            <asp:ContentPlaceHolder ID="content" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                </td>
+                <td class="bitisik" style="width: 23px; height:100%; background: url('App_Themes/Default/Images/pano/ortasol.png') repeat scroll 0 0 Black;">
+                        <span>&nbsp;</span>
+                </td>
+            </tr>
+            <tr style="height: 31px; width: 100%;">
+                <td class="bitisik">
+                    <span style="width: 21px; height:31px; display: block; overflow: hidden; background: url('App_Themes/Default/Images/pano/altsol.png') repeat scroll 0 0 Black;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </td>
+                <td class="bitisik">
+                    <span style="width: 100%; height:31px; display: block; overflow: hidden; background: url('App_Themes/Default/Images/pano/alt.png') repeat scroll 0 0 Black;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </td>
+                <td class="bitisik">
+                    <span style="width: 23px; height:31px; display: block; overflow: hidden; background: url('App_Themes/Default/Images/pano/altsag.png') repeat scroll 0 0 Black;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </td>
+            </tr>            
+        </table>
+    </div>
     </form>
 </body>
 </html>
