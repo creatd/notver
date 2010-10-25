@@ -66,8 +66,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         }
         if (session.IsLoggedIn && session.KullaniciID > 0)
         {
-            pnlPuanYorum.Visible = true;
-            baslikPuanYorum.Visible = true;
+            pnlPuanYorum.Visible = true;    //Giris yapmamis olsa bu sayfaya gelemez zaten ancak yine de bunu burada tutmak faydali
             pnlUyeOl.Visible = false;
 
             if (session.hocaPuanAciklamalari.Length == 5)
@@ -81,25 +80,6 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             else
             {
                 //TODO: admin mesaj
-            }
-
-            bool yorumVar = false;
-
-            if (Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID")))
-            {
-                yorumVar = true;
-            }
-
-            if (yorumVar)
-            {
-                lnkKullaniciYorumlar.Visible = true;
-                lnkKullaniciYorumlar.NavigateUrl = HocaYorumlarimURLDondur(Query.GetInt("HocaID"));
-            }
-            else
-            {
-                baslikPuanYorum.Text = "Puan verecegim";
-                dugmeYorumGonder.Visible = true;
-                lnkKullaniciYorumlar.Visible = false;
             }
 
             if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
@@ -135,8 +115,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         else  //Giris yapmamis
         {
             pnlPuanYorum.Visible = false;
-            baslikPuanYorum.Visible = false;
             pnlUyeOl.Visible = true;
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
         }
     }
 
@@ -271,11 +251,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
-        baslikPuanYorum.Visible = false;
-        dugmeYorumGonder.Visible = false;
         dropDersEkle.Visible = false;
         txtDersKodDiger.Visible = false;
-        lnkKullaniciYorumlar.Visible = false;
     }
 }
 

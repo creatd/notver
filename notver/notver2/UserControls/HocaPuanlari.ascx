@@ -24,7 +24,7 @@ function setRating(rating,n)
 <table border="0" cellpadding="10" width="450" style="border:none;" id="HocaPuanlari">
 <tr>
     <td align="center" colspan="2">
-        <h1>NotVer.com karnesi</h1>
+        <h1>NotVerin.com karnesi</h1>
     </td>
 </tr>
 <tr>
@@ -137,7 +137,7 @@ function setRating(rating,n)
 </asp:Panel>
 
 <asp:Panel ID="pnlNotYok" runat="server" Visible="false">
-<asp:Label ID="lblNotYok" runat="server">Daha önce hiç not verilmemiş. İlk not veren </asp:Label><asp:HyperLink ID="linkNotVer" Text="siz olun!" runat="server" NavigateUrl="~/HocaNotVer.aspx"></asp:HyperLink> 
+<asp:Label ID="lblNotYok" runat="server">Daha önce not verilmemiş. İlk not veren </asp:Label><asp:HyperLink ID="linkNotVer" Text="siz olun!" runat="server" NavigateUrl="~/HocaNotVer.aspx"></asp:HyperLink> 
 </asp:Panel>
 
 <asp:Literal ID="script" runat="server"></asp:Literal>

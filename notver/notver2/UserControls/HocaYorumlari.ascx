@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HocaYorumlari.ascx.cs"
     Inherits="UserControls_HocaYorum" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <link href="Scripts/StarRating.css" rel="stylesheet" type="text/css" />
+<asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true">
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
@@ -72,6 +74,6 @@
     </asp:Panel>
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false">
-    <asp:Label ID="lblYorumYok" runat="server">(Daha önce yorum yapilmamis). İlk yorum yapan </asp:Label><asp:HyperLink
+    <asp:Label ID="lblYorumYok" runat="server">Daha önce yorum yapilmamis. İlk yorum yapan </asp:Label><asp:HyperLink
         ID="linkYorumYap" Text="siz olun!" runat="server" NavigateUrl="~/Hoca.aspx#HocaYorumYap1"></asp:HyperLink>
 </asp:Panel>

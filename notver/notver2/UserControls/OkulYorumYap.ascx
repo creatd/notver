@@ -1,8 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="OkulYorumYap.ascx.cs" Inherits="UserControls_OkulYorumYap" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
+<asp:Panel runat="server" ID="pnlYorumVar">
 <asp:HyperLink Text="Yapmis oldugunuz yorumlari goruntulemek veya degistirmek icin tiklayin"
                 runat="server" ID="lnkKullaniciYorumlar" ></asp:HyperLink>
+</asp:Panel>
 
 <asp:Image ID="baslikPuanYorum" runat="server" ImageUrl="~/App_Themes/Default/Images/postit/diyeceklerim_var.gif" CssClass="fltRight"/>
 <asp:Panel ID="pnlPuanYorum" runat="server" Height="300" CssClass="OkulYorumYap">
