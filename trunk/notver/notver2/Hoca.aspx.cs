@@ -15,7 +15,7 @@ using System.Text;
 
 public partial class Hoca : BasePage
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
@@ -70,12 +70,40 @@ public partial class Hoca : BasePage
                 }
                 //e: HocaProfil
 
-                Page.Title = "NotVer.com - " + session.HocaIsim;
+                Page.Title = "NotVer.com - " + session.HocaIsim;    //TODO: calisiyo mu gec mi kaliyo
+                
             }
             catch
             {
                 GoToDefaultPage();
             }
+        }
+        pnlUyeOl.Visible = false;
+        pnlYorumum.Visible = false;
+        if (session.IsLoggedIn)
+        {
+            pnlYorumum.Visible = true;
+            bool yorumVar = false;
+
+            if (Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID")))
+            {
+                yorumVar = true;
+            }
+
+            if (yorumVar)
+            {
+                //Linke basinca guncelleme acilsin
+                lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumGuncelle.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+            }
+            else
+            {
+                //Linke basinca yeni yorum gonderme acilsin
+                lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumYap.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+            }
+        }
+        else
+        {
+            pnlUyeOl.Visible = true;
         }
     }
 }

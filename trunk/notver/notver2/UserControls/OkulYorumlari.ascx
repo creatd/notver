@@ -3,19 +3,19 @@
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true">
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
-            <table style="border: none;" border="0" width="600">
+            <table style="border: none; background:url('App_Themes/Default/Images/defter/Paper11.png') repeat White;" border="0" width="600">
                 <tr>
-                    <td style="font-style: italic; color: rgb(150,150,150); font-size: 8pt;">
+                    <td style="font-style: italic; vertical-align:bottom;" class="sessiz">
                         <%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
                                 DataBinder.Eval(Container.DataItem, "TARIH"))%>
                     </td>
-                    <td>
+                    <td style="text-align:right;">
                         <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "OKULYORUM_ID") %>' />
                         <asp:UpdatePanel runat="server" ID="pnlSevSevme">
                             <ContentTemplate>
                                 <asp:Literal runat="server" ID="yorumPuan" Text=""></asp:Literal>
-                                <asp:LinkButton runat="server" ID="yorumSev" Text="Sevdim" OnClick="yorumSev_click"></asp:LinkButton>
-                                <asp:LinkButton runat="server" ID="yorumSevme" Text="Sevmedim" OnClick="yorumSevme_click"></asp:LinkButton>
+                                <asp:ImageButton runat="server" ID="yorumSev" OnClick="yorumSev_click" ImageUrl="~/App_Themes/Default/Images/diger/parmak_yukari.png"/>
+                                <asp:ImageButton runat="server" ID="yorumSevme" OnClick="yorumSevme_click" ImageUrl="~/App_Themes/Default/Images/diger/parmak_asagi.png"/>
                                 <asp:Literal runat="server" ID="yorumPuanDurumu" Text=""></asp:Literal>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -25,11 +25,15 @@
                     <td colspan="3">
                         <%# DataBinder.Eval(Container.DataItem, "YORUM")%>
                     </td>
-                </tr>
-            </table>
-            <br />
+                </tr>                
+            </table>            
         </ItemTemplate>
+        <SeparatorTemplate>
+            <br /><br />
+        </SeparatorTemplate>
+        
     </asp:Repeater>
+    <br />
     <asp:Panel ID="pnlPager" runat="server">
         <table class="pager">
             <tr>
@@ -67,6 +71,6 @@
     </asp:Panel>
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false">
-    <asp:Label ID="lblYorumYok" runat="server">(Daha önce yorum yapilmamis). İlk yorum yapan </asp:Label><asp:HyperLink
+    <asp:Label ID="lblYorumYok" runat="server">Daha önce yorum yapilmamis. İlk yorum yapan </asp:Label><asp:HyperLink
         ID="linkYorumYap" Text="siz olun!" runat="server" NavigateUrl="~/Okul.aspx#OkulYorumYap1"></asp:HyperLink>
 </asp:Panel>

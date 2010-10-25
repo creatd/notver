@@ -138,7 +138,10 @@ public partial class UserControls_OkulYorumlari : BaseUserControl
 
     protected void repeaterYorumlar_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString();
+        if (e.Item.DataItem != null)
+        {
+            yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString();
+        }
     }
 
     protected void rptPager_DataBound(object sender, RepeaterItemEventArgs e)
@@ -154,10 +157,8 @@ public partial class UserControls_OkulYorumlari : BaseUserControl
     {
         try
         {
-            StringBuilder sb = new StringBuilder();
             DateTime tarih = Convert.ToDateTime(Tarih.ToString());
-            sb.Append(KullaniciAdi + " tarafindan, " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year + " tarihinde yazilmistir.");
-            return sb.ToString();
+            return KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
         }
         catch
         {

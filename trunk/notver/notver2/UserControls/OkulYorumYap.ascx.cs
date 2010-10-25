@@ -23,31 +23,16 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         }
         if (session.IsLoggedIn && session.KullaniciID > 0)
         {
-            bool yorumVar = false;
-
-            if (!Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID")))
-            {
-                dugmeYorumGonder.Visible = true;
-            }
-            else
-            {
-                yorumVar = true;
-                //Kullanicinin daha once yaptigi yorumu yukle
-                string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
-                textYorum.Text = eskiYorum;
-            }
+            bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
 
             if (yorumVar)
             {
-                baslikPuanYorum.Visible = false;
-                lnkKullaniciYorumlar.Visible = true;
+                pnlYorumVar.Visible = true;
                 lnkKullaniciYorumlar.NavigateUrl = OkulYorumlarimURLDondur(Query.GetInt("OkulID"));
             }
             else
             {
                 baslikPuanYorum.Visible = true;
-                dugmeYorumGonder.Visible = true;
-                lnkKullaniciYorumlar.Visible = false;
             }            
         }
         else
@@ -87,10 +72,10 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
 
     void KontroluSakla()
     {
+        pnlYorumVar.Visible = false;
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
         baslikPuanYorum.Visible = false;
-        dugmeYorumGonder.Visible = false;
     }
 
 }

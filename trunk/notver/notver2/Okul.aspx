@@ -35,14 +35,15 @@
                     <br />
                     <asp:Image runat="server" ID="imgOkul" Height="250" />
                 </div>
-            </td>      
-
+            </td>    
         </tr>
+        <tr><td colspan="2"><br /></td></tr>
         <tr>
             <td colspan="2">
                 <uc1:OkulYorumlari runat="server" ID="okulYorumlari"></uc1:OkulYorumlari>
             </td>
         </tr>
+        <tr><td colspan="2"><br /></td></tr>
         <tr>
             <td colspan="2">
                 <uc1:OkulYorumYap runat="server" ID="okulYorumYap"></uc1:OkulYorumYap>
