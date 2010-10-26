@@ -207,7 +207,7 @@ public class Okullar
         }
     }
 
-    public static bool OkulYorumKaydet(int kullaniciID, int okulID, string yorum)
+    public static bool OkulYorumKaydet(int kullaniciID, int okulID, string yorum, int KullaniciOnayPuani)
     {
         try
         {
@@ -231,6 +231,16 @@ public class Okullar
             param = new SqlParameter("Yorum", yorum);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            Enums.YorumDurumu yorumDurumu = Enums.YorumDurumu.OnayBekliyor;
+            if (KullaniciOnayPuani >= Convert.ToInt32(ConfigurationManager.AppSettings.Get("OkulYorumOnayPuani")))
+            {
+                yorumDurumu = Enums.YorumDurumu.Onaylanmis;
+            }
+            param = new SqlParameter("YorumDurumu", (int)yorumDurumu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
             return (Util.ExecuteNonQuery(cmd) > 0);

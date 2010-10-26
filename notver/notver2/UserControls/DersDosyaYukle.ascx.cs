@@ -234,7 +234,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                     dir.Create();
                 }
                 fileUpload.SaveAs(dosyaUzunAdres);
-                Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue), (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsim, dosyaAdres, session.KullaniciID, txtDosyaAciklama.Text);
+                Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue), (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsim, dosyaAdres, session.KullaniciID, txtDosyaAciklama.Text,session.KullaniciOnayPuani);
                 lblYuklemeDurum.Text = "Yuklendi! Tesekkurler :)";
                 ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
             }

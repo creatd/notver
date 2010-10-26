@@ -23,7 +23,15 @@ public class Enums
         OkulYorum = 2
     }
 
-    public enum YorumDurum
+    public enum YorumDurumu
+    {
+        OnayBekliyor = 0,
+        Onaylanmis = 1,
+        KullaniciTarafindanSilinmis = 2,
+        SistemTarafindanSilinmis = 3
+    }
+
+    public enum DosyaDurumu
     {
         OnayBekliyor = 0,
         Onaylanmis = 1,
@@ -53,6 +61,7 @@ public class Enums
     //s: Uyelik
     public enum UyelikDurumu
     {
+        Gecersiz = -1,  //Bir hata olusunca bunu dondurur (session expire oldugunda mesela)
         EpostaOnayBekliyor = 0, 
         EpostaOnayli = 1,       
         UniEpostaOnayli = 2     

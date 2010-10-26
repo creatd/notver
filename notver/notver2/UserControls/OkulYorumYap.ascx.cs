@@ -48,7 +48,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
-        if (!Okullar.OkulYorumKaydet(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text))
+        if (!Okullar.OkulYorumKaydet(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text, session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
         }
