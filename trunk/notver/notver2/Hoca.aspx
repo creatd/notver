@@ -17,7 +17,7 @@
                     <uc1:HocaPuanlari runat="server" ID="HocaPuanlari1" />
                 </div>
                 <div style="vertical-align: top; text-align: right; padding-left: 20px;
-                    padding-right: 5px; padding-top: 0px; float: left; width: 235px; height: 100%;">
+                    padding-right: 5px; padding-top: 0px; float: left; width: 215px; height: 100%;">
                     <uc1:HocaResmi runat="server" ID="HocaResmi1" />
                     <asp:Label ID="hocaIsim" runat="server" CssClass="HocaIsim"></asp:Label>
                     <asp:Literal ID="hocaOkullar" runat="server"></asp:Literal>

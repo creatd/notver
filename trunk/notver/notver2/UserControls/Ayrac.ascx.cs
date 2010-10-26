@@ -14,7 +14,7 @@ using System.Xml.Linq;
 public partial class UserControls_Ayrac : BaseUserControl
 {
     static string ayrac = "&nbsp;/&nbsp;&nbsp;";
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {

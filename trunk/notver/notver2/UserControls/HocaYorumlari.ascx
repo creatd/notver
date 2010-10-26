@@ -6,7 +6,7 @@
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true">
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
-            <table style="border: none;" border="0" width="600">
+            <table style="border: none;" border="0" width="100%">
                 <tr>
                     <td style="font-style: italic; color: rgb(150,150,150); font-size: 8pt;">
                         <%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,

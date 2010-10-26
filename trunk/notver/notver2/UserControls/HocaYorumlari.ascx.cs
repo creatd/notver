@@ -155,14 +155,13 @@ public partial class UserControls_HocaYorum : BaseUserControl
     {
         try
         {
-            StringBuilder sb = new StringBuilder();
             DateTime tarih = Convert.ToDateTime(Tarih.ToString());
-            sb.Append(KullaniciAdi + " tarafindan, " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year + " tarihinde yazilmistir.");
+            string str = KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
             if (KullaniciPuanAraligi != System.DBNull.Value)
             {
-                sb.Append(" (" + KullaniciAdi + " hocadan " + KullaniciPuanAraligi.ToString() + "/5 not almis.)");
+                str += " (Hocadan aldigi not : " + KullaniciPuanAraligi.ToString() + "/5)";
             }
-            return sb.ToString();
+            return str;
         }
         catch
         {

@@ -153,7 +153,7 @@ public class Dersler
         }
     }
 
-    public static void DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama)
+    public static void DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama, int KullaniciOnayPuani)
     {
         try
         {
@@ -209,6 +209,16 @@ public class Dersler
             param = new SqlParameter("YuklemeTarihi", System.DateTime.Now);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.DateTime;
+            cmd.Parameters.Add(param);
+
+            Enums.DosyaDurumu dosyaDurumu = Enums.DosyaDurumu.OnayBekliyor;
+            if (KullaniciOnayPuani >= Convert.ToInt32(ConfigurationManager.AppSettings.Get("DersDosyaOnayPuani")))
+            {
+                dosyaDurumu = Enums.DosyaDurumu.Onaylanmis;
+            }
+            param = new SqlParameter("DosyaDurumu", (int)dosyaDurumu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
             if (Util.ExecuteNonQuery(cmd) == -1)
@@ -475,7 +485,7 @@ public class Dersler
         }
     }
 
-    public static bool DersYorumKaydet(int KullaniciID, int DersID, string Yorum, int ZorlukPuani, int HocaID, int TavsiyePuani, string KayitsizHocaIsim)
+    public static bool DersYorumKaydet(int KullaniciID, int DersID, string Yorum, int ZorlukPuani, int HocaID, int TavsiyePuani, string KayitsizHocaIsim, int KullaniciOnayPuani)
     {
         try
         {
@@ -527,6 +537,16 @@ public class Dersler
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("ZorlukPuani", ZorlukPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            Enums.YorumDurumu yorumDurumu = Enums.YorumDurumu.OnayBekliyor;
+            if (KullaniciOnayPuani >= Convert.ToInt32(ConfigurationManager.AppSettings.Get("DersYorumOnayPuani")))
+            {
+                yorumDurumu = Enums.YorumDurumu.Onaylanmis;
+            }
+            param = new SqlParameter("YorumDurumu", (int)yorumDurumu);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);

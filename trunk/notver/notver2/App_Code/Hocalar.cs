@@ -171,7 +171,7 @@ public class Hocalar
     }
 
     public static bool HocaYorumPuanKaydet(int KullaniciID, int HocaID, int[] Puanlar, string Yorum,
-        int KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri)
+        int KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri, int KullaniciOnayPuani)
     {
         try
         {
@@ -248,6 +248,16 @@ public class Hocalar
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Kullanici_Puanaraligi", KullaniciPuanaraligi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            Enums.YorumDurumu yorumDurumu = Enums.YorumDurumu.OnayBekliyor;
+            if (KullaniciOnayPuani >= Convert.ToInt32(ConfigurationManager.AppSettings.Get("HocaYorumOnayPuani")))
+            {
+                yorumDurumu = Enums.YorumDurumu.Onaylanmis;
+            }
+            param = new SqlParameter("YorumDurumu", (int)yorumDurumu);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);

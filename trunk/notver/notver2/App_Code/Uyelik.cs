@@ -70,6 +70,9 @@ public class Uyelik
             int rolID = -1;
             if(Util.GecerliStringSayi(dr["ROL_ID"]))
                 rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
+            int onayPuani = -1;
+            if (Util.GecerliStringSayi(dr["ONAY_PUANI"]))
+                onayPuani = Convert.ToInt32(dr["ONAY_PUANI"].ToString());
             Enums.Cinsiyet cinsiyet;
             if(Util.GecerliString(dr["CINSIYET"]))
             {
@@ -85,6 +88,8 @@ public class Uyelik
             session.IsLoggedIn = true;
             session.KullaniciAdi = kullaniciAdi;
             session.KullaniciID = kullaniciID;
+            session.KullaniciUyelikDurumu = (Enums.UyelikDurumu)uyelikDurumu;
+            session.KullaniciOnayPuani = onayPuani;
             return true;
         }
         return false;
@@ -201,6 +206,11 @@ public class Uyelik
             param = new SqlParameter("Cinsiyet", (bool)((int)cinsiyet==1));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayPuani", Convert.ToInt32(ConfigurationSettings.AppSettings.Get("UyelikBaslangicOnayPuani")));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
             if (Util.ExecuteNonQuery(cmd) != -1)

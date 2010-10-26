@@ -236,10 +236,10 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         puanlar[4] = Puan5.CurrentRating;
         int kullaniciPuanAraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
         if (Hocalar.HocaYorumPuanKaydet(session.KullaniciID, Query.GetInt("HocaID"), puanlar,textYorum.Text,
-            kullaniciPuanAraligi,(List<int>) hocaKullaniciDerslerIDler , (List<string>)hocaKullaniciDersler))
+            kullaniciPuanAraligi,(List<int>) hocaKullaniciDerslerIDler , (List<string>)hocaKullaniciDersler, session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Puan ve yorumlariniz basariyla kaydedildi!";
-            RefreshPage();
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
         }
         else
         {

@@ -223,11 +223,11 @@ public partial class Yorumlarim : BasePage
             if(Util.GecerliStringSayi(drv.Row.ItemArray[4]))
             {
                 int yorumDurumuInt = Convert.ToInt32(drv.Row.ItemArray[4]);
-                Enums.YorumDurum yorumDurumu = (Enums.YorumDurum)yorumDurumuInt;
+                Enums.YorumDurumu yorumDurumu = (Enums.YorumDurumu)yorumDurumuInt;
                 switch (yorumDurumu)
                 {
-                    case Enums.YorumDurum.KullaniciTarafindanSilinmis:
-                    case Enums.YorumDurum.SistemTarafindanSilinmis:
+                    case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
+                    case Enums.YorumDurumu.SistemTarafindanSilinmis:
                         //Silinmisse guncelle tusunu sakla
                         //asp:Link kullanip enabled diyerek saklamak daha temiz olurdu
                         Literal ltrHack = e.Item.FindControl("ltrHack") as Literal;
@@ -235,9 +235,9 @@ public partial class Yorumlarim : BasePage
                         ltrHack.Text = "<span style='display:none;'>";
                         ltrHack2.Text = "</span>";
                         break;
-                    case Enums.YorumDurum.OnayBekliyor:
+                    case Enums.YorumDurumu.OnayBekliyor:
                         break;
-                    case Enums.YorumDurum.Onaylanmis:
+                    case Enums.YorumDurumu.Onaylanmis:
                         break;
                 }
             }

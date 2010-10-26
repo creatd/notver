@@ -190,6 +190,44 @@ public class Session
         }
     }
 
+    public Enums.UyelikDurumu KullaniciUyelikDurumu
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["KullaniciUyelikDurumu"] != null)
+            {
+                return (Enums.UyelikDurumu)Convert.ToInt32(HttpContext.Current.Session["KullaniciUyelikDurumu"]);
+            }
+            else
+            {
+                return Enums.UyelikDurumu.Gecersiz;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["KullaniciUyelikDurumu"] = value;
+        }
+    }
+
+    public int KullaniciOnayPuani
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["KullaniciOnayPuani"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["KullaniciOnayPuani"]);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["KullaniciOnayPuani"] = value;
+        }
+    }
+
     public int KullaniciAktifYorumSayisi
     {
         get
