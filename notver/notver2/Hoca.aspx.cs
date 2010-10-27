@@ -21,6 +21,60 @@ public partial class Hoca : BasePage
         {
             try
             {
+                int queryHocaID = Query.GetInt("HocaID");
+                if (queryHocaID > 0)
+                {
+                    session.HocaYukle(queryHocaID);
+                    //Hoca unvan + isim
+                    if (Util.GecerliString(session.HocaIsim))
+                    {
+                        if (Util.GecerliString(session.HocaUnvan))
+                        {
+                            hocaIsim.Text = session.HocaUnvan + " " + session.HocaIsim;
+                            Page.Title = "NotVer.com - " + session.HocaUnvan + " " + session.HocaIsim;
+                        }
+                        else
+                        {
+                            hocaIsim.Text = session.HocaIsim;
+                            Page.Title = "NotVer.com - " + session.HocaIsim;
+                        }                        
+                    }
+                    else
+                    {
+                        hocaIsim.Text = "Hoca bulunamadi";
+                    }
+
+                    //Hoca okullar
+                    if(session.HocaOkulIsimleri == null || session.HocaOkulIsimleri.Count() <= 0)
+                    {
+                        hocaOkullar.Text = "<span class=\"HocaOkullar\">(Okul bilgisi bulunamadi!)</span>";
+                    }
+                    else
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append("<span class=\"HocaOkullar\">");
+                        for(int i=0; i<session.HocaOkulIsimleri.Count() ; i++)
+                        {
+                            if(Util.GecerliString(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
+                            {
+                                sb.Append(session.HocaOkulIsimleri[i] + "<br />(" + session.HocaOkulBaslangicYillari[i] + " - ");
+                                if(session.HocaOkulBitisYillari[i] > 0)
+                                {
+                                    sb.Append(session.HocaOkulBitisYillari[i]);
+                                }
+                                else
+                                {
+                                    sb.Append("...");
+                                }
+                                sb.Append(") <br /><br />");
+                            }
+                        }
+                        sb.Append("</span>");
+                        hocaOkullar.Text = sb.ToString();
+                    }                    
+                }
+            }
+                /*
                 //s: HocaProfil
                 DataTable dtProfil = Hocalar.HocaProfilDondur(Query.GetInt("HocaID"));
                 if(dtProfil == null || dtProfil.Rows.Count ==0)    //Hoca bulunamadi ya da hata olustu
@@ -53,7 +107,6 @@ public partial class Hoca : BasePage
                     sb.Append("<span class=\"HocaOkullar\">");
                     foreach (DataRow dr in dtProfil.Rows)
                     {
-
                         sb.Append(dr["OKUL_ISIM"] + "<br />(" + dr["START_YEAR"] + " - ");
                         if (dr["END_YEAR"] != System.DBNull.Value)
                         {
@@ -71,8 +124,7 @@ public partial class Hoca : BasePage
                 //e: HocaProfil
 
                 Page.Title = "NotVer.com - " + session.HocaIsim;    //TODO: calisiyo mu gec mi kaliyo
-                
-            }
+                 * */
             catch
             {
                 GoToDefaultPage();

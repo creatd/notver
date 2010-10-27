@@ -107,4 +107,10 @@ public class BasePage : System.Web.UI.Page
     {
         return "<a href='" + Page.ResolveUrl("~/Ders.aspx") + "?DersID=" + dersID + "' tooltip='" + dersIsim + "'\">" + dersKod + "</a>";
     }
+
+    protected string DersDosyalarLinkiniDondur(string dersID)
+    {
+        return "<a href='" + Page.ResolveUrl("~/DersDosya.aspx") + "?DersID=" + dersID + "' tooltip='Dersle ilgili dosyalar'>" +
+                "<img src='" + Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
+    }
 }

@@ -21,7 +21,11 @@ public partial class UserControls_AraHoca : BaseUserControl
     {
         string searchParams = hocaIsmi.Text.ToString().Trim();
 
-        if(String.IsNullOrEmpty(searchParams) )
+        if(string.IsNullOrEmpty(searchParams) )
+        {
+            return;
+        }
+        else if (searchParams.StartsWith("Hoca ismi"))
         {
             return;
         }

@@ -66,7 +66,7 @@ public partial class TumHocalar : BasePage
         }
         char curChar = 'A';
         StringBuilder sb = new StringBuilder();
-        sb.Append("<ol class='dizin'>");
+        sb.Append("<ol class='dizin' style='font-weight:normal; padding:10px; text-align:center;'>");
         for (int i = 0; i < 29; i++)
         {
             if (harfSayimi.ContainsKey(curChar))
@@ -75,7 +75,7 @@ public partial class TumHocalar : BasePage
             }
             else
             {
-                sb.Append("<li>" + curChar + "</li>");
+                sb.Append("<li class='sessiz'>" + curChar + "</li>");
             }
             curChar++;
         }

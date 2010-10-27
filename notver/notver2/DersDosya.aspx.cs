@@ -13,8 +13,15 @@ using System.Xml.Linq;
 
 public partial class DersDosya : BasePage
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
-
+        if (!Page.IsPostBack)
+        {
+            int queryDersID = Query.GetInt("DersID");
+            if (queryDersID > 0)
+            {
+                session.DersYukle(queryDersID);
+            }
+        }
     }
 }

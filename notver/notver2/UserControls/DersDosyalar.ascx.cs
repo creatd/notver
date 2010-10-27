@@ -212,6 +212,6 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 "' tooltip='" + dosyaTooltip +"'><img src='" +
                 Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
         }
-        return "dummy";
+        return "";
     }
 }

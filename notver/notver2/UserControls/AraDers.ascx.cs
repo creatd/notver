@@ -23,7 +23,11 @@ public partial class UserControls_AraDers : BaseUserControl
     {
         string searchParams = dersIsmi.Text.ToString().Trim();
 
-        if (String.IsNullOrEmpty(searchParams))
+        if (string.IsNullOrEmpty(searchParams))
+        {
+            return;
+        }
+        else if (searchParams.StartsWith("Ders ismini"))
         {
             return;
         }
