@@ -94,16 +94,20 @@ public partial class UserControls_Ayrac : BaseUserControl
                     lnkSeviye2.Text = ayrac + session.DersOkulIsim + "'ndeki dersler";
                     lnkSeviye2.Visible = true;
                     lnkSeviye2.Enabled = true;
-                    if (Query.GetInt("DersID") > 0 && Util.GecerliString(session.DersKod))
+                    if (Query.GetInt("DersID") > 0)
                     {
                         lnkSeviye3.NavigateUrl = DersURLDondur(Query.GetInt("DersID"));
-                        lnkSeviye3.Text = ayrac + session.DersKod;
-                        lnkSeviye3.Enabled = true;
-                        lnkSeviye3.Visible = true;
+                        DataTable dtDers = Dersler.DersProfilDondur(Query.GetInt("DersID"));
+                        if (dtDers != null && Util.GecerliString(session.DersKod))
+                        {
+                            lnkSeviye3.Text = ayrac + session.DersKod;
+                            lnkSeviye3.Enabled = true;
+                            lnkSeviye3.Visible = true;
 
-                        lnkSeviye4.Text = ayrac + session.DersKod + " dosyalari";
-                        lnkSeviye4.Enabled = false;
-                        lnkSeviye4.Visible = true;
+                            lnkSeviye4.Text = ayrac + session.DersKod + " dosyalari";
+                            lnkSeviye4.Enabled = false;
+                            lnkSeviye4.Visible = true;
+                        }
                     }
                 }
             }

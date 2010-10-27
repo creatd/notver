@@ -74,6 +74,7 @@
     </asp:Panel>
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false">
+    <br />
     <asp:Label ID="lblYorumYok" runat="server">Daha önce yorum yapilmamis. İlk yorum yapan </asp:Label><asp:HyperLink
         ID="linkYorumYap" Text="siz olun!" runat="server" NavigateUrl="~/Hoca.aspx#HocaYorumYap1"></asp:HyperLink>
 </asp:Panel>

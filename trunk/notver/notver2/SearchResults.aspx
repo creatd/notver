@@ -48,8 +48,9 @@
     <div id="divDersler">
         <h1>
             Ders arama sonuclari</h1>
+            <br />
         <asp:DataGrid ID="dataGridDersler" runat="server" AllowPaging="true" AllowSorting="true"
-            AutoGenerateColumns="false">
+            AutoGenerateColumns="false" CssClass="AramaSonuclari" BorderWidth="0" GridLines="None">
             <ItemStyle CssClass="AramaSonuclariDerslerRow" />
             <AlternatingItemStyle CssClass="AramaSonuclariDerslerRow2" />
             <HeaderStyle CssClass="AramaSonuclariDerslerHeader" />
@@ -58,7 +59,13 @@
                     <HeaderTemplate>
                         Ders Kodu</HeaderTemplate>
                     <ItemTemplate>
-                        <%# DersLinkiniDondur(DataBinder.Eval(Container.DataItem, "KOD").ToString(), DataBinder.Eval(Container.DataItem, "DERS_ISIM").ToString(), DataBinder.Eval(Container.DataItem, "DERS_ID").ToString())%></ItemTemplate>
+                        <strong><%# DersLinkiniDondur(DataBinder.Eval(Container.DataItem, "KOD").ToString(), DataBinder.Eval(Container.DataItem, "DERS_ISIM").ToString(), DataBinder.Eval(Container.DataItem, "DERS_ID").ToString())%></strong></ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:TemplateColumn>
+                    <HeaderTemplate></HeaderTemplate>
+                    <ItemTemplate>
+                        <%# DersDosyalarLinkiniDondur(DataBinder.Eval(Container.DataItem, "DERS_ID").ToString())%>
+                    </ItemTemplate>
                 </asp:TemplateColumn>
                 <asp:TemplateColumn>
                     <HeaderTemplate>

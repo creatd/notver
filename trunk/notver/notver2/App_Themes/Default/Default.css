@@ -107,12 +107,43 @@ div#Arkaplan
 	padding:15px;
 }
 
+/* s: Tum Dersler */
+
+/* e: Tum Dersler */
+
 /* s: Arama Sonuclari */
+
+table.AramaSonuclari
+{
+	border:none 0px Transparent;
+	background:url("../../App_Themes/Default/Images/defter/11.jpg") repeat scroll 0 0 Transparent;	
+	width:100%;
+}
+
+.AramaSonuclari td
+{
+	padding:15px;
+	border:none 0px Transparent;
+}
+
+.AramaSonuclari tr
+{
+	border:none 0px Transparent;
+}
+
+.AramaSonuclariDerslerHeader td
+{
+	color:Blue;
+	font-style:italic;
+	font-weight:bold;
+}
 
 .AramaSonuclariHocalarHeader
 {
 	color:rgb(150,150,150);
 }
+
+
 
 .AramaSonuclariHocalarRow
 {
@@ -252,7 +283,7 @@ ol.dizin
 ol.dizin li	
 {
 	display:inline;
-	margin-right:5px;
+	margin-right:10px;
 }
 /* e: Genel amacli siniflar */
 
@@ -383,3 +414,4 @@ div.OkulYorumYap
 	height:413px;
 }
 /* e: HocaYorumYap uc */
+

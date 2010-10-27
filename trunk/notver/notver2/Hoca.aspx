@@ -13,7 +13,7 @@
     <table style="background:url('App_Themes/Default/Images/defter/15.png') scroll -20px 0% White; width:710px; margin:auto;">
         <tr>
             <td style="padding-top: 0px;">
-                <div style="float: left;">
+                <div style="float: left; width:450px;">
                     <uc1:HocaPuanlari runat="server" ID="HocaPuanlari1" />
                 </div>
                 <div style="vertical-align: top; text-align: right; padding-left: 20px;

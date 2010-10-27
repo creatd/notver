@@ -37,7 +37,7 @@ public partial class SearchResults : BasePage
                             pnlHocalar.Visible = false;
                             pnlDersler.Visible = false;
                             pnlSonucYok.Visible = true;
-                            lblSonucYok.Text = searchParameters + " isminde bir hoca biz bilmiyoruz";
+                            lblSonucYok.Text = "\'" + searchParameters + "\' isminde bir hoca inanin bilmiyoruz";
                         }
                         break;
                     case 2: //Ders
@@ -52,7 +52,7 @@ public partial class SearchResults : BasePage
                             pnlHocalar.Visible = false;
                             pnlDersler.Visible = false;
                             pnlSonucYok.Visible = true;
-                            lblSonucYok.Text = "Dersin kodunda veya isminde " + searchParameters + " gectiginden emin misiniz? Biz bulamadik da...";
+                            lblSonucYok.Text = "Dersin kodunda veya isminde \'" + searchParameters + "\' gectiginden emin misiniz? Biz bulamadik da...";
                         }
                         break;
                 }
