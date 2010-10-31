@@ -26,9 +26,9 @@ public partial class Hoca : BasePage
                 {
                     session.HocaYukle(queryHocaID);
                     //Hoca unvan + isim
-                    if (Util.GecerliString(session.HocaIsim))
+                    if (!string.IsNullOrEmpty(session.HocaIsim))
                     {
-                        if (Util.GecerliString(session.HocaUnvan))
+                        if (!string.IsNullOrEmpty(session.HocaUnvan))
                         {
                             hocaIsim.Text = session.HocaUnvan + " " + session.HocaIsim;
                             Page.Title = "NotVer.com - " + session.HocaUnvan + " " + session.HocaIsim;
@@ -55,7 +55,7 @@ public partial class Hoca : BasePage
                         sb.Append("<span class=\"HocaOkullar\">");
                         for(int i=0; i<session.HocaOkulIsimleri.Count() ; i++)
                         {
-                            if(Util.GecerliString(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
+                            if(!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
                             {
                                 sb.Append(session.HocaOkulIsimleri[i] + "<br />(" + session.HocaOkulBaslangicYillari[i] + " - ");
                                 if(session.HocaOkulBitisYillari[i] > 0)
@@ -74,59 +74,9 @@ public partial class Hoca : BasePage
                     }                    
                 }
             }
-                /*
-                //s: HocaProfil
-                DataTable dtProfil = Hocalar.HocaProfilDondur(Query.GetInt("HocaID"));
-                if(dtProfil == null || dtProfil.Rows.Count ==0)    //Hoca bulunamadi ya da hata olustu
-                {
-                    hocaIsim.Text = "Hoca bulunamadi";                    
-                    return;
-                }
-                if (Util.GecerliString(dtProfil.Rows[0]["HOCA_ISIM"]))
-                {
-                    session.HocaIsim = dtProfil.Rows[0]["HOCA_ISIM"].ToString();
-                    hocaIsim.Text = session.HocaIsim;
-                    if (Util.GecerliString(dtProfil.Rows[0]["HOCA_UNVAN"]))
-                    {
-                        string hocaUnvan = dtProfil.Rows[0]["HOCA_UNVAN"].ToString();
-                        if (!string.IsNullOrEmpty(hocaUnvan))
-                        {
-                            hocaIsim.Text = hocaUnvan + " " + session.HocaIsim;
-                        }
-                    }    
-                }
-                
-                //Hocanin kayitli oldugu bir okul yok!
-                if (!Util.GecerliString(dtProfil.Rows[0]["OKUL_ISIM"]))
-                {
-                    hocaOkullar.Text = "<span class=\"HocaOkullar\"(Okul bilgisi bulunamadi!)</span>";
-                }
-                else
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("<span class=\"HocaOkullar\">");
-                    foreach (DataRow dr in dtProfil.Rows)
-                    {
-                        sb.Append(dr["OKUL_ISIM"] + "<br />(" + dr["START_YEAR"] + " - ");
-                        if (dr["END_YEAR"] != System.DBNull.Value)
-                        {
-                            sb.Append(dr["END_YEAR"]);
-                        }
-                        else
-                        {
-                            sb.Append("...");
-                        }
-                        sb.Append(") <br /><br />");
-                    }
-                    sb.Append("</span>");
-                    hocaOkullar.Text = sb.ToString();
-                }
-                //e: HocaProfil
-
-                Page.Title = "NotVer.com - " + session.HocaIsim;    //TODO: calisiyo mu gec mi kaliyo
-                 * */
-            catch
+            catch(Exception ex)
             {
+                Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 GoToDefaultPage();
             }
         }

@@ -18,44 +18,67 @@ public partial class Okul : BasePage
     {
         if (!Page.IsPostBack)
         {
-            if(Query.GetInt("OkulID") > 0)
+            try
             {
-                DataTable dtOkul = Okullar.OkulProfilDondur(Query.GetInt("OkulID"));
-                if (dtOkul != null && dtOkul.Rows.Count > 0)
+                int queryOkulID = Query.GetInt("OkulID");
+                if (queryOkulID > 0)
                 {
+                    session.OkulYukle(queryOkulID);
                     //Okul isim
-                    if (Util.GecerliString(dtOkul.Rows[0]["ISIM"]))
+                    if (!string.IsNullOrEmpty(session.OkulIsim))
                     {
-                        lblOkulIsim.Text = dtOkul.Rows[0]["ISIM"].ToString();
-                        session.OkulIsim = dtOkul.Rows[0]["ISIM"].ToString();
+                        lblOkulIsim.Text = session.OkulIsim;
+                    }
+                    else
+                    {
+                        lblOkulIsim.Text = "";
                     }
                     //Kurulus tarihi
-                    if (dtOkul.Rows[0]["KURULUS_TARIHI"] != System.DBNull.Value)
+                    if (session.OkulKurulusTarihi != DateTime.MinValue)
                     {
-                        DateTime dateTime;
-                        DateTime.TryParse(dtOkul.Rows[0]["KURULUS_TARIHI"].ToString(), out dateTime);
-                        lblOkulKurulusTarihi.Text = dateTime.ToString("dd/MM/yyyy");
+                        lblOkulKurulusTarihi.Text = session.OkulKurulusTarihi.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        lblOkulKurulusTarihi.Text = "";
                     }
                     //Okul adresi
-                    if (Util.GecerliString(dtOkul.Rows[0]["ADRES"]))
+                    if (!string.IsNullOrEmpty(session.OkulAdres))
                     {
-                        lblOkulAdres.Text = dtOkul.Rows[0]["ADRES"].ToString();
+                        lblOkulAdres.Text = session.OkulAdres;
+                    }
+                    else
+                    {
+                        lblOkulAdres.Text = "";
                     }
                     //Ogrenci sayisi
-                    if (Util.GecerliString(dtOkul.Rows[0]["OGRENCI_SAYISI"]))
+                    if (session.OkulOgrenciSayisi > 0)
                     {
-                        lblOgrenciSayisi.Text = dtOkul.Rows[0]["OGRENCI_SAYISI"].ToString();
+                        lblOgrenciSayisi.Text = session.OkulOgrenciSayisi.ToString();
+                    }
+                    else
+                    {
+                        lblOgrenciSayisi.Text = "";
                     }
                     //Akademik personel sayisi
-                    if (Util.GecerliString(dtOkul.Rows[0]["AKADEMIK_SAYISI"]))
+                    if (session.OkulAkademikSayisi > 0)
                     {
-                        lblAkademikPersonelSayisi.Text = dtOkul.Rows[0]["AKADEMIK_SAYISI"].ToString();
+                        lblAkademikPersonelSayisi.Text = session.OkulAkademikSayisi.ToString();
+                    }
+                    else
+                    {
+                        lblAkademikPersonelSayisi.Text = "";
                     }
                     //Web adresi
-                    if (Util.GecerliString(dtOkul.Rows[0]["WEB_ADRESI"]))
+                    if (!string.IsNullOrEmpty(session.OkulWebAdresi))
                     {
-                        hpOkulWeb.Text = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
-                        hpOkulWeb.NavigateUrl = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
+                        hpOkulWeb.Text = session.OkulWebAdresi;
+                        hpOkulWeb.NavigateUrl = session.OkulWebAdresi;
+                    }
+                    else
+                    {
+                        hpOkulWeb.Text = "";
+                        hpOkulWeb.NavigateUrl = "";
                     }
                     //Okul resmi
                     string imageRelativePath = "~/Images/Okullar/p" + Query.GetInt("OkulID") + ".jpg";
@@ -69,6 +92,11 @@ public partial class Okul : BasePage
                         imgOkul.ImageUrl = "~/Images/Okullar/p_yok.jpg";
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+                GoToDefaultPage();
             }
         }
     }

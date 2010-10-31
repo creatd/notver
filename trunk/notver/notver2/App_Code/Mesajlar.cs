@@ -133,6 +133,41 @@ public static class Mesajlar
         }
     }
 
+    public static bool AdmineHataMesajiGonder(string URL, string Mesaj, int KullaniciID, Enums.SistemHataSeviyesi HataSeviyesi)
+    {
+        try
+        {
+            string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Admin/Mesajlar/HataMesaji.txt"));
+            while (icerik.Contains("||URL||"))
+            {
+                icerik = icerik.Replace("||URL||", URL);
+            }
+            while (icerik.Contains("||MESAJ||"))
+            {
+                icerik = icerik.Replace("||MESAJ||", Mesaj);
+            }
+            while (icerik.Contains("||KULLANICI_ID||"))
+            {
+                icerik = icerik.Replace("||KULLANICI_ID||", KullaniciID.ToString());
+            }
+            while (icerik.Contains("||TARIH||"))
+            {
+                icerik = icerik.Replace("||TARIH||", DateTime.Now.ToString());
+            }
+            string baslik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Admin/Mesajlar/Baslik/HataMesaji.txt"));
+            while (baslik.Contains("||HATA_SEVIYESI||"))
+            {
+                baslik = baslik.Replace("||HATA_SEVIYESI||", HataSeviyesi.ToString());
+            }
+            
+            return MesajGonder(-1, -1, icerik, baslik, DateTime.Now);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
     public static bool AdmineOkulTalebiGonder(string OkulIsmi, string Aciklama, int GonderenID)
     {
         try

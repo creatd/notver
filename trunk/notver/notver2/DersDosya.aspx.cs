@@ -17,10 +17,18 @@ public partial class DersDosya : BasePage
     {
         if (!Page.IsPostBack)
         {
-            int queryDersID = Query.GetInt("DersID");
-            if (queryDersID > 0)
+            try
             {
-                session.DersYukle(queryDersID);
+                int queryDersID = Query.GetInt("DersID");
+                if (queryDersID > 0)
+                {
+                    session.DersYukle(queryDersID);
+                }
+            }
+            catch (Exception ex)
+            {
+                Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+                GoToDefaultPage();
             }
         }
     }

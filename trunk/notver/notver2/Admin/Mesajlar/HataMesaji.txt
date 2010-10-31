@@ -1,0 +1,4 @@
+﻿URL : ||URL||
+Tarih : ||TARIH||
+Kullanici ID : ||KULLANICI_ID||
+Hata mesaji : ||MESAJ||

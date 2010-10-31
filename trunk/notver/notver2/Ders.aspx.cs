@@ -17,35 +17,46 @@ public partial class Ders : BasePage
     {
         if (!Page.IsPostBack)
         {
-            if (Query.GetInt("DersID") > 0)
+            try
             {
-                DataTable dtDers = Dersler.DersProfilDondur(Query.GetInt("DersID"));
-                
-                if (dtDers != null && dtDers.Rows.Count > 0)
+                int queryDersID = Query.GetInt("DersID");
+                if (queryDersID > 0)
                 {
+                    session.DersYukle(queryDersID);
                     //Ders kod ve isim
-                    if (Util.GecerliString(dtDers.Rows[0]["KOD"]) && Util.GecerliString(dtDers.Rows[0]["ISIM"]))
+                    if (!string.IsNullOrEmpty(session.DersKod) && !string.IsNullOrEmpty(session.DersIsim))
                     {
-                        lblDersIsim.Text = dtDers.Rows[0]["KOD"].ToString() + " - " + dtDers.Rows[0]["ISIM"].ToString();
-                        session.DersKod = dtDers.Rows[0]["KOD"].ToString();
+                        lblDersIsim.Text = session.DersKod + " - " + session.DersIsim;
+                    }
+                    else
+                    {
+                        lblDersIsim.Text = "";
                     }
                     //Ders aciklama
-                    if (Util.GecerliString(dtDers.Rows[0]["ACIKLAMA"]))
+                    if (!string.IsNullOrEmpty(session.DersAciklama))
                     {
-                        lblDersAciklama.Text = dtDers.Rows[0]["ACIKLAMA"].ToString();
+                        lblDersAciklama.Text = session.DersAciklama;
                     }
-                    if (Util.GecerliString(dtDers.Rows[0]["OKUL_ISIM"]))
+                    else
                     {
-                        lblDersOkulIsim.Text = dtDers.Rows[0]["OKUL_ISIM"].ToString();
-                        session.DersOkulIsim = dtDers.Rows[0]["OKUL_ISIM"].ToString();
+                        lblDersAciklama.Text = "";
                     }
-                    if (Util.GecerliStringSayi(dtDers.Rows[0]["OKUL_ID"]))
+                    //Ders okul isim (Dersin verildigi okulun ismi)
+                    if (!string.IsNullOrEmpty(session.DersOkulIsim))
                     {
-                        session.DersOkulID = Convert.ToInt32(dtDers.Rows[0]["OKUL_ID"].ToString());
+                        lblDersOkulIsim.Text = session.DersOkulIsim;
                     }
-
+                    else
+                    {
+                        lblDersOkulIsim.Text = "";
+                    }
+                    lnkDersDosyalar.NavigateUrl = DersDosyaURLDondur(queryDersID);
                 }
-                lnkDersDosyalar.NavigateUrl = DersDosyaURLDondur(Query.GetInt("DersID"));
+            }
+            catch (Exception ex)
+            {
+                Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+                GoToDefaultPage();
             }
         }
     }
