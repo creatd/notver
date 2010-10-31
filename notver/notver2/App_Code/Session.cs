@@ -71,13 +71,41 @@ public class Session
                 {
                     this.DersKod = dtDers.Rows[0]["KOD"].ToString();
                 }
+                else
+                {
+                    this.DersKod = "";
+                }
                 if (Util.GecerliStringSayi(dtDers.Rows[0]["OKUL_ID"]))
                 {
                     this.DersOkulID = Convert.ToInt32(dtDers.Rows[0]["OKUL_ID"]);
                 }
+                else
+                {
+                    this.DersOkulID = -1;
+                }
                 if (Util.GecerliString(dtDers.Rows[0]["OKUL_ISIM"]))
                 {
                     this.DersOkulIsim = dtDers.Rows[0]["OKUL_ISIM"].ToString();
+                }
+                else
+                {
+                    this.DersOkulIsim = "";
+                }
+                if (Util.GecerliString(dtDers.Rows[0]["ISIM"]))
+                {
+                    this.DersIsim = dtDers.Rows[0]["ISIM"].ToString();
+                }
+                else
+                {
+                    this.DersIsim = "";
+                }
+                if (Util.GecerliString(dtDers.Rows[0]["ACIKLAMA"]))
+                {
+                    this.DersAciklama = dtDers.Rows[0]["ACIKLAMA"].ToString();
+                }
+                else
+                {
+                    this.DersAciklama = "";
                 }
             }
             else  //Profil yuklerken bir hata olustu
@@ -87,6 +115,8 @@ public class Session
                 this.DersKod = "";
                 this.DersOkulID = -1;
                 this.DersOkulIsim = "";
+                this.DersIsim = "";
+                this.DersAciklama = "";
             }
         }
     }
@@ -126,6 +156,44 @@ public class Session
         set
         {
             HttpContext.Current.Session["DersKod"] = value;
+        }
+    }
+
+    public string DersIsim
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersIsim"] != null)
+            {
+                return HttpContext.Current.Session["DersIsim"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["DersIsim"] = value;
+        }
+    }
+
+    public string DersAciklama
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersAciklama"] != null)
+            {
+                return HttpContext.Current.Session["DersAciklama"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["DersAciklama"] = value;
         }
     }
 
@@ -181,9 +249,18 @@ public class Session
                     {
                         this.HocaIsim = dtHoca.Rows[0]["HOCA_ISIM"].ToString();
                     }
+                    else
+                    {
+                        this.HocaIsim = "";
+                    }
+
                     if (Util.GecerliString(dtHoca.Rows[0]["HOCA_UNVAN"]))
                     {
                         this.HocaUnvan = dtHoca.Rows[0]["HOCA_UNVAN"].ToString();
+                    }
+                    else
+                    {
+                        this.HocaUnvan = "";
                     }
 
                     //Hocanin kayitli oldugu bir okul yok!
@@ -374,6 +451,165 @@ public class Session
         }
     }
 
+    public void OkulYukle(int OkulID)
+    {
+        if (OkulID != this.OkulID)
+        {
+            DataTable dtOkul = Okullar.OkulProfilDondur(OkulID);
+            if (dtOkul != null && dtOkul.Rows.Count > 0)
+            {
+                this.OkulID = OkulID;
+                if (Util.GecerliString(dtOkul.Rows[0]["ISIM"]))
+                {
+                    this.OkulIsim = dtOkul.Rows[0]["ISIM"].ToString();
+                }
+                else
+                {
+                    this.OkulIsim = "";
+                }
+
+                //Kurulus tarihi
+                if (dtOkul.Rows[0]["KURULUS_TARIHI"] != System.DBNull.Value)
+                {
+                    DateTime dateTime;
+                    DateTime.TryParse(dtOkul.Rows[0]["KURULUS_TARIHI"].ToString(), out dateTime);
+                    this.OkulKurulusTarihi = dateTime;
+                }
+                else
+                {
+                    this.OkulKurulusTarihi = DateTime.MinValue;
+                }
+
+                //Okul adresi
+                if (Util.GecerliString(dtOkul.Rows[0]["ADRES"]))
+                {
+                    this.OkulAdres = dtOkul.Rows[0]["ADRES"].ToString();
+                }
+                else
+                {
+                    this.OkulAdres = "";
+                }
+
+                //Ogrenci sayisi
+                if (Util.GecerliStringSayi(dtOkul.Rows[0]["OGRENCI_SAYISI"]))
+                {
+                    this.OkulOgrenciSayisi = Convert.ToInt32(dtOkul.Rows[0]["OGRENCI_SAYISI"]);
+                }
+                else
+                {
+                    this.OkulOgrenciSayisi = -1;
+                }
+
+                //Akademik personel sayisi
+                if (Util.GecerliStringSayi(dtOkul.Rows[0]["AKADEMIK_SAYISI"]))
+                {
+                    this.OkulAkademikSayisi = Convert.ToInt32(dtOkul.Rows[0]["AKADEMIK_SAYISI"]);
+                }
+                else
+                {
+                    this.OkulAkademikSayisi = -1;
+                }
+
+                //Web adresi
+                if (Util.GecerliString(dtOkul.Rows[0]["WEB_ADRESI"]))
+                {
+                    this.OkulWebAdresi = dtOkul.Rows[0]["WEB_ADRESI"].ToString();
+                }
+                else
+                {
+                    this.OkulWebAdresi = "";
+                }
+            }
+            else  //Profil yuklerken bir hata olustu
+            {
+                //Okulla ilgili butun degiskenleri sifirla
+                this.OkulAdres = "";
+                this.OkulAkademikSayisi = -1;
+                this.OkulID = -1;
+                this.OkulIsim = "";
+                this.OkulKurulusTarihi = DateTime.MinValue;
+                this.OkulOgrenciSayisi = -1;
+                this.OkulWebAdresi = "";
+            }
+        }
+    }
+
+    public DateTime OkulKurulusTarihi
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulKurulusTarihi"] != null)
+            {
+                return (DateTime)HttpContext.Current.Session["OkulKurulusTarihi"];
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulKurulusTarihi"] = value;
+        }
+    }
+
+    public int OkulAkademikSayisi
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulAkademikSayisi"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["OkulAkademikSayisi"]);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulAkademikSayisi"] = value;
+        }
+    }
+
+    public int OkulOgrenciSayisi
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulOgrenciSayisi"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["OkulOgrenciSayisi"]);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulOgrenciSayisi"] = value;
+        }
+    }
+
+    public int OkulID
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulID"] != null)
+            {
+                return Convert.ToInt32(HttpContext.Current.Session["OkulID"]);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulID"] = value;
+        }
+    }
+
     public string OkulIsim
     {
         get
@@ -390,6 +626,44 @@ public class Session
         set
         {
             HttpContext.Current.Session["OkulIsim"] = value;
+        }
+    }
+
+    public string OkulAdres
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulAdres"] != null)
+            {
+                return HttpContext.Current.Session["OkulAdres"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulAdres"] = value;
+        }
+    }
+
+    public string OkulWebAdresi
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulWebAdresi"] != null)
+            {
+                return HttpContext.Current.Session["OkulWebAdresi"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["OkulWebAdresi"] = value;
         }
     }
 

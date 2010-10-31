@@ -48,7 +48,7 @@
                                 <tr>
                                     <td>
                                         <h1>
-                                            <a id="A1" href="~/Default.aspx" runat="server">NotVer.com</a></h1>
+                                            <a id="A1" href="~/Default.aspx" runat="server">NotVerin.com</a></h1>
                                     </td>
                                     <td style="float: right;">
                                         <uc1:LoginBox runat="server" ID="loginBox1"></uc1:LoginBox>

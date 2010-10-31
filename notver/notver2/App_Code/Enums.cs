@@ -80,4 +80,11 @@ public class Enums
         Erkek = 0,  
         Kiz = 1     
     }
+
+    public enum SistemHataSeviyesi
+    {
+        Dusuk = 1,
+        Orta = 2,
+        Yuksek = 3
+    }
 }
