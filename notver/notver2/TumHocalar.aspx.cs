@@ -16,13 +16,13 @@ public partial class TumHocalar : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            DataTable dtOkullar = null;
-            //Query string'de OkulID varsa o okul icin dondurecegiz
-            if(Query.GetInt("OkulID") > 0)
+            if (!Page.IsPostBack)
             {
-                try
+                DataTable dtOkullar = null;
+                //Query string'de OkulID varsa o okul icin dondurecegiz
+                if (Query.GetInt("OkulID") > 0)
                 {
                     int okulID = Query.GetInt("OkulID");
                     dtOkullar = Okullar.OkulProfilDondur(okulID);
@@ -31,30 +31,32 @@ public partial class TumHocalar : BasePage
                         dtOkullar.Columns.Add(new DataColumn("OKUL_ID", System.Type.GetType("System.Int32")));
                         dtOkullar.Rows[0]["OKUL_ID"] = okulID;
                     }
-                }
-                catch (Exception ex)
-                {   //TODO: admin'e haber ver. Gerci adam kendi de bozmus olabilir query string'i
-                    GoToDefaultPage();
-                }
-            }
-            else  //Query string'de OkulID yok, tum okullar icin dondurecegiz
-            {
-                dtOkullar = Okullar.OkullariDondur();
-            }
 
-            if (dtOkullar != null)
-            {
-                repeaterOkullar.DataSource = dtOkullar;
-                repeaterOkullar.DataBind();
-                repeaterOkullar.Visible = true;
-                HarfDiziniOlustur(dtOkullar);
-            }
-            else
-            {
-                repeaterOkullar.Visible = false;
-            }
+                }
+                else  //Query string'de OkulID yok, tum okullar icin dondurecegiz
+                {
+                    dtOkullar = Okullar.OkullariDondur();
+                }
 
+                if (dtOkullar != null)
+                {
+                    repeaterOkullar.DataSource = dtOkullar;
+                    repeaterOkullar.DataBind();
+                    repeaterOkullar.Visible = true;
+                    HarfDiziniOlustur(dtOkullar);
+                }
+                else
+                {
+                    repeaterOkullar.Visible = false;
+                }
+            }
         }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            GoToDefaultPage();
+        }
+
     }
 
     protected void HarfDiziniOlustur(DataTable dtOkullar)

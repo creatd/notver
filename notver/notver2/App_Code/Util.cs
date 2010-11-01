@@ -265,4 +265,22 @@ public class Util
         }
         return false;
     }
+
+    public static string HTMLToDB(string str)
+    {
+        while (str.Contains(System.Environment.NewLine))
+        {
+            str = str.Replace(System.Environment.NewLine, "<br/>");
+        }
+        return str;
+    }
+
+    public static string DBToHTML(string str)
+    {
+        while (str.Contains("<br/>"))
+        {
+            str = str.Replace("<br/>",System.Environment.NewLine);
+        }
+        return str;
+    }
 }

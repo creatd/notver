@@ -28,7 +28,7 @@ public partial class UserControls_Ayrac : BaseUserControl
                 lnkSeviye4.Visible = false;
                 if (url.Contains("TumDersler.aspx"))
                 {
-                    lnkSeviye1.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx");
+                    /*lnkSeviye1.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx");
                     lnkSeviye1.Text = "Tum dersler";
                     lnkSeviye1.Visible = true;
                     if (Query.GetInt("OkulID") > 0 && Util.GecerliString(session.OkulIsim))
@@ -37,11 +37,12 @@ public partial class UserControls_Ayrac : BaseUserControl
                         lnkSeviye2.Text = ayrac + session.OkulIsim + "'ndeki dersler";
                         lnkSeviye2.Enabled = false;
                         lnkSeviye2.Visible = true;
-                    }
+                    }*/
+                    pnlAyrac.Visible = false;
                 }
                 else if (url.Contains("TumHocalar.aspx"))
                 {
-                    lnkSeviye1.NavigateUrl = Page.ResolveUrl("~/TumHocalar.aspx");
+                    /*lnkSeviye1.NavigateUrl = Page.ResolveUrl("~/TumHocalar.aspx");
                     lnkSeviye1.Text = "Tum hocalar";
                     lnkSeviye1.Visible = true;
                     if (Query.GetInt("OkulID") > 0 && Util.GecerliString(session.OkulIsim))
@@ -50,7 +51,8 @@ public partial class UserControls_Ayrac : BaseUserControl
                         lnkSeviye2.Text = ayrac + session.OkulIsim + "'ndeki hocalar";
                         lnkSeviye2.Enabled = false;
                         lnkSeviye2.Visible = true;
-                    }
+                    }*/
+                    pnlAyrac.Visible = false;
                 }
                 else if (url.Contains("Ders.aspx"))
                 {

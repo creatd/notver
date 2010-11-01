@@ -20,7 +20,7 @@ public partial class UserControls_OkulTumDersler : BaseUserControl
         set { _okulID = value; }
     }
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {

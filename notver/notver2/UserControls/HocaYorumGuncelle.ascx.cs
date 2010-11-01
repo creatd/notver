@@ -65,7 +65,7 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
     }
 
 
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {
@@ -107,7 +107,7 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
                     {
                         //yorumID - yorum - kullanici puan araligi - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu - OkulIsmi)| (-1 - Ders Ismi) }(*)
                         hocaYorumID = (int)listEskiYorum[0];
-                        textYorum.Text = (string)listEskiYorum[1];
+                        textYorum.Text = Util.DBToHTML((string)listEskiYorum[1]);
                         dropGenelPuan.SelectedValue = Convert.ToString(listEskiYorum[2]);
                         Puan1.CurrentRating = (int)listEskiYorum[3];
                         Puan2.CurrentRating = (int)listEskiYorum[4];

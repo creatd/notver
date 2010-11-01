@@ -78,7 +78,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
 
 
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {

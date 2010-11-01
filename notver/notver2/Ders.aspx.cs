@@ -15,9 +15,9 @@ public partial class Ders : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            try
+            if (!Page.IsPostBack)
             {
                 int queryDersID = Query.GetInt("DersID");
                 if (queryDersID > 0)
@@ -53,11 +53,11 @@ public partial class Ders : BasePage
                     lnkDersDosyalar.NavigateUrl = DersDosyaURLDondur(queryDersID);
                 }
             }
-            catch (Exception ex)
-            {
-                Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
-                GoToDefaultPage();
-            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            GoToDefaultPage();
         }
     }
 }

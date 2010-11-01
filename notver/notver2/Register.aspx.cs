@@ -15,18 +15,26 @@ public partial class Register : BasePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        if (session.IsLoggedIn)
+        try
         {
-            GoToDefaultPage();
-        }
-        if (!Page.IsPostBack)
-        {
-            DropDownList Okullar = ddOkullar as DropDownList;
-            Okullar.Items.Add(new ListItem("-", "-1"));
-            foreach (DataRow dr in session.dtOkullar.Rows)
+            if (session.IsLoggedIn)
             {
-                Okullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                GoToDefaultPage();
             }
+            if (!Page.IsPostBack)
+            {
+                DropDownList Okullar = ddOkullar as DropDownList;
+                Okullar.Items.Add(new ListItem("-", "-1"));
+                foreach (DataRow dr in session.dtOkullar.Rows)
+                {
+                    Okullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            GoToDefaultPage();
         }
     }
 
