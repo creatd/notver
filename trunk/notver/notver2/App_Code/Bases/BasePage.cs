@@ -105,12 +105,12 @@ public class BasePage : System.Web.UI.Page
 
     protected string DersLinkiniDondur(string dersKod, string dersIsim, string dersID)
     {
-        return "<a href='" + Page.ResolveUrl("~/Ders.aspx") + "?DersID=" + dersID + "' tooltip='" + dersIsim + "'\">" + dersKod + "</a>";
+        return "<a href='" + Page.ResolveUrl("~/Ders.aspx") + "?DersID=" + dersID + "' title='" + dersIsim + "'\">" + dersKod + "</a>";
     }
 
     protected string DersDosyalarLinkiniDondur(string dersID)
     {
-        return "<a href='" + Page.ResolveUrl("~/DersDosya.aspx") + "?DersID=" + dersID + "' tooltip='Dersle ilgili dosyalar'>" +
-                "<img src='" + Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
+        return "<a href='" + Page.ResolveUrl("~/DersDosya.aspx") + "?DersID=" + dersID + "' title='Dersle ilgili dosyalar'>" +
+                "<img src='" + Page.ResolveUrl("~/App_Themes/Default/Images/Diger/disket.gif") + "' /></a>";
     }
 }

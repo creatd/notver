@@ -7,25 +7,28 @@ MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="tumContent">
 <uc1:Ayrac runat="server" ID="ayrac" />
-<div>
+<div id="divArkaplan" style="background:url('App_Themes/default/Images/defter/IMG_0004.jpg') no-repeat 0 0 White; margin-bottom:20px; padding-bottom:10px;">
     <table>
         <tr>
-            <td>
-                <asp:Label runat="server" ID="lblDersIsim"></asp:Label>
-                <br />
-                <asp:Label runat="server" ID="lblDersOkulIsim"></asp:Label>
+            <td style="padding-left:110px;padding-top:10px;"">
+                <h1><asp:Label runat="server" ID="lblDersIsim"></asp:Label></h1>
+                <h2>(<asp:Label runat="server" ID="lblDersOkulIsim"></asp:Label>)</h2>
             </td>
-            <td>
-                <asp:HyperLink runat="server" ID="lnkDersDosyalar">Dersle ilgili bircok dosya icin tiklayin</asp:HyperLink>
+            <td style="text-align:center;padding-top:10px;"">
+                <asp:HyperLink runat="server" ID="lnkDersDosyalar"><img src="App_Themes/Default/Images/diger/disket.gif" /> <br/>Dersle ilgili bircok dosya icin tiklayin </asp:HyperLink>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="2"style="padding-left:110px; padding-top:10px;">
                 <asp:Label runat="server" ID="lblDersAciklama"></asp:Label>
                 <br />                
                 <!-- Dersi veren hocalari link olarak buraya koy -->
             </td>
         </tr>
+    </table>
+</div>
+<div>
+    <table>
         <tr>
             <td colspan="2">
                 <uc1:DersYorumlari runat="server" ID="dersYorumlari"></uc1:DersYorumlari>

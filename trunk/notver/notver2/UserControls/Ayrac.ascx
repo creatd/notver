@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Ayrac.ascx.cs" Inherits="UserControls_Ayrac" %>
-<asp:Panel runat="server" ID="pnlAyrac">
+<asp:Panel runat="server" ID="pnlAyrac" CssClass="Ayrac">
     <table style="font-weight: bold; text-align: right;">
         <tr>
             <td>

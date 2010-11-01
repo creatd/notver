@@ -228,7 +228,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", yorum);
+            param = new SqlParameter("Yorum", Util.HTMLToDB(yorum));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);

@@ -50,7 +50,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 
 
 
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {

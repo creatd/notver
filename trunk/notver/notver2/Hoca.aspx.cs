@@ -17,9 +17,9 @@ public partial class Hoca : BasePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            try
+            if (!Page.IsPostBack)
             {
                 int queryHocaID = Query.GetInt("HocaID");
                 if (queryHocaID > 0)
@@ -37,7 +37,7 @@ public partial class Hoca : BasePage
                         {
                             hocaIsim.Text = session.HocaIsim;
                             Page.Title = "NotVer.com - " + session.HocaIsim;
-                        }                        
+                        }
                     }
                     else
                     {
@@ -45,7 +45,7 @@ public partial class Hoca : BasePage
                     }
 
                     //Hoca okullar
-                    if(session.HocaOkulIsimleri == null || session.HocaOkulIsimleri.Count() <= 0)
+                    if (session.HocaOkulIsimleri == null || session.HocaOkulIsimleri.Count() <= 0)
                     {
                         hocaOkullar.Text = "<span class=\"HocaOkullar\">(Okul bilgisi bulunamadi!)</span>";
                     }
@@ -53,12 +53,12 @@ public partial class Hoca : BasePage
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append("<span class=\"HocaOkullar\">");
-                        for(int i=0; i<session.HocaOkulIsimleri.Count() ; i++)
+                        for (int i = 0; i < session.HocaOkulIsimleri.Count(); i++)
                         {
-                            if(!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
+                            if (!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
                             {
                                 sb.Append(session.HocaOkulIsimleri[i] + "<br />(" + session.HocaOkulBaslangicYillari[i] + " - ");
-                                if(session.HocaOkulBitisYillari[i] > 0)
+                                if (session.HocaOkulBitisYillari[i] > 0)
                                 {
                                     sb.Append(session.HocaOkulBitisYillari[i]);
                                 }
@@ -71,41 +71,42 @@ public partial class Hoca : BasePage
                         }
                         sb.Append("</span>");
                         hocaOkullar.Text = sb.ToString();
-                    }                    
+                    }
+                }                
+            }
+            pnlUyeOl.Visible = false;
+            pnlYorumum.Visible = false;
+            if (session.IsLoggedIn)
+            {
+                pnlYorumum.Visible = true;
+                bool yorumVar = false;
+
+                if (Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID")))
+                {
+                    yorumVar = true;
                 }
-            }
-            catch(Exception ex)
-            {
-                Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
-                GoToDefaultPage();
-            }
-        }
-        pnlUyeOl.Visible = false;
-        pnlYorumum.Visible = false;
-        if (session.IsLoggedIn)
-        {
-            pnlYorumum.Visible = true;
-            bool yorumVar = false;
 
-            if (Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID")))
-            {
-                yorumVar = true;
-            }
-
-            if (yorumVar)
-            {
-                //Linke basinca guncelleme acilsin
-                lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumGuncelle.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+                if (yorumVar)
+                {
+                    //Linke basinca guncelleme acilsin
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumGuncelle.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+                }
+                else
+                {
+                    //Linke basinca yeni yorum gonderme acilsin
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumYap.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+                }
             }
             else
             {
-                //Linke basinca yeni yorum gonderme acilsin
-                lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumYap.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+                pnlUyeOl.Visible = true;
             }
         }
-        else
+        catch (Exception ex)
         {
-            pnlUyeOl.Visible = true;
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            GoToDefaultPage();
         }
     }
+
 }

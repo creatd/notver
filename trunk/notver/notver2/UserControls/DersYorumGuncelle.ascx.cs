@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class UserControls_DersYorumGuncelle : BaseUserControl
 {
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {
@@ -54,7 +54,7 @@ public partial class UserControls_DersYorumGuncelle : BaseUserControl
                 {
                     if (Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
                     {
-                        textYorum.Text = dtEskiYorum.Rows[0]["YORUM"].ToString();
+                        textYorum.Text = Util.DBToHTML(dtEskiYorum.Rows[0]["YORUM"].ToString());
                     }
                     //HocaID'yi sec
                     if (Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))

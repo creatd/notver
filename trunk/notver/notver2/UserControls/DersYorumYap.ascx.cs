@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class UserControls_DersYorumYap : BaseUserControl
 {
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {

@@ -15,7 +15,7 @@ using System.IO;
 
 public partial class UserControls_HocaResmi : BaseUserControl
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {

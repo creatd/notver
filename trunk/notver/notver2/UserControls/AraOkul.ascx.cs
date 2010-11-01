@@ -36,7 +36,11 @@ public partial class UserControls_AraOkul : BaseUserControl
     {
         try
         {
-            OkulaGit(okulIsmi.SelectedValue.ToString());
+            int secilenOkulID = Convert.ToInt32(okulIsmi.SelectedValue);
+            if (Query.GetInt("OkulID") != secilenOkulID)
+            {
+                OkulaGit(okulIsmi.SelectedValue.ToString());
+            }
         }
         catch (Exception ex)
         {

@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class UserControls_OkulYorumGuncelle : BaseUserControl
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {
@@ -27,7 +27,7 @@ public partial class UserControls_OkulYorumGuncelle : BaseUserControl
                     string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
                     if (Util.GecerliString(eskiYorum))
                     {
-                        textYorum.Text = eskiYorum;
+                        textYorum.Text = Util.DBToHTML(eskiYorum);
                     }
 
                 }

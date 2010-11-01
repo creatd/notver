@@ -15,13 +15,13 @@ public partial class SearchResults : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            int searchType = -1;
-            string searchParameters = "";
-            try 
-	        {	        
-        		searchType = Convert.ToInt32(Request.QueryString["SearchType"].ToString().Trim());
+            if (!Page.IsPostBack)
+            {
+                int searchType = -1;
+                string searchParameters = "";
+                searchType = Convert.ToInt32(Request.QueryString["SearchType"].ToString().Trim());
                 searchParameters = Request.QueryString["SearchParams"].ToString().Trim();
                 switch (searchType)
                 {
@@ -56,14 +56,12 @@ public partial class SearchResults : BasePage
                         }
                         break;
                 }
-	        }
-	        catch (Exception)
-	        {        		
-		        GoToDefaultPage();
-	        }
-            
-
-
+            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            GoToDefaultPage();
         }
     }
 
