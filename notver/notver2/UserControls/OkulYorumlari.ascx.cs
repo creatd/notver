@@ -80,16 +80,23 @@ public partial class UserControls_OkulYorumlari : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            if (Query.GetInt("OkulID") <= 0)
+            if (!Page.IsPostBack)
             {
-                KontroluSakla();
-                return;
+                if (Query.GetInt("OkulID") <= 0)
+                {
+                    KontroluSakla();
+                    return;
+                }
+                MevcutSayfa = 1;
+                SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+                YorumlariDoldur();
             }
-            MevcutSayfa = 1;
-            SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
-            YorumlariDoldur();
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

@@ -67,123 +67,130 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            KontroluSakla();
-            hocaKullaniciDerslerObj = hocaKullaniciDersler;
-            hocaKullaniciDerslerObj.Clear();
-            hocaKullaniciDersler = hocaKullaniciDerslerObj;
-        }
-
-        if (Query.GetInt("HocaID") <= 0)
-        {
-            return;
-        }
-        if (session.IsLoggedIn && session.KullaniciID > 0)
-        {
-            pnlPuanYorum.Visible = true;
-            pnlUyeOl.Visible = false;
-
-            if (session.hocaPuanAciklamalari.Length == 5)
-            {
-                Aciklama1.Text = session.hocaPuanAciklamalari[0];
-                Aciklama2.Text = session.hocaPuanAciklamalari[1];
-                Aciklama3.Text = session.hocaPuanAciklamalari[2];
-                Aciklama4.Text = session.hocaPuanAciklamalari[3];
-                Aciklama5.Text = session.hocaPuanAciklamalari[4];
-            }
-            else
-            {
-                //TODO: admin mesaj
-            }
-
             if (!Page.IsPostBack)
             {
-                //Kullanicinin daha once yaptigi yorumu yukle
-                List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, Query.GetInt("HocaID"));
-                if (listEskiYorum != null)
-                {
-                    //yorumID - yorum - kullanici puan araligi - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu - OkulIsmi)| (-1 - Ders Ismi) }(*)
-                    hocaYorumID = (int)listEskiYorum[0];
-                    textYorum.Text = (string)listEskiYorum[1];
-                    dropGenelPuan.SelectedValue = Convert.ToString(listEskiYorum[2]);
-                    Puan1.CurrentRating = (int)listEskiYorum[3];
-                    Puan2.CurrentRating = (int)listEskiYorum[4];
-                    Puan3.CurrentRating = (int)listEskiYorum[5];
-                    Puan4.CurrentRating = (int)listEskiYorum[6];
-                    Puan5.CurrentRating = (int)listEskiYorum[7];
-                    hocaKullaniciDerslerObj = hocaKullaniciDersler;
-                    hocaKullaniciDerslerIDlerObj = hocaKullaniciDerslerIDler;
-                    for (int i = 8; i < listEskiYorum.Count - 1;)
-                    {
-                        if ((int)listEskiYorum[i] == -1)
-                        {
-                            hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1]);
-                            //Her "Diger" secenegi icin ID'lere de ekleyelim ki Dersler ve DerslerIDler'in index'leri ayni olsun
-                            hocaKullaniciDerslerIDlerObj.Add(-2);   //-2 degeri Hocalar sinifinda da kullaniliyor
-                            i += 2;
-                        }
-                        else
-                        {
-                            string okulIsmi = (string)listEskiYorum[i + 2];
-                            if (okulIsmi.Length > 20)
-                            {
-                                hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
-                            }
-                            else
-                            {
-                                hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
-                                dropHocaDersler.Items.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 20) + ")");
-                            }
-                            hocaKullaniciDerslerIDlerObj.Add((int)listEskiYorum[i]);
-                            i += 3;
-                        }
-                    }
-                    hocaKullaniciDersler = hocaKullaniciDerslerObj;
-                    hocaKullaniciDerslerIDler = hocaKullaniciDerslerIDlerObj;
+                KontroluSakla();
+                hocaKullaniciDerslerObj = hocaKullaniciDersler;
+                hocaKullaniciDerslerObj.Clear();
+                hocaKullaniciDersler = hocaKullaniciDerslerObj;
+            }
 
-                    repeaterDersler.DataSource = hocaKullaniciDersler;
-                    repeaterDersler.DataBind();
+            if (Query.GetInt("HocaID") <= 0)
+            {
+                return;
+            }
+            if (session.IsLoggedIn && session.KullaniciID > 0)
+            {
+                pnlPuanYorum.Visible = true;
+                pnlUyeOl.Visible = false;
+
+                if (session.hocaPuanAciklamalari.Length == 5)
+                {
+                    Aciklama1.Text = session.hocaPuanAciklamalari[0];
+                    Aciklama2.Text = session.hocaPuanAciklamalari[1];
+                    Aciklama3.Text = session.hocaPuanAciklamalari[2];
+                    Aciklama4.Text = session.hocaPuanAciklamalari[3];
+                    Aciklama5.Text = session.hocaPuanAciklamalari[4];
                 }
                 else
                 {
-                    //TODO: eski yorumu yukleyemedik, pop-up'i kapatmaliyiz ya da uyari mesaji vermeliyiz
+                    //TODO: admin mesaj
                 }
-            }
 
-            if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
-            //girsin diye koydum
-            {
-                dropHocaDersler.Items.Clear();
-                //Hocanin verdigi dersleri yukleyip dropdown'a yukle
-                dropHocaDersler.Items.Add(new ListItem("", "-1"));
-                string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
-
-                if (hocaDersler != null)
+                if (!Page.IsPostBack)
                 {
-                    dersIsimleri = new string[hocaDersler.Length];
-                    for (int i = 0; i < hocaDersler.Length; i++)
+                    //Kullanicinin daha once yaptigi yorumu yukle
+                    List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, Query.GetInt("HocaID"));
+                    if (listEskiYorum != null)
                     {
-                        //Okul ismi uzunsa kisalt
-                        string okulIsmi = hocaDersler[i][3];
-                        if (okulIsmi.Length > 20)
+                        //yorumID - yorum - kullanici puan araligi - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu - OkulIsmi)| (-1 - Ders Ismi) }(*)
+                        hocaYorumID = (int)listEskiYorum[0];
+                        textYorum.Text = (string)listEskiYorum[1];
+                        dropGenelPuan.SelectedValue = Convert.ToString(listEskiYorum[2]);
+                        Puan1.CurrentRating = (int)listEskiYorum[3];
+                        Puan2.CurrentRating = (int)listEskiYorum[4];
+                        Puan3.CurrentRating = (int)listEskiYorum[5];
+                        Puan4.CurrentRating = (int)listEskiYorum[6];
+                        Puan5.CurrentRating = (int)listEskiYorum[7];
+                        hocaKullaniciDerslerObj = hocaKullaniciDersler;
+                        hocaKullaniciDerslerIDlerObj = hocaKullaniciDerslerIDler;
+                        for (int i = 8; i < listEskiYorum.Count - 1; )
                         {
-                            dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 18) + "..)", hocaDersler[i][1]));
+                            if ((int)listEskiYorum[i] == -1)
+                            {
+                                hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1]);
+                                //Her "Diger" secenegi icin ID'lere de ekleyelim ki Dersler ve DerslerIDler'in index'leri ayni olsun
+                                hocaKullaniciDerslerIDlerObj.Add(-2);   //-2 degeri Hocalar sinifinda da kullaniliyor
+                                i += 2;
+                            }
+                            else
+                            {
+                                string okulIsmi = (string)listEskiYorum[i + 2];
+                                if (okulIsmi.Length > 20)
+                                {
+                                    hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
+                                }
+                                else
+                                {
+                                    hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
+                                    dropHocaDersler.Items.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 20) + ")");
+                                }
+                                hocaKullaniciDerslerIDlerObj.Add((int)listEskiYorum[i]);
+                                i += 3;
+                            }
                         }
-                        else
-                        {
-                            dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
-                        }
-                        dersIsimleri[i] = hocaDersler[i][2];
+                        hocaKullaniciDersler = hocaKullaniciDerslerObj;
+                        hocaKullaniciDerslerIDler = hocaKullaniciDerslerIDlerObj;
+
+                        repeaterDersler.DataSource = hocaKullaniciDersler;
+                        repeaterDersler.DataBind();
+                    }
+                    else
+                    {
+                        //TODO: eski yorumu yukleyemedik, pop-up'i kapatmaliyiz ya da uyari mesaji vermeliyiz
                     }
                 }
-                dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
+
+                if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
+                //girsin diye koydum
+                {
+                    dropHocaDersler.Items.Clear();
+                    //Hocanin verdigi dersleri yukleyip dropdown'a yukle
+                    dropHocaDersler.Items.Add(new ListItem("", "-1"));
+                    string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
+
+                    if (hocaDersler != null)
+                    {
+                        dersIsimleri = new string[hocaDersler.Length];
+                        for (int i = 0; i < hocaDersler.Length; i++)
+                        {
+                            //Okul ismi uzunsa kisalt
+                            string okulIsmi = hocaDersler[i][3];
+                            if (okulIsmi.Length > 20)
+                            {
+                                dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 18) + "..)", hocaDersler[i][1]));
+                            }
+                            else
+                            {
+                                dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
+                            }
+                            dersIsimleri[i] = hocaDersler[i][2];
+                        }
+                    }
+                    dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
+                }
+            }
+            else  //Giris yapmamis
+            {
+                pnlPuanYorum.Visible = false;
+                pnlUyeOl.Visible = true;
             }
         }
-        else  //Giris yapmamis
+        catch (Exception ex)
         {
-            pnlPuanYorum.Visible = false;
-            pnlUyeOl.Visible = true;
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

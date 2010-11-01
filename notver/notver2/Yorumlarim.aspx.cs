@@ -40,9 +40,9 @@ public partial class Yorumlarim : BasePage
             btnHocaYorumlarim.Enabled = true;
             btnOkulYorumlarim.Enabled = true;
 
-            if(session.KullaniciAktifYorumSayisi > 0)
+            if(session.KullaniciAktifYorumSayisi >= 0)
             {
-                lblYorumOzeti.Text = session.KullaniciAktifYorumSayisi + " aktif yorumunuz bulunmaktadir";
+                lblYorumOzeti.Text = "Görüntülenen <strong>" + session.KullaniciAktifYorumSayisi + "</strong> yorumunuz bulunmaktadır";
             }
         }
         if (YorumTipi == Enums.YorumTipi.Gecersiz)
@@ -86,6 +86,9 @@ public partial class Yorumlarim : BasePage
         btnHocaYorumlarim.Enabled = false;
         btnDersYorumlarim.Enabled = true;
         btnOkulYorumlarim.Enabled = true;
+        btnHocaYorumlarim.CssClass = "bold";
+        btnDersYorumlarim.CssClass = "";
+        btnOkulYorumlarim.CssClass = "";
     }
 
     protected void OkulYorumlariniGoster(object sender, EventArgs e)
@@ -95,15 +98,21 @@ public partial class Yorumlarim : BasePage
         btnHocaYorumlarim.Enabled = true;
         btnDersYorumlarim.Enabled = true;
         btnOkulYorumlarim.Enabled = false;
+        btnHocaYorumlarim.CssClass = "";
+        btnDersYorumlarim.CssClass = "";
+        btnOkulYorumlarim.CssClass = "bold";
     }
 
     protected void DersYorumlariniGoster(object sender, EventArgs e)
     {
         YorumTipi = Enums.YorumTipi.DersYorum;
         DersYorumlariniDoldur();
-        btnHocaYorumlarim.Enabled = true;
+        btnHocaYorumlarim.Enabled = true;        
         btnDersYorumlarim.Enabled = false;
         btnOkulYorumlarim.Enabled = true;
+        btnHocaYorumlarim.CssClass = "";
+        btnDersYorumlarim.CssClass = "bold";
+        btnOkulYorumlarim.CssClass = "";
     }
 
     protected void DersYorumSil(object sender, EventArgs e)
@@ -192,28 +201,63 @@ public partial class Yorumlarim : BasePage
         }
     }
 
-    /*protected void gridDosyalar_ItemDataBound(object sender, DataGridItemEventArgs e)
+    protected void OkulYorum_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        if (e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
         {
-            if (e.Item.Cells.Count > 2)
+            System.Data.DataRowView drv = (System.Data.DataRowView)(e.Item.DataItem);
+            if (Util.GecerliStringSayi(drv.Row.ItemArray[4]))
             {
-                string dosyaTooltip = "";
-                System.Data.DataRowView drv = (System.Data.DataRowView)(e.Item.DataItem);
-                if (drv.Row.ItemArray.Length > 5)
+                int yorumDurumuInt = Convert.ToInt32(drv.Row.ItemArray[4]);
+                Enums.YorumDurumu yorumDurumu = (Enums.YorumDurumu)yorumDurumuInt;
+                switch (yorumDurumu)
                 {
-                    dosyaTooltip = DosyaTooltipDondur(drv.Row.ItemArray[6].ToString(), drv.Row.ItemArray[4].ToString());
+                    case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
+                    case Enums.YorumDurumu.SistemTarafindanSilinmis:
+                        //Silinmisse guncelle tusunu sakla
+                        //asp:Link kullanip enabled diyerek saklamak daha temiz olurdu
+                        Literal ltrHack = e.Item.FindControl("ltrHack") as Literal;
+                        Literal ltrHack2 = e.Item.FindControl("ltrHack2") as Literal;
+                        ltrHack.Text = "<span style='display:none;'>";
+                        ltrHack2.Text = "</span>";
+                        break;
+                    case Enums.YorumDurumu.OnayBekliyor:
+                        break;
+                    case Enums.YorumDurumu.Onaylanmis:
+                        break;
                 }
-                //1 isim 2 adres
-                if (string.IsNullOrEmpty(drv.Row.ItemArray[1].ToString()))
-                {
-                    e.Item.Cells[0].Text = drv.Row.ItemArray[2].ToString();
-                    e.Item.Cells[2].Text = drv.Row.ItemArray[2].ToString();
-                }
-                e.Item.Cells[2].Text = DosyaAdresDondur(e.Item.Cells[2].Text, dosyaTooltip);
             }
         }
-    }*/
+    }
+
+    protected void DersYorum_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
+        {
+            System.Data.DataRowView drv = (System.Data.DataRowView)(e.Item.DataItem);
+            if (Util.GecerliStringSayi(drv.Row.ItemArray[4]))
+            {
+                int yorumDurumuInt = Convert.ToInt32(drv.Row.ItemArray[4]);
+                Enums.YorumDurumu yorumDurumu = (Enums.YorumDurumu)yorumDurumuInt;
+                switch (yorumDurumu)
+                {
+                    case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
+                    case Enums.YorumDurumu.SistemTarafindanSilinmis:
+                        //Silinmisse guncelle tusunu sakla
+                        //asp:Link kullanip enabled diyerek saklamak daha temiz olurdu
+                        Literal ltrHack = e.Item.FindControl("ltrHack") as Literal;
+                        Literal ltrHack2 = e.Item.FindControl("ltrHack2") as Literal;
+                        ltrHack.Text = "<span style='display:none;'>";
+                        ltrHack2.Text = "</span>";
+                        break;
+                    case Enums.YorumDurumu.OnayBekliyor:
+                        break;
+                    case Enums.YorumDurumu.Onaylanmis:
+                        break;
+                }
+            }
+        }
+    }
 
     protected void HocaYorum_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -241,23 +285,7 @@ public partial class Yorumlarim : BasePage
                         break;
                 }
             }
-            e.Item.FindControl("");
         }
-        /*if (Util.GecerliStringSayi(e.Item))
-        {
-            int yorumDurumuInt = Convert.ToInt32(e.Item.DataItem);
-            Enums.YorumDurum yorumDurumu = (Enums.YorumDurum)yorumDurumuInt;
-            switch (yorumDurumu)
-            {
-                case Enums.YorumDurum.KullaniciTarafindanSilinmis:
-                case Enums.YorumDurum.SistemTarafindanSilinmis:
-                    break;
-                case Enums.YorumDurum.OnayBekliyor:
-                    break;
-                case Enums.YorumDurum.Onaylanmis:
-                    break;
-            }
-        }*/
     }
 
     protected void PanelleriSakla()
@@ -314,4 +342,41 @@ public partial class Yorumlarim : BasePage
         }
     }
 
+    protected string YorumDurumunuDondur(object YorumDurumu)
+    {
+        if (YorumDurumu != null)
+        {
+            int yorumDurumuInt = Convert.ToInt32(YorumDurumu);
+            Enums.YorumDurumu yorumDurumu = (Enums.YorumDurumu)yorumDurumuInt;
+            switch (yorumDurumu)
+            {
+                case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
+                    return "<span style='color:Red;' title='Silmissiniz''>X</span>";
+                case Enums.YorumDurumu.SistemTarafindanSilinmis:
+                    return "<span style='color:Red;' title='Biz sildik'>X</span>";
+                case Enums.YorumDurumu.OnayBekliyor:
+                    return "<span style='color:Gray;' title='Onay bekliyor'>...</span>";
+                case Enums.YorumDurumu.Onaylanmis:
+                    return "<span style='color:Green;' title='Goruntuleniyor'>+</span>";
+            }
+        }
+        return "";
+    }
+
+    protected string YorumKisalt(object Yorum)
+    {
+        if (Util.GecerliString(Yorum))
+        {
+            string yorumStr = Yorum.ToString();
+            if (yorumStr.Length > 100)
+            {
+                return yorumStr.Substring(0, 97) + "...";
+            }
+            else
+            {
+                return yorumStr;
+            }
+        }
+        return "";
+    }
 }

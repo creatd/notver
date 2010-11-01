@@ -104,16 +104,23 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            //Sayfa ilk acildiginda, hangi sayfadan geldiysen onu aktar
-            if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
+            if (!IsPostBack)
             {
-                SeciliDersID = Query.GetInt("DersID");
-                DersSec(null);                
+                //Sayfa ilk acildiginda, hangi sayfadan geldiysen onu aktar
+                if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
+                {
+                    SeciliDersID = Query.GetInt("DersID");
+                    DersSec(null);
+                }
+                MevcutSayfa = 1;
+                SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
             }
-            MevcutSayfa = 1;
-            SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

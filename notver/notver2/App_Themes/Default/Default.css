@@ -2,8 +2,13 @@
 {
 	font-family : Garamond;
 	font-size : 14pt;
-	color:rgb(0,0,0);
 	line-height:120%;
+	font-weight:normal;
+}
+
+a
+{
+	color:Black;
 }
 
 p 
@@ -116,7 +121,7 @@ div#Arkaplan
 table.AramaSonuclari
 {
 	border:none 0px Transparent;
-	background:url("../../App_Themes/Default/Images/defter/11.jpg") repeat scroll 0 0 Transparent;	
+	background:url('Images/defter/11.jpg') 0 0;	
 	width:100%;
 }
 
@@ -415,3 +420,10 @@ div.OkulYorumYap
 }
 /* e: HocaYorumYap uc */
 
+/* s: Uye Ol sayfasi */
+div.UyeOl
+{
+	background: url("Images/optik/2007oss.jpg") no-repeat scroll 0 0 White;
+	height:1200px;
+}
+/* e: Uye Ol sayfasi */

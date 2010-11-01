@@ -15,14 +15,21 @@ public partial class UserControls_HocaAyniOkul : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            DataTable dt = Hocalar.AyniOkuldakiHocalariDondur(Query.GetInt("HocaID"), 4);
-            if (dt != null)
+            if (!IsPostBack)
             {
-                rptHocalar.DataSource = dt;
-                rptHocalar.DataBind();
+                DataTable dt = Hocalar.AyniOkuldakiHocalariDondur(Query.GetInt("HocaID"), 4);
+                if (dt != null)
+                {
+                    rptHocalar.DataSource = dt;
+                    rptHocalar.DataBind();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

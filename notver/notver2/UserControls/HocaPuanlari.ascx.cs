@@ -17,9 +17,9 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            try
+            if (!Page.IsPostBack)
             {
                 //s: Puan aciklamalarini doldur
                 if (session.hocaPuanAciklamalari.Length == 5)
@@ -58,7 +58,7 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                     //Puanlari yildizlarin genisligine gore orantilamaliyiz, 5 yildizin genisligi 84px
                     for (int i = 0; i < 5; i++)
                     {
-                        puanlar[i] = (puanlar[i] * 20) * ((float)84/100);
+                        puanlar[i] = (puanlar[i] * 20) * ((float)84 / 100);
                         puanlar[i] = (float)Math.Round(puanlar[i]);
                     }
 
@@ -72,13 +72,12 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                     script.Text = sb.ToString();
                     //   Puan1.
                 }
-
                 //e: Hoca puanlarini doldur
             }
-            catch
-            {
-                panelPuanlar.Visible = false;
-            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

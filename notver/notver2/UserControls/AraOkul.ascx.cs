@@ -15,18 +15,32 @@ public partial class UserControls_AraOkul : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            okulIsmi.Items.Add(new ListItem("-", "-1"));
-            foreach (DataRow dr in session.dtOkullar.Rows)
+            if (!Page.IsPostBack)
             {
-                okulIsmi.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                okulIsmi.Items.Add(new ListItem("-", "-1"));
+                foreach (DataRow dr in session.dtOkullar.Rows)
+                {
+                    okulIsmi.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 
     protected void OkulSecildi(object sender, EventArgs e)
     {
-        OkulaGit(okulIsmi.SelectedValue.ToString());
+        try
+        {
+            OkulaGit(okulIsmi.SelectedValue.ToString());
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+        }
     }
 }

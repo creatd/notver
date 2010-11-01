@@ -15,55 +15,62 @@ public partial class UserControls_DersYorumGuncelle : BaseUserControl
 {
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        KontroluSakla();
-        pnlPuanYorum.Visible = true;
-        if (Query.GetInt("DersYorumID") <= 0)
+        try
         {
-            return;
-        }
-        if (session.IsLoggedIn && session.KullaniciID > 0)
-        {
-            //s: drpDersHocalar'i duzenle
-            drpDersHocalar.Items.Clear();
-
-            //Dersi veren hocalari doldur
-            DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(Query.GetInt("DersID"), session.KullaniciID);
-            if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
+            KontroluSakla();
+            pnlPuanYorum.Visible = true;
+            if (Query.GetInt("DersYorumID") <= 0)
             {
-                drpDersHocalar.Items.Add(new ListItem("-", "-1"));
+                return;
             }
-            if (dtDersiVerenHocalar != null && dtDersiVerenHocalar.Rows.Count > 0)
+            if (session.IsLoggedIn && session.KullaniciID > 0)
             {
-                foreach (DataRow dr in dtDersiVerenHocalar.Rows)
+                //s: drpDersHocalar'i duzenle
+                drpDersHocalar.Items.Clear();
+
+                //Dersi veren hocalari doldur
+                DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(Query.GetInt("DersID"), session.KullaniciID);
+                if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
                 {
-                    drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                    drpDersHocalar.Items.Add(new ListItem("-", "-1"));
+                }
+                if (dtDersiVerenHocalar != null && dtDersiVerenHocalar.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dtDersiVerenHocalar.Rows)
+                    {
+                        drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                    }
+                }
+                else
+                {
+                    //TODO: Admin'e haber ver
+                }
+                drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
+                //e: drpDersHocalar'i duzenle
+
+                //Kullanicinin daha once yaptigi yorumu yukle
+                DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.GetInt("DersID"));
+                if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
+                {
+                    if (Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
+                    {
+                        textYorum.Text = dtEskiYorum.Rows[0]["YORUM"].ToString();
+                    }
+                    //HocaID'yi sec
+                    if (Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))
+                    {
+                        drpDersHocalar.SelectedValue = dtEskiYorum.Rows[0]["HOCA_ID"].ToString();
+                    }
                 }
             }
             else
             {
-                //TODO: Admin'e haber ver
-            }
-            drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
-            //e: drpDersHocalar'i duzenle
-
-            //Kullanicinin daha once yaptigi yorumu yukle
-            DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.GetInt("DersID"));
-            if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
-            {
-                if(Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
-                {
-                    textYorum.Text = dtEskiYorum.Rows[0]["YORUM"].ToString();
-                }
-                //HocaID'yi sec
-                if(Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))
-                {
-                    drpDersHocalar.SelectedValue = dtEskiYorum.Rows[0]["HOCA_ID"].ToString();
-                }
+                pnlUyeOl.Visible = true;
             }
         }
-        else
+        catch (Exception ex)
         {
-            pnlUyeOl.Visible = true;
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

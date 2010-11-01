@@ -15,29 +15,36 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
 {
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        KontroluSakla();
-        pnlPuanYorum.Visible = true;
-        if (Query.GetInt("OkulID") <= 0)
+        try
         {
-            return;
-        }
-        if (session.IsLoggedIn && session.KullaniciID > 0)
-        {
-            bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
-
-            if (yorumVar)
+            KontroluSakla();
+            pnlPuanYorum.Visible = true;
+            if (Query.GetInt("OkulID") <= 0)
             {
-                pnlYorumVar.Visible = true;
-                lnkKullaniciYorumlar.NavigateUrl = OkulYorumlarimURLDondur(Query.GetInt("OkulID"));
+                return;
+            }
+            if (session.IsLoggedIn && session.KullaniciID > 0)
+            {
+                bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
+
+                if (yorumVar)
+                {
+                    pnlYorumVar.Visible = true;
+                    lnkKullaniciYorumlar.NavigateUrl = OkulYorumlarimURLDondur(Query.GetInt("OkulID"));
+                }
+                else
+                {
+                    baslikPuanYorum.Visible = true;
+                }
             }
             else
             {
-                baslikPuanYorum.Visible = true;
-            }            
+                pnlUyeOl.Visible = true;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            pnlUyeOl.Visible = true;
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 
