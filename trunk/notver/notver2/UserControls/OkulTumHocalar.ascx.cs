@@ -22,31 +22,38 @@ public partial class UserControls_OkulTumHocalar : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            if (_OkulID > 0)
+            if (!Page.IsPostBack)
             {
-                DataTable dtOkuldakiTumHocalar = Hocalar.OkuldakiHocalariDondur(_OkulID);
-
-                lblHocaYok.Visible = false;
-                if (dtOkuldakiTumHocalar != null)
+                if (_OkulID > 0)
                 {
-                    if (dtOkuldakiTumHocalar.Rows.Count > 0)
+                    DataTable dtOkuldakiTumHocalar = Hocalar.OkuldakiHocalariDondur(_OkulID);
+
+                    lblHocaYok.Visible = false;
+                    if (dtOkuldakiTumHocalar != null)
                     {
-                        repeaterHocalar.DataSource = dtOkuldakiTumHocalar;
-                        repeaterHocalar.DataBind();
-                        repeaterHocalar.Visible = true;
+                        if (dtOkuldakiTumHocalar.Rows.Count > 0)
+                        {
+                            repeaterHocalar.DataSource = dtOkuldakiTumHocalar;
+                            repeaterHocalar.DataBind();
+                            repeaterHocalar.Visible = true;
+                        }
+                        else
+                        {
+                            lblHocaYok.Visible = true;
+                        }
                     }
                     else
                     {
-                        lblHocaYok.Visible = true;
+                        repeaterHocalar.Visible = false;
                     }
                 }
-                else
-                {
-                    repeaterHocalar.Visible = false;
-                }
             }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 }

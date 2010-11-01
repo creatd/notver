@@ -17,18 +17,25 @@ public partial class UserControls_HocaResmi : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            string imageRelativePath = "~/Images/Hocalar/p" + Query.GetInt("HocaID") + ".jpg";
-            string imageFilePath = Server.MapPath(imageRelativePath);
-            if (File.Exists(imageFilePath))
+            if (!Page.IsPostBack)
             {
-                profilResmi.ImageUrl = imageRelativePath;
+                string imageRelativePath = "~/Images/Hocalar/p" + Query.GetInt("HocaID") + ".jpg";
+                string imageFilePath = Server.MapPath(imageRelativePath);
+                if (File.Exists(imageFilePath))
+                {
+                    profilResmi.ImageUrl = imageRelativePath;
+                }
+                else
+                {
+                    profilResmi.ImageUrl = "~/Images/Hocalar/p_bay.jpg";
+                }
             }
-            else
-            {
-                profilResmi.ImageUrl = "~/Images/Hocalar/p_bay.jpg";
-            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
 
     }

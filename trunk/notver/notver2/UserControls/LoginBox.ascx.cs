@@ -13,13 +13,20 @@ public partial class UserControls_LoginBox : BaseUserControl
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        if (session.IsLoggedIn)
+        try
         {
-            GirisiGoster();
+            if (session.IsLoggedIn)
+            {
+                GirisiGoster();
+            }
+            else
+            {
+                CikisiGoster();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            CikisiGoster();
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

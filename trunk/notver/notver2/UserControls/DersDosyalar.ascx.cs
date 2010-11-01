@@ -103,12 +103,19 @@ public partial class UserControls_DersDosyalar : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            MevcutSayfa = 1;
-            DosyaKategoriTipi = (int)Enums.DosyaKategoriTipi.SinavVeCozum;
-            SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
-            GridDoldur();
+            if (!IsPostBack)
+            {
+                MevcutSayfa = 1;
+                DosyaKategoriTipi = (int)Enums.DosyaKategoriTipi.SinavVeCozum;
+                SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+                GridDoldur();
+            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

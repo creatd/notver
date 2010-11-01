@@ -22,31 +22,38 @@ public partial class UserControls_OkulTumDersler : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            if (_OkulID > 0)
+            if (!Page.IsPostBack)
             {
-                DataTable dtOkuldakiTumDersler = Dersler.OkuldakiDersleriDondur(_OkulID);
-
-                lblDersYok.Visible = false;
-                if (dtOkuldakiTumDersler != null)
+                if (_OkulID > 0)
                 {
-                    if (dtOkuldakiTumDersler.Rows.Count > 0)
+                    DataTable dtOkuldakiTumDersler = Dersler.OkuldakiDersleriDondur(_OkulID);
+
+                    lblDersYok.Visible = false;
+                    if (dtOkuldakiTumDersler != null)
                     {
-                        repeaterDersler.DataSource = dtOkuldakiTumDersler;
-                        repeaterDersler.DataBind();
-                        repeaterDersler.Visible = true;
+                        if (dtOkuldakiTumDersler.Rows.Count > 0)
+                        {
+                            repeaterDersler.DataSource = dtOkuldakiTumDersler;
+                            repeaterDersler.DataBind();
+                            repeaterDersler.Visible = true;
+                        }
+                        else
+                        {
+                            lblDersYok.Visible = true;
+                        }
                     }
                     else
                     {
-                        lblDersYok.Visible = true;
+                        repeaterDersler.Visible = false;
                     }
                 }
-                else
-                {
-                    repeaterDersler.Visible = false;
-                }
             }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 }

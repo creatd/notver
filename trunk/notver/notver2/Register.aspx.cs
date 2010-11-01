@@ -13,15 +13,14 @@ using System.Xml.Linq;
 
 public partial class Register : BasePage
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
+        if (session.IsLoggedIn)
+        {
+            GoToDefaultPage();
+        }
         if (!Page.IsPostBack)
         {
-            if (session.IsLoggedIn)
-            {
-                GoToDefaultPage();
-            }
-
             DropDownList Okullar = ddOkullar as DropDownList;
             Okullar.Items.Add(new ListItem("-", "-1"));
             foreach (DataRow dr in session.dtOkullar.Rows)
@@ -52,12 +51,12 @@ public partial class Register : BasePage
         }
         else if (result == -2)
         {
-            lblDurum.Text = "Eposta adresi zaten kayitli. Sifrenizi unuttuysaniz sag ustten 'Sifremi unuttum'a tiklayiniz.";
+            lblDurum.Text = "E-posta adresi zaten kayitli. Sifrenizi unuttuysaniz sag ustten 'Sifremi unuttum'a tiklayiniz.";
         }
         else if (result == 1)
         {
             Uyelik.GirisYap(kullaniciAdi, sifre);
-            Response.Redirect(Page.ResolveUrl("~/Default.aspx"));
+            GoToDefaultPage();
         }
     }
 }

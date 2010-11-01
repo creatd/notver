@@ -52,71 +52,78 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            KontroluSakla();
-            hocaKullaniciDerslerObj = hocaKullaniciDersler;
-            hocaKullaniciDerslerObj.Clear();
-            hocaKullaniciDersler = hocaKullaniciDerslerObj;
-        }
-        
-        if (Query.GetInt("HocaID") <= 0)
-        {
-            return;
-        }
-        if (session.IsLoggedIn && session.KullaniciID > 0)
-        {
-            pnlPuanYorum.Visible = true;    //Giris yapmamis olsa bu sayfaya gelemez zaten ancak yine de bunu burada tutmak faydali
-            pnlUyeOl.Visible = false;
-
-            if (session.hocaPuanAciklamalari.Length == 5)
+            if (!Page.IsPostBack)
             {
-                Aciklama1.Text = session.hocaPuanAciklamalari[0];
-                Aciklama2.Text = session.hocaPuanAciklamalari[1];
-                Aciklama3.Text = session.hocaPuanAciklamalari[2];
-                Aciklama4.Text = session.hocaPuanAciklamalari[3];
-                Aciklama5.Text = session.hocaPuanAciklamalari[4];
-            }
-            else
-            {
-                //TODO: admin mesaj
+                KontroluSakla();
+                hocaKullaniciDerslerObj = hocaKullaniciDersler;
+                hocaKullaniciDerslerObj.Clear();
+                hocaKullaniciDersler = hocaKullaniciDerslerObj;
             }
 
-            if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
-                //girsin diye koydum
+            if (Query.GetInt("HocaID") <= 0)
             {
-                dropHocaDersler.Items.Clear();
-                //Hocanin verdigi dersleri yukleyip dropdown'a yukle
-                dropHocaDersler.Items.Add(new ListItem("", "-1"));
-                string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
+                return;
+            }
+            if (session.IsLoggedIn && session.KullaniciID > 0)
+            {
+                pnlPuanYorum.Visible = true;    //Giris yapmamis olsa bu sayfaya gelemez zaten ancak yine de bunu burada tutmak faydali
+                pnlUyeOl.Visible = false;
 
-                if (hocaDersler != null)
+                if (session.hocaPuanAciklamalari.Length == 5)
                 {
-                    dersIsimleri = new string[hocaDersler.Length];
-                    for (int i = 0; i < hocaDersler.Length; i++)
-                    {
-                        //Okul ismi uzunsa kisalt
-                        string okulIsmi = hocaDersler[i][3];
-                        if (okulIsmi.Length > 20)
-                        {
-                            dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 18) + "..)", hocaDersler[i][1]));
-                        }
-                        else
-                        {
-                            dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
-                        }
-                        dersIsimleri[i] = hocaDersler[i][2];
-                    }
+                    Aciklama1.Text = session.hocaPuanAciklamalari[0];
+                    Aciklama2.Text = session.hocaPuanAciklamalari[1];
+                    Aciklama3.Text = session.hocaPuanAciklamalari[2];
+                    Aciklama4.Text = session.hocaPuanAciklamalari[3];
+                    Aciklama5.Text = session.hocaPuanAciklamalari[4];
                 }
-                dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
-            }
+                else
+                {
+                    //TODO: admin mesaj
+                }
 
+                if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
+                //girsin diye koydum
+                {
+                    dropHocaDersler.Items.Clear();
+                    //Hocanin verdigi dersleri yukleyip dropdown'a yukle
+                    dropHocaDersler.Items.Add(new ListItem("", "-1"));
+                    string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
+
+                    if (hocaDersler != null)
+                    {
+                        dersIsimleri = new string[hocaDersler.Length];
+                        for (int i = 0; i < hocaDersler.Length; i++)
+                        {
+                            //Okul ismi uzunsa kisalt
+                            string okulIsmi = hocaDersler[i][3];
+                            if (okulIsmi.Length > 20)
+                            {
+                                dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 18) + "..)", hocaDersler[i][1]));
+                            }
+                            else
+                            {
+                                dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
+                            }
+                            dersIsimleri[i] = hocaDersler[i][2];
+                        }
+                    }
+                    dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
+                }
+
+            }
+            else  //Giris yapmamis
+            {
+                pnlPuanYorum.Visible = false;
+                pnlUyeOl.Visible = true;
+                ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
+            }
         }
-        else  //Giris yapmamis
+        catch (Exception ex)
         {
-            pnlPuanYorum.Visible = false;
-            pnlUyeOl.Visible = true;
-            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

@@ -15,85 +15,92 @@ public partial class UserControls_DersYorumYap : BaseUserControl
 {
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        KontroluSakla();
-        pnlPuanYorum.Visible = true;
-        if (Query.GetInt("DersID") <= 0)
+        try
         {
-            return;
-        }
-        if (session.IsLoggedIn && session.KullaniciID > 0)
-        {
-            baslikPuanYorum.Visible = true;
-            bool yorumVar = false;
-            if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
+            KontroluSakla();
+            pnlPuanYorum.Visible = true;
+            if (Query.GetInt("DersID") <= 0)
             {
-                yorumVar = true;
+                return;
             }
-
-            //s: drpDersHocalar'i duzenle
-            drpDersHocalar.Items.Clear();
-
-            //Dersi veren hocalari doldur
-            DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(Query.GetInt("DersID"),session.KullaniciID);
-            if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
+            if (session.IsLoggedIn && session.KullaniciID > 0)
             {
-                drpDersHocalar.Items.Add(new ListItem("-", "-1"));
-            }
-            if (dtDersiVerenHocalar != null && dtDersiVerenHocalar.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dtDersiVerenHocalar.Rows)
+                baslikPuanYorum.Visible = true;
+                bool yorumVar = false;
+                if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
                 {
-                    drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                    yorumVar = true;
                 }
-            }
-            else
-            {
-                //TODO: Admin'e haber ver
-            }
-            drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
-            //e: drpDersHocalar'i duzenle
-            
-            /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.Get("DersID")))
-            {
+
+                //s: drpDersHocalar'i duzenle
+                drpDersHocalar.Items.Clear();
+
+                //Dersi veren hocalari doldur
+                DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(Query.GetInt("DersID"), session.KullaniciID);
+                if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
+                {
+                    drpDersHocalar.Items.Add(new ListItem("-", "-1"));
+                }
+                if (dtDersiVerenHocalar != null && dtDersiVerenHocalar.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dtDersiVerenHocalar.Rows)
+                    {
+                        drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                    }
+                }
+                else
+                {
+                    //TODO: Admin'e haber ver
+                }
+                drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
+                //e: drpDersHocalar'i duzenle
+
+                /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.Get("DersID")))
+                {
+                    dugmeYorumGonder.Visible = true;
+                }
+                else
+                {
+                    yorumVar = true;
+                    //Kullanicinin daha once yaptigi yorumu yukle
+                    DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.Get("DersID"));
+                    if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
+                    {
+                        if(Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
+                        {
+                            textYorum.Text = dtEskiYorum.Rows[0]["YORUM"].ToString();
+                        }
+                        //HocaID'yi sec
+                        if(Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))
+                        {
+                            drpDersHocalar.SelectedValue = dtEskiYorum.Rows[0]["HOCA_ID"].ToString();
+                        }
+                    }
+                
+                }*/
+
                 dugmeYorumGonder.Visible = true;
-            }
-            else
-            {
-                yorumVar = true;
-                //Kullanicinin daha once yaptigi yorumu yukle
-                DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.Get("DersID"));
-                if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
+                if (yorumVar)
                 {
-                    if(Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
-                    {
-                        textYorum.Text = dtEskiYorum.Rows[0]["YORUM"].ToString();
-                    }
-                    //HocaID'yi sec
-                    if(Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))
-                    {
-                        drpDersHocalar.SelectedValue = dtEskiYorum.Rows[0]["HOCA_ID"].ToString();
-                    }
-                }
-                
-            }*/
+                    baslikPuanYorum.Text = "Bir yorumum daha var";
+                    lnkKullaniciYorumlar.NavigateUrl = DersYorumlarimURLDondur(Query.GetInt("DersID"));
+                    lnkKullaniciYorumlar.Visible = true;
 
-            dugmeYorumGonder.Visible = true;
-            if (yorumVar)
-            {
-                baslikPuanYorum.Text = "Bir yorumum daha var";
-                lnkKullaniciYorumlar.NavigateUrl = DersYorumlarimURLDondur(Query.GetInt("DersID"));
-                lnkKullaniciYorumlar.Visible = true;
-                
+                }
+                else
+                {
+                    baslikPuanYorum.Text = "Benim de diyeceklerim var";
+                    lnkKullaniciYorumlar.Visible = false;
+                }
             }
             else
             {
-                baslikPuanYorum.Text = "Benim de diyeceklerim var";
-                lnkKullaniciYorumlar.Visible = false;
+                pnlUyeOl.Visible = true;
             }
         }
-        else
+        catch (Exception ex)
         {
-            pnlUyeOl.Visible = true;
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 

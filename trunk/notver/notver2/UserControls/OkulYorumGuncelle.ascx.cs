@@ -15,25 +15,32 @@ public partial class UserControls_OkulYorumGuncelle : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            if (session.IsLoggedIn)
+            if (!Page.IsPostBack)
             {
-                pnlYorum.Visible = true;
-                pnlUyeOl.Visible = false;
-                //Kullanicinin daha once yapmis oldugu yorumu yukle
-                string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
-                if (Util.GecerliString(eskiYorum))
+                if (session.IsLoggedIn)
                 {
-                    textYorum.Text = eskiYorum;
-                }
+                    pnlYorum.Visible = true;
+                    pnlUyeOl.Visible = false;
+                    //Kullanicinin daha once yapmis oldugu yorumu yukle
+                    string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
+                    if (Util.GecerliString(eskiYorum))
+                    {
+                        textYorum.Text = eskiYorum;
+                    }
 
+                }
+                else
+                {
+                    pnlYorum.Visible = false;
+                    pnlUyeOl.Visible = true;
+                }
             }
-            else
-            {
-                pnlYorum.Visible = false;
-                pnlUyeOl.Visible = true;
-            }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 
