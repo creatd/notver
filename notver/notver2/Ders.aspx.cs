@@ -51,6 +51,7 @@ public partial class Ders : BasePage
                         lblDersOkulIsim.Text = "";
                     }
                     lnkDersDosyalar.NavigateUrl = DersDosyaURLDondur(queryDersID);
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("DersYorumYap.aspx?DersID=" + queryDersID + "&KeepThis=true&TB_iframe=true&modal=true&height=420&width=640");
                 }
             }
         }

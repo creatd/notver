@@ -18,16 +18,16 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         try
         {
             KontroluSakla();
-            pnlPuanYorum.Visible = true;
-            if (Query.GetInt("DersID") <= 0)
+            int queryDersID = Query.GetInt("DersID");
+            if (queryDersID <= 0)
             {
                 return;
             }
             if (session.IsLoggedIn && session.KullaniciID > 0)
             {
-                baslikPuanYorum.Visible = true;
+                pnlPuanYorum.Visible = true;
                 bool yorumVar = false;
-                if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
+                if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, queryDersID))
                 {
                     yorumVar = true;
                 }
@@ -36,8 +36,8 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                 drpDersHocalar.Items.Clear();
 
                 //Dersi veren hocalari doldur
-                DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(Query.GetInt("DersID"), session.KullaniciID);
-                if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, Query.GetInt("DersID")))
+                DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(queryDersID, session.KullaniciID);
+                if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, queryDersID))
                 {
                     drpDersHocalar.Items.Add(new ListItem("-", "-1"));
                 }
@@ -78,20 +78,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                     }
                 
                 }*/
-
-                dugmeYorumGonder.Visible = true;
-                if (yorumVar)
-                {
-                    baslikPuanYorum.Text = "Bir yorumum daha var";
-                    lnkKullaniciYorumlar.NavigateUrl = DersYorumlarimURLDondur(Query.GetInt("DersID"));
-                    lnkKullaniciYorumlar.Visible = true;
-
-                }
-                else
-                {
-                    baslikPuanYorum.Text = "Benim de diyeceklerim var";
-                    lnkKullaniciYorumlar.Visible = false;
-                }
+                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.change_parent_url('" + DersYorumlarimURLDondur(queryDersID) + "');";
             }
             else
             {
@@ -118,7 +105,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         else
         {
             ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
-            RefreshPage();
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
         }
     }
 
@@ -126,7 +113,5 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
-        baslikPuanYorum.Visible = false;
-        dugmeYorumGonder.Visible = false;
     }
 }

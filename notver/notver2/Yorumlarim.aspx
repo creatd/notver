@@ -39,6 +39,9 @@
                                 Ders
                             </td>
                             <td style="text-decoration:underline;">
+                                Hoca
+                            </td>
+                            <td style="text-decoration:underline;">
                                 Okul
                             </td>
                             <td style="text-decoration:underline;">
@@ -64,9 +67,12 @@
                 <ItemTemplate>
                     <tr>
                         <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>' />
-                        <asp:HiddenField runat="server" ID="yorumDurum" Value=' <%# DataBinder.Eval(Container.DataItem , "YORUM_DURUMU") %>' />
                         <td>
                             <%# DataBinder.Eval(Container.DataItem, "DERS_KODU") %>
+                        </td>
+                        <td>
+                            <%# DataBinder.Eval(Container.DataItem, "HOCA_ISIM") %>
+                            <%# DataBinder.Eval(Container.DataItem, "KAYITSIZ_HOCA_ISIM") %>
                         </td>
                         <td>
                             <%# DataBinder.Eval(Container.DataItem, "OKUL_ISMI") %>
@@ -84,7 +90,7 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a href="DersYorumGuncelle.aspx?DersID=<%# DataBinder.Eval(Container.DataItem , "DERS_ID")%>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600"
+                            <asp:Literal runat="server" ID="ltrHack" /><a href="DersYorumGuncelle.aspx?DersID=<%# DataBinder.Eval(Container.DataItem , "DERS_ID")%>&DersYorumID=<%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600"
                                 class="thickbox" title="Yorumu guncelle"><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
@@ -226,7 +232,7 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a href="HocaYorumGuncelle.aspx?HocaID=<%# DataBinder.Eval(Container.DataItem , "HOCA_ID")%>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600"
+                            <asp:Literal runat="server" ID="ltrHack" /><a href="HocaYorumGuncelle.aspx?HocaID=<%# DataBinder.Eval(Container.DataItem , "HOCA_ID")%>&KeepThis=true&TB_iframe=true&modal=true&height=620&width=620"
                                 class="thickbox" title="Yorumu guncelle"><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>

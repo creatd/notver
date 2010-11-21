@@ -102,8 +102,7 @@
                             <%# Container.DataItem %> &nbsp;&nbsp;
                             <asp:Button runat="server" ID="dersSil" Text="x" />
                         </li>
-                        </ItemTemplate>
-                        
+                        </ItemTemplate>                        
                         <FooterTemplate>
                             </ul>
                         </FooterTemplate>
@@ -114,11 +113,9 @@
         </tr>
         <tr>
             <td align="right" colspan="2" style="color: Red;">
-            <p style="padding-top:10px;">
                 <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
                 <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="PuanYorumKaydet"
                     CssClass="fltRight" />
-                    </p>
             </td>
         </tr>
     </table>

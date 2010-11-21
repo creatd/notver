@@ -8,7 +8,7 @@
     <a name='tepe'></a>
     <br />
     <div id="divArkaplan" style="background: url('./App_Themes/Default/Images/defter/11.jpg') repeat scroll 0 0 Transparent;
-                width: 100%;">
+                width: 100%;" title="Okulun bas harfini secin">
                 <!-- ltrHarfDizini'ne kod arkasinda stil veriyorum -->
         <asp:Literal runat="server" ID="ltrHarfDizini"></asp:Literal>
     </div>

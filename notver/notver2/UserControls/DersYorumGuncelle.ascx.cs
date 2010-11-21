@@ -17,14 +17,18 @@ public partial class UserControls_DersYorumGuncelle : BaseUserControl
     {
         try
         {
-            KontroluSakla();
-            pnlPuanYorum.Visible = true;
-            if (Query.GetInt("DersYorumID") <= 0)
+            if (!Page.IsPostBack)
+            {
+                KontroluSakla();
+            }
+            int queryDersYorumID = Query.GetInt("DersYorumID");
+            if (queryDersYorumID <= 0)
             {
                 return;
             }
             if (session.IsLoggedIn && session.KullaniciID > 0)
             {
+                pnlPuanYorum.Visible = true;
                 //s: drpDersHocalar'i duzenle
                 drpDersHocalar.Items.Clear();
 
@@ -49,17 +53,33 @@ public partial class UserControls_DersYorumGuncelle : BaseUserControl
                 //e: drpDersHocalar'i duzenle
 
                 //Kullanicinin daha once yaptigi yorumu yukle
-                DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.GetInt("DersID"));
+                DataTable dtEskiYorum = Dersler.DersYorumunuDondur(queryDersYorumID);
                 if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
                 {
                     if (Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
                     {
                         textYorum.Text = Util.DBToHTML(dtEskiYorum.Rows[0]["YORUM"].ToString());
                     }
+
                     //HocaID'yi sec
-                    if (Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))
+                    if (Util.GecerliStringSayi(dtEskiYorum.Rows[0]["HOCA_ID"]) && Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ISIM"]))
                     {
+                        drpDersHocalar.Items.Add(new ListItem(dtEskiYorum.Rows[0]["HOCA_ISIM"].ToString(), dtEskiYorum.Rows[0]["HOCA_ID"].ToString()));
                         drpDersHocalar.SelectedValue = dtEskiYorum.Rows[0]["HOCA_ID"].ToString();
+                    }
+                    else if (Util.GecerliString(dtEskiYorum.Rows[0]["KAYITSIZ_HOCA_ISIM"]))
+                    {
+                        drpDersHocalar.SelectedValue = "-2";
+                        txtBilinmeyenHocaIsmi.Text = dtEskiYorum.Rows[0]["KAYITSIZ_HOCA_ISIM"].ToString();
+                    }
+
+                    if(Util.GecerliStringSayi(dtEskiYorum.Rows[0]["ZORLUK_PUANI"]))
+                    {
+                        puanDersZorluk.CurrentRating = Convert.ToInt32(dtEskiYorum.Rows[0]["ZORLUK_PUANI"]);
+                    }
+                    if (Util.GecerliStringSayi(dtEskiYorum.Rows[0]["TAVSIYE_PUANI"]))
+                    {
+                        puanDersHoca.CurrentRating = Convert.ToInt32(dtEskiYorum.Rows[0]["TAVSIYE_PUANI"]);
                     }
                 }
             }
@@ -96,6 +116,5 @@ public partial class UserControls_DersYorumGuncelle : BaseUserControl
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
-        dugmeYorumGuncelle.Visible = false;
     }
 }

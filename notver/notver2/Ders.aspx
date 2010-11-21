@@ -5,6 +5,14 @@ MaintainScrollPositionOnPostback="true" %>
 <%@ Register TagPrefix="uc1" TagName="DersYorumYap" Src="~/UserControls/DersYorumYap.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
+<asp:Content runat="server" ContentPlaceHolderID="head">
+<script type="text/javascript">
+    function change_parent_url(url) {
+        document.location=url;
+    }		
+</script>
+</asp:Content>
+
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="tumContent">
 <uc1:Ayrac runat="server" ID="ayrac" />
 <div id="divArkaplan" style="background:url('App_Themes/default/Images/defter/IMG_0004.jpg') no-repeat 0 0 White; margin-bottom:20px; padding-bottom:10px;">
@@ -34,11 +42,16 @@ MaintainScrollPositionOnPostback="true" %>
                 <uc1:DersYorumlari runat="server" ID="dersYorumlari"></uc1:DersYorumlari>
             </td>
         </tr>
+    </table>
+</div>
+<br />
+<asp:Panel ID="pnlYorumum" runat="server">
+    <table style="width:100%; text-align:right;">
         <tr>
-            <td colspan="2">
-                <uc1:DersYorumYap runat="server" ID="dersYorumYap"></uc1:DersYorumYap>
+            <td>
+                <asp:HyperLink runat="server" ID="lnkYorumum" Text="Benim de diyeceklerim var! " CssClass="thickbox"><img src="App_Themes/Default/Images/diger/el_kaldir.png" /></asp:HyperLink>
             </td>
         </tr>
     </table>
-</div>       
+</asp:Panel>     
 </asp:Content>
