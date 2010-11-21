@@ -11,7 +11,8 @@
                     <td style="font-style: italic; color: rgb(150,150,150); font-size: 8pt;">
                         <%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
                                 DataBinder.Eval(Container.DataItem, "TARIH"),
-                                DataBinder.Eval(Container.DataItem, "KULLANICI_PUANARALIGI"))%>
+                                DataBinder.Eval(Container.DataItem, "KULLANICI_PUANARALIGI"),
+                                DataBinder.Eval(Container.DataItem, "DERS_KODU"))%>
                     </td>
                     <td>
                         <%# YorumBaslikGenelPuanResmiOlustur(DataBinder.Eval(Container.DataItem, "GENEL_PUAN"))%>

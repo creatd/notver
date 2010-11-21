@@ -158,7 +158,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
         }
     }
 
-    protected string YorumBasligiOlustur(object KullaniciAdi , object Tarih , object KullaniciPuanAraligi)
+    protected string YorumBasligiOlustur(object KullaniciAdi , object Tarih , object KullaniciPuanAraligi, object DersKodu)
     {
         try
         {
@@ -168,6 +168,11 @@ public partial class UserControls_HocaYorum : BaseUserControl
             {
                 str += " (Hocadan aldigi not : " + KullaniciPuanAraligi.ToString() + "/5)";
             }
+            if (Util.GecerliString(DersKodu))
+            {
+                str += "<br />" + DersKodu.ToString();
+            }
+            
             return str;
         }
         catch
