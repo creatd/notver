@@ -217,7 +217,7 @@ public partial class UserControls_DersDosyalar : BaseUserControl
         {
             return "<a href='" + Page.ResolveUrl("~/Dosyalar/Dersler/" + Query.GetInt("DersID").ToString() + "/" + dosyaKategoriTipi.ToString() + "/" + dosyaAdres.Trim()) + 
                 "' tooltip='" + dosyaTooltip +"'><img src='" +
-                Page.ResolveUrl("~/Images/Dersler/disket.gif") + "' /></a>";
+                Page.ResolveUrl("~/App_Themes/Default/Images/diger/disket.gif") + "' /></a>";
         }
         return "";
     }

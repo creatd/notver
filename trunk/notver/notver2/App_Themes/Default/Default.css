@@ -322,6 +322,11 @@ div.dersYorumlar
 {
 	background-color:White;
 }
+.DersYorumYapTextbox
+{
+	width : 500px;
+	height: 100px;
+}
 /* e: Ders Yorumlar */
 
 /* s: Hoca Yorum */

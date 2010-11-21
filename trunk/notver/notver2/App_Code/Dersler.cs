@@ -451,28 +451,22 @@ public class Dersler
     }
 
     /// <summary>
-    /// Kullanicinin ders icin yaptigi yorumu dondurur
+    /// ID'si verilen ders yorumunu dondurur
     /// </summary>
-    /// <param name="kullaniciID"></param>
-    /// <param name="okulID"></param>
+    /// <param name="DersYorumID"></param>
     /// <returns></returns>
-    public static DataTable KullaniciDersYorumunuDondur(int kullaniciID, int dersID)
+    public static DataTable DersYorumunuDondur(int DersYorumID)
     {
         try
         {
-            if (kullaniciID < 0 || dersID < 0)
+            if (DersYorumID < 0)
             {
                 return null;
             }
-            SqlCommand cmd = new SqlCommand("KullaniciDersYorumunuDondur");
+            SqlCommand cmd = new SqlCommand("DersYorumunuDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-            param = new SqlParameter("DersID", dersID);
+            SqlParameter param = new SqlParameter("DersYorumID", DersYorumID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);

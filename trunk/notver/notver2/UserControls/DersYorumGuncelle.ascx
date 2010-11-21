@@ -3,20 +3,18 @@
 
 <script type="text/javascript">
 function HocaSecildi(obj)   {
-    /* var ddlReport = document.getElementById("<%=drpDersHocalar.ClientID%>");
-    var Text = ddlReport.options[ddlReport.selectedIndex].text;  */
     var dropDownList = obj;
     var hocaIsim = dropDownList.options[dropDownList.selectedIndex].text; 
     var hocaID = dropDownList.options[dropDownList.selectedIndex].value;
     if(hocaIsim.length > 1)    {
-        document.getElementById('trPuanDersHoca').style.visibility='visible';
+        document.getElementById('trPuanDersHoca').style.display='table-row';
     }   else    {
-        document.getElementById('trPuanDersHoca').style.visibility='hidden';
+        document.getElementById('trPuanDersHoca').style.visibility='none';
     }
     if(hocaID == -2)    {   //Diger secildi
-        document.getElementById('trBilinmeyenHoca').style.visibility='visible';
+        document.getElementById('trBilinmeyenHoca').style.display='table-row';
     }   else    {
-        document.getElementById('trBilinmeyenHoca').style.visibility='hidden';
+        document.getElementById('trBilinmeyenHoca').style.display='none';
     }
 }
 </script>
@@ -86,19 +84,19 @@ $(document).ready(function() {
 
 <asp:Panel ID="pnlPuanYorum" runat="server">
     <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
-    <br />
-    <br />
-    <table style="border: solid 1pt;" border="1" width="600">
+    <table style="border: none;" width="640">
         <tr>
-            <td class="DersYorumYapSutunSol">
+            <td style="text-align:right;width:350px;">
                 Yorumunuz
             </td>
             <td class="DersYorumYapSutunSag">
                 <asp:TextBox ID="textYorum" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="DersYorumYapTextbox" />
             </td>
         </tr>
+    </table>
+    <table>
         <tr>
-            <td class="DersYorumYapSutunSol">
+            <td style="text-align:right;width:350px;">
                 Ders zor muydu?
             </td>
             <td class="DersYorumYapSutunSag">
@@ -107,7 +105,7 @@ $(document).ready(function() {
             </td>
         </tr>
         <tr>
-            <td class="DersYorumYapSutunSol">
+            <td style="text-align:right;width:350px;">
                 Hangi hocadan aldiniz (opsiyonel)
             </td>
             <td class="DersYorumYapSutunSag">
@@ -115,7 +113,7 @@ $(document).ready(function() {
             </td>
         </tr>
         <tr id="trBilinmeyenHoca">
-            <td class="DersYorumYapSutunSol">
+            <td style="text-align:right;width:350px;">
                 Hocanin ismini girin
             </td>
             <td class="DersYorumYapSutunSag">
@@ -123,7 +121,7 @@ $(document).ready(function() {
             </td>
         </tr>
         <tr id="trPuanDersHoca">
-            <td class="DersYorumYapSutunSol">
+            <td style="text-align:right;width:350px;">
                 Bu hocadan almak
             </td>
             <td class="DersYorumYapSutunSag">
@@ -141,8 +139,6 @@ $(document).ready(function() {
     </table>
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server">
-    Puan vermek ve/veya yorum yapabilmek icin (sag ust koseden) <a href="#login">giris yapmaniz</a> gereklidir.
-    Uyeliginiz yoksa
-    <asp:HyperLink ID="HyperLink1" runat="server" Text="uye olmak icin tiklayin!" NavigateUrl="~/Register.aspx"></asp:HyperLink>
+    Puan vermek ve yorum yapabilmek icin giris yapmaniz gereklidir.
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>

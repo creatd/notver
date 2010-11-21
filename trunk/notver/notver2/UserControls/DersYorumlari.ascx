@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersYorumlari.ascx.cs" Inherits="UserControls_DersYorumlari" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="dersYorumlar">
+<asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
             <table style="border: none;" border="0" width="600">

@@ -117,14 +117,12 @@ public partial class Yorumlarim : BasePage
 
     protected void DersYorumSil(object sender, EventArgs e)
     {
-        HiddenField yorumIDField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
-        HiddenField yorumDurumField = ((LinkButton)sender).FindControl("yorumDurum") as HiddenField;
-        if (yorumIDField == null || !Util.GecerliSayi(yorumIDField.Value) || yorumDurumField == null || !Util.GecerliSayi(yorumDurumField.Value))
+        HiddenField yorumIDField = ((ImageButton)sender).FindControl("yorumID") as HiddenField;
+        if (yorumIDField == null || !Util.GecerliSayi(yorumIDField.Value))
         {
             return;
         }
         int yorumID = Convert.ToInt32(yorumIDField.Value);
-        int yorumDurum = Convert.ToInt32(yorumDurumField.Value);
         bool sonuc = Genel.YorumSil(session.KullaniciID, Enums.YorumTipi.DersYorum, yorumID, true);
         if (sonuc)
         {
@@ -138,14 +136,12 @@ public partial class Yorumlarim : BasePage
     
     protected void OkulYorumSil(object sender, EventArgs e)
     {
-        HiddenField yorumIDField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
-        HiddenField yorumDurumField = ((LinkButton)sender).FindControl("yorumDurum") as HiddenField;
-        if (yorumIDField == null || !Util.GecerliSayi(yorumIDField.Value) || yorumDurumField == null || !Util.GecerliSayi(yorumDurumField.Value))
+        HiddenField yorumIDField = ((ImageButton)sender).FindControl("yorumID") as HiddenField;
+        if (yorumIDField == null || !Util.GecerliSayi(yorumIDField.Value))
         {
             return;
         }
         int yorumID = Convert.ToInt32(yorumIDField.Value);
-        int yorumDurum = Convert.ToInt32(yorumDurumField.Value);
         bool sonuc = Genel.YorumSil(session.KullaniciID, Enums.YorumTipi.OkulYorum, yorumID, true);
         if (sonuc)
         {
@@ -159,14 +155,12 @@ public partial class Yorumlarim : BasePage
 
     protected void HocaYorumSil(object sender, EventArgs e)
     {
-        HiddenField yorumIDField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
-        HiddenField yorumDurumField = ((LinkButton)sender).FindControl("yorumDurum") as HiddenField;
-        if (yorumIDField == null || !Util.GecerliSayi(yorumIDField.Value) || yorumDurumField == null || !Util.GecerliSayi(yorumDurumField.Value))
+        HiddenField yorumIDField = ((ImageButton)sender).FindControl("yorumID") as HiddenField;
+        if (yorumIDField == null || !Util.GecerliSayi(yorumIDField.Value))
         {
             return;
         }
         int yorumID = Convert.ToInt32(yorumIDField.Value);
-        int yorumDurum = Convert.ToInt32(yorumDurumField.Value);
         bool sonuc = Genel.YorumSil(session.KullaniciID, Enums.YorumTipi.HocaYorum, yorumID, true);
         if (sonuc)
         {
@@ -214,12 +208,14 @@ public partial class Yorumlarim : BasePage
                 {
                     case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
                     case Enums.YorumDurumu.SistemTarafindanSilinmis:
-                        //Silinmisse guncelle tusunu sakla
+                        //Silinmisse guncelle ve sil tuslarini sakla
                         //asp:Link kullanip enabled diyerek saklamak daha temiz olurdu
                         Literal ltrHack = e.Item.FindControl("ltrHack") as Literal;
                         Literal ltrHack2 = e.Item.FindControl("ltrHack2") as Literal;
                         ltrHack.Text = "<span style='display:none;'>";
                         ltrHack2.Text = "</span>";
+                        ImageButton btnSil = e.Item.FindControl("btnOkulYorumSil") as ImageButton;
+                        btnSil.Visible = false;
                         break;
                     case Enums.YorumDurumu.OnayBekliyor:
                         break;
@@ -243,12 +239,14 @@ public partial class Yorumlarim : BasePage
                 {
                     case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
                     case Enums.YorumDurumu.SistemTarafindanSilinmis:
-                        //Silinmisse guncelle tusunu sakla
+                        //Silinmisse guncelle ve sil tuslarini sakla
                         //asp:Link kullanip enabled diyerek saklamak daha temiz olurdu
                         Literal ltrHack = e.Item.FindControl("ltrHack") as Literal;
                         Literal ltrHack2 = e.Item.FindControl("ltrHack2") as Literal;
                         ltrHack.Text = "<span style='display:none;'>";
                         ltrHack2.Text = "</span>";
+                        ImageButton btnSil = e.Item.FindControl("btnDersYorumSil") as ImageButton;
+                        btnSil.Visible = false;
                         break;
                     case Enums.YorumDurumu.OnayBekliyor:
                         break;
@@ -278,6 +276,8 @@ public partial class Yorumlarim : BasePage
                         Literal ltrHack2 = e.Item.FindControl("ltrHack2") as Literal;
                         ltrHack.Text = "<span style='display:none;'>";
                         ltrHack2.Text = "</span>";
+                        ImageButton btnSil = e.Item.FindControl("btnHocaYorumSil") as ImageButton;
+                        btnSil.Visible = false;
                         break;
                     case Enums.YorumDurumu.OnayBekliyor:
                         break;

@@ -157,22 +157,39 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         }
     }
 
+    protected string YorumBasligiOlustur(object KullaniciAdi, object Tarih, object KullaniciPuanAraligi)
+    {
+        try
+        {
+            DateTime tarih = Convert.ToDateTime(Tarih.ToString());
+            string str = KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
+            if (KullaniciPuanAraligi != System.DBNull.Value)
+            {
+                str += " (Hocadan aldigi not : " + KullaniciPuanAraligi.ToString() + "/5)";
+            }
+            return str;
+        }
+        catch
+        {
+            return "";
+        }
+    }
+
     protected string YorumBasligiOlustur(object KullaniciAdi, object Tarih, object HocaIsim, object KayitsizHocaIsim)
     {
         try
         {
-            StringBuilder sb = new StringBuilder();
             DateTime tarih = Convert.ToDateTime(Tarih.ToString());
+            string str = KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
             if(Util.GecerliString(HocaIsim))
             {
-                sb.Append("<b>" + HocaIsim.ToString() + "</b><br />");
+                str += " - <b>" + HocaIsim.ToString() + "</b><br />";
             }
             else if (Util.GecerliString(KayitsizHocaIsim))
             {
-                sb.Append("<b>" + KayitsizHocaIsim.ToString() + "</b><br />");
+                str += " - <b>" + KayitsizHocaIsim.ToString() + "</b><br />";
             }
-            sb.Append(KullaniciAdi + " tarafindan, " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year + " tarihinde yazilmistir.");
-            return sb.ToString();
+            return str;
         }
         catch
         {
