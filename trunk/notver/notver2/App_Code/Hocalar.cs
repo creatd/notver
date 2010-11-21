@@ -546,12 +546,49 @@ public class Hocalar
             cmd.Parameters.Add(param);
 
             DataTable dt = Util.GetDataTable(cmd);
-            return dt;
+            if (dt != null)
+            {
+                DataTable dt2 = dt.Clone();
+                int prevHocaYorumID = -1;
+                DataRow drToAdd = null;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    int currentHocaYorumID = Convert.ToInt32(dr["HOCAYORUM_ID"]);
+                    if (currentHocaYorumID == prevHocaYorumID)
+                    {
+                        if (Util.GecerliString(dr["KAYITSIZ_DERS_ISMI"]))
+                        {
+                            drToAdd["DERS_KODU"] = drToAdd["DERS_KODU"].ToString() + "," + dr["KAYITSIZ_DERS_ISMI"].ToString();
+                        }
+                        else if (Util.GecerliString(dr["DERS_KODU"]))
+                        {
+                            drToAdd["DERS_KODU"] = drToAdd["DERS_KODU"].ToString() + "," + dr["DERS_KODU"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        if (drToAdd != null)
+                        {
+                            dt2.Rows.Add(drToAdd);
+                        }
+                        drToAdd = dt2.NewRow();
+                        drToAdd.ItemArray = dr.ItemArray;
+                        if (Util.GecerliString(drToAdd["KAYITSIZ_DERS_ISMI"]))
+                        {
+                            drToAdd["DERS_KODU"] = drToAdd["KAYITSIZ_DERS_ISMI"];
+                        }
+                        prevHocaYorumID = currentHocaYorumID;
+                    }
+                }
+                if (drToAdd != null)
+                {
+                    dt2.Rows.Add(drToAdd);
+                }
+                return dt2;
+            }
         }
-        catch
-        {
-            return null;
-        }
+        catch { }
+        return null;
     }
 
     /// <summary>
@@ -695,6 +732,31 @@ public class Hocalar
         }
         catch (Exception) { }
         return null;
+    }
+
+    /// <summary>
+    /// Hoca yorumunun iliskili oldugu derslerin ID'lerini ve/veya bilinmeyen ders isimlerini dondurur
+    /// </summary>
+    /// <param name="HocaYorumID"></param>
+    /// <returns></returns>
+    public static DataTable HocaYorumDersleriDondur(int HocaYorumID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("HocaYorumDersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaYorumID", HocaYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     /// <summary>
