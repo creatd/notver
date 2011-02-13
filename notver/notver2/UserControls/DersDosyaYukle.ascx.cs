@@ -12,6 +12,11 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.IO;
 
+using Amazon.S3;
+using Amazon.S3.Model;
+using System.Collections.Specialized;
+using System.Net;
+
 public partial class UserControls_DersDosyaYukle : BaseUserControl
 {
     public int SeciliDersID
@@ -28,6 +33,23 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
         set
         {
             this.ViewState["_SeciliDersID"] = value;
+        }
+    }
+
+    public int SeciliDersOkulID
+    {
+        get
+        {
+            object o = this.ViewState["_SeciliDersOkulID"];
+            if (o == null)
+                return -1;
+            else
+                return (int)o;
+        }
+
+        set
+        {
+            this.ViewState["_SeciliDersOkulID"] = value;
         }
     }
 
@@ -187,6 +209,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                 if (dtDers != null)
                 {
                     lblSecilenDers.Text = dtDers.Rows[0]["KOD"].ToString() + " (" + dtDers.Rows[0]["OKUL_ISIM"].ToString() + ")";
+                    SeciliDersOkulID = Convert.ToInt32(dtDers.Rows[0]["OKUL_ID"]);
                 }
             }
             else
@@ -203,13 +226,14 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                 }
             }
         }
-
     }
+
     protected void ItemCommand(object sender, DataGridCommandEventArgs e)
     {
         if (e.CommandName == "DersSec")
         {
             SeciliDersID = Convert.ToInt32(e.CommandArgument);
+            SeciliDersOkulID = Convert.ToInt32(((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[4].Text);
             string seciliDersIsim = ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[0].Text + " (" + ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[2].Text + ")";
             DersSec(seciliDersIsim);
         }
@@ -217,7 +241,8 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
 
     protected void DosyaYukle(object sender, EventArgs e)
     {
-        if (SeciliDersID <= 0)
+        lblYuklemeDurum.Text = "";
+        if (SeciliDersID <= 0 || string.IsNullOrEmpty(lblSecilenDers.Text))
         {
             lblYuklemeDurum.Text = "Ders secmeniz gerekmektedir";
             return;
@@ -226,10 +251,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
         {
             try
             {
-                string dosyaAdres = Path.GetFileName(fileUpload.FileName);
-                string dosyaUzunAdres = Server.MapPath("~/Dosyalar/Dersler/" + SeciliDersID.ToString().Trim() + "/" + rbDosyaTipleri.SelectedValue.ToString().Trim() + "/" + dosyaAdres);
-                string dosyaIsim = txtDosyaIsim.Text;
-                //Ders icin klasorlerin oldugunu kontrol et, yoksa yarat
+                /*//Ders icin klasorlerin oldugunu kontrol et, yoksa yarat
                 DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Dosyalar/Dersler/" + SeciliDersID.ToString().Trim()));
                 if (!dir.Exists)
                 {
@@ -240,13 +262,87 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                 {
                     dir.Create();
                 }
-                fileUpload.SaveAs(dosyaUzunAdres);
-                Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue), (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsim, dosyaAdres, session.KullaniciID, txtDosyaAciklama.Text,session.KullaniciOnayPuani);
+                fileUpload.SaveAs(dosyaUzunAdres);*/
+
+                int dosyaBoyut = fileUpload.PostedFile.ContentLength;
+                if (dosyaBoyut <= 0)
+                {
+                    lblYuklemeDurum.Text = "Sectiginiz dosyanin iceriginde bir sorun var, lutfen tekrar deneyin";
+                }
+                else if (dosyaBoyut > 5 * 1024 * 1024)
+                {
+                    lblYuklemeDurum.Text = "5 GB'tan buyuk bir dosya yukleyemezsiniz, lutfen daha kucuk bir dosya secin";
+                }
+
+                string dosyaAdres = Path.GetFileName(fileUpload.FileName);
+                string dosyaIsim = txtDosyaIsim.Text;
+                string dosyaIsimFinal;
+
+                if (string.IsNullOrEmpty(dosyaIsim))
+                {
+                    dosyaIsimFinal = Util.StringToEnglish_RemoveMarks(dosyaAdres,true);
+                }
+                else
+                {
+                    string dosya_uzanti = dosyaAdres.Substring(dosyaAdres.LastIndexOf("."));
+                    dosyaIsimFinal = Util.StringToEnglish_RemoveMarks(dosyaIsim + dosya_uzanti,true);
+                }
+
+                //Amazon'a yuklemeden once bu isimde bir dosya var mi kontrol et, yoksa uzerine yaziyo
+                if( Dersler.DersDosyaIsmiVarMi(SeciliDersID , (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue),dosyaIsimFinal)) 
+                {
+                    lblYuklemeDurum.Text = "Ayni ders icin bu isimde bir dosya daha once yuklenmis. Lutfen baska bir isim secip tekrar deneyin";
+                    return;
+                }
+
+                //Amazon yukleme                
+                string klasorIsim = SeciliDersOkulID.ToString().Trim() + "/" + SeciliDersID.ToString().Trim() + "/" + rbDosyaTipleri.SelectedValue.ToString().Trim() + "/";
+                
+                NameValueCollection appConfig = ConfigurationManager.AppSettings;
+
+                string accessKeyID = appConfig["AWSAccessKey"];
+                string secretAccessKeyID = appConfig["AWSSecretKey"];
+                string bucketName = appConfig["AWSBucketName"];
+
+                using (AmazonS3 client = Amazon.AWSClientFactory.CreateAmazonS3Client(accessKeyID, secretAccessKeyID))
+                {
+                    PutObjectRequest titledRequest = new PutObjectRequest();
+                    titledRequest.WithBucketName(bucketName)   
+                        .WithGenerateChecksum(true)
+                        .WithInputStream(fileUpload.FileContent);
+                    
+                    string md5 = titledRequest.MD5Digest;
+                    if(string.IsNullOrEmpty(dosyaIsim))
+                    {
+                        titledRequest.WithKey(klasorIsim + dosyaIsimFinal);
+                    }
+                    else
+                    {
+                        string dosya_uzanti = dosyaAdres.Substring(dosyaAdres.LastIndexOf("."));
+                        titledRequest.WithKey(klasorIsim + dosyaIsimFinal);
+                    }                    
+
+                    using (PutObjectResponse response = client.PutObject(titledRequest))
+                    {
+                        WebHeaderCollection headers = response.Headers;
+                        foreach (string key in headers.Keys)
+                        {
+                            Console.WriteLine("Response Header: {0}, Value: {1}", key, headers.Get(key));
+                        }
+                    }
+                }
+
+                Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue), 
+                    (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsimFinal,
+                    klasorIsim + dosyaIsimFinal, session.KullaniciID, txtDosyaAciklama.Text, session.KullaniciOnayPuani,
+                    dosyaBoyut);
+
                 lblYuklemeDurum.Text = "Yuklendi! Tesekkurler :)";
                 ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
             }
             catch (Exception ex)
             {
+                //TODO: Admine msj
                 lblYuklemeDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
             }
         }

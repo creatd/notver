@@ -50,18 +50,19 @@ $(document).ready(function($) {
         <br />
         <br />
         <br />
-        <a href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>
+        <a href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>&KeepThis=true&TB_iframe=true&modal=true&height=700&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>
     </p>
 </div>
 <asp:Panel runat="server" ID="pnlDosyalar">
     <div id="divDosyalar" style="float: left; width: 670px;">
         <asp:DataGrid runat="server" ID="gridDosyalar" AutoGenerateColumns="false" OnItemDataBound="gridDosyalar_ItemDataBound"
-            AllowSorting="true" AllowPaging="false">
+            AllowSorting="true" AllowPaging="false" OnItemCommand="gridDosyalar_ItemCommand">
             <Columns>
                 <asp:BoundColumn DataField="DOSYA_ISMI" HeaderText="Dosya Ismi"></asp:BoundColumn>
                 <asp:BoundColumn DataField="HOCA_ISIM" HeaderText="Hoca Ismi"></asp:BoundColumn>
                 <asp:BoundColumn DataField="EKLENME_TARIHI" HeaderText="Eklenme Tarihi"></asp:BoundColumn>
-                <asp:BoundColumn DataField="DOSYA_ADRES"></asp:BoundColumn>
+                <asp:BoundColumn DataField="DOSYA_ADRES" Visible="false"></asp:BoundColumn>
+                <asp:ButtonColumn ButtonType="PushButton" HeaderText="Indir" CommandName="DosyaIndir"></asp:ButtonColumn>
             </Columns>
         </asp:DataGrid>
         <asp:Panel ID="pnlPager" runat="server">
@@ -111,3 +112,4 @@ $(document).ready(function($) {
 <div id="dosyaYukle" style="display: none;">
     <uc1:DersDosyaYukle runat="server"></uc1:DersDosyaYukle>
 </div>
+<asp:Literal runat="server" ID="ltrScript"></asp:Literal>

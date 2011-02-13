@@ -34,6 +34,46 @@ public class Util
         return connection;
     }
 
+    public static string StringToEnglish(string input)
+    {
+        string output = input;
+        output = output.Replace('ı', 'i');
+        output = output.Replace('ö', 'o');
+        output = output.Replace('ü', 'u');
+        output = output.Replace('ç', 'c');
+        output = output.Replace('ş', 's');
+        output = output.Replace('ğ', 'g');
+        output = output.Replace('İ', 'I');
+        output = output.Replace('Ö', 'O');
+        output = output.Replace('Ü', 'U');
+        output = output.Replace('Ç', 'C');
+        output = output.Replace('Ş', 'S');
+        output = output.Replace('Ğ', 'G');
+        return output;
+    }
+
+    public static string StringToEnglish_RemoveMarks(string input, bool kucult)
+    {
+        string output = StringToEnglish(input);
+        output = output.Replace(' ', '_');
+        output = output.Replace(',', '_');
+        output = output.Replace('=', '_');
+        output = output.Replace('+', '_');
+        output = output.Replace('^', '_');
+        output = output.Replace('%', '_');
+        output = output.Replace('*', '_');
+        output = output.Replace('$', '_');
+        output = output.Replace('#', '_');
+        output = output.Replace('@', '_');
+        output = output.Replace('!', '_');
+        //Noktayi degistirme
+        if (kucult)
+        {
+            output = output.ToLowerInvariant();
+        }
+        return output;
+    }
+
     public static string TextFileToString(string filePath)
     {
         StreamReader sr = new StreamReader(filePath);
@@ -103,6 +143,9 @@ public class Util
 
     /// <summary>
     /// Prosedure verilen son parametrenin degerini dondurur (son parametre output parametre olmali)
+    /// param = new SqlParameter("Sonuc", SqlDbType.Int);
+    /// param.Direction = ParameterDirection.Output;        
+    /// cmd.Parameters.Add(param);
     /// </summary>
     /// <param name="cmd"></param>
     /// <returns></returns>

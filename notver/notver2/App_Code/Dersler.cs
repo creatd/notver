@@ -153,7 +153,9 @@ public class Dersler
         }
     }
 
-    public static void DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama, int KullaniciOnayPuani)
+    public static void DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, 
+        string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama, int KullaniciOnayPuani,
+        int DosyaBoyut)
     {
         try
         {
@@ -183,12 +185,9 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("DosyaIsmi",SqlDbType.NVarChar);
-            if (string.IsNullOrEmpty(dosyaIsmi))
-            {
-                param.Value = dosyaIsmi;
-            }
+            param = new SqlParameter("DosyaIsmi",dosyaIsmi);
             param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("DosyaAdres", dosyaAdresi);
@@ -221,6 +220,11 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
+            param = new SqlParameter("Boyut", DosyaBoyut);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
             if (Util.ExecuteNonQuery(cmd) == -1)
             {
                 //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
@@ -229,6 +233,53 @@ public class Dersler
         catch (Exception)
         {
             //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
+        }
+    }
+
+    /// <summary>
+    /// Bu isimde bir dosya var mi, bunu kontrol eder
+    /// Amazon'da cakisma olmasini engellemek icin kullanilir
+    /// </summary>
+    /// <param name="DersID"></param>
+    /// <param name="DersKategoriTipi"></param>
+    /// <param name="DosyaIsmi"></param>
+    /// <returns></returns>
+    public static bool DersDosyaIsmiVarMi(int DersID, Enums.DosyaKategoriTipi DersKategoriTipi,
+        string DosyaIsmi)
+    {
+        try
+        {
+            if (DersID < 0)
+            {
+                return true;
+            }
+            SqlCommand cmd = new SqlCommand("DersDosyaIsmiVarMi");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaKategoriTipi", (int)DersKategoriTipi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaIsmi", DosyaIsmi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Sonuc", SqlDbType.Int);
+            param.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(param);
+
+            return Convert.ToUInt32(Util.GetResult(cmd)) == 1;
+        }
+        catch (Exception)
+        {
+            return true;
         }
     }
 
