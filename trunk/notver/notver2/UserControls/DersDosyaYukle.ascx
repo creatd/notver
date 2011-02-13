@@ -57,6 +57,7 @@ function Temizle(obj)
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
+                        <asp:BoundColumn Visible="false" DataField="OKUL_ID"></asp:BoundColumn>
                     </Columns>
                 </asp:DataGrid>
                 <asp:Panel ID="pnlPager" runat="server">

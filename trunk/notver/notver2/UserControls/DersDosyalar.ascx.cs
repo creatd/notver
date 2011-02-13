@@ -10,6 +10,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using Amazon.S3;
+using System.Collections.Specialized;
+using Amazon.S3.Model;
 
 public partial class UserControls_DersDosyalar : BaseUserControl
 {
@@ -195,10 +198,40 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 if (string.IsNullOrEmpty(drv.Row.ItemArray[1].ToString()))
                 {
                     e.Item.Cells[0].Text = drv.Row.ItemArray[2].ToString();
-                    e.Item.Cells[3].Text = drv.Row.ItemArray[2].ToString();
+                    //e.Item.Cells[3].Text = drv.Row.ItemArray[2].ToString();
                 }
-                e.Item.Cells[3].Text = DosyaAdresDondur(e.Item.Cells[3].Text,dosyaTooltip,Convert.ToInt32(drv.Row.ItemArray[7]));
+                //e.Item.Cells[3].Text = DosyaAdresDondur(e.Item.Cells[3].Text,dosyaTooltip,Convert.ToInt32(drv.Row.ItemArray[7]));
             }
+        }
+    }
+
+    protected void gridDosyalar_ItemCommand(object sender, DataGridCommandEventArgs e)
+    {
+        if (e.CommandName == "DosyaIndir")
+        {
+            string dosya_anahtar = ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[3].Text;
+
+            //Amazon'dan 1 saat sureli URL olustur
+            NameValueCollection appConfig = ConfigurationManager.AppSettings;
+            string accessKeyID = appConfig["AWSAccessKey"];
+            string secretAccessKeyID = appConfig["AWSSecretKey"];
+            string bucketName = appConfig["AWSBucketName"];
+
+            using (AmazonS3 client = Amazon.AWSClientFactory.CreateAmazonS3Client(accessKeyID, secretAccessKeyID))
+            {
+                GetPreSignedUrlRequest url_request = new GetPreSignedUrlRequest()
+                {
+                    BucketName = bucketName,
+                    Key = dosya_anahtar,
+                    Protocol = Protocol.HTTP,
+                    Expires = DateTime.Now.AddHours(1)
+                };
+                string url = client.GetPreSignedURL(url_request);
+                string response = "<script>window.open('" + url + "','_blank')</script>";
+                ltrScript.Text = response;
+                //Response.Write(response);
+            }
+
         }
     }
 
@@ -206,12 +239,12 @@ public partial class UserControls_DersDosyalar : BaseUserControl
     {
         string tooltip = "";
         if(!string.IsNullOrEmpty(Aciklama))
-            tooltip += "\"" + Aciklama + "\"";
-        tooltip += "<br /><b>" + IndirilmeSayisi + "</b> kere indirilmis";
+            tooltip += "\"" + Aciklama + "\"<br />";
+        tooltip += "<b>" + IndirilmeSayisi + "</b> kere indirilmis";
         return tooltip;
     }
 
-    protected string DosyaAdresDondur(string dosyaAdres, string dosyaTooltip, int dosyaKategoriTipi)
+    /*protected string DosyaAdresDondur(string dosyaAdres, string dosyaTooltip, int dosyaKategoriTipi)
     {
         if (DosyaKategoriTipi >=0)
         {
@@ -220,5 +253,5 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 Page.ResolveUrl("~/App_Themes/Default/Images/diger/disket.gif") + "' /></a>";
         }
         return "";
-    }
+    }*/
 }

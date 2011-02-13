@@ -76,8 +76,8 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
                 hocaKullaniciDerslerObj.Clear();
                 hocaKullaniciDersler = hocaKullaniciDerslerObj;
             }
-
-            if (Query.GetInt("HocaID") <= 0)
+            int queryHocaID = Query.GetInt("HocaID");
+            if (queryHocaID <= 0)
             {
                 return;
             }
@@ -102,7 +102,7 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
                 if (!Page.IsPostBack)
                 {
                     //Kullanicinin daha once yaptigi yorumu yukle
-                    List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, Query.GetInt("HocaID"));
+                    List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, queryHocaID);
                     if (listEskiYorum != null)
                     {
                         //yorumID - yorum - kullanici puan araligi - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu - OkulIsmi)| (-1 - Ders Ismi) }(*)
@@ -159,7 +159,7 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
                     dropHocaDersler.Items.Clear();
                     //Hocanin verdigi dersleri yukleyip dropdown'a yukle
                     dropHocaDersler.Items.Add(new ListItem("", "-1"));
-                    string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
+                    string[][] hocaDersler = Hocalar.HocaDersleriniDondur(queryHocaID);
 
                     if (hocaDersler != null)
                     {
