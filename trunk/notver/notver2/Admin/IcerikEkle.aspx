@@ -1,9 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" 
-Inherits="Admin_Default" MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="IcerikEkle.aspx.cs" 
+Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <asp:ScriptManager runat="server"></asp:ScriptManager>
-<h1>Admin paneli</h1>
+<h1>Icerik Ekle</h1>
 <h2>Okul Ekle</h2>
 <asp:Panel runat="server" ID="pnlOkulEkle">
     <table>

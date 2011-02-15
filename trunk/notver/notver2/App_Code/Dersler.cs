@@ -16,6 +16,113 @@ using System.Data.SqlClient;
 /// </summary>
 public class Dersler
 {
+    //Dersi veritabanindan siler, inaktif yapmak icin DersGuncelle'yi kullan
+    public static bool DersSil(int DersID)
+    {
+        try
+        {
+            if (DersID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        return false;
+    }
+
+    public static bool DersGuncelle(int DersID, int OkulID, bool IsActive, string Kod,
+        string Isim, string Aciklama)
+    {
+        try
+        {
+            if (DersID < 0 || OkulID < 0 || string.IsNullOrEmpty(Kod))
+            {
+                return false;
+            }
+
+            SqlCommand cmd = new SqlCommand("Admin_DersGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Kod", Kod);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(Isim))
+            {
+                param = new SqlParameter("Isim", Isim);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            if (!string.IsNullOrEmpty(Aciklama))
+            {
+                param = new SqlParameter("Aciklama", Aciklama);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    public static DataTable Admin_DersleriDondur(int OkulID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_DersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (OkulID > 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        return null;
+    }
+
     public static bool DersEkle(int OkulID, bool IsActive, string DersKodu, string DersIsmi,
         string DersAciklama)
     {
@@ -29,7 +136,7 @@ public class Dersler
             {
                 return false;
             }
-            SqlCommand cmd = new SqlCommand("DersEkle");
+            SqlCommand cmd = new SqlCommand("Admin_DersEkle");
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlParameter param = new SqlParameter("IsActive", IsActive);
@@ -44,14 +151,14 @@ public class Dersler
 
             param = new SqlParameter("Kod", DersKodu);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(DersIsmi))
             {
                 param = new SqlParameter("Isim", DersIsmi);
                 param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.VarChar;
+                param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
@@ -59,7 +166,7 @@ public class Dersler
             {
                 param = new SqlParameter("Aciklama", DersAciklama);
                 param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.VarChar;
+                param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
@@ -323,7 +430,7 @@ public class Dersler
 
             param = new SqlParameter("DosyaIsmi", DosyaIsmi);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Sonuc", SqlDbType.Int);

@@ -17,7 +17,7 @@ using System.IO;
 using System.Collections.Specialized;
 using Amazon.S3;
 
-public partial class Admin_Default : BasePage
+public partial class Admin_IcerikEkle : BasePage
 {
     List<string> hocaOkullarObj;
     public List<string> hocaOkullar

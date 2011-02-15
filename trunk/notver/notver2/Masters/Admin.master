@@ -11,6 +11,19 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <p>
+            <asp:HyperLink runat="server" ID="lnkAna" Text="Ana Sayfa" NavigateUrl="~/Default.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkPanel" Text="Panel" NavigateUrl="~/Admin/Default.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkIcerikEkle" Text="Icerik Ekle" NavigateUrl="~/Admin/IcerikEkle.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumOkullar" Text="Okullar" NavigateUrl="~/Admin/TumOkullar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumOkulYorumlar" Text="Okul Yorumlari" NavigateUrl="~/Admin/TumOkulYorumlar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumHocalar" Text="Hocalar" NavigateUrl="~/Admin/TumHocalar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumHocaYorumlar" Text="Hoca Yorumlari" NavigateUrl="~/Admin/TumHocaYorumlar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumDersler" Text="Dersler" NavigateUrl="~/Admin/TumDersler.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumDersYorumlar" Text="Ders Yorumlari" NavigateUrl="~/Admin/TumDersYorumlar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumDosyalar" Text="Dosyalar" NavigateUrl="~/Admin/TumDosyalar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumUyeler" Text="Uyeler" NavigateUrl="~/Admin/TumUyeler.aspx"></asp:HyperLink>
+        </p>
         <asp:ContentPlaceHolder id="content" runat="server">
         
         </asp:ContentPlaceHolder>

@@ -18,6 +18,118 @@ using System.Collections.Generic;
 /// </summary>
 public class Hocalar
 {
+    /// <summary>
+    /// Hocayi veritabanindan siler, inaktif yapmak icin HocaGuncelle'yi kullan
+    /// Onemli not: Hocayi silerken, hocanin ders ve okul iliskilerini de siler
+    /// </summary>
+    /// <param name="HocaID"></param>
+    /// <returns></returns>
+    public static bool HocaSil(int HocaID)
+    {
+        try
+        {
+            if (HocaID <0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Sonuc", SqlDbType.Int);
+            param.Direction = ParameterDirection.Output;        
+            cmd.Parameters.Add(param);
+
+            object obj = Util.GetResult(cmd);
+            if (obj != null && (int)obj == 1)
+            {
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    public static bool HocaGuncelle(int HocaID, bool IsActive, string Isim, string Unvan, int YorumSayisi)
+    {
+        try
+        {
+            if (HocaID <0 || string.IsNullOrEmpty(Isim))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Isim", Isim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(Unvan))
+            {
+                param = new SqlParameter("Unvan", Unvan);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            if (YorumSayisi >= 0)
+            {
+                param = new SqlParameter("YorumSayisi", YorumSayisi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    public static DataTable Admin_HocalariDondur(int OkulID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_HocalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (OkulID > 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        return null;
+    }
+
     public static bool HocaEkle(bool IsActive, string Isim, string Unvan, int YorumSayisi,
         List<int> OkulIDler, List<int> OkulBaslangicYillari, List<int> OkulBitisYillari, List<int> DersIDler)
     {
@@ -54,7 +166,7 @@ public class Hocalar
                 }
             }
 
-            SqlCommand cmd = new SqlCommand("HocaEkle");
+            SqlCommand cmd = new SqlCommand("Admin_HocaEkle");
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlParameter param = new SqlParameter("IsActive", IsActive);
@@ -64,14 +176,14 @@ public class Hocalar
 
             param = new SqlParameter("Isim", Isim);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(Unvan))
             {
                 param = new SqlParameter("Unvan", Unvan);
                 param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.VarChar;
+                param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
@@ -107,7 +219,7 @@ public class Hocalar
                     int baslangicYili = OkulBaslangicYillari[i];
                     int bitisYili = OkulBitisYillari[i];
 
-                    cmd = new SqlCommand("HocaOkulEkle");
+                    cmd = new SqlCommand("Admin_HocaOkulEkle");
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     param = new SqlParameter("HocaID", hocaID);
@@ -151,7 +263,7 @@ public class Hocalar
             {
                 foreach (int dersID in DersIDler)
                 {
-                    cmd = new SqlCommand("HocaDersEkle");
+                    cmd = new SqlCommand("Admin_HocaDersEkle");
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     param = new SqlParameter("HocaID", hocaID);

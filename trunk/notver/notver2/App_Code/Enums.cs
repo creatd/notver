@@ -54,8 +54,7 @@ public class Enums
         Odev = 2,
         Proje = 3,
         YararliKaynak = 4,
-        Diger = 5,
-        Hepsi = 6
+        Diger = 5
     }
 
     //s: Uyelik

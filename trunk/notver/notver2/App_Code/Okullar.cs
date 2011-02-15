@@ -16,21 +16,123 @@ using System.Data.SqlClient;
 /// </summary>
 public class Okullar
 {
+    //Admin
+    //Okulun kaydini tamamen siler, inaktif yapmak icin OkulGuncelle'yi kullan
+    public static bool OkulSil(int OkulID)
+    {
+        try
+        {
+            if (OkulID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_OkulSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    //Admin
+    public static bool OkulGuncelle(int OkulID, bool IsActive, string Isim, string Adres, int KurulusTarihi,
+        int OgrenciSayisi, int AkademikSayisi, string WebAdresi)
+    {
+        try
+        {
+            //Uzunluk kontrolleri bu metod cagirilmadan yapilmali
+            if (string.IsNullOrEmpty(Isim) || OkulID < 0)
+            {
+                return false;
+            }
+
+            SqlCommand cmd = new SqlCommand("Admin_OkulGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Isim", Isim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(Adres))
+            {
+                param = new SqlParameter("Adres", Adres);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            if (KurulusTarihi > 0)
+            {
+                param = new SqlParameter("KurulusTarihi", KurulusTarihi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (OgrenciSayisi > 0)
+            {
+                param = new SqlParameter("OgrenciSayisi", OgrenciSayisi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (AkademikSayisi > 0)
+            {
+                param = new SqlParameter("AkademikSayisi", AkademikSayisi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (!string.IsNullOrEmpty(WebAdresi))
+            {
+                param = new SqlParameter("WebAdresi", WebAdresi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
     public static bool OkulEkle(bool IsActive, string Isim, string Adres, int KurulusTarihi,
         int OgrenciSayisi, int AkademikSayisi, string WebAdresi)
     {
         try
         {
+            //Uzunluk kontrolleri bu metod cagirilmadan yapilmali
             if (string.IsNullOrEmpty(Isim))
             {
                 return false;
             }
-            else if (Isim.Length > 100 || Adres.Length > 50 || WebAdresi.Length > 256)
-            {
-                return false;
-            }
+            
 
-            SqlCommand cmd = new SqlCommand("OkulEkle");
+            SqlCommand cmd = new SqlCommand("Admin_OkulEkle");
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlParameter param = new SqlParameter("IsActive", IsActive);
@@ -40,14 +142,14 @@ public class Okullar
 
             param = new SqlParameter("Isim", Isim);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(Adres))
             {
                 param = new SqlParameter("Adres", Adres);
                 param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.VarChar;
+                param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
@@ -79,7 +181,7 @@ public class Okullar
             {
                 param = new SqlParameter("WebAdresi", WebAdresi);
                 param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.VarChar;
+                param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
@@ -140,6 +242,22 @@ public class Okullar
             return null;
         }
     }
+
+    public static DataTable Admin_OkullariDondur()
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_OkullariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
 
     /// <summary>
     /// Bir okul hakkinda yapilan yorumlari dondurur
