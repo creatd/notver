@@ -16,6 +16,61 @@ using System.Data.SqlClient;
 /// </summary>
 public class Dersler
 {
+    public static bool DersEkle(int OkulID, bool IsActive, string DersKodu, string DersIsmi,
+        string DersAciklama)
+    {
+        try
+        {
+            if (OkulID < 0 || string.IsNullOrEmpty(DersKodu))
+            {
+                return false;
+            }
+            else if (DersKodu.Length > 50 || DersIsmi.Length > 150 || DersAciklama.Length > 2000)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("DersEkle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Kod", DersKodu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(DersIsmi))
+            {
+                param = new SqlParameter("Isim", DersIsmi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.VarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            if (!string.IsNullOrEmpty(DersAciklama))
+            {
+                param = new SqlParameter("Aciklama", DersAciklama);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.VarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        return false;
+    }
 
     public static DataTable KodaGoreDersleriDondur(string dersKodu)
     {

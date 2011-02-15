@@ -16,13 +16,24 @@ using System.Text;
 public class BasePage : System.Web.UI.Page
 {
     public Session session;
-	public BasePage()
+
+    protected override void OnInit(EventArgs e)
+    {
+        base.OnInit(e);
+
+        if(session == null)
+        {
+            session = new Session();
+        }
+    }
+
+	/*public BasePage()
 	{
         if (session == null)
         {
             session = new Session();
         }
-	}
+	}*/
 
     /// <summary>
     /// Refreshes current page

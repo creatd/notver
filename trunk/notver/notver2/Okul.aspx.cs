@@ -34,9 +34,9 @@ public partial class Okul : BasePage
                         lblOkulIsim.Text = "";
                     }
                     //Kurulus tarihi
-                    if (session.OkulKurulusTarihi != DateTime.MinValue)
+                    if (session.OkulKurulusTarihi > 1800)
                     {
-                        lblOkulKurulusTarihi.Text = session.OkulKurulusTarihi.ToString("dd/MM/yyyy");
+                        lblOkulKurulusTarihi.Text = session.OkulKurulusTarihi.ToString();
                     }
                     else
                     {

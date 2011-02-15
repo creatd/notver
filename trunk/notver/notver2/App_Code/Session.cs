@@ -469,15 +469,13 @@ public class Session
                 }
 
                 //Kurulus tarihi
-                if (dtOkul.Rows[0]["KURULUS_TARIHI"] != System.DBNull.Value)
+                if (Util.GecerliSayi(dtOkul.Rows[0]["KURULUS_TARIHI"]))
                 {
-                    DateTime dateTime;
-                    DateTime.TryParse(dtOkul.Rows[0]["KURULUS_TARIHI"].ToString(), out dateTime);
-                    this.OkulKurulusTarihi = dateTime;
+                    this.OkulKurulusTarihi = Convert.ToInt32(dtOkul.Rows[0]["KURULUS_TARIHI"]);
                 }
                 else
                 {
-                    this.OkulKurulusTarihi = DateTime.MinValue;
+                    this.OkulKurulusTarihi = -1;
                 }
 
                 //Okul adresi
@@ -527,24 +525,24 @@ public class Session
                 this.OkulAkademikSayisi = -1;
                 this.OkulID = -1;
                 this.OkulIsim = "";
-                this.OkulKurulusTarihi = DateTime.MinValue;
+                this.OkulKurulusTarihi = -1;
                 this.OkulOgrenciSayisi = -1;
                 this.OkulWebAdresi = "";
             }
         }
     }
 
-    public DateTime OkulKurulusTarihi
+    public int OkulKurulusTarihi
     {
         get
         {
             if (HttpContext.Current.Session != null && HttpContext.Current.Session["OkulKurulusTarihi"] != null)
             {
-                return (DateTime)HttpContext.Current.Session["OkulKurulusTarihi"];
+                return Convert.ToInt32(HttpContext.Current.Session["OkulKurulusTarihi"]);
             }
             else
             {
-                return DateTime.MinValue;
+                return -1;
             }
         }
         set
@@ -705,6 +703,25 @@ public class Session
         }
     }
 
+    public string KullaniciAd
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["KullaniciAd"] != null)
+            {
+                return HttpContext.Current.Session["KullaniciAd"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["KullaniciAd"] = value;
+        }
+    }
+
     public Enums.UyelikDurumu KullaniciUyelikDurumu
     {
         get
@@ -721,6 +738,25 @@ public class Session
         set
         {
             HttpContext.Current.Session["KullaniciUyelikDurumu"] = value;
+        }
+    }
+
+    public Enums.UyelikRol KullaniciUyelikRol
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["KullaniciUyelikRol"] != null)
+            {
+                return (Enums.UyelikRol)Convert.ToInt32(HttpContext.Current.Session["KullaniciUyelikRol"]);
+            }
+            else
+            {
+                return Enums.UyelikRol.Kullanici;
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["KullaniciUyelikRol"] = value;
         }
     }
 

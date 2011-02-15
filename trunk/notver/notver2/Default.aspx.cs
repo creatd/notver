@@ -10,7 +10,16 @@ using System.Web.UI.WebControls.WebParts;
 
 public partial class _Default : BasePage
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
+        lblTimeout.Visible = false;
+        if (!session.IsLoggedIn)
+        {
+            string timeout = Query.GetString("timeout");
+            if (!string.IsNullOrEmpty(timeout) && timeout == "true")
+            {
+                lblTimeout.Visible = true;
+            }
+        }
     }
 }

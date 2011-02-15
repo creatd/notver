@@ -20,13 +20,22 @@ public class BaseUserControl : System.Web.UI.UserControl
 
     public Session session;
 
-    public BaseUserControl()
+    protected override void OnInit(EventArgs e)
     {
+        base.OnInit(e);
         if (session == null)
         {
             session = new Session();
         }
     }
+
+    /*public BaseUserControl()
+    {
+        if (session == null)
+        {
+            session = new Session();
+        }
+    }*/
 
     /// <summary>
     /// ID'si verilen okulun sayfasina gider

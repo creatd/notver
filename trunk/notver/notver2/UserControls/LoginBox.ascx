@@ -37,9 +37,9 @@ function Temizle(obj)
     <asp:Panel runat="server" ID="pnlNoLogin" Visible="false" class="doldur">
         <div id="LoginBox_Once">
             <span style="padding-top: 31px; padding-left: 70px; float: left;">
-                <asp:TextBox runat="server" ID="txtKullaniciAdi" Width="70" Class="seffafTextBox"
+                <asp:TextBox runat="server" ID="txtEposta" Width="70" Class="seffafTextBox"
                     ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" onclick="javascript:return Temizle(this);">Buraya</asp:TextBox></span>
-            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtKullaniciAdi"
+            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
                 CssClass="Hata" ErrorMessage="*" ToolTip="Kullanici adi girmelisiniz" ValidationGroup="vg" />
             <span style="padding-top: 10px; padding-left: 70px; float: left;">
                 <asp:TextBox runat="server" ID="txtSifre" Width="70" Class="seffafTextBox" TextMode="Password"
@@ -54,10 +54,11 @@ function Temizle(obj)
                 <asp:Label runat="server" ID="lblDurum"></asp:Label>
             </span>
         </div>
+        <asp:Label runat="server" ID="lblTimeout">Timeout!</asp:Label>
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlLogin" Visible="false" class="doldur">
         <div id="LoginBox_Sonra">
-            <%= session.KullaniciAdi.ToString() %>
+            <%= session.KullaniciAd.ToString() %>
             !
             <br />
             <br />

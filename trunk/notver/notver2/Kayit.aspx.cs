@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class Register : BasePage
+public partial class Kayit : BasePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
@@ -43,11 +43,12 @@ public partial class Register : BasePage
     {
         string kullaniciAdi = txtKullaniciAdi.Text.Trim();
         string sifre = txtSifre.Text.Trim();
-        string isim = txtIsim.Text.Trim();
+        string ad = txtAd.Text.Trim();
+        string soyad = txtSoyad.Text.Trim();
         int okulId = Convert.ToInt32(ddOkullar.SelectedValue);
         string eposta = txtEposta.Text.Trim();
         Enums.Cinsiyet cinsiyet = (Enums.Cinsiyet)Convert.ToInt32(rdCinsiyetler.SelectedValue);
-        /*int result = Uyelik.KullaniciOlustur(kullaniciAdi, isim, okulId, eposta, Enums.UyelikDurumu.EpostaOnayBekliyor, Enums.UyelikRol.Kullanici, sifre, cinsiyet);
+        int result = Uyelik.KullaniciOlustur(kullaniciAdi, ad, soyad, okulId, eposta, Enums.UyelikDurumu.EpostaOnayBekliyor, Enums.UyelikRol.Kullanici, sifre, cinsiyet);
         lblDurum.Text = "";
         if (result == -1)
         {
@@ -63,8 +64,8 @@ public partial class Register : BasePage
         }
         else if (result == 1)
         {
-            Uyelik.GirisYap(kullaniciAdi, sifre);
+            Uyelik.GirisYap(eposta, sifre);
             GoToDefaultPage();
-        }*/
+        }
     }
 }
