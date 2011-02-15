@@ -50,7 +50,7 @@ $(document).ready(function($) {
         <br />
         <br />
         <br />
-        <a href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>&KeepThis=true&TB_iframe=true&modal=true&height=700&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>
+        <a href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>&KeepThis=true&TB_iframe=true&modal=false&height=700&width=600" class="thickbox">Dosya yuklemek icin tiklayin</a>
     </p>
 </div>
 <asp:Panel runat="server" ID="pnlDosyalar">

@@ -57,9 +57,11 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             if (!Page.IsPostBack)
             {
                 KontroluSakla();
-                hocaKullaniciDerslerObj = hocaKullaniciDersler;
+
+                //TODO: kontrol et
+                /*hocaKullaniciDerslerObj = hocaKullaniciDersler; //Null donmesin, yeni liste donsun diye
                 hocaKullaniciDerslerObj.Clear();
-                hocaKullaniciDersler = hocaKullaniciDerslerObj;
+                hocaKullaniciDersler = hocaKullaniciDerslerObj;*/
             }
 
             if (Query.GetInt("HocaID") <= 0)

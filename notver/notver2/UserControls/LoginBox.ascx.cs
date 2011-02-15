@@ -15,6 +15,7 @@ public partial class UserControls_LoginBox : BaseUserControl
     {
         try
         {
+            lblTimeout.Visible = false;
             if (session.IsLoggedIn)
             {
                 GirisiGoster();
@@ -22,6 +23,14 @@ public partial class UserControls_LoginBox : BaseUserControl
             else
             {
                 CikisiGoster();
+                if (Context.Session != null && Context.Session.IsNewSession)
+                {
+                    string cookie = Request.Headers["Cookie"];
+                    if (!string.IsNullOrEmpty(cookie) && cookie.IndexOf("ASP.NET_SessionId") >= 0)
+                    {
+                        lblTimeout.Visible = true;
+                    }
+                }
             }
         }
         catch (Exception ex)
@@ -44,7 +53,7 @@ public partial class UserControls_LoginBox : BaseUserControl
 
     protected void GirisYap(object sender, EventArgs e)
     {
-        if (Uyelik.GirisYap(txtKullaniciAdi.Text, txtSifre.Text))
+        if (Uyelik.GirisYap(txtEposta.Text, txtSifre.Text))
         {
             //session.LoggedIn = true;
             //session.KullaniciAdi = txtUsername.Text.Trim();

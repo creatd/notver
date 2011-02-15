@@ -40,16 +40,16 @@ public class Uyelik
         return -1;
     }
 
-    public static bool KullaniciYukle(string kullaniciAdi)
+    public static bool KullaniciYukle(string Eposta)
     {
-        if (string.IsNullOrEmpty(kullaniciAdi))
+        if (string.IsNullOrEmpty(Eposta))
         {
             return false;
         }
         SqlCommand cmd = new SqlCommand("KullaniciYukle");
         cmd.CommandType = CommandType.StoredProcedure;
 
-        SqlParameter param = new SqlParameter("KullaniciAdi", kullaniciAdi);
+        SqlParameter param = new SqlParameter("Eposta", Eposta);
         param.Direction = ParameterDirection.Input;
         param.SqlDbType = SqlDbType.VarChar;
         cmd.Parameters.Add(param);
@@ -61,18 +61,19 @@ public class Uyelik
             int kullaniciID = -1;
             if (Util.GecerliStringSayi(dr["UYE_ID"]))
                 kullaniciID = Convert.ToInt32(dr["UYE_ID"].ToString());
-            string isim = "";
-            if(Util.GecerliString(dr["ISIM"]))
-                isim = dr["ISIM"].ToString();
+            
             int uyelikDurumu = -1;
             if(Util.GecerliStringSayi(dr["UYELIK_DURUMU"]))
                 uyelikDurumu = Convert.ToInt32(dr["UYELIK_DURUMU"].ToString());
+
             int rolID = -1;
             if(Util.GecerliStringSayi(dr["ROL_ID"]))
                 rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
+
             int onayPuani = -1;
             if (Util.GecerliStringSayi(dr["ONAY_PUANI"]))
                 onayPuani = Convert.ToInt32(dr["ONAY_PUANI"].ToString());
+
             Enums.Cinsiyet cinsiyet;
             if(Util.GecerliString(dr["CINSIYET"]))
             {
@@ -81,15 +82,23 @@ public class Uyelik
                 else
                     cinsiyet = Enums.Cinsiyet.Kiz;
             }
-            string eposta = "";
-            if(Util.GecerliString(dr["EPOSTA"]))
-                eposta = dr["EPOSTA"].ToString();
+
+            string kullaniciAd = "";
+            if (Util.GecerliString(dr["AD"]))
+                kullaniciAd = dr["AD"].ToString();
+
+            string kullaniciAdi = "";
+            if(Util.GecerliString(dr["KULLANICI_ADI"]))
+                kullaniciAdi = dr["KULLANICI_ADI"].ToString();
+
             Session session = new Session();
             session.IsLoggedIn = true;
             session.KullaniciAdi = kullaniciAdi;
             session.KullaniciID = kullaniciID;
             session.KullaniciUyelikDurumu = (Enums.UyelikDurumu)uyelikDurumu;
             session.KullaniciOnayPuani = onayPuani;
+            session.KullaniciAd = kullaniciAd;
+            session.KullaniciUyelikRol = (Enums.UyelikRol)rolID;
             return true;
         }
         return false;
@@ -115,41 +124,23 @@ public class Uyelik
     /// <param name="username"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public static int KullaniciOlustur(string kullaniciAdi, string isim, int okulId, string eposta,
+    public static int KullaniciOlustur(string kullaniciAdi, string ad, string soyad, int okulId, string eposta,
         Enums.UyelikDurumu uyelikDurumu, Enums.UyelikRol uyelikRol, string sifre, Enums.Cinsiyet cinsiyet)
     {
         try
         {
-            //Kullanici adi var mi kontrol et
-            SqlCommand cmd = new SqlCommand("KullaniciAdiVarMi");
+            //Eposta adresi var mi kontrol et
+            SqlCommand cmd = new SqlCommand("EpostaAdresiVarMi");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciAdi", kullaniciAdi);
+            eposta = eposta.Trim();
+            eposta = eposta.ToLowerInvariant();
+
+            SqlParameter param = new SqlParameter("Eposta", eposta);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
             object obj = Util.ExecuteScalar(cmd);
-            if (obj != null)
-            {
-                if ((int)obj == 1)
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return 0;
-            }
-
-            //Eposta adresi var mi kontrol et
-            cmd = new SqlCommand("EpostaAdresiVarMi");
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            param = new SqlParameter("Eposta", eposta);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
-            cmd.Parameters.Add(param);
-            obj = Util.ExecuteScalar(cmd);
             if (obj != null)
             {
                 if ((int)obj == 1)
@@ -162,6 +153,31 @@ public class Uyelik
                 return 0;
             }
 
+            //Kullanici adi zorunlu degil, ancak girildiyse essiz olmali
+            if (!string.IsNullOrEmpty(kullaniciAdi))
+            {
+                //Kullanici adi var mi kontrol et
+                cmd = new SqlCommand("KullaniciAdiVarMi");
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                param = new SqlParameter("KullaniciAdi", kullaniciAdi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.VarChar;
+                cmd.Parameters.Add(param);
+                obj = Util.ExecuteScalar(cmd);
+                if (obj != null)
+                {
+                    if ((int)obj == 1)
+                    {
+                        return -1;
+                    }
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+
             cmd = new SqlCommand("KullaniciKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -170,7 +186,12 @@ public class Uyelik
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Isim", isim);
+            param = new SqlParameter("Ad", ad);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Soyad", soyad);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
@@ -183,7 +204,7 @@ public class Uyelik
             param.Direction = ParameterDirection.Input;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Eposta", eposta);
+            param = new SqlParameter("Eposta", eposta); //Eposta adresini kucuk harf yaptik
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
@@ -224,22 +245,23 @@ public class Uyelik
         return 0;
     }
 
-    public static bool GirisYap(string kullaniciAdi, string sifre)
+    public static bool GirisYap(string Eposta, string sifre)
     {
         try
         {
             //Bu kontrol giris kutusunda yapilmis olmali ama yine de burada da yapalim
-            if (string.IsNullOrEmpty(kullaniciAdi) || string.IsNullOrEmpty(sifre))
+            if (string.IsNullOrEmpty(Eposta) || string.IsNullOrEmpty(sifre))
             {
                 return false;
             }
-            kullaniciAdi = kullaniciAdi.Trim();
+            Eposta = Eposta.Trim();
+            Eposta = Eposta.ToLowerInvariant();
             sifre = sifre.Trim();
 
             SqlCommand cmd = new SqlCommand("KullaniciSifreDogrula");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciAdi", kullaniciAdi);
+            SqlParameter param = new SqlParameter("Eposta", Eposta);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
@@ -258,7 +280,7 @@ public class Uyelik
             {
                 if ((int)obj == 1)
                 {
-                    KullaniciYukle(kullaniciAdi); 
+                    KullaniciYukle(Eposta); 
                     return true;
                 }
             }                       

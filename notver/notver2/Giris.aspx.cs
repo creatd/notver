@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class Register : BasePage
+public partial class Giris : BasePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
@@ -19,7 +19,7 @@ public partial class Register : BasePage
         {
             if (session.IsLoggedIn)
             {
-                GoToDefaultPage();
+                Yonlendir();
             }
             if (!Page.IsPostBack)
             {
@@ -38,33 +38,65 @@ public partial class Register : BasePage
         }
     }
 
+    protected void GirisYap(object sender, EventArgs e)
+    {
+        if (Uyelik.GirisYap(txtEposta.Text, txtSifreGiris.Text))
+        {
+            //session.LoggedIn = true;
+            //session.KullaniciAdi = txtUsername.Text.Trim();
+            lblDurum1.Text = "";
+            Yonlendir();
+        }
+        else
+        {
+            lblDurum1.Text = "Giris yapilamadi. Lutfen kullanici adi/sifrenizi kontrol edin.";
+        }
+    }
 
     protected void KullaniciOlustur(object sender, EventArgs e)
     {
         string kullaniciAdi = txtKullaniciAdi.Text.Trim();
         string sifre = txtSifre.Text.Trim();
-        string isim = txtIsim.Text.Trim();
+        string ad = txtAd.Text.Trim();
+        string soyad = txtSoyad.Text.Trim();
         int okulId = Convert.ToInt32(ddOkullar.SelectedValue);
         string eposta = txtEposta.Text.Trim();
         Enums.Cinsiyet cinsiyet = (Enums.Cinsiyet)Convert.ToInt32(rdCinsiyetler.SelectedValue);
-        /*int result = Uyelik.KullaniciOlustur(kullaniciAdi, isim, okulId, eposta, Enums.UyelikDurumu.EpostaOnayBekliyor, Enums.UyelikRol.Kullanici, sifre, cinsiyet);
-        lblDurum.Text = "";
+        int result = Uyelik.KullaniciOlustur(kullaniciAdi, ad,soyad, okulId, eposta, Enums.UyelikDurumu.EpostaOnayBekliyor, Enums.UyelikRol.Kullanici, sifre, cinsiyet);
+        lblDurum2.Text = "";
         if (result == -1)
         {
-            lblDurum.Text = "Kullanici adi alinmis, lutfen baska bir kullanici adi secin.";
+            lblDurum2.Text = "Kullanici adi alinmis, lutfen baska bir kullanici adi secin veya kullanici adini bos birakin.";
         }
         else if (result == 0)
         {
-            lblDurum.Text = "Bilinmeyen hata, lutfen tekrar deneyin.";
+            lblDurum2.Text = "Bilinmeyen hata, lutfen tekrar deneyin.";
         }
         else if (result == -2)
         {
-            lblDurum.Text = "E-posta adresi zaten kayitli. Sifrenizi unuttuysaniz sag ustten 'Sifremi unuttum'a tiklayiniz.";
+            lblDurum2.Text = "E-posta adresi zaten kayitli. Sifrenizi unuttuysaniz sag ustten 'Sifremi unuttum'a tiklayiniz.";
         }
         else if (result == 1)
         {
-            Uyelik.GirisYap(kullaniciAdi, sifre);
+            Uyelik.GirisYap(eposta, sifre);
+            Yonlendir();
+        }
+    }
+
+    protected void Yonlendir()
+    {
+        string redirect_url = Query.GetString("yonlendir");
+        if (string.IsNullOrEmpty(redirect_url))
+        {
             GoToDefaultPage();
-        }*/
+        }
+        else
+        {
+            redirect_url = redirect_url.Replace("!", "?");
+            redirect_url = redirect_url.Replace(",", "&");
+            //TODO: remove before production
+            redirect_url.Replace("notverin/notverin", "notverin");
+            Response.Redirect(Page.ResolveUrl("~/" + redirect_url));          
+        }
     }
 }

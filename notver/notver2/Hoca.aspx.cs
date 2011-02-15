@@ -89,12 +89,12 @@ public partial class Hoca : BasePage
                 if (yorumVar)
                 {
                     //Linke basinca guncelleme acilsin
-                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumGuncelle.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumGuncelle.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=false&height=530&width=640");
                 }
                 else
                 {
                     //Linke basinca yeni yorum gonderme acilsin
-                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumYap.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=true&height=530&width=640");
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumYap.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=false&height=530&width=640");
                 }
             }
             else

@@ -16,6 +16,82 @@ using System.Data.SqlClient;
 /// </summary>
 public class Okullar
 {
+    public static bool OkulEkle(bool IsActive, string Isim, string Adres, int KurulusTarihi,
+        int OgrenciSayisi, int AkademikSayisi, string WebAdresi)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(Isim))
+            {
+                return false;
+            }
+            else if (Isim.Length > 100 || Adres.Length > 50 || WebAdresi.Length > 256)
+            {
+                return false;
+            }
+
+            SqlCommand cmd = new SqlCommand("OkulEkle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Isim", Isim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(Adres))
+            {
+                param = new SqlParameter("Adres", Adres);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.VarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            if(KurulusTarihi > 0)
+            {
+                param = new SqlParameter("KurulusTarihi", KurulusTarihi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (OgrenciSayisi > 0)
+            {
+                param = new SqlParameter("OgrenciSayisi", OgrenciSayisi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (AkademikSayisi > 0)
+            {
+                param = new SqlParameter("AkademikSayisi", AkademikSayisi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (!string.IsNullOrEmpty(WebAdresi))
+            {
+                param = new SqlParameter("WebAdresi", WebAdresi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.VarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        return false;
+    }
+
     /// <summary>
     /// Okul.aspx sayfasindan, bir okulun profil bilgilerini dondurmek icin cagirilir
     /// </summary>
