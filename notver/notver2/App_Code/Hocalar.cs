@@ -18,6 +18,132 @@ using System.Collections.Generic;
 /// </summary>
 public class Hocalar
 {
+    //Boyle bir hoca-okul iliskisi daha once eklenmis mi kontrolu prosedur icinde yapiliyor
+    public static bool HocaOkulEkle(int HocaID, int OkulID, int BaslangicYili, int BitisYili)
+    {
+        try
+        {
+            if (HocaID < 0 || OkulID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaOkulEkle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (BaslangicYili > 0)
+            {
+                param = new SqlParameter("BaslangicYili", BaslangicYili);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (BitisYili >= 0)
+            {
+                param = new SqlParameter("BitisYili", BitisYili);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static bool HocaOkulSil(int HocaID, int OkulID)
+    {
+        try
+        {
+            if (HocaID < 0 || OkulID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaOkulSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    //Boyle bir hoca-ders iliskisi daha once eklenmis mi kontrolu prosedur icinde yapiliyor
+    public static bool HocaDersEkle(int HocaID, int DersID)
+    {
+        try
+        {
+            if (HocaID < 0 || DersID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaDersEkle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static bool HocaDersSil(int HocaID, int DersID)
+    {
+        try
+        {
+            if (HocaID < 0 || DersID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaDersSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
     /// <summary>
     /// Hocayi veritabanindan siler, inaktif yapmak icin HocaGuncelle'yi kullan
     /// Onemli not: Hocayi silerken, hocanin ders ve okul iliskilerini de siler
@@ -743,7 +869,29 @@ public class Hocalar
 	    }
     }
 
+    //HocaDersleriniDondur'un DataTable donduren hali
+    public static DataTable HocaDersleriniDondur_DataTable(int HocaID)
+    {
+        try
+        {
+            if (HocaID < 0)
+            {
+                return null;
+            }
 
+            SqlCommand cmd = new SqlCommand("HocaDersleriniDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
 
 
     /// <summary>

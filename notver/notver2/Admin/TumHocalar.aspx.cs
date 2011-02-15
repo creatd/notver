@@ -13,14 +13,33 @@ using System.Xml.Linq;
 
 public partial class Admin_TumHocalar : BasePage
 {
+    public int SeciliHocaID
+    {
+        get
+        {
+            object o = ViewState["_SeciliHocaID"];
+            if (o != null)
+                return (int)o;
+            else
+                return -1;
+        }
+        set
+        {
+            ViewState["_SeciliHocaID"] = value;
+        }
+    }
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
             drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+            drpOkullar2.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             foreach (DataRow dr in session.dtOkullar.Rows)
             {
                 drpOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                drpOkullar2.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                drpOkullar3.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
             }
             GridDoldur();
         }
@@ -30,6 +49,18 @@ public partial class Admin_TumHocalar : BasePage
     {
         gridHocalar.CurrentPageIndex = e.NewPageIndex;
         GridDoldur();
+    }
+
+    protected void grid2_PageIndexChanged(object sender, DataGridPageChangedEventArgs e)
+    {
+        gridHocaDersler.CurrentPageIndex = e.NewPageIndex;
+        GridDoldur2();
+    }
+
+    protected void grid3_PageIndexChanged(object sender, DataGridPageChangedEventArgs e)
+    {
+        //gridHocaOkullar.CurrentPageIndex = e.NewPageIndex;
+        //GridDoldur3();
     }
 
     protected void OkulSecildi(object sender, EventArgs e)
@@ -60,7 +91,7 @@ public partial class Admin_TumHocalar : BasePage
 
     protected void Edit(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[7].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[8].Visible = false;
 
         gridHocalar.EditItemIndex = e.Item.ItemIndex;
         GridDoldur();
@@ -68,7 +99,7 @@ public partial class Admin_TumHocalar : BasePage
 
     protected void Cancel(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[7].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[8].Visible = false;
 
         gridHocalar.EditItemIndex = -1;
         GridDoldur();
@@ -78,7 +109,7 @@ public partial class Admin_TumHocalar : BasePage
     {
         try
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[7].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[8].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             string isActive = (e.Item.Cells[1].Controls[0] as TextBox).Text;
@@ -129,8 +160,84 @@ public partial class Admin_TumHocalar : BasePage
         GridDoldur();
     }
 
+    //Bu ders daha once ekli mi kontrolu prosedur icinde yapiliyor
+    protected void HocaDersEkle(object sender, EventArgs e)
+    {
+        if (drpDersler.Items.Count > 0 && Util.GecerliSayi(drpDersler.SelectedValue))
+        {
+            int dersID = Convert.ToInt32(drpDersler.SelectedValue);
+            if (Hocalar.HocaDersEkle(SeciliHocaID, dersID))
+            {
+                lblDurum3.Text = "Hoca ders iliskisi eklendi";
+                GridDoldur2();
+            }
+            else
+            {
+                lblDurum3.Text = "Hoca ders iliskisi eklerken hata olustu";
+            }
+        }
+        else
+        {
+            lblDurum3.Text = "Ders secimi gecersiz";
+        }
+    }
+
+    //Bu okul daha once ekli mi kontrolu prosedur icinde yapiliyor
+    protected void HocaOkulEkle(object sender, EventArgs e)
+    {
+        if (drpOkullar3.Items.Count > 0 && Util.GecerliSayi(drpOkullar3.SelectedValue))
+        {
+            int okulID = Convert.ToInt32(drpOkullar3.SelectedValue);
+            int baslangicYili = -1;
+            int bitisYili = -1;
+            if (Util.GecerliSayi(txtOkulBaslangicYili.Text))
+            {
+                baslangicYili = Convert.ToInt32(txtOkulBaslangicYili.Text);
+            }
+            if (Util.GecerliSayi(txtOkulBitisYili.Text))
+            {
+                bitisYili = Convert.ToInt32(txtOkulBitisYili.Text);
+            }
+            if (Hocalar.HocaOkulEkle(SeciliHocaID, okulID,baslangicYili,bitisYili))
+            {
+                lblDurum1.Text = "Hoca okul iliskisi eklendi";
+                lblDurum2.Text = "Hoca okul iliskisi eklendi";
+                GridDoldur3();
+            }
+            else
+            {
+                lblDurum1.Text = "Hoca okul iliskisi eklerken hata olustu";
+                lblDurum2.Text = "Hoca okul iliskisi eklerken hata olustu";
+            }
+        }
+        else
+        {
+            lblDurum1.Text = "Okul secimi gecersiz";
+            lblDurum2.Text = "Okul secimi gecersiz";
+        }
+    }
+
+    protected void OkulSecildi2(object sender, EventArgs e)
+    {
+        int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+        if (okulID >= 0)
+        {
+            DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
+            if (dtDersler != null)
+            {
+                drpDersler.Items.Clear();
+                foreach (DataRow dr in dtDersler.Rows)
+                {
+                    drpDersler.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
+                }
+            }
+        }
+    }
+
     protected void ItemCommand(object sender, DataGridCommandEventArgs e)
     {
+        pnlHocaDersler.Visible = false;
+        pnlHocaOkullar.Visible = false;
         if(e.CommandName == "Sil1")
         {
             DataGridItemCollection coll = ((System.Web.UI.WebControls.DataGrid)(sender)).Items;
@@ -138,18 +245,18 @@ public partial class Admin_TumHocalar : BasePage
             {
                 if (i != e.Item.DataSetIndex)
                 {
-                    coll[i].Controls[7].Visible = false;
+                    coll[i].Controls[8].Visible = false;
                 }
                 else
                 {
-                    coll[i].Controls[7].Visible = true;
+                    coll[i].Controls[8].Visible = true;
                 }
             }
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[7].Visible = true;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[8].Visible = true;
         }
         else if(e.CommandName == "Sil2")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[7].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[8].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             if (Util.GecerliSayi(ID))
@@ -172,6 +279,138 @@ public partial class Admin_TumHocalar : BasePage
                 lblDurum2.Text = "Hoca silerken bir hata olustu (ID'yi alamadim)";
             }
             GridDoldur();
+        }
+        else if (e.CommandName == "Detay")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[8].Visible = false;
+            pnlHocaDersler.Visible = true;
+            pnlHocaOkullar.Visible = true;
+            string ID = e.Item.Cells[0].Text;
+            if (Util.GecerliSayi(ID))
+            {
+                SeciliHocaID = Convert.ToInt32(ID);
+                GridDoldur2();
+                GridDoldur3();
+            }
+        }
+    }
+
+    protected void ItemCommand2(object sender, DataGridCommandEventArgs e)
+    {
+        if (e.CommandName == "Sil1")
+        {
+            DataGridItemCollection coll = ((System.Web.UI.WebControls.DataGrid)(sender)).Items;
+            for (int i = 0; i < coll.Count; i++)
+            {
+                if (i != e.Item.DataSetIndex)
+                {
+                    coll[i].Controls[4].Visible = false;
+                }
+                else
+                {
+                    coll[i].Controls[4].Visible = true;
+                }
+            }
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[4].Visible = true;
+        }
+        else if (e.CommandName == "Sil2")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[4].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            if (Util.GecerliSayi(ID))
+            {
+                int dersID = Convert.ToInt32(ID);
+                if (Hocalar.HocaDersSil(SeciliHocaID,dersID))
+                {
+                    lblDurum3.Text = "Hoca ders iliskisi silindi";
+                }
+                else
+                {
+                    lblDurum3.Text = "Hoca ders iliskisini silerken bir hata olustu";
+                }
+            }
+            else
+            {
+                lblDurum3.Text = "Hoca ders iliskisini silerken bir hata olustu (ID'yi alamadim)";
+            }
+            GridDoldur2();
+        }
+    }
+
+    protected void ItemCommand3(object sender, DataGridCommandEventArgs e)
+    {
+        if (e.CommandName == "Sil1")
+        {
+            DataGridItemCollection coll = ((System.Web.UI.WebControls.DataGrid)(sender)).Items;
+            for (int i = 0; i < coll.Count; i++)
+            {
+                if (i != e.Item.DataSetIndex)
+                {
+                    coll[i].Controls[5].Visible = false;
+                }
+                else
+                {
+                    coll[i].Controls[5].Visible = true;
+                }
+            }
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = true;
+        }
+        else if (e.CommandName == "Sil2")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            if (Util.GecerliSayi(ID))
+            {
+                int okulID = Convert.ToInt32(ID);
+                if (Hocalar.HocaOkulSil(SeciliHocaID, okulID))
+                {
+                    lblDurum1.Text = "Hoca okul iliskisi silindi";
+                    lblDurum2.Text = "Hoca okul iliskisi silindi";
+                }
+                else
+                {
+                    lblDurum1.Text = "Hoca okul iliskisini silerken bir hata olustu";
+                    lblDurum2.Text = "Hoca okul iliskisini silerken bir hata olustu";
+                }
+            }
+            else
+            {
+                lblDurum1.Text = "Hoca okul iliskisini silerken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Hoca okul iliskisini silerken bir hata olustu (ID'yi alamadim)";
+            }
+            GridDoldur3();
+        }
+    }
+
+    protected void GridDoldur2()
+    {
+        DataTable dtHocaDersler = Hocalar.HocaDersleriniDondur_DataTable(SeciliHocaID);
+        if (dtHocaDersler != null)
+        {
+            gridHocaDersler.DataSource = dtHocaDersler;
+            gridHocaDersler.DataBind();
+        }
+        else
+        {
+            gridHocaDersler.DataSource = null;
+            gridHocaDersler.DataBind();
+        }
+    }
+
+    protected void GridDoldur3()
+    {
+        DataTable dtHocaOkullar = Hocalar.HocaOkullariniDondur(SeciliHocaID);
+        if (dtHocaOkullar != null)
+        {
+            gridHocaOkullar.DataSource = dtHocaOkullar;
+            gridHocaOkullar.DataBind();
+        }
+        else
+        {
+            gridHocaOkullar.DataSource = null;
+            gridHocaOkullar.DataBind();
         }
     }
 }
