@@ -39,7 +39,7 @@ public static class Mesajlar
 
             param = new SqlParameter("Icerik", Icerik);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if(Baslik.Length > 50)
@@ -47,7 +47,7 @@ public static class Mesajlar
 
             param = new SqlParameter("Baslik", Baslik);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("GondermeZamani", GondermeZamani);

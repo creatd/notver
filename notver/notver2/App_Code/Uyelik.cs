@@ -51,7 +51,7 @@ public class Uyelik
 
         SqlParameter param = new SqlParameter("Eposta", Eposta);
         param.Direction = ParameterDirection.Input;
-        param.SqlDbType = SqlDbType.VarChar;
+        param.SqlDbType = SqlDbType.NVarChar;
         cmd.Parameters.Add(param);
 
         DataTable dt = Util.GetDataTable(cmd);
@@ -138,7 +138,7 @@ public class Uyelik
 
             SqlParameter param = new SqlParameter("Eposta", eposta);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
             object obj = Util.ExecuteScalar(cmd);
             if (obj != null)
@@ -162,7 +162,7 @@ public class Uyelik
 
                 param = new SqlParameter("KullaniciAdi", kullaniciAdi);
                 param.Direction = ParameterDirection.Input;
-                param.SqlDbType = SqlDbType.VarChar;
+                param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
                 obj = Util.ExecuteScalar(cmd);
                 if (obj != null)
@@ -183,17 +183,17 @@ public class Uyelik
 
             param = new SqlParameter("KullaniciAdi", kullaniciAdi);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Ad", ad);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Soyad", soyad);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("OkulID",SqlDbType.Int);
@@ -206,7 +206,7 @@ public class Uyelik
 
             param = new SqlParameter("Eposta", eposta); //Eposta adresini kucuk harf yaptik
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("UyelikDurumu", (int)uyelikDurumu);
@@ -221,7 +221,7 @@ public class Uyelik
 
             param = new SqlParameter("Sifre", Util.HashString(sifre));
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Cinsiyet", (bool)((int)cinsiyet==1));
@@ -263,12 +263,12 @@ public class Uyelik
 
             SqlParameter param = new SqlParameter("Eposta", Eposta);
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Sifre", Util.HashString(sifre));
             param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.VarChar;
+            param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Sonuc", SqlDbType.Int);

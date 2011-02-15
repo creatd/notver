@@ -16,6 +16,18 @@ using Amazon.S3.Model;
 
 public partial class UserControls_DersDosyalar : BaseUserControl
 {
+    public bool TumKategoriler
+    {
+        get { 
+            object o = this.ViewState["_TumKategoriler"];
+            if (o == null)
+                return false;
+            else
+                return (bool)o; 
+        }
+        set { this.ViewState["_TumKategoriler"] = value; }
+    }
+
     public int DosyaKategoriTipi
     {
         get
@@ -125,13 +137,13 @@ public partial class UserControls_DersDosyalar : BaseUserControl
     protected void GridDoldur()
     {
         DataTable dt = null;
-        if (DosyaKategoriTipi >= 0 && DosyaKategoriTipi < (int)Enums.DosyaKategoriTipi.Hepsi)
-        {
-            dt = Dersler.DersDosyalariniDondur(Query.GetInt("DersID"), (Enums.DosyaKategoriTipi)DosyaKategoriTipi);
-        }
-        else if (DosyaKategoriTipi == (int)Enums.DosyaKategoriTipi.Hepsi)
+        if (TumKategoriler)
         {
             dt = Dersler.DersDosyalariniDondur(Query.GetInt("DersID"));
+        }
+        else
+        {
+            dt = Dersler.DersDosyalariniDondur(Query.GetInt("DersID"), (Enums.DosyaKategoriTipi)DosyaKategoriTipi);
         }
 
         if (dt!= null && dt.Rows.Count > 0)
@@ -176,7 +188,17 @@ public partial class UserControls_DersDosyalar : BaseUserControl
 
     protected void KlasorSec(object sender, CommandEventArgs e)
     {
-        DosyaKategoriTipi = Convert.ToInt32(e.CommandArgument);
+        int argument = Convert.ToInt32(e.CommandArgument);
+        if(argument == 6)   //Hepsi secenegi
+        {
+            TumKategoriler = true;
+        }
+        else
+        {
+            TumKategoriler = false;
+            DosyaKategoriTipi = argument;
+        }
+        
         MevcutSayfa = 1;
         SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
         GridDoldur();

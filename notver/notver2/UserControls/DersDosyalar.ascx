@@ -112,4 +112,4 @@ $(document).ready(function($) {
 <div id="dosyaYukle" style="display: none;">
     <uc1:DersDosyaYukle runat="server"></uc1:DersDosyaYukle>
 </div>
-<asp:Literal runat="server" ID="ltrScript"></asp:Literal>
+<asp:Literal runat="server" ID="ltrScript" EnableViewState="false"></asp:Literal>
