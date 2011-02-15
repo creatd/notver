@@ -124,11 +124,6 @@ public partial class Admin_IcerikEkle : BasePage
         }
     }
 
-    protected void Refresh()
-    {
-        Response.Redirect(Request.Url.PathAndQuery);
-    }
-
     protected void OkulEkle(object sender, EventArgs e)
     {
         lblDurumOkulEkle.Text = "";
@@ -163,7 +158,7 @@ public partial class Admin_IcerikEkle : BasePage
                 session = new Session();
             }
             session.dtOkullar = null;   //Yeniden yuklensin diye
-            Refresh();
+            RefreshPage();
         }
         else
         {
