@@ -16,6 +16,26 @@ using System.Data.SqlClient;
 /// </summary>
 public class Genel
 {
+    //Kullanilmiyor
+    public static DataTable Admin_OnayBekleyenYorumlariDondur(Enums.YorumTipi YorumTipi)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_OnayBekleyenYorumlariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("YorumTipi", (int)YorumTipi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
+
     /// <summary>
     /// Ilk int degeri :
     /// Eger ilk defa puan veriliyorsa 1,

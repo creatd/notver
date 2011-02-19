@@ -17,6 +17,7 @@ public partial class Admin_TumDersler : BasePage
     {
         if (!Page.IsPostBack)
         {
+            drpOkullar.Items.Clear();
             drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             foreach (DataRow dr in session.dtOkullar.Rows)
             {

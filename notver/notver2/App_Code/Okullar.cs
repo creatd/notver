@@ -16,6 +16,108 @@ using System.Data.SqlClient;
 /// </summary>
 public class Okullar
 {
+    /// <summary>
+    /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
+    /// </summary>
+    /// <param name="OkulYorumID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static bool Admin_OkulYorumOnayla(int OkulYorumID, int KullaniciID)
+    {
+        try
+        {
+            if (OkulYorumID < 0 || KullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_OkulYorumOnayla");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("YorumID", OkulYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayliDurumID", (int)Enums.YorumDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            int onayDegeri = Convert.ToInt32(ConfigurationManager.AppSettings["OkulYorumOnayDegeri"]);
+            param = new SqlParameter("OnayDegeri", onayDegeri);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    /// <summary>
+    /// Normal silmeleri yorum durumunu degistirerek yap, bu metod veritabanindan tamamen siler
+    /// </summary>
+    /// <param name="OkulYorumID"></param>
+    /// <returns></returns>
+    public static bool OkulYorumSil(int OkulYorumID)
+    {
+        try
+        {
+            if (OkulYorumID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_OkulYorumSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulYorumID", OkulYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    public static DataTable Admin_OkulYorumlariDondur(int OkulID, Enums.YorumDurumu YorumDurumu, bool HepsiniGoster)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_OkulYorumlariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (!HepsiniGoster)
+            {
+                SqlParameter param = new SqlParameter("YorumDurumu", (int)YorumDurumu);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (OkulID >= 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     //Admin
     //Okulun kaydini tamamen siler, inaktif yapmak icin OkulGuncelle'yi kullan
     public static bool OkulSil(int OkulID)
@@ -466,7 +568,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", yorum);
+            param = new SqlParameter("Yorum", Util.HTMLToDB(yorum));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -477,5 +579,57 @@ public class Okullar
         {
             return false;
         }
+    }
+
+    public static bool Admin_OkulYorumGuncelle(int OkulYorumID, string SilinmeNedeni, int OkulID, string Yorum, 
+        DateTime GonderilmeTarihi, int AlkisPuani)
+    {
+        try
+        {
+            if (OkulYorumID < 0 || OkulID <0 || string.IsNullOrEmpty(Yorum))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_OkulYorumGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulYorumID", OkulYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+
+            param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("GonderilmeTarihi", GonderilmeTarihi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.SmallDateTime;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("AlkisPuani", AlkisPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
     }
 }
