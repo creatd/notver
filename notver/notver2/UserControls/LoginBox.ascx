@@ -32,28 +32,23 @@ function Temizle(obj)
 
 
 <div id="LoginBox">
-    <a name="login"></a>
-    <!-- Buraya erismek icin kullanilan bos link -->
-    <asp:Panel runat="server" ID="pnlNoLogin" Visible="false" class="doldur">
-        <div id="LoginBox_Once">
-            <span style="padding-top: 31px; padding-left: 70px; float: left;">
-                <asp:TextBox runat="server" ID="txtEposta" Width="70" Class="seffafTextBox"
-                    ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" onclick="javascript:return Temizle(this);">Buraya</asp:TextBox></span>
+    <asp:Panel runat="server" ID="pnlNoLogin" Visible="false" CssClass="pnlLogin">
+        <p>E-posta adresi</p>       
+        <asp:TextBox runat="server" ID="txtEposta" Width="70"
+                    ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" 
+                    onclick="javascript:return Temizle(this);">Buraya</asp:TextBox>
             <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
                 CssClass="Hata" ErrorMessage="*" ToolTip="Kullanici adi girmelisiniz" ValidationGroup="vg" />
-            <span style="padding-top: 10px; padding-left: 70px; float: left;">
-                <asp:TextBox runat="server" ID="txtSifre" Width="70" Class="seffafTextBox" TextMode="Password"
+        <p>Sifre</p>
+                <asp:TextBox runat="server" ID="txtSifre" Width="70" TextMode="Password"
                     ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" onclick="javascript:return Temizle(this);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
-                    ErrorMessage="*" ToolTip="Sifre girmelisiniz" ValidationGroup="vg" CssClass="Hata" /></span>
-            <span class="sessiz fltLeft" style="padding-top: 5px;">
-                <asp:CheckBox ID="RememberMe" runat="server" Text="beni hatirla" CssClass="sessiz styled" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:LinkButton ID="LoginButton" OnClick="GirisYap" runat="server" ValidationGroup="vg">Giris yap</asp:LinkButton>
-            </span>
-            <span>
-                <asp:Label runat="server" ID="lblDurum"></asp:Label>
-            </span>
-        </div>
+                    ErrorMessage="*" ToolTip="Sifre girmelisiniz" ValidationGroup="vg" CssClass="Hata" />
+        <br /><asp:ImageButton ID="LoginButton" OnClick="GirisYap" runat="server" ValidationGroup="vg"
+            ImageUrl="~/App_Themes/Default/Images/giris.png" CssClass="clear fltLeft"/>
+        <br /><asp:CheckBox ID="RememberMe" runat="server" Text="beni hatirla"/>
+        <asp:HyperLink runat="server" Text="Sifremi unuttum" CssClass="fltLeft"></asp:HyperLink>
+        <asp:Label runat="server" ID="lblDurum"></asp:Label>
         <asp:Label runat="server" ID="lblTimeout">Timeout!</asp:Label>
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlLogin" Visible="false" class="doldur">

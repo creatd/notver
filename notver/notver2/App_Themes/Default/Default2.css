@@ -1,0 +1,168 @@
+﻿div#Header
+{
+	height:70px;
+	width:100%;
+	color:#c3c3c3;
+	background-color:#191919;	/* */
+	font-size:14px;
+}
+
+div#HeaderContent
+{
+	width:960px;
+	height:70px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+div#Main
+{
+	background-image:url('Images/bg.png');
+	background-repeat:repeat;
+	width:100%;
+	padding-top:30px;
+	padding-bottom:150px;
+}
+
+div#Footer
+{
+	background-color:#191919;
+	height:100px;
+	width:100%;
+}
+
+div#Content
+{
+	padding-bottom:30px;
+}
+
+.Squeeze
+{
+	width: 960px;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+*
+{
+	font-family:Arial;
+}
+
+
+
+/* DersAra HocaAra OkulAra*/
+.araTus
+{
+	width:37px;
+	height:32px;
+	background-image:url('Images/buyutec.png');
+	float:left;
+	margin-top:25px;
+}
+
+.araLink
+{
+	display:block;
+	padding-top:75px;
+}
+
+.araTextbox
+{
+	font-size:14px;
+	color:#afafaf;
+	width:203px;
+	height:32px;
+	background-image:url('Images/textbox.png');
+	vertical-align:middle;
+	float:left;
+	margin-top:25px;
+	padding-left:5px;
+}
+
+.araDropdown
+{
+	font-size:24px;
+	color:#afafaf;
+	width:245px;
+	height:32px;
+	background-image:url('Images/dropdown-large.png');
+	vertical-align:middle;
+	float:left;
+	margin-top:25px;
+	padding-left:5px;
+	border:none 0px;
+	background-color:Transparent;
+}
+
+/* Dropdown trick 
+http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
+
+	/* all form DIVs have position property set to relative so we can easily position newly created SPAN */
+	form div{position:relative;} 
+
+	/* setting the width and height of the SELECT element to match the replacing graphics */
+	select.select{
+		position:relative;
+		z-index:10;
+		width:245px !important;
+		height:32px !important;
+		line-height:26px;
+		top:25px;
+		vertical-align:middle;
+		font-size:24px;
+		color:#1c1c1c;
+	}
+
+	/* dynamically created SPAN, placed below the SELECT */
+	span.select{
+		position:absolute;
+		bottom:0;
+		float:left;
+		left:0;
+		width:245px;
+		height:32px;
+		line-height:26px;
+		text-indent:10px;
+		background:url('Images/dropdown-large.png') no-repeat 0 0;
+		cursor:default;
+		z-index:1;
+		top:64px;
+		left:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#afafaf;
+		padding-top:4px;
+		}
+
+/* Dropdown menu trick */
+
+	/* dropdowns: general */
+	a.dropdown { color:#c3c3c3 }
+	a.dropdown:hover { color:#05d4b4 }
+	a.dropdown { position: relative; margin-left: 3px; }
+	a.dropdown span { background-image: url(toggle_down_light.png); background-repeat: no-repeat; 
+	                  background-position: 100% 50%; padding: 4px 16px 6px 0; }
+	a.dropdown.dropdown-active { color:#59b; background-color:#ddeef6; }
+	a.dropdown.dropdown-active span { background:url(toggle_up_dark.png) 100% 50% no-repeat; }
+	.dropdown-menu  { background:#e2e2e2; padding:7px 12px; position:absolute; 
+	                  top:70px; right:0px; display:none; z-index:5000; }
+	  .dropdown-menu p {  }
+	.dropdown-menu a:link, .dropdown-menu a:visited { font-weight:bold; color:#59b; text-decoration:none; line-height:1.7em; }
+	.dropdown-menu a:active, .dropdown-menu a:hover { color:#555; }
+
+		  * html .dropdown-menu { top:28px; }
+		  *+ html .dropdown-menu { top:28px; }
+		  
+/* LoginBox */
+div.pnlLogin
+{
+	color:#626262;
+	line-height:150%;
+	font-weight:bold;
+	font-size:14px;
+}
+.clear
+{
+	clear:both;
+}

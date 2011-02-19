@@ -98,7 +98,7 @@ div#Container
 	margin:0;
 }
 
-div#Content
+/*div#Content
 {
 	width: 900px;
     margin-left: auto;
@@ -107,7 +107,7 @@ div#Content
     margin-bottom: 50px;    
     position: static;
     padding:0;
-}
+}*/
 
 div#Defter
 {
