@@ -98,6 +98,10 @@ public partial class Admin_TumDosyalar : BasePage
         DataTable dtDosyalar = Dersler.Admin_DersDosyalariDondur(okulID, dersID, durum, hepsiniDondur);
         if (dtDosyalar != null)
         {
+            if (dtDosyalar.Rows.Count < gridDosyalar.CurrentPageIndex * gridDosyalar.PageSize + 1)
+            {
+                gridDosyalar.CurrentPageIndex = 0;
+            }
             gridDosyalar.DataSource = dtDosyalar;
             gridDosyalar.DataBind();
         }

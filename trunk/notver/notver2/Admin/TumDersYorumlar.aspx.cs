@@ -100,6 +100,10 @@ public partial class Admin_TumDersYorumlar : BasePage
         DataTable dtDersYorumlar = Dersler.Admin_DersYorumlariDondur(seciliOkulID, seciliDersID, durum, hepsiniGoster);
         if (dtDersYorumlar != null)
         {
+            if (dtDersYorumlar.Rows.Count < gridDersYorumlar.CurrentPageIndex * gridDersYorumlar.PageSize + 1)
+            {
+                gridDersYorumlar.CurrentPageIndex = 0;
+            }
             gridDersYorumlar.DataSource = dtDersYorumlar;
             gridDersYorumlar.DataBind();
         }
@@ -112,7 +116,7 @@ public partial class Admin_TumDersYorumlar : BasePage
 
     protected void Edit(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[14].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = false;
 
         gridDersYorumlar.EditItemIndex = e.Item.ItemIndex;
         GridDoldur();
@@ -120,7 +124,7 @@ public partial class Admin_TumDersYorumlar : BasePage
 
     protected void Cancel(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[14].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = false;
 
         gridDersYorumlar.EditItemIndex = -1;
         GridDoldur();
@@ -130,7 +134,7 @@ public partial class Admin_TumDersYorumlar : BasePage
     {
         try
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[14].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             string yorumDurumu = (e.Item.Cells[2].Controls[0] as TextBox).Text; //Gorunmez int cekiyorum
@@ -264,18 +268,18 @@ public partial class Admin_TumDersYorumlar : BasePage
             {
                 if (i != e.Item.DataSetIndex)
                 {
-                    coll[i].Controls[14].Visible = false;
+                    coll[i].Controls[15].Visible = false;
                 }
                 else
                 {
-                    coll[i].Controls[14].Visible = true;
+                    coll[i].Controls[15].Visible = true;
                 }
             }
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[14].Visible = true;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = true;
         }
         else if (e.CommandName == "Sil2")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[14].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             if (Util.GecerliSayi(ID))
@@ -301,7 +305,7 @@ public partial class Admin_TumDersYorumlar : BasePage
         }
         else if (e.CommandName == "Onayla")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[14].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             string kullaniciID = e.Item.Cells[7].Text;
@@ -325,6 +329,60 @@ public partial class Admin_TumDersYorumlar : BasePage
             {
                 lblDurum1.Text = "Hoca yorumunu onaylarken bir hata olustu (ID'yi alamadim)";
                 lblDurum2.Text = "Hoca yorumunu onaylarken bir hata olustu (ID'yi alamadim)";
+            }
+        }
+        else if (e.CommandName == "Kaldir")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[15].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            string kullaniciID = e.Item.Cells[7].Text;
+            if (Util.GecerliSayi(ID) && Util.GecerliSayi(kullaniciID))
+            {
+                int dersYorumID = Convert.ToInt32(ID);
+                int KullaniciID = Convert.ToInt32(kullaniciID);
+                if (Dersler.Admin_DersYorumYayindanKaldir(dersYorumID, KullaniciID, txtSilinmeNedeni.Text))
+                {
+                    lblDurum1.Text = "Ders yorumu yayindan kaldirildi";
+                    lblDurum2.Text = "Ders yorumu yayindan kaldirildi";
+                    GridDoldur();
+                }
+                else
+                {
+                    lblDurum1.Text = "Ders yorumunu yayindan kaldirirken bir hata olustu";
+                    lblDurum2.Text = "Ders yorumunu yayindan kaldirirken bir hata olustu";
+                }
+            }
+            else
+            {
+                lblDurum1.Text = "Ders yorumunu yayindan kaldirirken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Ders yorumunu yayindan kaldirirken bir hata olustu (ID'yi alamadim)";
+            }
+        }
+    }
+
+    protected void grid_ItemDataBound(object sender, DataGridItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            if (e.Item.Cells != null && e.Item.Cells.Count > 12 && e.Item.Cells[12].Controls.Count > 0)
+            {
+                string yorumDurumuStr = e.Item.Cells[2].Text; //Gorunmez int cekiyorum
+                if (Util.GecerliSayi(yorumDurumuStr))
+                {
+                    int yorumDurumu = Convert.ToInt32(yorumDurumuStr);
+                    e.Item.Cells[12].Controls[0].Visible = false;   //Onayla
+                    e.Item.Cells[13].Controls[0].Visible = false;   //Kaldir
+                    if (yorumDurumu == (int)Enums.YorumDurumu.OnayBekliyor)
+                    {
+                        e.Item.Cells[12].Controls[0].Visible = true;
+                        e.Item.Cells[13].Controls[0].Visible = true;
+                    }
+                    else if (yorumDurumu == (int)Enums.YorumDurumu.Onaylanmis)
+                    {
+                        e.Item.Cells[13].Controls[0].Visible = true;
+                    }
+                }
             }
         }
     }

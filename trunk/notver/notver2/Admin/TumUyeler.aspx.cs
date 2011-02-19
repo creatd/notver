@@ -57,6 +57,10 @@ public partial class Admin_TumUyeler : BasePage
         DataTable dtUyeler = Uyelik.Admin_UyeleriDondur(okulID);
         if (dtUyeler != null)
         {
+            if (dtUyeler.Rows.Count < gridUyeler.CurrentPageIndex * gridUyeler.PageSize + 1)
+            {
+                gridUyeler.CurrentPageIndex = 0;
+            }
             gridUyeler.DataSource = dtUyeler;
             gridUyeler.DataBind();
         }
