@@ -1,6 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumOkulYorumlar.aspx.cs" Inherits="Admin_TumOkulYorumlar" 
-MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
+MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" ValidateRequest="false" %>
 
+<asp:Content runat="server" ContentPlaceHolderID="head">
+    <script type="text/javascript">
+        function SilinmeNedeniTemizle()
+        {
+            var o = document.getElementById('<%= txtSilinmeNedeni.ClientID %>');
+            o.value = '';
+        }
+    </script>
+</asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <h1>Okul Yorumlari</h1>
 <p>Yorumun ait oldugu kullanici degistirilmesi kullanici onay puanlarini etkiledigi icin buradan yapilamaz</p>
@@ -13,7 +22,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
     <br />
     
     <asp:DataGrid ID="gridOkulYorumlar" runat="server" AllowPaging="true" AllowSorting="true"
-        OnPageIndexChanged="grid_PageIndexChanged"
+        OnPageIndexChanged="grid_PageIndexChanged" OnItemDataBound="grid_ItemDataBound" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
             OnEditCommand="Edit" OnCancelCommand="Cancel" OnItemCommand="ItemCommand">
         <Columns>
@@ -33,6 +42,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
             <asp:BoundColumn DataField="ALKIS_PUANI" HeaderText="Alkis puani"></asp:BoundColumn>
             
             <asp:ButtonColumn ButtonType="LinkButton" Text="Onayla" CommandName="Onayla"></asp:ButtonColumn>
+            <asp:ButtonColumn ButtonType="LinkButton" Text="Kaldir" CommandName="Kaldir"></asp:ButtonColumn>
             <asp:EditCommandColumn ButtonType="LinkButton" EditText="..." CancelText="Iptal" 
             UpdateText="Guncelle"></asp:EditCommandColumn>
             <asp:ButtonColumn ButtonType="LinkButton" Text="X" CommandName="Sil1"></asp:ButtonColumn>
@@ -40,5 +50,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         </Columns>
         <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
+    Yorum silinme nedeni (256): <asp:TextBox runat="server" ID="txtSilinmeNedeni" TextMode="MultiLine" MaxLength="256"></asp:TextBox>
+    <a onclick="SilinmeNedeniTemizle();">Temizle</a>
+    <br />
     <asp:Label runat="server" ID="lblDurum2"></asp:Label>
 </asp:Content>

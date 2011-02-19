@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumHocalar.aspx.cs" Inherits="Admin_TumHocalar" 
-MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
+MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" ValidateRequest="false" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <asp:ScriptManager runat="server"></asp:ScriptManager>
@@ -9,8 +9,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
     </asp:DropDownList>
     <br />
     <asp:Label runat="server" ID="lblDurum1"></asp:Label>
-    <asp:DataGrid ID="gridHocalar" runat="server" AllowPaging="true" AllowSorting="true" PageSize="10"
-            OnPageIndexChanged="grid_PageIndexChanged"
+    <asp:DataGrid ID="gridHocalar" runat="server" AllowPaging="true" AllowSorting="true"
+            OnPageIndexChanged="grid_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
             OnEditCommand="Edit" OnCancelCommand="Cancel" OnItemCommand="ItemCommand">
         <Columns>
@@ -32,8 +32,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         <h2>Hoca - Dersler</h2>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>        
-        <asp:DataGrid ID="gridHocaDersler" runat="server" AllowPaging="true" AllowSorting="true" PageSize="10"
-            OnPageIndexChanged="grid2_PageIndexChanged"
+        <asp:DataGrid ID="gridHocaDersler" runat="server" AllowPaging="true" AllowSorting="true"
+            OnPageIndexChanged="grid2_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnItemCommand="ItemCommand2">
             <Columns>
                 <asp:BoundColumn DataField="DERS_ID" HeaderText="Ders ID" ReadOnly="true"></asp:BoundColumn>
@@ -66,8 +66,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
     
     <asp:Panel ID="pnlHocaOkullar" runat="server" Visible="false">
         <h2>Hoca - Okullar</h2>
-        <asp:DataGrid ID="gridHocaOkullar" runat="server" AllowPaging="true" AllowSorting="true" PageSize="10"
-            OnPageIndexChanged="grid3_PageIndexChanged"
+        <asp:DataGrid ID="gridHocaOkullar" runat="server" AllowPaging="true" AllowSorting="true"
+            OnPageIndexChanged="grid3_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnItemCommand="ItemCommand3">
             <Columns>
                 <asp:BoundColumn DataField="OKUL_ID" HeaderText="Okul ID" ReadOnly="true"></asp:BoundColumn>

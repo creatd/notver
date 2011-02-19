@@ -83,6 +83,10 @@ public partial class Admin_TumHocalar : BasePage
         DataTable dtHocalar = Hocalar.Admin_HocalariDondur(seciliOkulID);
         if (dtHocalar != null)
         {
+            if (dtHocalar.Rows.Count < gridHocalar.CurrentPageIndex * gridHocalar.PageSize + 1)
+            {
+                gridHocalar.CurrentPageIndex = 0;
+            }
             gridHocalar.DataSource = dtHocalar;
             gridHocalar.DataBind();
         }
@@ -393,6 +397,10 @@ public partial class Admin_TumHocalar : BasePage
         DataTable dtHocaDersler = Hocalar.HocaDersleriniDondur_DataTable(SeciliHocaID);
         if (dtHocaDersler != null)
         {
+            if (dtHocaDersler.Rows.Count < gridHocaDersler.CurrentPageIndex * gridHocaDersler.PageSize + 1)
+            {
+                gridHocaDersler.CurrentPageIndex = 0;
+            }
             gridHocaDersler.DataSource = dtHocaDersler;
             gridHocaDersler.DataBind();
         }
@@ -408,6 +416,10 @@ public partial class Admin_TumHocalar : BasePage
         DataTable dtHocaOkullar = Hocalar.HocaOkullariniDondur(SeciliHocaID);
         if (dtHocaOkullar != null)
         {
+            if (dtHocaOkullar.Rows.Count < gridHocaOkullar.CurrentPageIndex * gridHocaOkullar.PageSize + 1)
+            {
+                gridHocaOkullar.CurrentPageIndex = 0;
+            }
             gridHocaOkullar.DataSource = dtHocaOkullar;
             gridHocaOkullar.DataBind();
         }

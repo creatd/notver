@@ -32,6 +32,10 @@ public partial class Admin_TumOkullar : BasePage
         DataTable dtOkullar = Okullar.Admin_OkullariDondur();
         if (dtOkullar != null)
         {
+            if (dtOkullar.Rows.Count < gridOkullar.CurrentPageIndex * gridOkullar.PageSize + 1)
+            {
+                gridOkullar.CurrentPageIndex = 0;
+            }
             gridOkullar.DataSource = dtOkullar;
             gridOkullar.DataBind();
         }

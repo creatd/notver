@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" 
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs"  ValidateRequest="false"
 Inherits="Admin_Default" MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">

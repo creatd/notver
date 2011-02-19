@@ -49,6 +49,10 @@ public partial class Admin_TumDersler : BasePage
         DataTable dtDersler = Dersler.Admin_DersleriDondur(seciliOkulID);
         if (dtDersler != null)
         {
+            if (dtDersler.Rows.Count < gridDersler.CurrentPageIndex * gridDersler.PageSize + 1)
+            {
+                gridDersler.CurrentPageIndex = 0;
+            }
             gridDersler.DataSource = dtDersler;
             gridDersler.DataBind();
         }

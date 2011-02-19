@@ -17,6 +17,59 @@ using System.Data.SqlClient;
 public class Dersler
 {
     /// <summary>
+    /// Yorumu yayindan kaldirir ve kullanicinin onay puanini dusurur
+    /// </summary>
+    /// <param name="DersYorumID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static bool Admin_DersYorumYayindanKaldir(int DersYorumID, int KullaniciID, string SilinmeNedeni)
+    {
+        try
+        {
+            if (DersYorumID < 0 || KullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersYorumYayindanKaldir");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("YorumID", DersYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YeniDurumID", (int)Enums.YorumDurumu.SistemTarafindanSilinmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            int onayDegeri = Convert.ToInt32(ConfigurationManager.AppSettings["DersYorumOnayDegeri"]);
+            onayDegeri = onayDegeri * 2;    //Ceza olarak iki kat dusuruyoruz puani
+            param = new SqlParameter("OnayDegeri", onayDegeri);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    /// <summary>
     /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
     /// </summary>
     /// <param name="DersYorumID"></param>

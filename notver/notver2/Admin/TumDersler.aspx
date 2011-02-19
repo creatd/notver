@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumDersler.aspx.cs" Inherits="Admin_TumDersler"
-    MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
+    MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" ValidateRequest="false" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
     <h1>
@@ -10,7 +10,7 @@
     <br />
     <asp:Label runat="server" ID="lblDurum1"></asp:Label>
     <asp:DataGrid ID="gridDersler" runat="server" AllowPaging="true" AllowSorting="true"
-    OnPageIndexChanged="grid_PageIndexChanged"
+    OnPageIndexChanged="grid_PageIndexChanged" PageSize="10"
         AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
         OnEditCommand="Edit" OnCancelCommand="Cancel" OnItemCommand="ItemCommand">
         <Columns>
