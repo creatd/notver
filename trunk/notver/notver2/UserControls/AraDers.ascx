@@ -31,19 +31,23 @@ function Temizle(obj)
 }
 </script>
 
-<table>
-<tr>
-    <td>
-        <asp:TextBox ID="dersIsmi" runat="server" OnKeyDown="javascript:return SetFocusDers(event);" 
-        onclick="javascript:return Temizle(this);">Ders ismini ya da kodunu girin</asp:TextBox>
-    </td>
-    <td>
-        <asp:Button ID="buttonDersAra" runat="server" Text="Ders Ara" OnClick="Ara" />
-    </td>
-</tr>
-<tr>
-    <td colspan="2" style="text-align:right;">
-        <asp:HyperLink runat="server" ID="lnkTumDersler" NavigateUrl="~/TumDersler.aspx">Tumu...</asp:HyperLink>
-    </td>
-</tr>
-</table>
+<div id="DersAra" style="height:160px; width:265px; background-repeat:no-repeat; padding-left:25px; 
+    margin-right:15px;
+    background-image:url('./App_Themes/Default/Images/postit.png'); float:left; display:block;">
+    <p style="font-size:24px; color:#1c1c1c; font-weight:bold;
+    padding-top:10px;">Ders Ara</p>
+    <asp:TextBox ID="dersIsmi" runat="server" OnKeyDown="javascript:return SetFocusDers(event);" 
+        onclick="javascript:return Temizle(this);" BorderWidth="0"
+        CssClass="araTextbox">Ismini ya da kodunu girin</asp:TextBox>
+    <asp:LinkButton ID="buttonDersAra" runat="server" Text="" OnClick="Ara" BorderWidth="0"
+    CssClass="araTus"/>
+    <asp:HyperLink runat="server" ID="lnkTumDersler" NavigateUrl="~/TumDersler.aspx"
+        CssClass="araLink">
+        <span style="width:10px;
+	height:30px;	float:left;	clear:left;	background-image:url('App_Themes/Default/Images/buton_sol.png');"></span>
+        <span style="height:22px;	padding-top:8px;	padding-right:10px; font-size:14px;
+	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');	color:#626262;">Tum dersleri goster</span>
+        <span style="width:30px;
+	height:30px;	float:left;	background-image:url('App_Themes/Default/Images/buton_sag_uzun.png');"></span>
+    </asp:HyperLink>   
+</div>
