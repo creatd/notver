@@ -18,6 +18,136 @@ using System.Data.SqlClient;
 /// </summary>
 public class Uyelik
 {
+    /// <summary>
+    /// Uyeyi veritabanindan siler. Blok etmek icin kullaniciyi bloke olarak guncelle, burayi kullanma.
+    /// </summary>
+    /// <param name="UyeID"></param>
+    /// <returns></returns>
+    public static bool Admin_UyeSil(int UyeID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_UyeSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("UyeID", UyeID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+    public static bool Admin_UyeGuncelle(int UyeID, string Eposta, bool Bloke, string BlokNedeni,
+        string KullaniciAdi, string Ad, string Soyad, int OkulID, Enums.UyelikDurumu UyelikDurumu,
+        Enums.UyelikRol UyelikRol, bool KizMi, int OnayPuani)
+    {
+        try
+        {
+            if (UyeID < 0 || string.IsNullOrEmpty(Eposta))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_UyeGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("UyeID", UyeID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Eposta", Eposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Bloke", Bloke);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(BlokNedeni))
+            {
+                param = new SqlParameter("BlokNedeni", BlokNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            if (!string.IsNullOrEmpty(KullaniciAdi))
+            {
+                param = new SqlParameter("KullaniciAdi", KullaniciAdi);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            param = new SqlParameter("Ad", Ad);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Soyad", Soyad);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            if (OkulID >= 0)
+            {
+                param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            param = new SqlParameter("UyelikDurumu", (int)UyelikDurumu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("UyelikRol", (int)UyelikRol);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KizMi", KizMi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayPuani", OnayPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static DataTable Admin_UyeleriDondur(int OkulID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_UyeleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (OkulID >= 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     public static int KullaniciAktifYorumSayisiniDondur(int KullaniciID)
     {
         try
@@ -275,15 +405,11 @@ public class Uyelik
             param.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(param);
 
-            object obj = Util.GetResult(cmd);
-            if (obj != null)
+            if (Util.ExecuteAndCheckReturnValue(cmd))
             {
-                if ((int)obj == 1)
-                {
-                    KullaniciYukle(Eposta); 
-                    return true;
-                }
-            }                       
+                KullaniciYukle(Eposta); 
+                return true;
+            }
         }
         catch
         {

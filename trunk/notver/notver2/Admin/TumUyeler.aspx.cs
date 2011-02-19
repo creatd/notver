@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Text;
 
 public partial class Admin_TumUyeler : BasePage
 {
@@ -17,38 +18,79 @@ public partial class Admin_TumUyeler : BasePage
     {
         if (!Page.IsPostBack)
         {
+            drpOkullar.Items.Clear();
+            drpOkullar.Items.Add(new ListItem("-", "")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+            foreach (DataRow dr in session.dtOkullar.Rows)
+            {
+                drpOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+            }
             GridDoldur();
+
+            //Enum'larin degerleri hakkinda bilgi ver
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Uyelik durumu<br/>");
+            foreach (int sayi in Enum.GetValues(typeof(Enums.UyelikDurumu)))
+            {
+                sb.Append(sayi + " : " + Enum.GetName(typeof(Enums.UyelikDurumu) , sayi) + "<br/>");
+            }
+            sb.Append("<br/>Uyelik rol<br/>");
+            foreach (int sayi in Enum.GetValues(typeof(Enums.UyelikRol)))
+            {
+                sb.Append(sayi + " : " + Enum.GetName(typeof(Enums.UyelikRol), sayi) + "<br/>");
+            }
+            sb.Append("<br/>Cinsiyet<br/>");
+            foreach (int sayi in Enum.GetValues(typeof(Enums.Cinsiyet)))
+            {
+                sb.Append(sayi + " : " + Enum.GetName(typeof(Enums.Cinsiyet), sayi) + "<br/>");
+            }
+            lblAciklama.Text = sb.ToString();
         }
     }
 
     protected void GridDoldur()
     {
-        DataTable dtOkullar = Okullar.Admin_OkullariDondur();
-        if (dtOkullar != null)
+        int okulID = -1;
+        if (Util.GecerliSayi(drpOkullar.SelectedValue))
         {
-            gridOkullar.DataSource = dtOkullar;
-            gridOkullar.DataBind();
+            okulID = Convert.ToInt32(drpOkullar.SelectedValue);
+        }
+        DataTable dtUyeler = Uyelik.Admin_UyeleriDondur(okulID);
+        if (dtUyeler != null)
+        {
+            gridUyeler.DataSource = dtUyeler;
+            gridUyeler.DataBind();
         }
         else
         {
-            gridOkullar.DataSource = null;
-            gridOkullar.DataBind();
+            gridUyeler.DataSource = null;
+            gridUyeler.DataBind();
         }
+    }
+
+    protected void grid_PageIndexChanged(object sender, DataGridPageChangedEventArgs e)
+    {
+        gridUyeler.CurrentPageIndex = e.NewPageIndex;
+        GridDoldur();
+    }
+
+    protected void OkulSecildi(object sender, EventArgs e)
+    {
+        GridDoldur();
     }
 
     protected void Edit(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[10].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[18].Visible = false;
 
-        gridOkullar.EditItemIndex = e.Item.ItemIndex;
+        gridUyeler.EditItemIndex = e.Item.ItemIndex;
         GridDoldur();
     }
 
     protected void Cancel(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[10].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[18].Visible = false;
 
-        gridOkullar.EditItemIndex = -1;
+        gridUyeler.EditItemIndex = -1;
         GridDoldur();
     }
 
@@ -56,60 +98,142 @@ public partial class Admin_TumUyeler : BasePage
     {
         try
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[10].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[18].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
-            string isActive = (e.Item.Cells[1].Controls[0] as TextBox).Text;
-            string isim = (e.Item.Cells[2].Controls[0] as TextBox).Text;
-            string adres = (e.Item.Cells[3].Controls[0] as TextBox).Text;
-            string kurulusTarihi = (e.Item.Cells[4].Controls[0] as TextBox).Text;
-            string ogrenciSayisi = (e.Item.Cells[5].Controls[0] as TextBox).Text;
-            string akademikSayisi = (e.Item.Cells[6].Controls[0] as TextBox).Text;
-            string webAdresi = (e.Item.Cells[7].Controls[0] as TextBox).Text;
+            string eposta = (e.Item.Cells[1].Controls[0] as TextBox).Text;
+            string bloke = (e.Item.Cells[2].Controls[0] as TextBox).Text;
+            string blokNedeni = (e.Item.Cells[3].Controls[0] as TextBox).Text;
+            string kullaniciAdi = (e.Item.Cells[4].Controls[0] as TextBox).Text;
+            string ad = (e.Item.Cells[5].Controls[0] as TextBox).Text;
+            string soyad = (e.Item.Cells[6].Controls[0] as TextBox).Text;
+            string okulID = (e.Item.Cells[7].Controls[0] as TextBox).Text;
+            string uyelikDurumID = (e.Item.Cells[9].Controls[0] as TextBox).Text;
+            string uyelikRolID = (e.Item.Cells[11].Controls[0] as TextBox).Text;
+            string cinsiyet = (e.Item.Cells[13].Controls[0] as TextBox).Text;
+            string onayPuani = (e.Item.Cells[15].Controls[0] as TextBox).Text;
 
-            int OkulID = Convert.ToInt32(ID);
-            bool IsActive = Convert.ToBoolean(isActive);
-            if (!string.IsNullOrEmpty(isim))
+            int uyeID = -1;
+            if (Util.GecerliSayi(ID))
             {
-                if(isim.Length > 100)
-                    isim = isim.Substring(0, 100);
+                uyeID = Convert.ToInt32(ID);
             }
             else
             {
-                lblDurum1.Text = "Isim eksik";
-                lblDurum2.Text = "Isim eksik";
+                lblDurum1.Text = "Hata: Uye ID'yi alamadim";
+                lblDurum2.Text = "Hata: Uye ID'yi alamadim";
                 return;
             }
-            if (!string.IsNullOrEmpty(adres))
+
+            if (!string.IsNullOrEmpty(eposta))
             {
-                if(adres.Length > 50)
-                    adres = adres.Substring(0, 50);
+                if (eposta.Length > 256)
+                {
+                    lblDurum1.Text = "Eposta 256 karakterden uzun olamaz";
+                    lblDurum2.Text = "Eposta 256 karakterden uzun olamaz";
+                    return;
+                }
             }
-            if (!string.IsNullOrEmpty(webAdresi))
+            else
             {
-                if(webAdresi.Length > 250)
-                    webAdresi = webAdresi.Substring(0, 250);
+                lblDurum1.Text = "Eposta bos olamaz";
+                lblDurum2.Text = "Eposta bos olamaz";
+                return;
             }
-            int KurulusTarihi = -1;
-            if(Util.GecerliSayi(kurulusTarihi))
+
+            bool Bloke = Convert.ToBoolean(bloke);
+
+            if (!string.IsNullOrEmpty(kullaniciAdi))
             {
-                KurulusTarihi = Convert.ToInt32(kurulusTarihi);
+                if (kullaniciAdi.Length > 256)
+                {
+                    lblDurum1.Text = "Kullanici adi 256 karakterden uzun olamaz";
+                    lblDurum2.Text = "Kullanici adi 256 karakterden uzun olamaz";
+                    return;
+                }
             }
-            int OgrenciSayisi = -1;
-            if(Util.GecerliSayi(ogrenciSayisi))
+
+            if (!string.IsNullOrEmpty(ad))
             {
-                OgrenciSayisi = Convert.ToInt32(ogrenciSayisi);
+                if (ad.Length > 50)
+                {
+                    lblDurum1.Text = "Ad 50 karakterden uzun olamaz";
+                    lblDurum2.Text = "Ad 50 karakterden uzun olamaz";
+                    return;
+                }
             }
-            int AkademikSayisi = -1;
-            if(Util.GecerliSayi(akademikSayisi))
+            else
             {
-                AkademikSayisi = Convert.ToInt32(akademikSayisi);
+                lblDurum1.Text = "Ad bos olamaz";
+                lblDurum2.Text = "Ad bos olamaz";
+                return;
             }
-            if (Okullar.OkulGuncelle(OkulID,IsActive, isim, adres, KurulusTarihi, OgrenciSayisi,
-                AkademikSayisi, webAdresi))
+
+            if (!string.IsNullOrEmpty(soyad))
             {
-                lblDurum1.Text = "Okul guncellendi";
-                lblDurum2.Text = "Okul guncellendi";
+                if (soyad.Length > 50)
+                {
+                    lblDurum1.Text = "Soyad 50 karakterden uzun olamaz";
+                    lblDurum2.Text = "Soyad 50 karakterden uzun olamaz";
+                    return;
+                }
+            }
+            else
+            {
+                lblDurum1.Text = "Soyad bos olamaz";
+                lblDurum2.Text = "Soyad bos olamaz";
+                return;
+            }
+
+            int OkulID = -1;
+            if (Util.GecerliSayi(okulID))
+            {
+                OkulID = Convert.ToInt32(okulID);
+            }
+
+            Enums.UyelikDurumu UyelikDurum = Enums.UyelikDurumu.EpostaOnayBekliyor;
+            if (Util.GecerliSayi(uyelikDurumID))
+            {
+                UyelikDurum = (Enums.UyelikDurumu)Convert.ToInt32(uyelikDurumID);
+            }
+            else
+            {
+                lblDurum1.Text = "Uyelik durum ID gecersiz";
+                lblDurum2.Text = "Uyelik durum ID gecersiz";
+                return;
+            }
+
+            Enums.UyelikRol UyelikRol = Enums.UyelikRol.Kullanici;
+            if (Util.GecerliSayi(uyelikRolID))
+            {
+                UyelikRol = (Enums.UyelikRol)Convert.ToInt32(uyelikRolID);
+            }
+            else
+            {
+                lblDurum1.Text = "Uyelik rol ID gecersiz";
+                lblDurum2.Text = "Uyelik rol ID gecersiz";
+                return;
+            }
+
+            bool kizMi = Convert.ToBoolean(cinsiyet);
+
+            int OnayPuani = -1;
+            if (Util.GecerliSayi(onayPuani))
+            {
+                OnayPuani = Convert.ToInt32(onayPuani);
+            }
+            else
+            {
+                lblDurum1.Text = "Onay puani sayi olmali";
+                lblDurum2.Text = "Onay puani sayi olmali";
+                return;
+            }
+            
+            if (Uyelik.Admin_UyeGuncelle(uyeID, eposta, Bloke, blokNedeni, kullaniciAdi, ad, soyad,
+                OkulID, UyelikDurum, UyelikRol, kizMi, OnayPuani))
+            {
+                lblDurum1.Text = "Uye guncellendi";
+                lblDurum2.Text = "Uye guncellendi";
             }
             else
             {
@@ -122,7 +246,7 @@ public partial class Admin_TumUyeler : BasePage
             lblDurum1.Text = "Hata (detay en altta)";
             lblDurum2.Text = "Hata : " + ex.ToString();
         }
-        gridOkullar.EditItemIndex = -1;
+        gridUyeler.EditItemIndex = -1;
         GridDoldur();
     }
 
@@ -135,38 +259,38 @@ public partial class Admin_TumUyeler : BasePage
             {
                 if (i != e.Item.DataSetIndex)
                 {
-                    coll[i].Controls[10].Visible = false;
+                    coll[i].Controls[18].Visible = false;
                 }
                 else
                 {
-                    coll[i].Controls[10].Visible = true;
+                    coll[i].Controls[18].Visible = true;
                 }
             }
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[10].Visible = true;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[18].Visible = true;
         }
         else if(e.CommandName == "Sil2")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[10].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[18].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             if (Util.GecerliSayi(ID))
             {
-                int okulID = Convert.ToInt32(ID);
-                if (Okullar.OkulSil(okulID))
+                int uyeID = Convert.ToInt32(ID);
+                if (Uyelik.Admin_UyeSil(uyeID))
                 {
-                    lblDurum1.Text = "Okul silindi";
-                    lblDurum2.Text = "Okul silindi";
+                    lblDurum1.Text = "Uye silindi";
+                    lblDurum2.Text = "Uye silindi";
                 }
                 else
                 {
-                    lblDurum1.Text = "Okul silerken bir hata olustu";
-                    lblDurum2.Text = "Okul silerken bir hata olustu";
+                    lblDurum1.Text = "Uye silerken bir hata olustu";
+                    lblDurum2.Text = "Uye silerken bir hata olustu";
                 }
             }
             else
             {
-                lblDurum1.Text = "Okul silerken bir hata olustu (ID'yi alamadim)";
-                lblDurum2.Text = "Okul silerken bir hata olustu (ID'yi alamadim)";
+                lblDurum1.Text = "Uye silerken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Uye silerken bir hata olustu (ID'yi alamadim)";
             }
             GridDoldur();
         }

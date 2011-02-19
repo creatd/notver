@@ -18,6 +18,172 @@ using System.Collections.Generic;
 /// </summary>
 public class Hocalar
 {
+    /// <summary>
+    /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
+    /// </summary>
+    /// <param name="HocaYorumID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static bool Admin_HocaYorumOnayla(int HocaYorumID, int KullaniciID)
+    {
+        try
+        {
+            if (HocaYorumID < 0 || KullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaYorumOnayla");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("YorumID", HocaYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayliDurumID", (int)Enums.YorumDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            int onayDegeri = Convert.ToInt32(ConfigurationManager.AppSettings["HocaYorumOnayDegeri"]);
+            param = new SqlParameter("OnayDegeri", onayDegeri);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static bool Admin_HocaYorumGuncelle(int HocaYorumID, string SilinmeNedeni, int HocaID, int KullaniciPuanAraligi,
+        string Yorum, DateTime GonderilmeTarihi, int AlkisPuani)
+    {
+        try
+        {
+            if (HocaYorumID < 0 || HocaID < 0 || string.IsNullOrEmpty(Yorum))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaYorumGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaYorumID", HocaYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+
+            param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("GonderilmeTarihi", GonderilmeTarihi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.SmallDateTime;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("AlkisPuani", AlkisPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciPuanAraligi", KullaniciPuanAraligi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    /// <summary>
+    /// Normal silmeleri yorum durumunu degistirerek yap, bu metod veritabanindan tamamen siler
+    /// </summary>
+    /// <param name="HocaYorumID"></param>
+    /// <returns></returns>
+    public static bool HocaYorumSil(int HocaYorumID)
+    {
+        try
+        {
+            if (HocaYorumID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_HocaYorumSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaYorumID", HocaYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    public static DataTable Admin_HocaYorumlariDondur(int HocaID, int OkulID, Enums.YorumDurumu YorumDurumu, bool HepsiniGoster)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_HocaYorumlariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (!HepsiniGoster)
+            {
+                SqlParameter param = new SqlParameter("YorumDurumu", (int)YorumDurumu);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (HocaID >= 0)
+            {
+                SqlParameter param = new SqlParameter("HocaID", HocaID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            else if (OkulID >= 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     //Boyle bir hoca-okul iliskisi daha once eklenmis mi kontrolu prosedur icinde yapiliyor
     public static bool HocaOkulEkle(int HocaID, int OkulID, int BaslangicYili, int BitisYili)
     {
@@ -166,15 +332,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Sonuc", SqlDbType.Int);
-            param.Direction = ParameterDirection.Output;        
-            cmd.Parameters.Add(param);
-
-            object obj = Util.GetResult(cmd);
-            if (obj != null && (int)obj == 1)
-            {
-                return true;
-            }
+            return Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch (Exception ex)
         {
@@ -320,10 +478,6 @@ public class Hocalar
                 param.SqlDbType = SqlDbType.Int;
                 cmd.Parameters.Add(param);
             }
-
-            param = new SqlParameter("Sonuc", SqlDbType.Int);
-            param.Direction = ParameterDirection.Output;        
-            cmd.Parameters.Add(param);
 
             object res = Util.GetResult(cmd);
             int hocaID;

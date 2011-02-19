@@ -33,6 +33,10 @@ public partial class Admin_TumHocalar : BasePage
     {
         if (!Page.IsPostBack)
         {
+            drpOkullar.Items.Clear();
+            drpOkullar2.Items.Clear();
+            drpOkullar3.Items.Clear();
+
             drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             drpOkullar2.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             foreach (DataRow dr in session.dtOkullar.Rows)

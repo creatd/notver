@@ -15,6 +15,8 @@ using System.Xml.Linq;
 /// </summary>
 public class Enums
 {
+    //Admin_OnayBekleyenYorumlariDondur
+    //TODO: Gecersiz YorumTipi'ni kaldir
     public enum YorumTipi
     {
         Gecersiz = -1,
@@ -23,6 +25,7 @@ public class Enums
         OkulYorum = 2
     }
 
+    //Admin_OnayBekleyenYorumlariDondur
     public enum YorumDurumu
     {
         OnayBekliyor = 0,

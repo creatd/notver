@@ -16,6 +16,237 @@ using System.Data.SqlClient;
 /// </summary>
 public class Dersler
 {
+    /// <summary>
+    /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
+    /// </summary>
+    /// <param name="DersYorumID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static bool Admin_DersYorumOnayla(int DersYorumID, int KullaniciID)
+    {
+        try
+        {
+            if (DersYorumID < 0 || KullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersYorumOnayla");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("YorumID", DersYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayliDurumID", (int)Enums.YorumDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            int onayDegeri = Convert.ToInt32(ConfigurationManager.AppSettings["DersYorumOnayDegeri"]);
+            param = new SqlParameter("OnayDegeri", onayDegeri);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    /// <summary>
+    /// Dosyayi veritabanindan siler, Amazon'daki kaynaga dokunmaz.
+    /// Dosyayi saklamak icin dosya durumunu guncelleyin.
+    /// </summary>
+    /// <param name="DosyaID"></param>
+    /// <returns></returns>
+    public static bool DosyaSil(int DosyaID)
+    {
+        try
+        {
+            if (DosyaID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersDosyaSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DosyaID", DosyaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static DataTable Admin_DersDosyalariDondur(int OkulID, int DersID, Enums.DosyaDurumu DosyaDurumu,
+        bool HepsiniDondur)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_DersDosyalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (!HepsiniDondur)
+            {
+                SqlParameter param = new SqlParameter("Durum", (int)DosyaDurumu);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if(DersID >=0)
+            {
+                SqlParameter param = new SqlParameter("DersID", DersID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            else if (OkulID >= 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
+    public static bool Admin_DersYorumGuncelle(int DersYorumID, string SilinmeNedeni, int DersID, string Yorum,
+            DateTime GonderilmeTarihi, int AlkisPuani, int ZorlukPuani)
+    {
+        try
+        {
+            if (DersYorumID < 0 || DersID < 0 || string.IsNullOrEmpty(Yorum))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersYorumGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersYorumID", DersYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+
+            param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("GonderilmeTarihi", GonderilmeTarihi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.SmallDateTime;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("AlkisPuani", AlkisPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("ZorlukPuani", ZorlukPuani);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static DataTable Admin_DersYorumlariDondur(int OkulID, int DersID, Enums.YorumDurumu YorumDurumu, bool HepsiniGoster)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_DersYorumlariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (!HepsiniGoster)
+            {
+                SqlParameter param = new SqlParameter("YorumDurumu", (int)YorumDurumu);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            if (DersID >= 0)
+            {
+                SqlParameter param = new SqlParameter("DersID", DersID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            else if (OkulID >= 0)
+            {
+                SqlParameter param = new SqlParameter("OkulID", OkulID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
+    /// <summary>
+    /// Normal silmeleri yorum durumunu degistirerek yap, bu metod veritabanindan tamamen siler
+    /// </summary>
+    /// <param name="DersYorumID"></param>
+    /// <returns></returns>
+    public static bool DersYorumSil(int DersYorumID)
+    {
+        try
+        {
+            if (DersYorumID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersYorumSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersYorumID", DersYorumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
     //Dersi veritabanindan siler, inaktif yapmak icin DersGuncelle'yi kullan
     public static bool DersSil(int DersID)
     {
@@ -433,11 +664,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Sonuc", SqlDbType.Int);
-            param.Direction = ParameterDirection.Output;
-            cmd.Parameters.Add(param);
-
-            return Convert.ToUInt32(Util.GetResult(cmd)) == 1;
+            return !Util.ExecuteAndCheckReturnValue(cmd);
         }
         catch (Exception)
         {
@@ -825,4 +1052,85 @@ public class Dersler
         }
     }
 
+
+    public static bool Admin_DersDosyaGuncelle(int DosyaID, int DersID, int HocaID,
+        Enums.DosyaKategoriTipi DosyaKategori, string SilinmeNedeni, 
+        string DosyaIsmi, string DosyaAdresi, string Aciklama, DateTime EklenmeTarihi, 
+        int EkleyenKullanici, int IndirilmeSayisi)
+    {
+        try
+        {
+            if (DosyaID < 0 || DersID < 0 || string.IsNullOrEmpty(DosyaIsmi) ||
+                string.IsNullOrEmpty(DosyaAdresi))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersDosyaGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DosyaID", DosyaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (HocaID >= 0)
+            {
+                param = new SqlParameter("HocaID", HocaID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+
+            param = new SqlParameter("DosyaKategori", (int)DosyaKategori);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            param = new SqlParameter("DosyaIsmi", DosyaIsmi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaAdresi", DosyaAdresi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+            param = new SqlParameter("Aciklama", Aciklama);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("EklenmeTarihi", EklenmeTarihi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.SmallDateTime;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("EkleyenKullanici", EkleyenKullanici);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("IndirilmeSayisi", IndirilmeSayisi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
 }

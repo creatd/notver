@@ -2,26 +2,48 @@
 MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
-<h1>Tum Okullar</h1>
+<h1>Uyeler</h1>
+<br />
+<p>Kullanici adi ve epostanin essiz oldugundan emin ol!</p>
+<br />
+<asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi" AutoPostBack="true"></asp:DropDownList>
+<br />
     <asp:Label runat="server" ID="lblDurum1"></asp:Label>
-    <asp:DataGrid ID="gridOkullar" runat="server" AllowPaging="true" AllowSorting="true"
+    <asp:DataGrid ID="gridUyeler" runat="server" AllowPaging="true" AllowSorting="true"
+        OnPageIndexChanged="grid_PageIndexChanged"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
             OnEditCommand="Edit" OnCancelCommand="Cancel" OnItemCommand="ItemCommand">
         <Columns>
-            <asp:BoundColumn DataField="OKUL_ID" HeaderText="Okul ID" ReadOnly="true"></asp:BoundColumn>
-            <asp:BoundColumn DataField="IS_ACTIVE" HeaderText="Is Active"></asp:BoundColumn>
-            <asp:BoundColumn DataField="ISIM" HeaderText="Isim (100)"></asp:BoundColumn>
-            <asp:BoundColumn DataField="ADRES" HeaderText="Adres (50)"></asp:BoundColumn>
-            <asp:BoundColumn DataField="KURULUS_TARIHI" HeaderText="Kurulus tarihi"></asp:BoundColumn>
-            <asp:BoundColumn DataField="OGRENCI_SAYISI" HeaderText="Ogrenci sayisi"></asp:BoundColumn>
-            <asp:BoundColumn DataField="AKADEMIK_SAYISI" HeaderText="Akademik sayisi"></asp:BoundColumn>
-            <asp:BoundColumn DataField="WEB_ADRESI" HeaderText="Web adresi (256)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="UYE_ID" HeaderText="Uye ID" ReadOnly="true"></asp:BoundColumn>
+            <asp:BoundColumn DataField="EPOSTA" HeaderText="Eposta (256)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="IS_BLOCKED" HeaderText="Bloke"></asp:BoundColumn>
+            <asp:BoundColumn DataField="BLOK_NEDENI" HeaderText="Blok nedeni (256)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="KULLANICI_ADI" HeaderText="Kullanici adi (256)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="AD" HeaderText="Ad (50)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="SOYAD" HeaderText="Soyad (50)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="OKUL_ID"></asp:BoundColumn>
+            <asp:BoundColumn DataField="OKUL_ISMI" HeaderText="Okul" ReadOnly="true"></asp:BoundColumn>
+            <asp:BoundColumn DataField="UYELIK_DURUMU" HeaderStyle-CssClass="sakla" ItemStyle-CssClass="sakla" FooterStyle-CssClass="sakla"></asp:BoundColumn>
+            <asp:TemplateColumn HeaderText="Uyelik Durumu">
+                <ItemTemplate><%# (Enums.UyelikDurumu)Convert.ToInt32(DataBinder.Eval(Container.DataItem, "UYELIK_DURUMU").ToString())%></ItemTemplate>
+            </asp:TemplateColumn>            
+            <asp:BoundColumn DataField="ROL_ID" HeaderText="RolID"></asp:BoundColumn>
+            <asp:TemplateColumn HeaderText="Rol">
+                <ItemTemplate><%# (Enums.UyelikRol)Convert.ToInt32(DataBinder.Eval(Container.DataItem, "ROL_ID").ToString())%></ItemTemplate>
+            </asp:TemplateColumn>
+            <asp:BoundColumn DataField="CINSIYET" HeaderText="Kiz mi"></asp:BoundColumn>
+            <asp:TemplateColumn HeaderText="Cinsiyet">
+                <ItemTemplate><%# (Enums.Cinsiyet)Convert.ToInt32(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "CINSIYET").ToString()))%></ItemTemplate>
+            </asp:TemplateColumn>
+            <asp:BoundColumn DataField="ONAY_PUANI" HeaderText="Onay puani"></asp:BoundColumn>
+            
             <asp:EditCommandColumn ButtonType="LinkButton" EditText="..." CancelText="Iptal" 
             UpdateText="Guncelle"></asp:EditCommandColumn>
             <asp:ButtonColumn ButtonType="LinkButton" Text="X" CommandName="Sil1"></asp:ButtonColumn>
             <asp:ButtonColumn ButtonType="LinkButton" Text="Eminim" CommandName="Sil2" Visible="false"></asp:ButtonColumn>
         </Columns>
-        <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" />
+        <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
     <asp:Label runat="server" ID="lblDurum2"></asp:Label>
+    <asp:Label runat="server" ID="lblAciklama"></asp:Label>
 </asp:Content>

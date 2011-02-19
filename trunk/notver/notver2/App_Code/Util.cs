@@ -143,9 +143,6 @@ public class Util
 
     /// <summary>
     /// Prosedure verilen son parametrenin degerini dondurur (son parametre output parametre olmali)
-    /// param = new SqlParameter("Sonuc", SqlDbType.Int);
-    /// param.Direction = ParameterDirection.Output;        
-    /// cmd.Parameters.Add(param);
     /// </summary>
     /// <param name="cmd"></param>
     /// <returns></returns>
@@ -153,6 +150,10 @@ public class Util
     {
         try
         {
+            SqlParameter param = new SqlParameter("Sonuc", SqlDbType.Int);
+            param.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(param);
+
             cmd.Connection = Util.GetSqlConnection();
             cmd.ExecuteNonQuery();
             return cmd.Parameters[cmd.Parameters.Count - 1].Value;
