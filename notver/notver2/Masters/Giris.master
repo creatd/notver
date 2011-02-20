@@ -92,34 +92,82 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>  <!-- Login box'lar icin gerekli-->
     <div id="Header">
         <div id="HeaderContent">
-            <img src="App_Themes/Default/Images/logo.png" style="float:left; padding-right:15px; padding-top:10px;"/>
-            <img src="App_Themes/Default/Images/slogan.png" style="float:left; padding-right:200px; padding-top:20px;"/>
-            <div class="relative" style="padding-top:35px; float:left;">
-                <a style="float:left; text-decoration:none;" class="dropdown">uye ol</a>
-                <div id="GirisYap" class="dropdown-menu">
-                    Deneme yazi
+            <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">
+                <img src="App_Themes/Default/Images/logo.png" style="float:left; padding-right:15px; padding-top:10px;"/>
+            </asp:HyperLink>
+            <img src="App_Themes/Default/Images/slogan.png" style="float:left; padding-right:0px; padding-top:20px;"/>
+            <asp:Panel runat="server" ID="pnl_noLogin">
+                <div style="float:left; padding-top:35px; width:450px;">
+                    <div class="relative" style="float:left; padding-left:285px;">
+                        <a style="float:left; text-decoration:none;" class="dropdown">uye ol</a>
+                        <div id="GirisYap" class="dropdown-menu">
+                            Deneme yazi
+                        </div>
+                    </div>
+                    <div class="relative" style="float:left; padding-left:15px;">
+                        <a style="float:left; text-decoration:none;" class="dropdown">giris yap</a>
+                        <div id="Div1" class="dropdown-menu">
+                            <uc1:LoginBox runat="server" ID="loginBox1" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="relative" style="padding-top:35px; float:left; padding-left:15px;">
-                <a style="float:left; text-decoration:none;" class="dropdown">giris yap</a>
-                <div id="Div1" class="dropdown-menu">
-                    <uc1:LoginBox runat="server" ID="loginBox1" />
+            </asp:Panel>
+            <asp:Panel runat="server" ID="pnlTimeout">
+                <div style="float:left; padding-top:35px; width:450px;">
+                    <span style="float:left; padding-left:115px; font-style:italic;">Uzun suredir islem yapmadin, tekrar</span>
+                    <div class="relative" style="float:left;">
+                        <a style="float:left; text-decoration:none;" class="dropdown">giris yap</a>
+                        <div id="Div2" class="dropdown-menu">
+                            <uc1:LoginBox runat="server" ID="loginBox2" />
+                        </div>
+                    </div>
+                    
                 </div>
-            </div>
+            </asp:Panel>
+            <asp:Panel runat="server" ID="pnl_login">
+                <div style="padding-top:35px; float:left; width:450px; text-align:right;">
+                    Hosgeldin <span style="color:#05d4b4; font-weight:bold;"><%= session.KullaniciAd.ToString()%></span>
+                    <asp:LinkButton runat="server" Text="cikis yap" CssClass="cikisYap" OnClick="CikisYap"></asp:LinkButton>
+                </div>
+            </asp:Panel>
         </div>
     </div>
     <div id="Main">
         <div id="Content" class="Squeeze">
-            <!-- Arama postitleri -->
-            <uc1:AraDers runat="server" ID="araDers1" />
-            <uc1:AraHoca runat="server" ID="araHoca1" />
-            <uc1:AraOkul runat="server" ID="araOkul1" />
+            <div id="postitler" style="display:block; height:160px;">
+                <!-- Arama postitleri -->
+                <uc1:AraDers runat="server" ID="araDers1" />
+                <uc1:AraHoca runat="server" ID="araHoca1" />
+                <uc1:AraOkul runat="server" ID="araOkul1" />
+            </div>
             <asp:ContentPlaceHolder ID="content" runat="server" />
         </div>        
     </div>
     <div id="Footer">
+        <div id="FooterContent">
+            <div id="BizeUlasin" style="width:300px; float:left; padding-left:180px; padding-top:30px;">
+                <p>Bize ulasin:</p>
+                <p><img src="./App_Themes/Default/Images/eposta.png" />
+                </p>
+                <p>tasarim &nbsp;&nbsp;&nbsp;<a href="http://www.kaaneryilmaz.com">kaan eryilmaz</a></p>
+                <p style="color:#626262; font-size:12px;">Tum telif haklari saklidir &copy; 2011 NotVerin.com</p>
+            </div>
+            <span style="background-image:url('App_Themes/Default/Images/altbar-seperator.png'); width:2px; 
+            height:136px; display:block; float:left; padding-top:7px;"></span>
+            <div id="BiziTakipEdin" style="width:300px; float:left; padding-left:80px; padding-top:12px;">
+                <p>Bizi takip edin:</p>
+                <p><img src="./App_Themes/Default/Images/facebook.png" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://facebook.com/notverin" style="position:relative; top:-9px;">facebook.com/notverin</a>
+                </p>
+                <p><img src="./App_Themes/Default/Images/twitter.png" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/notverin" style="position:relative; top:-9px;">twitter.com/notverin</a>
+                </p>
+            </div>
+            
+        </div>
     </div>    
     </form>
 </body>

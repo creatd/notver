@@ -401,10 +401,6 @@ public class Uyelik
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Sonuc", SqlDbType.Int);
-            param.Direction = ParameterDirection.Output;
-            cmd.Parameters.Add(param);
-
             if (Util.ExecuteAndCheckReturnValue(cmd))
             {
                 KullaniciYukle(Eposta); 

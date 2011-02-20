@@ -15,23 +15,7 @@ public partial class UserControls_LoginBox : BaseUserControl
     {
         try
         {
-            lblTimeout.Visible = false;
-            if (session.IsLoggedIn)
-            {
-                GirisiGoster();
-            }
-            else
-            {
-                CikisiGoster();
-                if (Context.Session != null && Context.Session.IsNewSession)
-                {
-                    string cookie = Request.Headers["Cookie"];
-                    if (!string.IsNullOrEmpty(cookie) && cookie.IndexOf("ASP.NET_SessionId") >= 0)
-                    {
-                        lblTimeout.Visible = true;
-                    }
-                }
-            }
+
         }
         catch (Exception ex)
         {
@@ -39,38 +23,16 @@ public partial class UserControls_LoginBox : BaseUserControl
         }
     }
 
-    protected void GirisiGoster()
-    {
-        pnlNoLogin.Visible = false;
-        pnlLogin.Visible = true;
-    }
-
-    protected void CikisiGoster()
-    {
-        pnlNoLogin.Visible = true;
-        pnlLogin.Visible = false;
-    }
-
     protected void GirisYap(object sender, EventArgs e)
     {
         if (Uyelik.GirisYap(txtEposta.Text, txtSifre.Text))
         {
-            //session.LoggedIn = true;
-            //session.KullaniciAdi = txtUsername.Text.Trim();
+            RefreshPage();
             lblDurum.Text = "";
         }
         else
         {
-            lblDurum.Text = "Giris yapilamadi. Lutfen kullanici adi/sifrenizi kontrol edin.";
+            lblDurum.Text = "tekrar deneyin";
         }
     }
-
-    protected void CikisYap(object sender, EventArgs e)
-    {
-        Uyelik.CikisYap();
-
-    }
-    
-
-
 }

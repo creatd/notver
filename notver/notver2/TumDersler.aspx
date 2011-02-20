@@ -1,13 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumDersler.aspx.cs" Inherits="TumDersler"
-    MasterPageFile="~/Masters/Ders.master" %>
+    MasterPageFile="~/Masters/Giris.master" %>
 
 <%@ Register TagPrefix="uc1" TagName="OkulTumDersler" Src="~/UserControls/OkulTumDersler.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="content1">
     <uc1:Ayrac runat="server" ID="ayrac" />
     <a name='tepe'></a>
-    <br />
-    <div id="divArkaplan" style="background: url('./App_Themes/Default/Images/defter/11.jpg') repeat scroll 0 0 Transparent;
+    <div id="divArkaplan" style="background-color:#191919; clear:both; height:36px; margin-top:30px;
                 width: 100%;" title="Okulun bas harfini secin">
                 <!-- ltrHarfDizini'ne kod arkasinda stil veriyorum -->
         <asp:Literal runat="server" ID="ltrHarfDizini"></asp:Literal>
@@ -16,30 +15,37 @@
     <br />
     <asp:Repeater runat="server" ID="repeaterOkullar">
         <HeaderTemplate>
-            <table style="background: url('./App_Themes/Default/Images/defter/11.jpg') repeat scroll 0 0 Transparent;
-                width: 100%; border: none 0px Transparent;">
+            <table style="font-weight:bold;">
         </HeaderTemplate>
         <ItemTemplate>
-            <tr style="padding-bottom:10px;">
-                <td style="padding-bottom:10px; text-decoration:underline;">
-                    <h2><%# OkulLinkBaslikDondur(DataBinder.Eval(Container.DataItem, "ISIM"), DataBinder.Eval(Container.DataItem, "OKUL_ID"))%></h2>
-                </td>
-                <td style="text-align:right;">
-                    <a href='#tepe'>Basa don</a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="padding-left:20px;">    
-                    <uc1:OkulTumDersler runat="server" _OkulID='<%# DataBinder.Eval(Container.DataItem, "OKUL_ID")%>'>
-                    </uc1:OkulTumDersler>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br />
-                </td>
-            </tr>
+        <tr id="item" style="margin-bottom:20px; background-color:#f6f6f6; width:960px;">
+            <td id="okulBaslik" style="width:200px;display:block; padding-left:20px; padding-top:30px; padding-bottom:30px;">
+                <%# OkulLinkBaslikDondur(DataBinder.Eval(Container.DataItem, "ISIM"), DataBinder.Eval(Container.DataItem, "OKUL_ID"))%>
+            </td>
+            <td id="okulDersler" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
+                <uc1:OkulTumDersler ID="OkulTumDersler1" runat="server" _OkulID='<%# DataBinder.Eval(Container.DataItem, "OKUL_ID")%>'>
+                </uc1:OkulTumDersler>
+            </td>
+            <td id="linkBasaDon" style="width:30px;padding-left:20px;">
+                <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
+            </td>
+        </tr>
         </ItemTemplate>
+        <AlternatingItemTemplate>
+                <tr id="item" style="margin-bottom:20px; background-color:#ffffff; width:960px;">
+            <td id="okulBaslik" style="width:200px;display:block; padding-left:20px; padding-top:30px; padding-bottom:30px;">
+                <%# OkulLinkBaslikDondur(DataBinder.Eval(Container.DataItem, "ISIM"), DataBinder.Eval(Container.DataItem, "OKUL_ID"))%>
+            </td>
+
+            <td id="okulDersler" style="width:640px; color:#626262; padding-left:20px; padding-top:30px; padding-bottom:30px;">
+                <uc1:OkulTumDersler ID="OkulTumDersler1" runat="server" _OkulID='<%# DataBinder.Eval(Container.DataItem, "OKUL_ID")%>'>
+                    </uc1:OkulTumDersler>
+            </td>
+            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top;">
+                <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
+            </td>
+        </tr>
+        </AlternatingItemTemplate>
         <FooterTemplate>
             </table>
         </FooterTemplate>

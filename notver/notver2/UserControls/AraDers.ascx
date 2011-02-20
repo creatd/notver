@@ -32,7 +32,7 @@ function Temizle(obj)
 </script>
 
 <div id="DersAra" style="height:160px; width:265px; background-repeat:no-repeat; padding-left:25px; 
-    margin-right:15px;
+    margin-right:25px; margin-left:15px; 
     background-image:url('./App_Themes/Default/Images/postit.png'); float:left; display:block;">
     <p style="font-size:24px; color:#1c1c1c; font-weight:bold;
     padding-top:10px;">Ders Ara</p>
@@ -46,7 +46,7 @@ function Temizle(obj)
         <span style="width:10px;
 	height:30px;	float:left;	clear:left;	background-image:url('App_Themes/Default/Images/buton_sol.png');"></span>
         <span style="height:22px;	padding-top:8px;	padding-right:10px; font-size:14px;
-	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');	color:#626262;">Tum dersleri goster</span>
+	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');">Tum dersleri goster</span>
         <span style="width:30px;
 	height:30px;	float:left;	background-image:url('App_Themes/Default/Images/buton_sag_uzun.png');"></span>
     </asp:HyperLink>   

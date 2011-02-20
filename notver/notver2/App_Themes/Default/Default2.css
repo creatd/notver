@@ -21,14 +21,32 @@ div#Main
 	background-repeat:repeat;
 	width:100%;
 	padding-top:30px;
-	padding-bottom:150px;
+	padding-bottom:100px;
 }
 
 div#Footer
 {
 	background-color:#191919;
-	height:100px;
+	height:220px;
 	width:100%;
+}
+
+div#FooterContent
+{
+	width:960px;
+	height:220px;
+	margin-left:auto;
+	margin-right:auto;
+	line-height:150%;
+	font-size:13px; 
+	color:#afafaf;
+	padding-top:30px;
+}
+
+div#FooterContent p
+{
+	margin-bottom:15px;
+	font-weight:bold;
 }
 
 div#Content
@@ -47,6 +65,19 @@ div#Content
 *
 {
 	font-family:Arial;
+	line-height:100%;
+	background-color:Transparent;
+}
+
+a
+{
+	color:inherit;
+	text-decoration:none;
+}
+
+a:hover
+{
+	color:#05d4b4;
 }
 
 
@@ -65,6 +96,8 @@ div#Content
 {
 	display:block;
 	padding-top:75px;
+	text-decoration:none;
+	color:#626262;
 }
 
 .araTextbox
@@ -73,7 +106,8 @@ div#Content
 	color:#afafaf;
 	width:203px;
 	height:32px;
-	background-image:url('Images/textbox.png');
+	background-image:url('Images/textbox_sol.png');
+	background-color:Transparent;
 	vertical-align:middle;
 	float:left;
 	margin-top:25px;
@@ -110,7 +144,7 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 		line-height:26px;
 		top:25px;
 		vertical-align:middle;
-		font-size:24px;
+		font-size:14px;
 		color:#1c1c1c;
 	}
 
@@ -127,7 +161,7 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 		background:url('Images/dropdown-large.png') no-repeat 0 0;
 		cursor:default;
 		z-index:1;
-		top:64px;
+		top:59px;
 		left:25px;
 		vertical-align:middle;
 		font-size:14px;
@@ -138,15 +172,15 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 /* Dropdown menu trick */
 
 	/* dropdowns: general */
-	a.dropdown { color:#c3c3c3 }
+	a.dropdown { color:#c3c3c3; cursor:pointer; font-weight:bold; padding-left:10px;}
 	a.dropdown:hover { color:#05d4b4 }
 	a.dropdown { position: relative; margin-left: 3px; }
 	a.dropdown span { background-image: url(toggle_down_light.png); background-repeat: no-repeat; 
 	                  background-position: 100% 50%; padding: 4px 16px 6px 0; }
-	a.dropdown.dropdown-active { color:#59b; background-color:#ddeef6; }
+	a.dropdown.dropdown-active { color:#05d4b4;}
 	a.dropdown.dropdown-active span { background:url(toggle_up_dark.png) 100% 50% no-repeat; }
-	.dropdown-menu  { background:#e2e2e2; padding:7px 12px; position:absolute; 
-	                  top:70px; right:0px; display:none; z-index:5000; }
+	.dropdown-menu  { background:#e2e2e2; padding:0px; position:absolute;
+	                  top:35px; right:0px; display:none; z-index:5000; }
 	  .dropdown-menu p {  }
 	.dropdown-menu a:link, .dropdown-menu a:visited { font-weight:bold; color:#59b; text-decoration:none; line-height:1.7em; }
 	.dropdown-menu a:active, .dropdown-menu a:hover { color:#555; }
@@ -157,12 +191,80 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 /* LoginBox */
 div.pnlLogin
 {
+	 background-image:url('Images/loginbg.png');
+	 width:269px;
+	 height:189px;
 	color:#626262;
-	line-height:150%;
+	line-height:100%;
 	font-weight:bold;
 	font-size:14px;
+	padding-left:25px;
+	padding-top:4px;
 }
+div.pnlLogin p
+{
+	margin-top:7px;
+	margin-bottom:7px;
+}
+
+input.loginTus
+{
+	margin-top:10px;
+}
+
+span.beniHatirla
+{
+	padding-left:20px;
+	padding-top:14px;
+	float:left;
+}
+
+span.beniHatirla label
+{
+	margin-left:5px;
+	font-size:12px;
+	position:relative;
+	top:-3px;
+}
+
+a.sifremiUnuttum
+{
+	color:#05d4b4;
+	text-decoration:none;
+	padding-top:5px;
+}
+
+span.girisDurum
+{
+	padding-top:5px;
+	padding-left:33px;
+}
+
+div#Header a.cikisYap
+{
+	color:#626262;
+	padding-left:20px;	
+}
+
 .clear
 {
 	clear:both;
 }
+
+.textbox
+{
+	background-image:url('Images/textbox.png');
+	width:208px;
+	height:32px;
+	border:none 0px;
+	padding-left:5px;
+	font-size:12px;
+}
+
+.hata
+{
+	color:#ff0008;	
+}
+
+
+

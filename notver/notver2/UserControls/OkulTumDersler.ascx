@@ -2,10 +2,10 @@
 
 <asp:Repeater runat="server" ID="repeaterDersler">
     <HeaderTemplate>
-        <table>
+        <table style="border-left:solid 1pt #c3c3c3;">
     </HeaderTemplate>
     <ItemTemplate>
-        <tr><td>
+        <tr><td style="padding-left:30px;">
     <a href='<%# DersURLDondur(DataBinder.Eval(Container.DataItem, "DERS_ID")) %>' >
     <%# DataBinder.Eval(Container.DataItem, "KOD")%> - <%#DataBinder.Eval(Container.DataItem, "DERS_ISIM")%></a>        
         </td></tr>
@@ -15,5 +15,7 @@
     </FooterTemplate>
 </asp:Repeater>
 <asp:Label runat="server" ID="lblDersYok">
-    Henuz kayitli ders yok :(        
+    <span style="border-left:solid 1pt #c3c3c3; padding-left:30px; font-weight:normal; font-style:italic;">
+        Henuz ders yok
+    </span>
 </asp:Label>

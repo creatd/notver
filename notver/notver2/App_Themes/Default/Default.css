@@ -1,27 +1,27 @@
-﻿* 
+﻿/** 
 {
 	font-family : Garamond;
 	font-size : 10pt;
 	line-height:100%;
 	font-weight:normal;
-}
+}*/
 
-a
+/*a
 {
 	color:Black;
 	text-decoration:underline;
-}
+}*/
 
 a:disabled , a.disabled , a[disabled="disabled"]
 {
 	text-decoration:none;
 }
 
-p 
+/*p 
 {
 	padding:5px;
 	font-size: 10pt;
-}
+}*/
 
 h1 
 {
@@ -40,7 +40,7 @@ h3
 
 td
 {
-	padding : 5px;
+	padding : 10px;
 } 
 
 .stretch
@@ -278,8 +278,8 @@ li.kirmiziayrac
 }
 .sessiz
 {
-	font-size:11pt;
-	color:Gray;
+	font-size:9px;
+	color:#626262;
 }
 .hata
 {
@@ -296,12 +296,13 @@ ol.dizin
 	width:100%;
 	height:25px;
 	font-weight:bold;
+	color:#c3c3c3;
 	
 }
 ol.dizin li	
 {
 	display:inline;
-	margin-right:10px;
+	margin-right:22px;
 }
 
 
@@ -369,11 +370,11 @@ div.dersYorumlar
 /*e: HocaYorumYap user controlu */
 
 /*s: Loginbox uc */
-div#LoginBox
+/*div#LoginBox
 {	
 	width:200px;
 	height:140px;
-}
+}*/
 
 div#LoginBox div#LoginBox_Once
 {
@@ -401,11 +402,11 @@ div#LoginBox div#LoginBox_Sonra a
 	padding-right:55px;
 	font-size:13px;
 }
-div#LoginBox input 
+/*div#LoginBox input 
 {
 	color:rgb(4,10,176);
 	font-size:9pt;
-}
+}*/
 /*e: Loginbox uc */
 
 /* s: Ajax Rating */
