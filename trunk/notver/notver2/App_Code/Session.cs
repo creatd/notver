@@ -684,6 +684,7 @@ public class Session
         }
     }
 
+    //Username
     public string KullaniciAdi
     {
         get
@@ -703,6 +704,7 @@ public class Session
         }
     }
 
+    //Isim
     public string KullaniciAd
     {
         get

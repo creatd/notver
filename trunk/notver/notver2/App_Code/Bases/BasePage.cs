@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Data.SqlClient;
 using System.Text;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for BasePage
@@ -43,6 +44,79 @@ public class BasePage : System.Web.UI.Page
         Page.Response.Redirect(Page.Request.Url.ToString(), true);
     }
 
+    /// <summary>
+    /// Turk alfabesini sirasiyla dondurur
+    /// </summary>
+    /// <returns></returns>
+    public LinkedList<char> Alfabe(bool buyukHarf)
+    {
+        LinkedList<char> alfabe = new LinkedList<char>();
+        if (buyukHarf)
+        {
+            alfabe.AddLast('A');
+            alfabe.AddLast('B');
+            alfabe.AddLast('C');
+            alfabe.AddLast('Ç');
+            alfabe.AddLast('D');
+            alfabe.AddLast('E');
+            alfabe.AddLast('F');
+            alfabe.AddLast('G');
+            alfabe.AddLast('Ğ');
+            alfabe.AddLast('H');
+            alfabe.AddLast('I');
+            alfabe.AddLast('İ');
+            alfabe.AddLast('J');
+            alfabe.AddLast('K');
+            alfabe.AddLast('L');
+            alfabe.AddLast('M');
+            alfabe.AddLast('N');
+            alfabe.AddLast('O');
+            alfabe.AddLast('Ö');
+            alfabe.AddLast('P');
+            alfabe.AddLast('R');
+            alfabe.AddLast('S');
+            alfabe.AddLast('Ş');
+            alfabe.AddLast('T');
+            alfabe.AddLast('U');
+            alfabe.AddLast('Ü');
+            alfabe.AddLast('V');
+            alfabe.AddLast('Y');
+            alfabe.AddLast('Z');
+        }
+        else
+        {
+            alfabe.AddLast('a');
+            alfabe.AddLast('b');
+            alfabe.AddLast('c');
+            alfabe.AddLast('ç');
+            alfabe.AddLast('d');
+            alfabe.AddLast('e');
+            alfabe.AddLast('f');
+            alfabe.AddLast('g');
+            alfabe.AddLast('ğ');
+            alfabe.AddLast('h');
+            alfabe.AddLast('ı');
+            alfabe.AddLast('i');
+            alfabe.AddLast('j');
+            alfabe.AddLast('k');
+            alfabe.AddLast('l');
+            alfabe.AddLast('m');
+            alfabe.AddLast('n');
+            alfabe.AddLast('o');
+            alfabe.AddLast('ö');
+            alfabe.AddLast('p');
+            alfabe.AddLast('r');
+            alfabe.AddLast('s');
+            alfabe.AddLast('ş');
+            alfabe.AddLast('t');
+            alfabe.AddLast('u');
+            alfabe.AddLast('ü');
+            alfabe.AddLast('v');
+            alfabe.AddLast('y');
+            alfabe.AddLast('z');
+        }
+        return alfabe;
+    }
 
 
 

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 public partial class TumHocalar : BasePage
 {
@@ -66,20 +67,21 @@ public partial class TumHocalar : BasePage
         {
             harfSayimi[dr["ISIM"].ToString()[0]] = true;
         }
-        char curChar = 'A';
+
+        LinkedList<char> alfabe = Alfabe(true);
+        char curChar;
         StringBuilder sb = new StringBuilder();
         sb.Append("<ol class='dizin' style='font-weight:normal; padding:10px; text-align:center;'>");
-        for (int i = 0; i < 29; i++)
+        foreach (char ch in alfabe)
         {
-            if (harfSayimi.ContainsKey(curChar))
+            if (harfSayimi.ContainsKey(ch))
             {
-                sb.Append("<li><b><a href='#" + curChar + "'>" + curChar + "</a></b></li>");
+                sb.Append("<li><b><a href='#" + ch + "'>" + ch + "</a></b></li>");
             }
             else
             {
-                sb.Append("<li class='sessiz'>" + curChar + "</li>");
+                sb.Append("<li class='sessiz'>" + ch + "</li>");
             }
-            curChar++;
         }
         sb.Append("</ol>");
         ltrHarfDizini.Text = sb.ToString();
