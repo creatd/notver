@@ -13,7 +13,7 @@
     </div>
     <br />
     <br />
-    <asp:Repeater runat="server" ID="repeaterOkullar">
+    <asp:Repeater runat="server" ID="repeaterDersler">
         <HeaderTemplate>
             <table style="font-weight:bold;">
         </HeaderTemplate>

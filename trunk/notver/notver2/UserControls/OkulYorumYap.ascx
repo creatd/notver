@@ -8,7 +8,6 @@
 
 <asp:Image ID="baslikPuanYorum" runat="server" ImageUrl="~/App_Themes/Default/Images/postit/diyeceklerim_var.gif" CssClass="fltRight"/>
 <asp:Panel ID="pnlPuanYorum" runat="server" Height="300" CssClass="OkulYorumYap">
-    <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
     <br />
     <br />
     <table border="0" style="height:358px;" border="1" width="600">

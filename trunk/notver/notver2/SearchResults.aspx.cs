@@ -19,6 +19,7 @@ public partial class SearchResults : BasePage
         {
             if (!Page.IsPostBack)
             {
+                lblBaslik.Text = "";
                 int searchType = -1;
                 string searchParameters = "";
                 searchType = Convert.ToInt32(Request.QueryString["SearchType"].ToString().Trim());
@@ -37,7 +38,8 @@ public partial class SearchResults : BasePage
                             pnlHocalar.Visible = false;
                             pnlDersler.Visible = false;
                             pnlSonucYok.Visible = true;
-                            lblSonucYok.Text = "\'" + searchParameters + "\' isminde bir hoca inanin bilmiyoruz";
+                            lblBaslik.Text = "Hoca Arama Sonucu";
+                            lblSonucYok.Text = "Isminde <strong>\'" + searchParameters + "\'</strong> gecen bir hoca inanin bilmiyoruz";
                         }
                         break;
                     case 2: //Ders
@@ -52,7 +54,8 @@ public partial class SearchResults : BasePage
                             pnlHocalar.Visible = false;
                             pnlDersler.Visible = false;
                             pnlSonucYok.Visible = true;
-                            lblSonucYok.Text = "Dersin kodunda veya isminde \'" + searchParameters + "\' gectiginden emin misiniz? Biz bulamadik da...";
+                            lblBaslik.Text = "Ders Arama Sonucu";
+                            lblSonucYok.Text = "Kodunda veya isminde <strong>\'" + searchParameters + "\'</strong> gecen ders bulamadik";
                         }
                         break;
                 }
@@ -70,11 +73,8 @@ public partial class SearchResults : BasePage
         DataTable dt = Hocalar.IsmeGoreHocalariDondur(expression);
         if (dt != null && dt.Rows.Count > 0)
         {
-            DataSet ds = new DataSet();
-            ds.Tables.Add(dt);
-
-            dataGridHoca.DataSource = ds;
-            dataGridHoca.DataBind();
+            repeaterHocalar.DataSource = dt;
+            repeaterHocalar.DataBind();
             return true;
         }
         return false;
@@ -82,7 +82,7 @@ public partial class SearchResults : BasePage
 
     bool BindGridDers(string expression)
     {
-        DataTable dt = Dersler.KodaGoreDersleriDondur(expression);
+        /*DataTable dt = Dersler.KodaGoreDersleriDondur(expression);
         DataTable dt2 = Dersler.IsmeGoreDersleriDondur(expression);
         DataTable dtSonuc = null;
         if (dt != null && dt2 != null)
@@ -97,15 +97,14 @@ public partial class SearchResults : BasePage
         else if (dt2 != null)
         {
             dtSonuc = dt2;
-        }
-        
+        }*/
+
+        DataTable dtSonuc = Dersler.IsmeVeyaKodaGoreDersleriDondur(expression);
         
         if (dtSonuc != null && dtSonuc.Rows.Count>0 )
         {
-            DataSet ds = new DataSet();
-            ds.Tables.Add(dtSonuc);
-            dataGridDersler.DataSource = ds;
-            dataGridDersler.DataBind();            
+            repeaterDersler.DataSource = dtSonuc;
+            repeaterDersler.DataBind();            
             return true;
         }
         return false;

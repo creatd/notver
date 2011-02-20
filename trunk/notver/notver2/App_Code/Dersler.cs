@@ -463,6 +463,30 @@ public class Dersler
         return false;
     }
 
+    public static DataTable IsmeVeyaKodaGoreDersleriDondur(string dersKodu)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(dersKodu))
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("IsmeVeyaKodaGoreDersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("Anahtar", Util.BuildLikeExpression(dersKodu));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
     public static DataTable KodaGoreDersleriDondur(string dersKodu)
     {
         try

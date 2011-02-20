@@ -41,14 +41,14 @@ public partial class TumHocalar : BasePage
 
                 if (dtOkullar != null)
                 {
-                    repeaterOkullar.DataSource = dtOkullar;
-                    repeaterOkullar.DataBind();
-                    repeaterOkullar.Visible = true;
+                    repeaterHocalar.DataSource = dtOkullar;
+                    repeaterHocalar.DataBind();
+                    repeaterHocalar.Visible = true;
                     HarfDiziniOlustur(dtOkullar);
                 }
                 else
                 {
-                    repeaterOkullar.Visible = false;
+                    repeaterHocalar.Visible = false;
                 }
             }
         }

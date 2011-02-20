@@ -150,7 +150,7 @@ public class BasePage : System.Web.UI.Page
                 {
                     sb.Append("<a href=\"" + Page.ResolveUrl("~/Okul.aspx") + "?OkulID=" + dr["OKUL_ID"] + "\">" + dr["ISIM"] + "</a>");
                 }
-                string result = sb.ToString().Replace("</a><a", "</a><br /><a");    //Her okul ismi arasina <br /> koy
+                string result = sb.ToString().Replace("</a><a", "</a><br /><br /><a");    //Her okul ismi arasina iki tane <br /> koy
                 return result;
             }
             return null;
