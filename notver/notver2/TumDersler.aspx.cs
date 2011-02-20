@@ -39,14 +39,14 @@ public partial class TumDersler : BasePage
 
                 if (dtOkullar != null)
                 {
-                    repeaterOkullar.DataSource = dtOkullar;
-                    repeaterOkullar.DataBind();
-                    repeaterOkullar.Visible = true;
+                    repeaterDersler.DataSource = dtOkullar;
+                    repeaterDersler.DataBind();
+                    repeaterDersler.Visible = true;
                     HarfDiziniOlustur(dtOkullar);
                 }
                 else
                 {
-                    repeaterOkullar.Visible = false;
+                    repeaterDersler.Visible = false;
                 }
 
             }

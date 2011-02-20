@@ -29,7 +29,7 @@ public partial class UserControls_AraDers : BaseUserControl
             {
                 return;
             }
-            else if (searchParams.StartsWith("Ders ismini"))
+            else if (searchParams.StartsWith("Ismini"))
             {
                 return;
             }

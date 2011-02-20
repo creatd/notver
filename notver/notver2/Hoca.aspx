@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Hoca.aspx.cs" Inherits="Hoca"
-    MasterPageFile="~/Masters/Hoca.master" MaintainScrollPositionOnPostback="true" %>
+    MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Src="~/UserControls/HocaPuanlari.ascx" TagName="HocaPuanlari" TagPrefix="uc1" %>
 <%@ Register Src="~/UserControls/HocaResmi.ascx" TagName="HocaResmi" TagPrefix="uc1" %>
@@ -7,6 +7,7 @@
 <%@ Register Src="~/UserControls/HocaYorumYap.ascx" TagName="HocaYorumYap" TagPrefix="uc1" %>
 <%@ Register Src="~/UserControls/HocaAyniOkul.ascx" TagName="HocaAyniOkul" TagPrefix="uc1" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
+
 <asp:Content ContentPlaceHolderID="content" runat="server">
     <uc1:Ayrac runat="server" ID="ayrac" />
     <br />
