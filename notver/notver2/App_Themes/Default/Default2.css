@@ -168,6 +168,40 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 		color:#afafaf;
 		padding-top:4px;
 		}
+		
+	/* setting the width and height of the SELECT element to match the replacing graphics */
+	select.select2{
+		position:relative;
+		z-index:10;
+		width:233px !important;
+		height:32px !important;
+		line-height:26px;
+		top:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#1c1c1c;
+	}
+
+	/* dynamically created SPAN, placed below the SELECT */
+	span.select2{
+		position:absolute;
+		bottom:0;
+		float:left;
+		left:0;
+		width:233px;
+		height:32px;
+		line-height:26px;
+		text-indent:10px;
+		background:url('Images/dropdown-login.png') no-repeat 0 0;
+		cursor:default;
+		z-index:1;
+		top:59px;
+		left:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#afafaf;
+		padding-top:4px;
+		}
 
 /* Dropdown menu trick */
 
@@ -181,7 +215,7 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 	a.dropdown.dropdown-active span { background:url(toggle_up_dark.png) 100% 50% no-repeat; }
 	.dropdown-menu  { background:#e2e2e2; padding:0px; position:absolute;
 	                  top:35px; right:0px; display:none; z-index:5000; }
-	  .dropdown-menu p {  }
+	  .dropdown-menu p { padding-right:10px; }
 	.dropdown-menu a:link, .dropdown-menu a:visited { font-weight:bold; color:#59b; text-decoration:none; line-height:1.7em; }
 	.dropdown-menu a:active, .dropdown-menu a:hover { color:#555; }
 
@@ -246,6 +280,52 @@ div#Header a.cikisYap
 	padding-left:20px;	
 }
 
+/* Uye Ol uc */
+div.pnlUyeOl
+{
+	 background-image:url('Images/registerbg2.png');
+	 width:269px;
+	 height:569px;
+	color:#626262;
+	line-height:100%;
+	font-weight:bold;
+	font-size:14px;
+	padding-left:25px;
+	padding-top:4px;
+}
+div.pnlUyeOl p
+{
+	margin-top:7px;
+	margin-bottom:7px;
+}
+
+input.uyeOlTus
+{
+	margin-top:10px;
+}
+
+table.rdCinsiyetler tr
+{
+	float:left;
+	width:85px;
+}
+
+table.rdCinsiyetler tr label
+{
+	padding-left:5px;
+	position:relative;
+	top:-3px;
+}
+
+select.drpOkullar
+{
+	background-color:White;
+	height:32px;
+	padding-left:5px;
+	border:none 0;
+	width:213px;
+}
+
 .clear
 {
 	clear:both;
@@ -261,10 +341,6 @@ div#Header a.cikisYap
 	font-size:12px;
 }
 
-.hata
-{
-	color:#ff0008;	
-}
 
 
 
