@@ -38,7 +38,7 @@ function Temizle(obj)
             <p>E-posta adresi</p>       
             <asp:TextBox runat="server" ID="txtEposta" CssClass="textbox"
                         ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" 
-                        onclick="javascript:return Temizle(this);">Buraya</asp:TextBox>
+                        onclick="javascript:return Temizle(this);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
                     CssClass="Hata" ErrorMessage="*" ToolTip="Kullanici adi girmelisiniz" ValidationGroup="vg" />
             <p>Sifre</p>

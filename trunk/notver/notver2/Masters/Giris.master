@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Giris.master.cs" Inherits="Masters_Giris" %>
 
+<%@ Register TagPrefix="uc1" TagName="UyeOl" Src="~/UserControls/UyeOl.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="LoginBox" Src="~/UserControls/LoginBox.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AraHoca" Src="~/UserControls/AraHoca.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AraOkul" Src="~/UserControls/AraOkul.ascx" %>
@@ -27,6 +28,29 @@
                 $(this)
                     .css({'z-index':10,'opacity':0,'-khtml-appearance':'none'})
                     .after('<span class="select">' + title + '</span>')
+                    .change(function(){
+                        val = $('option:selected',this).text();
+                        $(this).next().text(val);
+                        })
+            });
+
+        };
+    		
+    });
+    </script>  
+    
+    <!-- Dropdown'in resmini degistirmek (UyeOl)-->
+    <script type="text/javascript">
+    $(document).ready(function(){	
+
+        if (!$.browser.opera) {
+
+            $('select.select2').each(function(){
+                var title = $(this).attr('title');
+                if( $('option:selected', this).val() != ''  ) title = $('option:selected',this).text();
+                $(this)
+                    .css({'z-index':10,'opacity':0,'-khtml-appearance':'none'})
+                    .after('<span class="select2">' + title + '</span>')
                     .change(function(){
                         val = $('option:selected',this).text();
                         $(this).next().text(val);
@@ -104,7 +128,7 @@
                     <div class="relative" style="float:left; padding-left:285px;">
                         <a style="float:left; text-decoration:none;" class="dropdown">uye ol</a>
                         <div id="GirisYap" class="dropdown-menu">
-                            Deneme yazi
+                            <uc1:UyeOl runat="server" ID="uyeOl1"></uc1:UyeOl>
                         </div>
                     </div>
                     <div class="relative" style="float:left; padding-left:15px;">
