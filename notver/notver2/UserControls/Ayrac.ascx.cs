@@ -13,7 +13,9 @@ using System.Xml.Linq;
 
 public partial class UserControls_Ayrac : BaseUserControl
 {
-    static string ayrac = "&nbsp;/&nbsp;&nbsp;";
+    static string ayrac = "<span style='color:#05d4b4'>&nbsp;>&nbsp;&nbsp;</span>";
+    static string sonSeviye_baslangic = "<span style='color:#FEE41D;'>";
+    static string sonSeviye_bitis = "</span>";
     protected void Page_Prerender(object sender, EventArgs e)
     {
         try
@@ -54,6 +56,10 @@ public partial class UserControls_Ayrac : BaseUserControl
                     }*/
                     pnlAyrac.Visible = false;
                 }
+                else if (url.Contains("TumOkullar.aspx"))
+                {
+                    pnlAyrac.Visible = false;
+                }
                 else if (url.Contains("Ders.aspx"))
                 {
                     lnkSeviye1.NavigateUrl = Page.ResolveUrl("~/TumDersler.aspx");
@@ -68,9 +74,13 @@ public partial class UserControls_Ayrac : BaseUserControl
                         if (Query.GetInt("DersID") > 0 && Util.GecerliString(session.DersKod))
                         {
                             //lnkSeviye3.NavigateUrl = DersURLDondur(Query.Get("DersID"));
-                            lnkSeviye3.Text = ayrac + session.DersKod;
+                            lnkSeviye3.Text = ayrac + sonSeviye_baslangic + session.DersKod + sonSeviye_bitis;
                             lnkSeviye3.Enabled = false;
                             lnkSeviye3.Visible = true;
+                        }
+                        else
+                        {
+                            lnkSeviye2.Text = sonSeviye_baslangic + lnkSeviye2.Text + sonSeviye_bitis;
                         }
                     }
                 }
@@ -82,7 +92,7 @@ public partial class UserControls_Ayrac : BaseUserControl
                     if (Query.GetInt("HocaID") > 0 && Util.GecerliString(session.HocaIsim))
                     {
                         //lnkSeviye2.NavigateUrl = HocaURLDondur(Query.Get("HocaID"));
-                        lnkSeviye2.Text = ayrac + session.HocaIsim;
+                        lnkSeviye2.Text = ayrac + sonSeviye_baslangic + session.HocaIsim + sonSeviye_bitis;
                         lnkSeviye2.Enabled = false;
                         lnkSeviye2.Visible = true;
                     }
@@ -108,10 +118,14 @@ public partial class UserControls_Ayrac : BaseUserControl
                                 lnkSeviye3.Enabled = true;
                                 lnkSeviye3.Visible = true;
 
-                                lnkSeviye4.Text = ayrac + session.DersKod + " dosyalari";
+                                lnkSeviye4.Text = ayrac + sonSeviye_baslangic + session.DersKod + " dosyalari" + sonSeviye_bitis;
                                 lnkSeviye4.Enabled = false;
                                 lnkSeviye4.Visible = true;
                             }
+                        }
+                        else
+                        {
+                            lnkSeviye2.Text = sonSeviye_baslangic + lnkSeviye2.Text + sonSeviye_bitis;
                         }
                     }
                 }

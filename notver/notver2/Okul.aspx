@@ -9,41 +9,42 @@
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
 <uc1:Ayrac runat="server" ID="ayrac" />
+
+<div id="okulBilgi" style="display:block; width:100%; margin-top:30px;">
+    <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+        <asp:Label runat="server" ID="lblOkulIsim" CssClass="fltLeft"></asp:Label>
+    </p>
+    <table style="background-color:#FFFFFF; color:#000000; padding:25px; font-size:11px; font-weight:bold;
+    width:100%; height:250px;"> 
+        <tr>    
+            <td style="width:300px; font-size:14px; line-height:200%; font-weight:normal; ">
+                <i>Sehir :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
+                <br />
+                <i>Kurulus tarihi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
+                <br />
+                <i>Ogrenci sayisi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOgrenciSayisi"></asp:Label>
+                <br />
+                <i>Akademik personel sayisi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblAkademikPersonelSayisi"></asp:Label>
+                <br />
+                <i>Web adresi :</i>&nbsp;&nbsp;&nbsp;<asp:HyperLink runat="server" ID="hpOkulWeb" Target="_blank"></asp:HyperLink>
+                <br />
+            </td>
+            <td style="text-align:right;"><asp:Image runat="server" ID="imgOkul" Height="250" /></td>
+        </tr>
+    </table>
+</div>
+
+<div id="okulYorumlari" style="display:block; width:100%; margin-top:20px;">
+    <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+        Yorumlar
+        <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle">Yorum ekle &nbsp;&nbsp;  
+        <img src="App_Themes/Default/Images/ekle.png" /></asp:HyperLink></span>
+    </p>
+    <uc1:OkulYorumlari runat="server" ID="okulYorumlari1"></uc1:OkulYorumlari>
+</div>
+
 <div>
     <table style="width:100%;">
-        <tr>
-            <td>
-                <div id="OkulGenelBilgi" style="width:350px; background: url(App_Themes/Default/Images/defter/10.jpg) repeat;
-                     padding:10px; vertical-align:top;">
-                <asp:Label runat="server" ID="lblOkulIsim" CssClass="bold"></asp:Label>
-                <br /><br />
-                <u>Sehir :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
-                <br />
-                <u>Kurulus tarihi :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
-                <br />
-                <u>Ogrenci sayisi :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOgrenciSayisi"></asp:Label>
-                <br />
-                <u>Akademik personel sayisi :</u>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblAkademikPersonelSayisi"></asp:Label>
-                <br />
-                <u>Web adresi :</u>&nbsp;&nbsp;&nbsp;<asp:HyperLink runat="server" ID="hpOkulWeb" Target="_blank"></asp:HyperLink>
-                <br />
-                </div>
-            </td>
-            <td style="padding-left:20px;">
-                <div id="OkulResim" style="text-align:right;">
-                    <img src="./App_Themes/Default/Images/Diger/bant.png" style="position:relative; top:25px; left:-100px; width:25px;" />
-                    <br />
-                    <asp:Image runat="server" ID="imgOkul" Height="250" />
-                </div>
-            </td>    
-        </tr>
-        <tr><td colspan="2"><br /></td></tr>
-        <tr>
-            <td colspan="2">
-                <uc1:OkulYorumlari runat="server" ID="okulYorumlari"></uc1:OkulYorumlari>
-            </td>
-        </tr>
-        <tr><td colspan="2"><br /></td></tr>
         <tr>
             <td colspan="2">
                 <uc1:OkulYorumYap runat="server" ID="okulYorumYap"></uc1:OkulYorumYap>

@@ -175,19 +175,28 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         }
     }
 
-    protected string YorumBasligiOlustur(object KullaniciAdi, object Tarih, object HocaIsim, object KayitsizHocaIsim)
+    protected string YorumBasligiOlustur(object KullaniciAdi, object KullaniciIsim, object Tarih, object HocaIsim, object KayitsizHocaIsim)
     {
         try
         {
             DateTime tarih = Convert.ToDateTime(Tarih.ToString());
-            string str = KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
+            string str = "";
+            if (Util.GecerliString(KullaniciAdi))
+            {
+                str = KullaniciAdi.ToString();;
+            }
+            else
+            {
+                str = KullaniciIsim.ToString();
+            }
+            str += "&nbsp;&nbsp;" + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
             if(Util.GecerliString(HocaIsim))
             {
-                str += " - <b>" + HocaIsim.ToString() + "</b><br />";
+                str += "&nbsp;&nbsp&nbsp;&nbsp<span style='color:#05d4b4;'>" + HocaIsim.ToString() + "</span>";
             }
             else if (Util.GecerliString(KayitsizHocaIsim))
             {
-                str += " - <b>" + KayitsizHocaIsim.ToString() + "</b><br />";
+                str += "&nbsp;&nbsp&nbsp;&nbsp<span style='color:#05d4b4;'>" + KayitsizHocaIsim.ToString() + "</span>";
             }
             return str;
         }
