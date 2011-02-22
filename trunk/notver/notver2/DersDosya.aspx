@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DersDosya.aspx.cs" Inherits="DersDosya" MasterPageFile="~/Masters/DersDosya.master" 
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DersDosya.aspx.cs" Inherits="DersDosya" MasterPageFile="~/Masters/Giris.master" 
 MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Src="~/UserControls/DersDosyalar.ascx" TagName="DersDosya" TagPrefix="uc1" %>

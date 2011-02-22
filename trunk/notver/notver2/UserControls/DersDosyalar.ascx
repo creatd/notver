@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersDosyalar.ascx.cs"
     Inherits="UserControls_DersDosyalar" %>
 <%@ Register TagName="DersDosyaYukle" TagPrefix="uc1" Src="~/UserControls/DersDosyaYukle.ascx" %>
-<asp:ScriptManager ID="ScriptManager1" runat="server" />
 
 <script type="text/javascript">
 // Create the tooltips only on document load

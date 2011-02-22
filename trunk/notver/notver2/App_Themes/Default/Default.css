@@ -327,10 +327,6 @@ table#HocaPuanlari
 /* e: Hoca Puan uc */
 
 /* s: Ders Yorumlar */
-div.dersYorumlar
-{
-	background-color:White;
-}
 .DersYorumYapTextbox
 {
 	width : 500px;
@@ -448,10 +444,10 @@ div.UyeOl
 /* e: Uye Ol sayfasi */
 
 /* s: Ayrac uc */
-div.Ayrac
+/*div.Ayrac
 {
 	background: url("Images/defter/lacednotebook5.png") no-repeat scroll 0 0 White;	
 	margin-bottom:20px;
 	padding-left:40px;
-}
+}*/
 /* e: Ayrac uc */

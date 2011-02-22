@@ -2,7 +2,6 @@
     Inherits="UserControls_HocaYorum" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <link href="Scripts/StarRating.css" rel="stylesheet" type="text/css" />
-<asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true">
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>

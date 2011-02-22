@@ -69,6 +69,11 @@ div#Content
 	background-color:Transparent;
 }
 
+p
+{
+	font-size:14px;
+}
+
 a
 {
 	color:inherit;
@@ -326,6 +331,60 @@ select.drpOkullar
 	width:213px;
 }
 
+/* Ayrac uc*/
+div.Ayrac
+{
+	display:block;
+	margin-top:30px;
+	margin-bottom:20px;
+	width:895px;
+	padding-left:20px;
+	padding-right:15px;
+	height:45px;
+	background-image:url('Images/harfler.png');
+	margin-left:13px;
+	color:#f6f6f6;
+	font-size:13px;
+}
+
+/* Ders */
+div.dersYorumlar
+{
+	background-color:White;
+	padding:20px;
+}
+div#dersBilgi a.lnkIndir
+{
+	float:right;
+}
+
+div#dersYorumlari a.lnkYorumEkle
+{
+	
+	float:right;
+}
+
+/* Okul */
+div.okulYorumlar
+{
+	background-color:White;
+	padding:20px;
+}
+div#okulBilgi table tr td i
+{
+	text-decoration:none;
+	font-style:italic;
+	font-size:12px;
+}
+div#okulBilgi table tr td span
+{
+	font-weight:bold;
+}
+div#okulYorumlari a.lnkYorumEkle
+{
+	
+	float:right;
+}
 .clear
 {
 	clear:both;
@@ -339,6 +398,42 @@ select.drpOkullar
 	border:none 0px;
 	padding-left:5px;
 	font-size:12px;
+}
+
+.line150
+{
+	line-height:150%;
+}
+
+/* Pager */
+div#pager
+{
+	border-top:solid 1pt #c3c3c3;
+	padding-top:20px;
+	color:#afafaf;
+}
+a.pager
+{
+	padding-left:7px;
+	padding-right:7px;
+	position:relative;
+	top:-3px;
+	font-weight:bold;
+}
+a.pager[disabled="disabled"]
+{
+	text-decoration:underline;
+	color:#626262;
+}
+
+select.dropdownPager
+{
+	padding:0px;
+}
+
+select.dropdownPager option
+{
+	padding-right:5px;
 }
 
 
