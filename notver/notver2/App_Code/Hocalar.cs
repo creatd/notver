@@ -777,12 +777,13 @@ public class Hocalar
     }
 
     public static bool HocaYorumPuanKaydet(int KullaniciID, int HocaID, int[] Puanlar, string Yorum,
-        int KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri, int KullaniciOnayPuani)
+        Enums.KullaniciPuanAraligi KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri, int KullaniciOnayPuani)
     {
         try
         {
             if (KullaniciID < 0 || HocaID < 0 || Puanlar == null || Yorum == null || string.IsNullOrEmpty(Yorum) ||
-                KullaniciPuanaraligi < 1 || KullaniciPuanaraligi > 5)
+                (int)KullaniciPuanaraligi < (int)Enums.KullaniciPuanAraligi.F || 
+                (int)KullaniciPuanaraligi > (int)Enums.KullaniciPuanAraligi.A)
             {
                 return false;
             }
@@ -853,7 +854,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Kullanici_Puanaraligi", KullaniciPuanaraligi);
+            param = new SqlParameter("Kullanici_Puanaraligi", (int)KullaniciPuanaraligi);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -921,12 +922,13 @@ public class Hocalar
     }
 
     public static bool HocaYorumPuanGuncelle(int HocaYorumID, int[] Puanlar, string Yorum,
-            int KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri)
+            Enums.KullaniciPuanAraligi KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri)
     {
         try
         {
             if (HocaYorumID < 0 || Puanlar == null || Yorum == null || string.IsNullOrEmpty(Yorum) ||
-                KullaniciPuanaraligi < 1 || KullaniciPuanaraligi > 5)
+                (int)KullaniciPuanaraligi < (int)Enums.KullaniciPuanAraligi.F ||
+                (int)KullaniciPuanaraligi > (int)Enums.KullaniciPuanAraligi.A)
             {
                 return false;
             }
@@ -992,7 +994,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Kullanici_Puanaraligi", KullaniciPuanaraligi);
+            param = new SqlParameter("Kullanici_Puanaraligi", (int)KullaniciPuanaraligi);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -1291,18 +1293,19 @@ public class Hocalar
     }
 
     /// <summary>
-    /// Kullanici hocaya daha once yorum yaptiysa true dondurur; yoksa false dondurur
+    /// Kullanici hocaya daha once yorum yaptiysa yorum ID'sini dondurur; yoksa -1 dondurur
+    /// Hata olursa -2 dondurur
     /// </summary>
     /// <param name="kullaniciID"></param>
     /// <param name="hocaID"></param>
     /// <returns></returns>
-    public static bool KullaniciHocayaYorumYapmis(int kullaniciID, int hocaID)
+    public static int KullaniciHocayaYorumYapmis(int kullaniciID, int hocaID)
     {
         try
         {
             if (kullaniciID < 0 || hocaID < 0)
             {
-                return false;
+                return -2;
             }
             SqlCommand cmd = new SqlCommand("KullaniciHocayaYorumYapmis");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -1317,20 +1320,16 @@ public class Hocalar
             param2.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param2);
 
-            DataTable dt = Util.GetDataTable(cmd);
-            if (Convert.ToInt32(dt.Rows[0][0]) == 1)
+            object o = Util.GetResult(cmd);
+            if (Util.GecerliSayi(o))
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                return Convert.ToInt32(o);
             }
         }
         catch
         {
-            return false;
         }
+        return -2;
     }
 
     /// <summary>

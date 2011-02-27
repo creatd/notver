@@ -35,7 +35,7 @@ public partial class Hoca : BasePage
                         }
                         else
                         {
-                            hocaIsim.Text = session.HocaIsim;
+                            hocaIsim.Text = session.HocaIsim + " / ";
                             Page.Title = "NotVer.com - " + session.HocaIsim + " / ";
                         }
                     }
@@ -72,9 +72,9 @@ public partial class Hoca : BasePage
                         sb.Append("</span>");
                         hocaOkullar.Text = sb.ToString();
                     }
-                    bool yorumVar = Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID"));
+                    int yorumID = Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID"));
 
-                    if (yorumVar)
+                    if (yorumID >= 0)
                     {
                         ltrYorumYazi.Text = "Yorum guncelle&nbsp;&nbsp;";
                     }

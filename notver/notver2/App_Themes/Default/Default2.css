@@ -67,6 +67,7 @@ div#Content
 	font-family:Arial;
 	line-height:100%;
 	background-color:Transparent;
+	font-size:13px;
 }
 
 p
@@ -399,7 +400,7 @@ span.HocaOkullar
 	line-height:140%;
 	padding-left:5px;
 	position:relative;
-	top:-4px;
+	top:-3px;
 }
 div#hocaYorumlari a.lnkYorumEkle
 {
@@ -434,6 +435,16 @@ div.DersYorumYap p
 {
 	padding-top:10px;
 	font-weight:bold;
+}
+/* Hoca yorum yap/guncelle uc*/
+div.HocaYorumYap
+{
+	padding:15px;
+	font-weight:bold;
+}
+div.HocaYorumYap p
+{
+	padding-top:10px;
 }
 
 .clear
