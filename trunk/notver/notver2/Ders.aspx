@@ -5,6 +5,16 @@ MaintainScrollPositionOnPostback="true" %>
 <%@ Register TagPrefix="uc1" TagName="DersYorumYap" Src="~/UserControls/DersYorumYap.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
+    <!-- Colorbox -->
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("a.colorbox").colorbox({iframe:true,width:'590px', height:'620px', close:''});
+    });
+    </script>
+</asp:Content>
+
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="tumContent">
 <uc1:Ayrac runat="server" ID="ayrac" />
 
@@ -23,7 +33,8 @@ MaintainScrollPositionOnPostback="true" %>
 <div id="dersYorumlari" style="display:block; width:100%; margin-top:20px;">
     <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         Yorumlar
-        <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox">Yorum ekle &nbsp;&nbsp;  
+        <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox">
+        Yorum ekle&nbsp;&nbsp;
         <img src="App_Themes/Default/Images/ekle.png" /></asp:HyperLink></span>
     </p>
     <uc1:DersYorumlari runat="server" ID="dersYorumlari"></uc1:DersYorumlari>

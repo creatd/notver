@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HocaYorumlari.ascx.cs"
     Inherits="UserControls_HocaYorum" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<link href="Scripts/StarRating.css" rel="stylesheet" type="text/css" />
+    
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="hocaYorumlar">
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
         Sayfa basi <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 

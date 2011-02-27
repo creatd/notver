@@ -5,9 +5,9 @@ ul.star li { PADDING: 0; MARGIN: 0; FLOAT: left; DISPLAY: block; WIDTH: 100px; H
 ul.star li.curr { BACKGROUND:url('../App_Themes/Default/Images/yildizlar.png') left 25px; FONT-SIZE: 1px;}
 div.user { LEFT: 35px; FLOAT:right; FONT-SIZE: 14px; FONT-WEIGHT: bold; MARGIN-LEFT:10px; margin-right:10px; width:40px;}*/
 
-ul.star { LIST-STYLE: none; MARGIN: 0; PADDING: 0; WIDTH: 100px; HEIGHT: 25px; LEFT: 10px; BACKGROUND:  url('../App_Themes/Default/Images/yildizlar.png') left repeat-x;}
+ul.star { LIST-STYLE: none; MARGIN: 0; PADDING: 0; WIDTH: 100px; HEIGHT: 25px; LEFT: 10px; BACKGROUND:  url('../App_Themes/Default/Images/yildizlar2.png') left -23px repeat-x;}
 ul.star li { PADDING: 0; MARGIN: 0; position: relative; top:0px; DISPLAY: block; WIDTH: 100px; HEIGHT: 21px; TEXT-DECORATION: none; PADDING: 0; }
-ul.star li.curr { BACKGROUND:url('../App_Themes/Default/Images/yildizlar.png') left 25px; FONT-SIZE: 1px;}
+ul.star li.curr { BACKGROUND:url('../App_Themes/Default/Images/yildizlar2.png') left 33px; FONT-SIZE: 1px;}
 div.user { LEFT: 35px; FLOAT:right; FONT-SIZE: 14px; FONT-WEIGHT: bold; MARGIN-LEFT:10px; margin-right:10px; width:40px;}
 
 div.hocaYorumlar ul.star li { top:-3px; height:24px;}

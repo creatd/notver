@@ -110,7 +110,7 @@ a:hover
 	font-size:14px;
 	color:#afafaf;
 	width:203px;
-	height:32px;
+	height:30px;
 	background-image:url('Images/textbox_sol.png');
 	background-color:Transparent;
 	vertical-align:middle;
@@ -410,7 +410,11 @@ div.hocaYorumlar
 	background-color:White;
 	padding:20px;
 }
-
+/* Yorum yap/guncelle */
+a.lnkYorumlarim
+{
+	color:#f25755;
+}
 /* Okul yorum yap/guncelle uc*/
 div.OkulYorumYap
 {
@@ -421,9 +425,15 @@ div.OkulYorumYap p
 	padding-top:10px;
 	font-weight:bold;
 }
-a.lnkYorumlarim
+/* Ders yorum yap/guncelle uc*/
+div.DersYorumYap
 {
-	color:#f25755;
+	padding:15px;
+}
+div.DersYorumYap p
+{
+	padding-top:10px;
+	font-weight:bold;
 }
 
 .clear
@@ -435,7 +445,7 @@ a.lnkYorumlarim
 {
 	background-image:url('Images/textbox.png');
 	width:208px;
-	height:32px;
+	height:30px;
 	border:none 0px;
 	padding-left:5px;
 	font-size:12px;
@@ -453,7 +463,7 @@ a.lnkYorumlarim
 {
 	color:#FF0008;
 	text-align:center;
-	font-size:12px;
+	font-size:13px;
 	font-weight:normal;
 }
 

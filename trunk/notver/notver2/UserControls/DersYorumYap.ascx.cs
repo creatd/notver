@@ -21,6 +21,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             int queryDersID = Query.GetInt("DersID");
             if (queryDersID <= 0)
             {
+                pnlHata.Visible = true;
                 return;
             }
             if (session.IsLoggedIn && session.KullaniciID > 0)
@@ -41,7 +42,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                 {
                     drpDersHocalar.Items.Add(new ListItem("-", "-1"));
                 }
-                if (dtDersiVerenHocalar != null && dtDersiVerenHocalar.Rows.Count > 0)
+                if (dtDersiVerenHocalar != null)
                 {
                     foreach (DataRow dr in dtDersiVerenHocalar.Rows)
                     {
@@ -50,7 +51,8 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                 }
                 else
                 {
-                    //TODO: Admin'e haber ver
+                    pnlHata.Visible = true;
+                    return;
                 }
                 drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
                 //e: drpDersHocalar'i duzenle
@@ -78,7 +80,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                     }
                 
                 }*/
-                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.change_parent_url('" + DersYorumlarimURLDondur(queryDersID) + "');";
+                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + DersYorumlarimURLDondur(queryDersID) + "';";
             }
             else
             {
@@ -87,6 +89,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         }
         catch (Exception ex)
         {
+
             Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
@@ -105,7 +108,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         else
         {
             ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
-            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }
 
@@ -113,5 +116,6 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
+        pnlHata.Visible = false;
     }
 }

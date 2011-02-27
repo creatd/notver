@@ -2,11 +2,32 @@
     MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Src="~/UserControls/HocaPuanlari.ascx" TagName="HocaPuanlari" TagPrefix="uc1" %>
-<%@ Register Src="~/UserControls/HocaResmi.ascx" TagName="HocaResmi" TagPrefix="uc1" %>
 <%@ Register Src="~/UserControls/HocaYorumlari.ascx" TagName="HocaYorumlari" TagPrefix="uc1" %>
-<%@ Register Src="~/UserControls/HocaYorumYap.ascx" TagName="HocaYorumYap" TagPrefix="uc1" %>
 <%@ Register Src="~/UserControls/HocaAyniOkul.ascx" TagName="HocaAyniOkul" TagPrefix="uc1" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="Scripts/StarRating.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Colorbox -->
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("a.colorbox").colorbox({iframe:true,width:'590px', height:'480px', close:''});
+    });
+    </script>
+    
+    <!-- Hoca puanlari icin gerekli -->
+    <script type="text/javascript">
+        function $A(v,o) { return((typeof(o)=='object'?o:document).getElementById(v)); }
+        function $S(o) { return((typeof(o)=='object'?o:$A(o)).style); }
+        function setRating(rating,n)
+        {
+            $S('puan'+n).visibility='visible';
+            $S('puan'+n).width=rating+'px';
+            $A('puanYazi'+n).innerHTML='% ' + Math.round(rating/100*100);
+        }
+    </script>
+</asp:Content>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
     <uc1:Ayrac runat="server" ID="ayrac" />
@@ -30,7 +51,7 @@
                     <uc1:HocaPuanlari runat="server" ID="HocaPuanlari1" />
                 </td>
                 <td style="width:280px;">
-                    <uc1:HocaAyniOkul runat="server" ID="hocaAyniOkul"></uc1:HocaAyniOkul>
+                    <uc1:HocaAyniOkul runat="server" ID="hocaAyniOkul" />
                 </td>
             </tr>
         </table>
@@ -39,19 +60,11 @@
     <div id="hocaYorumlari" style="display:block; width:100%; margin-top:20px;">
         <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
             Yorumlar
-            <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="colorbox"
-            NavigateUrl="~/HocaYorumYap.aspx">Yorum ekle &nbsp;&nbsp;  
+            <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox">
+            <asp:Literal runat="server" ID="ltrYorumYazi" /> 
             <img src="App_Themes/Default/Images/ekle.png" /></asp:HyperLink></span>
         </p>
         <uc1:HocaYorumlari runat="server" ID="HocaYorumlari1" />
     </div>    
 
-    <asp:Panel ID="pnlYorumum" runat="server">
-
-    </asp:Panel>
-    <asp:Panel ID="pnlUyeOl" runat="server">
-        Puan vermek ve yorum yapabilmek icin (sag ust koseden) <a href="#login">giris yapmaniz</a> gereklidir.
-        Uyeliginiz yoksa
-        <asp:HyperLink ID="HyperLink1" runat="server" Text="uye olmak icin tiklayin!" NavigateUrl="~/Register.aspx"></asp:HyperLink>
-    </asp:Panel>    
 </asp:Content>

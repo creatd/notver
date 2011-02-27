@@ -1,23 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HocaPuanlari.ascx.cs" Inherits="UserControls_HocaPuanlari" %>
 
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
-
-<!--<script src="Scripts/StarRating.js" type="text/javascript"></script> -->
-
-<link href="Scripts/StarRating.css" rel="stylesheet" type="text/css" />
-
-
-<script type="text/javascript">
-function $(v,o) { return((typeof(o)=='object'?o:document).getElementById(v)); }
-function $S(o) { return((typeof(o)=='object'?o:$(o)).style); }
-function setRating(rating,n)
-{
-    $S('puan'+n).visibility='visible';
-    $S('puan'+n).width=rating+'px';
-    $('puanYazi'+n).innerHTML='% ' + Math.round(rating/100*100);
-}
-</script>
 
 
 <asp:Panel ID="panelPuanlar" runat="server">

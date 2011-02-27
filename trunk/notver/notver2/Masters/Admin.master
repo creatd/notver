@@ -7,6 +7,7 @@
     <title>Notverin - Admin</title>
     <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
+    <link href="../App_Themes/Default/Default2.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

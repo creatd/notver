@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Okul.aspx.cs" Inherits="Okul" MasterPageFile="~/Masters/Giris.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Okul.aspx.cs" Inherits="Okul" 
+MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register TagName="OkulYorumlari" TagPrefix="uc1" Src="~/UserControls/OkulYorumlari.ascx" %>
 <%@ Register TagName="OkulYorumYap" TagPrefix="uc1" Src="~/UserControls/OkulYorumYap.ascx" %>

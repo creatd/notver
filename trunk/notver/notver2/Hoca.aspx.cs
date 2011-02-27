@@ -22,7 +22,7 @@ public partial class Hoca : BasePage
             if (!Page.IsPostBack)
             {
                 int queryHocaID = Query.GetInt("HocaID");
-                if (queryHocaID > 0)
+                if (queryHocaID >= 0)
                 {
                     session.HocaYukle(queryHocaID);
                     //Hoca unvan + isim
@@ -72,35 +72,20 @@ public partial class Hoca : BasePage
                         sb.Append("</span>");
                         hocaOkullar.Text = sb.ToString();
                     }
+                    bool yorumVar = Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID"));
+
+                    if (yorumVar)
+                    {
+                        ltrYorumYazi.Text = "Yorum guncelle&nbsp;&nbsp;";
+                    }
+                    else
+                    {
+                        ltrYorumYazi.Text = "Yorum ekle&nbsp;&nbsp;";
+                    }
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("~/HocaYorumYap.aspx?HocaID=" + queryHocaID);
                 }                
             }
-            pnlUyeOl.Visible = false;
-            pnlYorumum.Visible = false;
-            if (session.IsLoggedIn)
-            {
-                pnlYorumum.Visible = true;
-                bool yorumVar = false;
 
-                if (Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, Query.GetInt("HocaID")))
-                {
-                    yorumVar = true;
-                }
-
-                if (yorumVar)
-                {
-                    //Linke basinca guncelleme acilsin
-                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumGuncelle.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=false&height=530&width=640");
-                }
-                else
-                {
-                    //Linke basinca yeni yorum gonderme acilsin
-                    lnkYorumum.NavigateUrl = Page.ResolveUrl("HocaYorumYap.aspx?HocaID=" + Query.GetInt("HocaID") + "&KeepThis=true&TB_iframe=true&modal=false&height=530&width=640");
-                }
-            }
-            else
-            {
-                pnlUyeOl.Visible = true;
-            }
         }
         catch (Exception ex)
         {

@@ -18,7 +18,8 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         try
         {
             KontroluSakla();
-            if (Query.GetInt("OkulID") <= 0)
+            int queryOkulID = Query.GetInt("OkulID");
+            if (queryOkulID <= 0)
             {
                 pnlHata.Visible = true;
                 return;
@@ -26,12 +27,12 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
             if (session.IsLoggedIn && session.KullaniciID >= 0)
             {
                 pnlPuanYorum.Visible = true;
-                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + OkulYorumlarimURLDondur(Query.GetInt("OkulID")) + "';";
-                bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
+                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + OkulYorumlarimURLDondur(queryOkulID) + "';";
+                bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, queryOkulID);
 
                 if (yorumVar)
                 {
-                    string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
+                    string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, queryOkulID);
                     if (Util.GecerliString(eskiYorum))
                     {
                         textYorum.Text = Util.DBToHTML(eskiYorum);
@@ -50,6 +51,8 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         }
         catch (Exception ex)
         {
+            KontroluSakla();
+            pnlHata.Visible = true;
             Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
@@ -68,7 +71,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         else
         {
             ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
-            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }
 
