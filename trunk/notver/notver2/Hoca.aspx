@@ -10,50 +10,44 @@
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
     <uc1:Ayrac runat="server" ID="ayrac" />
-    <br />
-    <table style="background:url('App_Themes/Default/Images/defter/15.png') scroll -20px 0% White; width:710px; margin:auto;">
-        <tr>
-            <td style="padding-top: 0px;">
-                <div style="float: left; width:450px;">
+    <div id="hocaUst" style="display:block; width:100%; margin-top:30px;">
+        <table>
+            <tr style="background-color:#f6f6f6;">
+                <td style="width:679px; border-right:solid 1pt #afafaf;">
+                    <p style="color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+                        <asp:Label ID="hocaIsim" runat="server" CssClass="HocaIsim"></asp:Label>
+                        <asp:Literal ID="hocaOkullar" runat="server"></asp:Literal>
+                    </p>
+                </td>
+                <td style="width:280px;">
+                   <p style="color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+                        Cok Yorumlananlar
+                    </p> 
+                </td>
+            </tr>
+            <tr style="background-color:#ffffff;">
+                <td style="width:679px; border-right:solid 1pt #afafaf; color:#191919;">
                     <uc1:HocaPuanlari runat="server" ID="HocaPuanlari1" />
-                </div>
-                <div style="vertical-align: top; text-align: right; padding-left: 20px;
-                    padding-right: 5px; padding-top: 0px; float: left; width: 215px; height: 100%;">
-                    <uc1:HocaResmi runat="server" ID="HocaResmi1" />
-                    <asp:Label ID="hocaIsim" runat="server" CssClass="HocaIsim"></asp:Label>
-                    <asp:Literal ID="hocaOkullar" runat="server"></asp:Literal>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <br />
-    <div id="Defter">
-        <table style="width:100%;">
-            <tr>
-                <td style="vertical-align: top; padding-top: 350px;">
+                </td>
+                <td style="width:280px;">
                     <uc1:HocaAyniOkul runat="server" ID="hocaAyniOkul"></uc1:HocaAyniOkul>
                 </td>
-                <td style="padding-top: 0px; vertical-align: top;">
-                    <table style="width:100%;">
-                        <tr>
-                            <td>
-                                <uc1:HocaYorumlari runat="server" ID="HocaYorumlari1" />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
             </tr>
         </table>
-    </div>
-    <br />
+    </div>    
+    
+    <div id="hocaYorumlari" style="display:block; width:100%; margin-top:20px;">
+        <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+            Yorumlar
+            <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="colorbox"
+            NavigateUrl="~/HocaYorumYap.aspx">Yorum ekle &nbsp;&nbsp;  
+            <img src="App_Themes/Default/Images/ekle.png" /></asp:HyperLink></span>
+        </p>
+        <uc1:HocaYorumlari runat="server" ID="HocaYorumlari1" />
+    </div>    
+
     <asp:Panel ID="pnlYorumum" runat="server">
-        <table style="width:100%; text-align:right;">
-            <tr>
-                <td>
-                    <asp:HyperLink runat="server" ID="lnkYorumum" Text="Benim de diyeceklerim var! " CssClass="thickbox"><img src="App_Themes/Default/Images/diger/el_kaldir.png" /></asp:HyperLink>
-                </td>
-            </tr>
-        </table>
+
     </asp:Panel>
     <asp:Panel ID="pnlUyeOl" runat="server">
         Puan vermek ve yorum yapabilmek icin (sag ust koseden) <a href="#login">giris yapmaniz</a> gereklidir.

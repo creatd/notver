@@ -35,12 +35,21 @@ public partial class UserControls_HocaAyniOkul : BaseUserControl
 
     protected void ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        Literal ltr = e.Item.FindControl("ltrHoca") as Literal;
+        /*Literal ltr = e.Item.FindControl("ltrHoca") as Literal;
         if (ltr != null)
         {
             string hocaID = ((System.Data.DataRowView)(e.Item.DataItem)).Row["HOCA_ID"].ToString();
             string isim = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ISIM"].ToString();
             ltr.Text = HocaLinkiniDondur(isim, hocaID);
+        }*/
+    }
+
+    protected string HocaLinkBaslangic(object HocaID)
+    {
+        if (Util.GecerliSayi(HocaID))
+        {
+            return "<a href='" + Page.ResolveUrl("~/Hoca.aspx?HocaID=" + Convert.ToString(HocaID)) + "'>";
         }
+        return "<a href='#'>";
     }
 }

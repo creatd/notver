@@ -5,6 +5,13 @@
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
+    
+    <!-- Colorbox -->
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("a.colorbox").colorbox({iframe:true,width:'590px', height:'480px', close:''});
+    });
+    </script>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
@@ -37,19 +44,10 @@
 <div id="okulYorumlari" style="display:block; width:100%; margin-top:20px;">
     <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         Yorumlar
-        <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle">Yorum ekle &nbsp;&nbsp;  
+        <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox"> 
+        <asp:Literal runat="server" ID="ltrYorumYazi" />
         <img src="App_Themes/Default/Images/ekle.png" /></asp:HyperLink></span>
     </p>
     <uc1:OkulYorumlari runat="server" ID="okulYorumlari1"></uc1:OkulYorumlari>
 </div>
-
-<div>
-    <table style="width:100%;">
-        <tr>
-            <td colspan="2">
-                <uc1:OkulYorumYap runat="server" ID="okulYorumYap"></uc1:OkulYorumYap>
-            </td>
-        </tr>
-    </table>
-</div>                        
 </asp:Content>

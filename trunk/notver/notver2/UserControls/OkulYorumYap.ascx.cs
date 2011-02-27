@@ -13,28 +13,34 @@ using System.Xml.Linq;
 
 public partial class UserControls_OkulYorumYap : BaseUserControl
 {
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {
             KontroluSakla();
-            pnlPuanYorum.Visible = true;
             if (Query.GetInt("OkulID") <= 0)
             {
+                pnlHata.Visible = true;
                 return;
             }
-            if (session.IsLoggedIn && session.KullaniciID > 0)
+            if (session.IsLoggedIn && session.KullaniciID >= 0)
             {
+                pnlPuanYorum.Visible = true;
+                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + OkulYorumlarimURLDondur(Query.GetInt("OkulID")) + "';";
                 bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
 
                 if (yorumVar)
                 {
-                    pnlYorumVar.Visible = true;
-                    lnkKullaniciYorumlar.NavigateUrl = OkulYorumlarimURLDondur(Query.GetInt("OkulID"));
+                    string eskiYorum = Okullar.KullaniciOkulYorumunuDondur(session.KullaniciID, Query.GetInt("OkulID"));
+                    if (Util.GecerliString(eskiYorum))
+                    {
+                        textYorum.Text = Util.DBToHTML(eskiYorum);
+                    }
+                    dugmeYorumGuncelle.Visible = true;
                 }
                 else
                 {
-                    baslikPuanYorum.Visible = true;
+                    dugmeYorumGonder.Visible = true;
                 }
             }
             else
@@ -62,6 +68,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         else
         {
             ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
         }
     }
 
@@ -74,15 +81,16 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
         else
         {
             ltrDurum.Text = "Yorumunuz guncellendi!";
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }
 
     void KontroluSakla()
     {
-        pnlYorumVar.Visible = false;
+        dugmeYorumGonder.Visible = false;
+        dugmeYorumGuncelle.Visible = false;
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
-        baslikPuanYorum.Visible = false;
+        pnlHata.Visible = false;
     }
-
 }

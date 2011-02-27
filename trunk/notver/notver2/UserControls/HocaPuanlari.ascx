@@ -15,23 +15,13 @@ function setRating(rating,n)
 {
     $S('puan'+n).visibility='visible';
     $S('puan'+n).width=rating+'px';
-    $('puanYazi'+n).innerHTML=Math.round(rating/84*100)+'%';
+    $('puanYazi'+n).innerHTML='% ' + Math.round(rating/100*100);
 }
 </script>
 
 
 <asp:Panel ID="panelPuanlar" runat="server">
 <table border="0" cellpadding="10" width="450" style="border:none;" id="HocaPuanlari">
-<tr>
-    <td align="center" colspan="2">
-        <h1>NotVerin.com karnesi</h1>
-    </td>
-</tr>
-<tr>
-    <td colspan="2">
-        <img src="App_Themes/Default/Images/diger/cizgi.png" ID="cizgi"/>
-    </td>
-</tr>
 <tr>
     <td class="hocaPuanSolSutun">
         <asp:Label ID="Aciklama1" runat="server"></asp:Label>
@@ -41,7 +31,7 @@ function setRating(rating,n)
             <tr>
                 <td>
                     <ul class="star" id="star1">
-                        <li id="puan1" style="BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; visibility:hidden;" >
+                        <li id="puan1" style="BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 22px; FONT-SIZE: 1px; visibility:hidden;" >
                         </li>
                     </ul>
                 </td>
@@ -61,7 +51,7 @@ function setRating(rating,n)
             <tr>
                 <td>
                     <ul class="star" id="star2">
-                        <li id="puan2" style="BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; visibility:hidden;" >
+                        <li id="puan2" style="BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 22px; FONT-SIZE: 1px; visibility:hidden;" >
                         </li>
                     </ul>
                 </td>
@@ -81,7 +71,7 @@ function setRating(rating,n)
             <tr>
                 <td >
                     <ul class="star" id="star3">
-                        <li id="puan3" style="BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; visibility:hidden;" >
+                        <li id="puan3" style="BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 22px; FONT-SIZE: 1px; visibility:hidden;" >
                         </li>
                     </ul>
                 </td>
@@ -101,7 +91,7 @@ function setRating(rating,n)
             <tr>
                 <td  >
                     <ul class="star" id="star4">
-                        <li id="puan4" style="BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; visibility:hidden;" >
+                        <li id="puan4" style="BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 22px; FONT-SIZE: 1px; visibility:hidden;" >
                         </li>
                     </ul>
                 </td>
@@ -122,7 +112,7 @@ function setRating(rating,n)
             <tr>
                 <td >
                     <ul class="star" id="star5">
-                        <li id="puan5" style="BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; visibility:hidden;" >
+                        <li id="puan5" style="BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 22px; FONT-SIZE: 1px; visibility:hidden;" >
                         </li>
                     </ul>
                 </td>
@@ -137,8 +127,9 @@ function setRating(rating,n)
 </asp:Panel>
 
 <asp:Panel ID="pnlNotYok" runat="server" Visible="false">
-    <br />
-&nbsp;&nbsp;<asp:Label ID="lblNotYok" runat="server">Daha önce not verilmemiş. İlk not veren </asp:Label><asp:HyperLink ID="linkNotVer" Text="siz olun!" runat="server" NavigateUrl="~/HocaNotVer.aspx"></asp:HyperLink> 
+    <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
+        Daha once puan verilmemis. Ilk puan veren siz olun
+    </p>
 </asp:Panel>
 
 <asp:Literal ID="script" runat="server"></asp:Literal>
