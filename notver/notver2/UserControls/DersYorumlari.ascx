@@ -2,7 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="dersYorumlar">
-    <p style="text-align:right; font-weight:bold; font-size:11px;">
+    <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
         Sayfa basi <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
         AutoPostBack="True" CssClass="dropdownPager">
                         <asp:ListItem Text="1" Value="1" Selected="True"></asp:ListItem>
@@ -59,8 +59,8 @@
         </div>
     </asp:Panel>
 </asp:Panel>
-<asp:Panel ID="pnlYorumYok" runat="server" Visible="false">
-    <br />
-    <asp:Label ID="lblYorumYok" runat="server">(Daha önce yorum yapilmamis). İlk yorum yapan </asp:Label><asp:HyperLink
-        ID="linkYorumYap" Text="siz olun!" runat="server" NavigateUrl="~/Ders.aspx#DersYorumYap1"></asp:HyperLink>
+<asp:Panel ID="pnlYorumYok" runat="server" Visible="false" CssClass="dersYorumlar">
+    <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
+        Daha once yorum yapilmamis. Ilk yorum yapan siz olun
+    </p>
 </asp:Panel>

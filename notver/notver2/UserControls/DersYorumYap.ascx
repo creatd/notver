@@ -86,7 +86,6 @@ $(document).ready(function() {
 
 
 <asp:Panel ID="pnlPuanYorum" runat="server">
-    <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
     <asp:HyperLink Text="&nbsp;&nbsp;Yapmis oldugunuz yorumlari goruntulemek veya degistirmek icin tiklayin"
                 runat="server" ID="lnkKullaniciYorumlar" ></asp:HyperLink>
     <br /><br />

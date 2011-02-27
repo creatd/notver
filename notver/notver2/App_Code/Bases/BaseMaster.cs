@@ -30,5 +30,14 @@ public class BaseMaster : System.Web.UI.MasterPage
     protected void CikisYap(object sender, EventArgs e)
     {
         Uyelik.CikisYap();
+        RefreshPage();
+    }
+
+    /// <summary>
+    /// Refreshes current page
+    /// </summary>
+    public void RefreshPage()
+    {
+        Page.Response.Redirect(Page.Request.Url.ToString(), true);
     }
 }

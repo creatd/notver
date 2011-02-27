@@ -24,11 +24,11 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                 //s: Puan aciklamalarini doldur
                 if (session.hocaPuanAciklamalari.Length == 5)
                 {
-                    Aciklama1.Text = session.hocaPuanAciklamalari[0];
-                    Aciklama2.Text = session.hocaPuanAciklamalari[1];
-                    Aciklama3.Text = session.hocaPuanAciklamalari[2];
-                    Aciklama4.Text = session.hocaPuanAciklamalari[3];
-                    Aciklama5.Text = session.hocaPuanAciklamalari[4];
+                    Aciklama1.Text = session.hocaPuanAciklamalari[0] +":";
+                    Aciklama2.Text = session.hocaPuanAciklamalari[1] + ":";
+                    Aciklama3.Text = session.hocaPuanAciklamalari[2] + ":";
+                    Aciklama4.Text = session.hocaPuanAciklamalari[3] + ":";
+                    Aciklama5.Text = session.hocaPuanAciklamalari[4] + ":";
                 }
                 else
                 {
@@ -58,7 +58,7 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                     //Puanlari yildizlarin genisligine gore orantilamaliyiz, 5 yildizin genisligi 84px
                     for (int i = 0; i < 5; i++)
                     {
-                        puanlar[i] = (puanlar[i] * 20) * ((float)84 / 100);
+                        puanlar[i] = (puanlar[i] * 20) * ((float)100 / 100);
                         puanlar[i] = (float)Math.Round(puanlar[i]);
                     }
 

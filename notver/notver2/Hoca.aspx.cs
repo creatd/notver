@@ -30,13 +30,13 @@ public partial class Hoca : BasePage
                     {
                         if (!string.IsNullOrEmpty(session.HocaUnvan))
                         {
-                            hocaIsim.Text = session.HocaUnvan + " " + session.HocaIsim;
+                            hocaIsim.Text = session.HocaUnvan + " " + session.HocaIsim + " / ";
                             Page.Title = "NotVer.com - " + session.HocaUnvan + " " + session.HocaIsim;
                         }
                         else
                         {
                             hocaIsim.Text = session.HocaIsim;
-                            Page.Title = "NotVer.com - " + session.HocaIsim;
+                            Page.Title = "NotVer.com - " + session.HocaIsim + " / ";
                         }
                     }
                     else
@@ -57,7 +57,7 @@ public partial class Hoca : BasePage
                         {
                             if (!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
                             {
-                                sb.Append(session.HocaOkulIsimleri[i] + "<br />(" + session.HocaOkulBaslangicYillari[i] + " - ");
+                                sb.Append(session.HocaOkulIsimleri[i] + " ( " + session.HocaOkulBaslangicYillari[i] + " - ");
                                 if (session.HocaOkulBitisYillari[i] > 0)
                                 {
                                     sb.Append(session.HocaOkulBitisYillari[i]);
@@ -66,7 +66,7 @@ public partial class Hoca : BasePage
                                 {
                                     sb.Append("...");
                                 }
-                                sb.Append(") <br /><br />");
+                                sb.Append(" )<br/>");
                             }
                         }
                         sb.Append("</span>");

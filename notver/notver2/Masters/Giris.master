@@ -11,11 +11,12 @@
     <title>NotVer - Hocalarla ogrencilerin rol degistirdigi yer..</title>
     <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
-    <link href="../App_Themes/Default/thickbox.css" rel="stylesheet" type="text/css" />
+    <link href="../Scripts/colorbox.css" rel="stylesheet" type="text/css" />
 
     <link href="../App_Themes/Default/Default2.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
-    
+    <script src="Scripts/colorbox.js" type="text/javascript"></script>
+
     <!-- Dropdown'in resmini degistirmek (AraOkul)-->
     <script type="text/javascript">
     $(document).ready(function(){	
@@ -116,7 +117,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>  <!-- Login box'lar icin gerekli-->
+    <asp:ScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release"></asp:ScriptManager>  <!-- Login box'lar icin gerekli-->
     <div id="Header">
         <div id="HeaderContent">
             <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">

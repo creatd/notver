@@ -163,14 +163,15 @@ public partial class UserControls_HocaYorum : BaseUserControl
         try
         {
             DateTime tarih = Convert.ToDateTime(Tarih.ToString());
-            string str = KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
-            if (KullaniciPuanAraligi != System.DBNull.Value)
+            string str = KullaniciAdi + "&nbsp;&nbsp;" + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
+            if (Util.GecerliSayi(KullaniciPuanAraligi))
             {
-                str += " (Hocadan aldigi not : " + KullaniciPuanAraligi.ToString() + "/5)";
+                Enums.KullaniciPuanAraligi puanAraligi = (Enums.KullaniciPuanAraligi)Convert.ToInt32(KullaniciPuanAraligi);
+                str += "&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#05d4b4'>(Aldigi Not : " + puanAraligi.ToString() + ")</span>";
             }
             if (Util.GecerliString(DersKodu))
             {
-                str += "<br />" + DersKodu.ToString();
+                str += "<br /><span style='font-weight:normal; font-size:12px; line-height:150%; display:block; margin-top:7px;'>" + DersKodu.ToString() + "</span>";
             }
             
             return str;
@@ -187,10 +188,10 @@ public partial class UserControls_HocaYorum : BaseUserControl
         {
             if (GenelPuan != System.DBNull.Value && Convert.ToInt32(GenelPuan.ToString()) >0)
             {
-                int yildizGenisligi = (int)Math.Round((Convert.ToInt32(GenelPuan.ToString()) * 20) * ((float)84 / 100));
+                int yildizGenisligi = (int)Math.Round((Convert.ToInt32(GenelPuan.ToString()) * 20) * ((float)100 / 100));
                 StringBuilder sb = new StringBuilder();
-                sb.Append(" <ul class=\"star\" id=\"star1\"> ");
-                sb.Append(" <li id=\"puan1\" style=\"BACKGROUND: url('App_Themes/Default/Images/stars.gif') left 25px; FONT-SIZE: 1px; width:" + yildizGenisligi + "px;\" > ");
+                sb.Append("<ul class=\"star\" id=\"star1\"> ");
+                sb.Append(" <li id=\"puan1\" style=\"BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 25px; FONT-SIZE: 1px; width:" + yildizGenisligi + "px;\" > ");
                 sb.Append(" </li></ul> ");
                 return sb.ToString();
             }

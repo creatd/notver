@@ -195,7 +195,7 @@ img.HocaResmi
 /* e: Hoca Resmi uc */
 
 /* s: Hoca.aspx */
-span.HocaIsim
+/*span.HocaIsim
 {
 	display:inline;
 	background-color:Yellow;
@@ -205,13 +205,13 @@ span.HocaIsim
 	padding-right:5px;
 	font-weight:bold;
 	text-align:center;
-}
-span.HocaOkullar
+}*/
+/*span.HocaOkullar
 {
 	display:block;
 	text-align:right;
 	margin-top:17px;
-}
+}*/
 /* e: Hoca.aspx */
 
 /* s: Hoca Ayni Okul uc */
@@ -316,8 +316,10 @@ table#HocaPuanlari
 }
 .hocaPuanSolSutun
 {
-	color:Blue;
-	padding-left:50px;
+	text-align:right;
+	width:250px;
+	font-weight:bold;
+	font-size:14px;
 }
 
 .hocaPuanSagSutun
@@ -427,12 +429,12 @@ table.pager li
 /* e: Pager */
 
 /* s: OkulYorumYap uc */
-div.OkulYorumYap
+/*div.OkulYorumYap
 {
 	background: url("Images/defter/bigtexture96.png") no-repeat scroll 0 0 White;
 	width:600px;
 	height:413px;
-}
+}*/
 /* e: HocaYorumYap uc */
 
 /* s: Uye Ol sayfasi */

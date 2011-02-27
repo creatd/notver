@@ -360,7 +360,6 @@ div#dersBilgi a.lnkIndir
 
 div#dersYorumlari a.lnkYorumEkle
 {
-	
 	float:right;
 }
 
@@ -382,9 +381,51 @@ div#okulBilgi table tr td span
 }
 div#okulYorumlari a.lnkYorumEkle
 {
-	
 	float:right;
 }
+
+/* Hoca */
+span.HocaIsim
+{
+	float:left;
+	display:block;
+}
+
+span.HocaOkullar
+{
+	float:left;
+	display:block;
+	color:#626262;
+	line-height:140%;
+	padding-left:5px;
+	position:relative;
+	top:-4px;
+}
+div#hocaYorumlari a.lnkYorumEkle
+{
+	float:right;
+}
+div.hocaYorumlar
+{
+	background-color:White;
+	padding:20px;
+}
+
+/* Okul yorum yap/guncelle uc*/
+div.OkulYorumYap
+{
+	padding:15px;
+}
+div.OkulYorumYap p
+{
+	padding-top:10px;
+	font-weight:bold;
+}
+a.lnkYorumlarim
+{
+	color:#f25755;
+}
+
 .clear
 {
 	clear:both;
@@ -399,6 +440,31 @@ div#okulYorumlari a.lnkYorumEkle
 	padding-left:5px;
 	font-size:12px;
 }
+
+.multitextbox
+{
+	background-color:White;
+	padding:5px;
+	border:none 0;
+	border-top:solid 1pt #afafaf;
+}
+
+.durum
+{
+	color:#FF0008;
+	text-align:center;
+	font-size:12px;
+	font-weight:normal;
+}
+
+.bilgi
+{
+	color:#F25755;
+	text-align:center;
+	font-size:13px;
+	font-weight:normal;
+}
+
 
 .line150
 {

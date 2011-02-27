@@ -14,6 +14,7 @@ using System.IO;
 
 public partial class Okul : BasePage
 {
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -91,6 +92,16 @@ public partial class Okul : BasePage
                     {
                         imgOkul.ImageUrl = "~/Images/Okullar/p_yok.jpg";
                     }
+                    bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
+                    if (yorumVar)
+                    {
+                        ltrYorumYazi.Text = "Yorumunu guncelle&nbsp;&nbsp;";
+                    }
+                    else
+                    {
+                        ltrYorumYazi.Text = "Yorum ekle&nbsp;&nbsp;";
+                    }
+                    lnkYorumum.NavigateUrl = Page.ResolveUrl("~/OkulYorumYap.aspx?OkulID=" + queryOkulID);
                 }
             }
             catch (Exception ex)
