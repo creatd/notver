@@ -191,7 +191,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
                 int yildizGenisligi = (int)Math.Round((Convert.ToInt32(GenelPuan.ToString()) * 20) * ((float)100 / 100));
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<ul class=\"star\" id=\"star1\"> ");
-                sb.Append(" <li id=\"puan1\" style=\"BACKGROUND: url('App_Themes/Default/Images/yildizlar.png') left 25px; FONT-SIZE: 1px; width:" + yildizGenisligi + "px;\" > ");
+                sb.Append(" <li id=\"puan1\" style=\"BACKGROUND: url('App_Themes/Default/Images/yildizlar2.png') left 34px; FONT-SIZE: 1px; width:" + yildizGenisligi + "px;\" > ");
                 sb.Append(" </li></ul> ");
                 return sb.ToString();
             }

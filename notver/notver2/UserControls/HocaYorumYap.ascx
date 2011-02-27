@@ -2,8 +2,12 @@
     Inherits="UserControls_HocaYorumYap" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
+<asp:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
+
 <asp:Panel ID="pnlPuanYorum" runat="server">
-    <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" />
+    <p style="color:#626262; font-size:12px;">Yapmis oldugunuz tum yorumlari goruntulemek veya degistirmek icin 
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
+    <br />
     <table style="border: none;" width="600">
         <tr>
             <td style="text-align:right;width:350px;">
@@ -120,7 +124,13 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:Panel ID="pnlUyeOl" runat="server">
-    Puan vermek ve yorum yapabilmek icin giris yapmaniz gereklidir.
-</asp:Panel> 
+<asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
+    <br/><br/>
+    Yorum yapabilmek icin giris yapmaniz gereklidir.
+    <br/><br/>
+    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+</asp:Panel>
+<asp:Panel ID="pnlHata" runat="server" CssClass="durum">
+Bir hata olustu :(
+</asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>

@@ -38,10 +38,10 @@ h3
 	font-size : 12pt;
 }
 
-td
+/*td
 {
 	padding : 10px;
-} 
+} */
 
 .stretch
 {
@@ -409,9 +409,9 @@ div#LoginBox div#LoginBox_Sonra a
 
 /* s: Ajax Rating */
 
-	.bosYildiz { background: url(Images/stars.gif) left ; width: 18px; height: 25px; }
-    .doluYildiz { background: url(Images/stars.gif) left top; width: 18px; height: 25px; }
-    .bekleYildiz { background: url(Images/stars.gif) left 25px; width: 18px; height: 25px; }
+	.bosYildiz { background: url(Images/yildizlar2.png) left 59px; width: 20px; height: 25px; }	/*Gri*/
+    .doluYildiz { background: url(Images/yildizlar2.png) left 33px; width: 20px; height: 25px; }	/*Sari*/
+    .bekleYildiz { background: url(Images/yildizlar2.png) left 5px; width: 20px; height: 25px;}	/*Mavi */ 
 
 /* e: Ajax Rating */
 

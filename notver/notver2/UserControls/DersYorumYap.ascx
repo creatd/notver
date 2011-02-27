@@ -83,51 +83,48 @@ $(document).ready(function() {
 });
 </script>
 
+<asp:ToolkitScriptManager runat="server" ScriptMode="Release"></asp:ToolkitScriptManager>
 
+<asp:Panel ID="pnlPuanYorum" runat="server" Width="510" Height="395" CssClass="DersYorumYap">
+    <p style="color:#626262; font-size:12px;">Yapmis oldugunuz tum yorumlari goruntulemek veya degistirmek icin 
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
+    <br />
+    <p>Yorumunuz</p>
+    <p style="margin-bottom:20px;">
+        <asp:TextBox runat="server" CssClass="multitextbox" TextMode="MultiLine" MaxLength="2000" 
+        ID="textYorum" Width="500" Height="220"></asp:TextBox>
+    </p>
 
-<asp:Panel ID="pnlPuanYorum" runat="server">
-    <asp:HyperLink Text="&nbsp;&nbsp;Yapmis oldugunuz yorumlari goruntulemek veya degistirmek icin tiklayin"
-                runat="server" ID="lnkKullaniciYorumlar" ></asp:HyperLink>
-    <br /><br />
-    <table style="border: none;" width="640">
+    <table style="border: none; font-weight:bold; font-size:13px;" width="500">
         <tr>
-            <td style="text-align:right;width:350px;">
-                Yorumunuz
+            <td style="width:220px; padding:10px 10px 10px 0px">
+                Ders zor muydu:
+                <br /><span class="bilgi">(1:kolay - 5:cok zor)</span> 
             </td>
-            <td class="DersYorumYapSutunSag">
-                <asp:TextBox ID="textYorum" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="DersYorumYapTextbox" />
-            </td>
-        </tr>
-    </table>
-    <table style="border: none;" width="640">
-        <tr>
-            <td style="text-align:right;width:350px;">
-                Ders zor muydu?
-            </td>
-            <td class="DersYorumYapSutunSag">
+            <td>
                 <asp:Rating ID="puanDersZorluk" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz"/>
             </td>
         </tr>
         <tr>
-            <td style="text-align:right;width:350px;">
-                Hangi hocadan aldiniz (opsiyonel)
+            <td style="width:220px; padding:10px 10px 10px 0px">
+                Hangi hocadan aldiniz (opsiyonel):
             </td>
-            <td class="DersYorumYapSutunSag">
+            <td>
                 <asp:DropDownList runat="server" ID="drpDersHocalar" onchange="javascript:HocaSecildi(this);"></asp:DropDownList>
             </td>
         </tr>
         <tr id="trBilinmeyenHoca">
-            <td style="text-align:right;width:350px;">
-                Hocanin ismini girin
+            <td style="width:220px; padding:10px 10px 10px 0px">
+                Hocanin ismini girin:
             </td>
-            <td class="DersYorumYapSutunSag">
-                <asp:TextBox runat="server" ID="txtBilinmeyenHocaIsmi"></asp:TextBox>
+            <td>
+                <asp:TextBox runat="server" ID="txtBilinmeyenHocaIsmi" CssClass="textbox"></asp:TextBox>
             </td>
         </tr>
         <tr id="trPuanDersHoca">
-            <td style="text-align:right;width:350px;">
-                Bu hocadan almak
+            <td style="width:220px; padding:10px 10px 10px 0px">
+                Bu hocadan almak:
             </td>
             <td class="DersYorumYapSutunSag">
                 <asp:Rating ID="puanDersHoca" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
@@ -135,15 +132,21 @@ $(document).ready(function() {
             </td>
         </tr>
         <tr>
-            <td align="right" colspan="2" style="color: Red;">
-                <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
-                <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="YorumKaydet"
-                    CssClass="fltRight" />
+            <td colspan="2" style=" padding:10px 10px 10px 0px">
+                <asp:ImageButton runat="server" ID="dugmeYorumGonder" ImageUrl="~/App_Themes/Default/Images/gonder.png" 
+            OnClick="YorumKaydet"/>
             </td>
         </tr>
+        <tr><td colspan="2" class="durum" style=" padding:10px 10px 10px 0px"><asp:Literal runat="server" ID="ltrDurum"></asp:Literal></td></tr>
     </table>
 </asp:Panel>
-<asp:Panel ID="pnlUyeOl" runat="server">
-    Puan vermek ve yorum yapabilmek icin giris yapmaniz gereklidir.
+<asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
+    <br/><br/>
+    Yorum yapabilmek icin giris yapmaniz gereklidir.
+    <br/><br/>
+    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+</asp:Panel>
+<asp:Panel ID="pnlHata" runat="server" CssClass="durum">
+Bir hata olustu :(
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>

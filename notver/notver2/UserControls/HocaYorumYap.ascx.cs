@@ -64,14 +64,15 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 hocaKullaniciDersler = hocaKullaniciDerslerObj;*/
             }
 
-            if (Query.GetInt("HocaID") <= 0)
+            int queryHocaID = Query.GetInt("HocaID");
+            if (queryHocaID < 0)
             {
+                pnlHata.Visible = true;
                 return;
             }
-            if (session.IsLoggedIn && session.KullaniciID > 0)
+            if (session.IsLoggedIn && session.KullaniciID >= 0)
             {
-                pnlPuanYorum.Visible = true;    //Giris yapmamis olsa bu sayfaya gelemez zaten ancak yine de bunu burada tutmak faydali
-                pnlUyeOl.Visible = false;
+                pnlPuanYorum.Visible = true;    
 
                 if (session.hocaPuanAciklamalari.Length == 5)
                 {
@@ -83,6 +84,9 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 }
                 else
                 {
+                    pnlPuanYorum.Visible = false;
+                    pnlHata.Visible = true;
+                    return;
                     //TODO: admin mesaj
                 }
 
@@ -92,7 +96,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                     dropHocaDersler.Items.Clear();
                     //Hocanin verdigi dersleri yukleyip dropdown'a yukle
                     dropHocaDersler.Items.Add(new ListItem("", "-1"));
-                    string[][] hocaDersler = Hocalar.HocaDersleriniDondur(Query.GetInt("HocaID"));
+                    string[][] hocaDersler = Hocalar.HocaDersleriniDondur(queryHocaID);
 
                     if (hocaDersler != null)
                     {
@@ -107,24 +111,25 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                             }
                             else
                             {
-                                dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi.Substring(0, 20) + ")", hocaDersler[i][1]));
+                                dropHocaDersler.Items.Add(new ListItem(hocaDersler[i][0] + " (" + okulIsmi + ")", hocaDersler[i][1]));
                             }
                             dersIsimleri[i] = hocaDersler[i][2];
                         }
                     }
                     dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
                 }
+                lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + HocaYorumlarimURLDondur(queryHocaID) + "';";
 
             }
             else  //Giris yapmamis
             {
-                pnlPuanYorum.Visible = false;
                 pnlUyeOl.Visible = true;
-                ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
             }
         }
         catch (Exception ex)
         {
+            KontroluSakla();
+            pnlHata.Visible = true;
             Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
@@ -248,7 +253,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             kullaniciPuanAraligi,(List<int>) hocaKullaniciDerslerIDler , (List<string>)hocaKullaniciDersler, session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Puan ve yorumlariniz basariyla kaydedildi!";
-            ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
         else
         {
@@ -260,8 +265,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
+        pnlHata.Visible = false;
         dropDersEkle.Visible = false;
-        txtDersKodDiger.Visible = false;
     }
 }
 

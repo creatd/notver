@@ -50,7 +50,7 @@ star.num=0;
 
                     <td >
                         <ul class="star" id="star" onmouseover="star.mouse(event,this)" onmousedown="star.update(event,this)">
-                            <li id="starCur" class="curr" style="background: url('App_Themes/Default/Images/yildizlar.png') left 25px;
+                            <li id="starCur" class="curr" style="background: url('App_Themes/Default/Images/yildizlar2.png') left 33px;
                                 font-size: 1px; width: 35px;"></li>
                         </ul>
                     </td>

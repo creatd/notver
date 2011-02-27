@@ -15,14 +15,14 @@ using System.IO;
 public partial class Okul : BasePage
 {
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
             try
             {
                 int queryOkulID = Query.GetInt("OkulID");
-                if (queryOkulID > 0)
+                if (queryOkulID >= 0)
                 {
                     session.OkulYukle(queryOkulID);
                     //Okul isim
