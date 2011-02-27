@@ -4,13 +4,18 @@
 
 <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 
-<asp:Panel ID="pnlPuanYorum" runat="server">
+<asp:Panel ID="pnlPuanYorum" runat="server" CssClass="HocaYorumYap">
     <p style="color:#626262; font-size:12px;">Yapmis oldugunuz tum yorumlari goruntulemek veya degistirmek icin 
     <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
     <br />
-    <table style="border: none;" width="600">
+    <p>Yorumunuz</p>
+    <p style="margin-bottom:20px;">
+        <asp:TextBox runat="server" CssClass="multitextbox" TextMode="MultiLine" MaxLength="2000" 
+        ID="textYorum" Width="500" Height="220"></asp:TextBox>
+    </p>
+    <table style="border: none;" width="450">
         <tr>
-            <td style="text-align:right;width:350px;">
+            <td style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:Label ID="Aciklama1" runat="server"></asp:Label>
             </td>
             <td>
@@ -19,7 +24,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align:right;width:350px;">
+            <td style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:Label ID="Aciklama2" runat="server"></asp:Label>
             </td>
             <td>
@@ -28,7 +33,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align:right;width:350px;">
+            <td style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:Label ID="Aciklama3" runat="server"></asp:Label>
             </td>
             <td>
@@ -37,7 +42,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align:right;width:350px;">
+            <td style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:Label ID="Aciklama4" runat="server"></asp:Label>
             </td>
             <td>
@@ -46,7 +51,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align:right;width:350px;">
+            <td style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:Label ID="Aciklama5" runat="server"></asp:Label>
             </td>
             <td>
@@ -55,56 +60,36 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                <asp:Literal ID="ltrPuanDurum" runat="server"></asp:Literal>
+            <td style="width:220px; padding:20px 10px 20px 0px;">
+                Derslerinden aldiginiz not:
             </td>
-        </tr>
-        <tr>
-            <td style="text-align:right;width:350px;">
-                Derslerinden aldiginiz not :
-                <br />
-                <span class="sessiz">(5 uzerinden)</span>
-            </td>
-            <td style="float:left;">
-                <asp:DropDownList ID="dropGenelPuan" runat="server" CssClass="fltRight">
-                    <asp:ListItem Text="1" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="2" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="3" Value="3"></asp:ListItem>
-                    <asp:ListItem Text="4" Value="4"></asp:ListItem>
-                    <asp:ListItem Text="5" Value="5"></asp:ListItem>
+            <td>
+                <asp:DropDownList ID="dropGenelPuan" runat="server">
                 </asp:DropDownList>            
             </td>
-        </tr>        
-    </table>
-    <table style="border: none;"  width="600">
+        </tr>       
         <tr>
-            <td class="HocaYorumYapSutunSol">
-                Yorumunuz
-            </td>
-            <td class="HocaYorumYapSutunSag">
-                <asp:TextBox ID="textYorum" runat="server" MaxLength="2000" TextMode="MultiLine" CssClass="HocaYorumYapTextbox" />
-            </td>
-        </tr>        
-        <tr>
-            <td class="HocaYorumYapSutunSol" colspan="2">
+            <td class="HocaYorumYapSutunSol" colspan="2" style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                     Hangi ders(ler)e yonelik : 
                     <asp:DropDownList ID="dropHocaDersler" runat="server" AutoPostBack="true"
                         OnSelectedIndexChanged="dropHocaDersler_Secildi">
                     </asp:DropDownList>
+                    <br />
+                    <br />
                     <asp:Label runat="server" ID="dersIsim"></asp:Label>
-                    <asp:TextBox runat="server" ID="txtDersKodDiger" Width="350" ToolTip="Ders kodunu ya da ismini belirtin"></asp:TextBox>
-                    <asp:Button runat="server" ID="dropDersEkle" OnClick="dropDersEkle_Click" Text="+"/>
+                    <asp:TextBox runat="server" ID="txtDersKodDiger" CssClass="textbox" ToolTip="Ders kodunu ya da ismini belirtin"></asp:TextBox>
+                    <asp:ImageButton runat="server" ID="dropDersEkle" OnClick="dropDersEkle_Click" ImageUrl="~/App_Themes/Default/Images/ekle.png"/>
                     <br />
                     <asp:Repeater ID="repeaterDersler" runat="server" OnItemCommand="repeaterDersSil">
                         <HeaderTemplate>
-                            <ul>
+                            <ul style="color:#afafaf;">
                         </HeaderTemplate>
                         <ItemTemplate>
-                        <li>
+                        <li style="padding-top:5px; padding-bottom:5px;">
                             <%# Container.DataItem %> &nbsp;&nbsp;
-                            <asp:Button runat="server" ID="dersSil" Text="x" />
+                            <asp:ImageButton runat="server" ID="dersSil" ImageUrl="~/App_Themes/Default/Images/cikar.png" />
                         </li>
                         </ItemTemplate>                        
                         <FooterTemplate>
@@ -115,14 +100,18 @@
                 </asp:UpdatePanel>
             </td>
         </tr>
-        <tr>
-            <td align="right" colspan="2" style="color: Red;">
-                <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
-                <asp:Button ID="dugmeYorumGonder" Text="Gunah benden gitti" runat="server" OnClick="PuanYorumKaydet"
-                    CssClass="fltRight" />
-            </td>
-        </tr>
     </table>
+    
+    <p style="padding-top:20px;">
+        <asp:ImageButton runat="server" ID="dugmeYorumGonder" ImageUrl="~/App_Themes/Default/Images/gonder.png" 
+        OnClick="PuanYorumKaydet"/>
+        <asp:ImageButton runat="server" ID="dugmeYorumGuncelle" ImageUrl="~/App_Themes/Default/Images/gonder.png" 
+        OnClick="PuanYorumGuncelle"/>
+    </p>
+    <p class="durum">
+        <asp:Literal runat="server" ID="ltrDurum"></asp:Literal>
+    </p>
+    <asp:HiddenField runat="server" ID="hocaYorumID" />
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
     <br/><br/>
