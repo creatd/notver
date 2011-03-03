@@ -285,6 +285,10 @@ div#Header a.cikisYap
 	color:#626262;
 	padding-left:20px;	
 }
+div#Header a.cikisYap:hover
+{
+	color:#05d4b4;
+}
 
 /* Uye Ol uc */
 div.pnlUyeOl
@@ -465,7 +469,7 @@ td#divKlasorler
 }
 td#divKlasorler a.secili
 {
-	color:#FF9202;
+	color:#05d4b4;
 	font-size:15px;
 }
 td#divKlasorler p
@@ -510,6 +514,37 @@ table.gridDosyalar td
 table.gridDosyalar tr:hover
 {
 	color:#05d4b4;
+}
+/* Yorumlarim */
+div#yorumlarim table td h1 a
+{
+	font-size:14px;
+}
+div#yorumlarim a.secili
+{
+	color:#05d4b4;
+	text-decoration:underline;
+}
+div#yorumlarim div td, div#yorumlarim div th
+{
+	padding:10px;
+}
+div#yorumlarim div th
+{
+	color:#191919;
+	text-decoration:none;
+}
+div#yorumlarim div tr:hover
+{
+	color:#05d4b4;
+}
+div#yorumlarim div table
+{
+	border:none 0;
+	font-weight:bold;
+	font-size:12px;
+	color:#626262;
+	margin-top:10px;
 }
 
 .clear

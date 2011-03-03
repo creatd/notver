@@ -4,7 +4,7 @@
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="hocaYorumlar">
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
         Sayfa basi <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
-        AutoPostBack="True" CssClass="dropdownPager">
+        AutoPostBack="True" CssClass="dropdownPager" EnableViewState="true">
                         <asp:ListItem Text="1" Value="1" Selected="True"></asp:ListItem>
                         <asp:ListItem Text="2" Value="2"></asp:ListItem>
                         <asp:ListItem Text="5" Value="5"></asp:ListItem>

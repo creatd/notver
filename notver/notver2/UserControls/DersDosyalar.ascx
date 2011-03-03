@@ -51,7 +51,7 @@ $(document).ready(function($) {
         <span>&nbsp;</span>
         <p>
             <br />
-            <asp:LinkButton runat="server" Text="Hepsi" ID="butKlasor6" CommandArgument="6" OnCommand="KlasorSec" /></p>        
+            <asp:LinkButton runat="server" Text="Tum dosyalar..." ID="butKlasor6" CommandArgument="6" OnCommand="KlasorSec" /></p>        
         <br /><br /><br />
 
     </td>

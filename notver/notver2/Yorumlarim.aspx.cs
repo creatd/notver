@@ -30,7 +30,7 @@ public partial class Yorumlarim : BasePage
         }
     }
 
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_Prerender(object sender, EventArgs e)
     {
         ltrScript.Text = "";
         if (!Page.IsPostBack)
@@ -59,6 +59,11 @@ public partial class Yorumlarim : BasePage
             {
                 DersYorumlariniGoster(null, null);
             }
+            else
+            {
+                HocaYorumlariniGoster(null, null);  //Sayfa ilk acildiginda
+                YorumTipi = Enums.YorumTipi.HocaYorum;
+            }
         }
         else
         {
@@ -76,6 +81,27 @@ public partial class Yorumlarim : BasePage
                 default:
                     break;
             }
+        }
+        btnDersYorumlarim.Enabled = true;
+        btnOkulYorumlarim.Enabled = true;
+        btnHocaYorumlarim.Enabled = true;
+        btnDersYorumlarim.CssClass = "";
+        btnOkulYorumlarim.CssClass = "";
+        btnHocaYorumlarim.CssClass = "";
+        switch (YorumTipi)
+        {
+            case Enums.YorumTipi.DersYorum:
+                btnDersYorumlarim.Enabled = false;
+                btnDersYorumlarim.CssClass = "secili";
+                break;
+            case Enums.YorumTipi.HocaYorum:
+                btnHocaYorumlarim.Enabled = false;
+                btnHocaYorumlarim.CssClass = "secili";
+                break;
+            case Enums.YorumTipi.OkulYorum:
+                btnOkulYorumlarim.Enabled = false;
+                btnOkulYorumlarim.CssClass = "secili";
+                break;
         }
     }
 
