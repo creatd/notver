@@ -16,31 +16,24 @@
     </p>
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
-            <p style="font-weight:bold; color:#191919; padding:10px; background-color:#f6f6f6;">
-                <%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
+            <div style="font-weight:bold; color:#505050; padding:10px; background-color:#f6f6f6;">
+                <div style="float:left; width:830px;"><%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
                             DataBinder.Eval(Container.DataItem, "KULLANICI_ISIM") ,
                             DataBinder.Eval(Container.DataItem, "TARIH"), DataBinder.Eval(Container.DataItem, "HOCA_ISIM"), 
-                            DataBinder.Eval(Container.DataItem, "KAYITSIZ_HOCA_ISIM"))%>
-            </p>
-            <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px;">
+                            DataBinder.Eval(Container.DataItem, "KAYITSIZ_HOCA_ISIM"))%></div>
+                <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>' />
+                <asp:UpdatePanel runat="server" ID="pnlSevSevme" RenderMode="Inline">
+                    <ContentTemplate>
+                        <asp:Literal runat="server" ID="yorumPuan" Text=""></asp:Literal>
+                        <asp:ImageButton runat="server" ID="yorumSev" ImageUrl="~/App_Themes/Default/Images/thumbsup.png" OnClick="yorumSev_click"></asp:ImageButton>
+                        <asp:ImageButton runat="server" ID="yorumSevme" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" OnClick="yorumSevme_click"></asp:ImageButton>
+                        <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
+                    </ContentTemplate>
+                </asp:UpdatePanel>                            
+            </div>
+            <p style="font-weight:bold; padding:10px; color:#313131; font-size:13px;">
                 <%# DataBinder.Eval(Container.DataItem, "YORUM")%>
             </p>
-            <table style="border: none;" border="0" width="600">
-                <tr>
-                    <td>
-                        <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>' />
-                        <asp:UpdatePanel runat="server" ID="pnlSevSevme">
-                            <ContentTemplate>
-                                <asp:Literal runat="server" ID="yorumPuan" Text=""></asp:Literal>
-                                <asp:LinkButton runat="server" ID="yorumSev" Text="Sevdim" OnClick="yorumSev_click"></asp:LinkButton>
-                                <asp:LinkButton runat="server" ID="yorumSevme" Text="Sevmedim" OnClick="yorumSevme_click"></asp:LinkButton>
-                                <asp:Literal runat="server" ID="yorumPuanDurumu" Text=""></asp:Literal>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </td>
-                </tr>
-            </table>
-            <br />
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel ID="pnlPager" runat="server">

@@ -447,6 +447,71 @@ div.HocaYorumYap p
 	padding-top:10px;
 }
 
+span.yorumPuanDurumu
+{
+	float:right;
+	padding-top:5px;
+}
+
+/* DersDosyalar */
+td#divKlasorler
+{
+	width: 160px; 
+	border-right:solid 1pt #C3C3C3; 
+	font-size:13px;
+	font-weight:bold;
+	background-color:#f6f6f6; 
+	color:#191919;
+}
+td#divKlasorler a.secili
+{
+	color:#FF9202;
+	font-size:15px;
+}
+td#divKlasorler p
+{
+	height:30px;
+	margin:5px 10px 5px 10px;
+}
+td#divKlasorler p a
+{
+	width:100%;
+	height:100%;
+	display:block;
+	padding-top:8px;
+}
+td#divKlasorler span
+{
+	height:1px;
+	width:60px;
+	margin-left:6px;
+	background-color:#C3C3C3;
+	display:block;
+}
+td.pnlDosyalar
+{
+	padding:10px;
+	background-color:White;
+	vertical-align:top;
+}
+table.gridDosyalar
+{
+	border:none 0;
+	font-weight:bold;
+	font-size:12px;
+	color:#626262;
+	margin-top:10px;
+}
+table.gridDosyalar td 
+{
+	border:none 0;
+	padding:10px;
+}
+table.gridDosyalar tr:hover
+{
+	color:#05d4b4;
+}
+
 .clear
 {
 	clear:both;

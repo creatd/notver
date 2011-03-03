@@ -307,7 +307,7 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
         puanlar[2] = Puan3.CurrentRating;
         puanlar[3] = Puan4.CurrentRating;
         puanlar[4] = Puan5.CurrentRating;
-        int kullaniciPuanAraligi = Convert.ToInt32(dropGenelPuan.SelectedValue);
+        Enums.KullaniciPuanAraligi kullaniciPuanAraligi = (Enums.KullaniciPuanAraligi)Convert.ToInt32(dropGenelPuan.SelectedValue);
         if (Hocalar.HocaYorumPuanGuncelle(hocaYorumID, puanlar, textYorum.Text,
             kullaniciPuanAraligi, (List<int>)hocaKullaniciDerslerIDler, (List<string>)hocaKullaniciDersler))
         {

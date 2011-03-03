@@ -25,7 +25,7 @@ MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" 
     <table style="background-color:#FFFFFF; color:#000000; padding:25px; font-size:11px; font-weight:bold;
     width:100%; height:250px;"> 
         <tr>    
-            <td style="width:300px; font-size:14px; line-height:200%; font-weight:normal; ">
+            <td style="width:300px; font-size:14px; line-height:200%; font-weight:normal; padding-left:20px;">
                 <i>Sehir :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
                 <br />
                 <i>Kurulus tarihi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
