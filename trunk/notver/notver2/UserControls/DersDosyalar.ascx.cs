@@ -16,6 +16,7 @@ using Amazon.S3.Model;
 
 public partial class UserControls_DersDosyalar : BaseUserControl
 {
+    
     public bool TumKategoriler
     {
         get { 
@@ -124,9 +125,61 @@ public partial class UserControls_DersDosyalar : BaseUserControl
             {
                 MevcutSayfa = 1;
                 DosyaKategoriTipi = (int)Enums.DosyaKategoriTipi.SinavVeCozum;
+                TumKategoriler = true;
                 SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
                 GridDoldur();
             }
+
+            butKlasor0.Enabled = true;
+            butKlasor1.Enabled = true;
+            butKlasor2.Enabled = true;
+            butKlasor3.Enabled = true;
+            butKlasor4.Enabled = true;
+            butKlasor5.Enabled = true;
+            butKlasor6.Enabled = true;
+            butKlasor0.CssClass = "";
+            butKlasor1.CssClass = "";
+            butKlasor2.CssClass = "";
+            butKlasor3.CssClass = "";
+            butKlasor4.CssClass = "";
+            butKlasor5.CssClass = "";
+            butKlasor6.CssClass = "";
+            if (TumKategoriler)
+            {
+                butKlasor6.Enabled = false;
+                butKlasor6.CssClass = "secili";
+            }
+            else if(DosyaKategoriTipi == 0)
+            {
+                butKlasor0.Enabled = false;
+                butKlasor0.CssClass = "secili";
+            }
+            else if (DosyaKategoriTipi == 1)
+            {
+                butKlasor1.Enabled = false;
+                butKlasor1.CssClass = "secili";
+            }
+            else if (DosyaKategoriTipi == 2)
+            {
+                butKlasor2.Enabled = false;
+                butKlasor2.CssClass = "secili";
+            }
+            else if (DosyaKategoriTipi == 3)
+            {
+                butKlasor3.Enabled = false;
+                butKlasor3.CssClass = "secili";
+            }
+            else if (DosyaKategoriTipi == 4)
+            {
+                butKlasor4.Enabled = false;
+                butKlasor4.CssClass = "secili";
+            }
+            else if (DosyaKategoriTipi == 5)
+            {
+                butKlasor5.Enabled = false;
+                butKlasor5.CssClass = "secili";
+            }
+
         }
         catch (Exception ex)
         {
@@ -265,7 +318,7 @@ public partial class UserControls_DersDosyalar : BaseUserControl
         tooltip += "<b>" + IndirilmeSayisi + "</b> kere indirilmis";
         return tooltip;
     }
-
+    
     /*protected string DosyaAdresDondur(string dosyaAdres, string dosyaTooltip, int dosyaKategoriTipi)
     {
         if (DosyaKategoriTipi >=0)

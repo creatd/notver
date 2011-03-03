@@ -145,7 +145,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
 
     protected void repeaterYorumlar_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString();
+        yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString() + "&nbsp;";
     }
 
     protected void rptPager_DataBound(object sender, RepeaterItemEventArgs e)
@@ -208,61 +208,75 @@ public partial class UserControls_DersYorumlari : BaseUserControl
 
     protected void yorumSev_click(object sender, EventArgs e)
     {
-        Literal ltrYorumPuanDurumu = ((LinkButton)sender).Parent.FindControl("yorumPuanDurumu") as Literal;
+        Label lblYorumPuanDurumu = ((ImageButton)sender).Parent.FindControl("yorumPuanDurumu") as Label;
         if (!session.IsLoggedIn)
         {
-            ltrYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
+            lblYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
             return;
         }
-        Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
-        HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
+        Literal ltrYorumPuan = ((ImageButton)sender).Parent.FindControl("yorumPuan") as Literal;
+        HiddenField hiddenField = ((ImageButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
         int[] result = Genel.YorumPuanVer(true, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
-            ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
+            lblYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
         }
         else
         {
             if (result[0] == 1) //Ilk defa puan verildi.
             {
-                ltrYorumPuanDurumu.Text = "Puaniniz kaydedildi";
+                lblYorumPuanDurumu.Text = "Puaniniz kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                ltrYorumPuanDurumu.Text = "Puaniniz guncellendi";
+                lblYorumPuanDurumu.Text = "Puaniniz guncellendi";
             }
-            ltrYorumPuan.Text = "<strong>" + result[1] + "</strong>";
+            if (result[1] > 0)
+            {
+                ltrYorumPuan.Text = "<strong>+" + result[1] + "&nbsp;</strong>";
+            }
+            else
+            {
+                ltrYorumPuan.Text = "<strong>" + result[1] + "&nbsp;</strong>";
+            }
         }
     }
 
     protected void yorumSevme_click(object sender, EventArgs e)
     {
-        Literal ltrYorumPuanDurumu = ((LinkButton)sender).Parent.FindControl("yorumPuanDurumu") as Literal;
+        Label lblYorumPuanDurumu = ((ImageButton)sender).Parent.FindControl("yorumPuanDurumu") as Label;
         if (!session.IsLoggedIn)
         {
-            ltrYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
+            lblYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
             return;
         }
-        Literal ltrYorumPuan = ((LinkButton)sender).Parent.FindControl("yorumPuan") as Literal;
-        HiddenField hiddenField = ((LinkButton)sender).FindControl("yorumID") as HiddenField;
+        Literal ltrYorumPuan = ((ImageButton)sender).Parent.FindControl("yorumPuan") as Literal;
+        HiddenField hiddenField = ((ImageButton)sender).FindControl("yorumID") as HiddenField;
         int yorumID = Convert.ToInt32(hiddenField.Value);
         int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
-            ltrYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
+            lblYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
         }
         else
         {
             if (result[0] == 1) //Ilk defa puan verildi.
             {
-                ltrYorumPuanDurumu.Text = "Puaniniz kaydedildi";
+                lblYorumPuanDurumu.Text = "Puaniniz kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                ltrYorumPuanDurumu.Text = "Puaniniz guncellendi";
+                lblYorumPuanDurumu.Text = "Puaniniz guncellendi";
             }
-            ltrYorumPuan.Text = "<strong>" + result[1] + "</strong>";
+            if (result[1] > 0)
+            {
+                ltrYorumPuan.Text = "<strong>+" + result[1] + "&nbsp;</strong>";
+            }
+            else
+            {
+                ltrYorumPuan.Text = "<strong>" + result[1] + "&nbsp;</strong>";
+            }
         }
     }
 
