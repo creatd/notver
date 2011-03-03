@@ -2,9 +2,8 @@
     MasterPageFile="~/Masters/Giris.master" %>
 
 <asp:Content runat="server" ID="content" ContentPlaceHolderID="content">
-    <div id="divArkaplan" style="background: url('App_Themes/Default/Images/defter/papertexture1.jpg') repeat 0 0 White; 
-    padding-bottom:10px;">
-        <table style="width:100%;">
+    <div id="yorumlarim" style="background-color:White; margin-top:30px; display:block; padding:10px;">
+        <table style="width:100%; border-bottom:solid 1pt #626262;">
             <tr style="vertical-align:top; height:15px;">
                 <td colspan="3" style="padding:10px 10px 10px 10px;">
                     <asp:Label runat="server" ID="lblYorumOzeti"></asp:Label>
@@ -35,33 +34,33 @@
                 <HeaderTemplate>
                     <table>
                         <tr>
-                            <td style="text-decoration:underline;">
+                            <th >
                                 Ders
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Hoca
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Okul
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Yorum
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Gonderilme tarihi
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Aldigi puan
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Durum
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 &nbsp;
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 &nbsp;
-                            </td>
+                            </th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -118,28 +117,28 @@
             <asp:Repeater runat="server" ID="repeaterOkulYorumlarim" OnItemDataBound="OkulYorum_ItemDataBound">
                 <HeaderTemplate>
                     <table>
-                        <tr style="text-decoration:underline;">
-                            <td style="text-decoration:underline;">
+                        <tr >
+                            <th >
                                 Okul
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Yorum
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Gonderilme tarihi
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Aldigi puan
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Durum
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 &nbsp;
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 &nbsp;
-                            </td>
+                            </th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -190,27 +189,27 @@
                 <HeaderTemplate>
                     <table>
                         <tr>
-                            <td style="text-decoration:underline;">
+                            <th >
                                 Hoca
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Yorum
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Gonderilme tarihi
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Aldigi puan
-                            </td>
-                            <td style="text-decoration:underline;">
+                            </th>
+                            <th >
                                 Durum
-                            </td>                            
-                            <td>
+                            </th>                            
+                            <th>
                                 &nbsp;
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 &nbsp;
-                            </td>                            
+                            </th>                            
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
