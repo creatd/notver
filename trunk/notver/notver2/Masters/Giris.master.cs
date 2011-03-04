@@ -34,5 +34,14 @@ public partial class Masters_Giris : BaseMaster
                 }
             }
         }
+        if (Request.Url.AbsolutePath.Contains("Yorumlarim.aspx"))
+        {
+            lnkHesabim.Enabled = false;
+        }
+        else
+        {
+            lnkHesabim.Enabled = true;
+        }
+
     }
 }

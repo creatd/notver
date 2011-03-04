@@ -33,6 +33,11 @@ public partial class Yorumlarim : BasePage
     protected void Page_Prerender(object sender, EventArgs e)
     {
         ltrScript.Text = "";
+        if (!session.IsLoggedIn)
+        {
+            //TODO: Uncomment
+            //GoToDefaultPage();
+        }
         if (!Page.IsPostBack)
         {
             PanelleriSakla();

@@ -27,34 +27,62 @@ public partial class UserControls_DersYorumYap : BaseUserControl
             if (session.IsLoggedIn && session.KullaniciID > 0)
             {
                 pnlPuanYorum.Visible = true;
-                bool yorumVar = false;
-                if (Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, queryDersID))
+                bool yeniYorum = false;
+                if (Query.GetInt("DersYorumID") >= 0)
                 {
-                    yorumVar = true;
-                }
-
-                //s: drpDersHocalar'i duzenle
-                drpDersHocalar.Items.Clear();
-
-                //Dersi veren hocalari doldur
-                DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(queryDersID, session.KullaniciID);
-                if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, queryDersID))
-                {
-                    drpDersHocalar.Items.Add(new ListItem("-", "-1"));
-                }
-                if (dtDersiVerenHocalar != null)
-                {
-                    foreach (DataRow dr in dtDersiVerenHocalar.Rows)
+                    //Yorum guncelleme
+                    //Kullanicinin daha once yaptigi yorumu yukle
+                    DataTable dtEskiYorum = Dersler.DersYorumunuDondur(Query.GetInt("DersYorumID"));
+                    if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
                     {
-                        drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                        DataRow drEskiYorum = dtEskiYorum.Rows[0];
+                        if (Util.GecerliString(drEskiYorum["YORUM"]))
+                        {
+                            textYorum.Text = drEskiYorum["YORUM"].ToString();
+                        }
+                        //HocaID'yi sec
+                        drpDersHocalar.Enabled = false;
+                        if (Util.GecerliString(drEskiYorum["HOCA_ISIM"]) && Util.GecerliSayi(drEskiYorum["HOCA_ID"]))
+                        {
+                            drpDersHocalar.Items.Add(new ListItem(drEskiYorum["HOCA_ISIM"].ToString(), drEskiYorum["HOCA_ID"].ToString()));
+                        }
+                        else if(Util.GecerliString(dtEskiYorum.Rows[0]["KAYITSIZ_HOCA_ISIM"]))
+                        {
+                            drpDersHocalar.Items.Add(new ListItem(drEskiYorum["KAYITSIZ_HOCA_ISIM"].ToString(), "-2"));
+                        }
+                        else
+                        {
+                        }
                     }
                 }
                 else
                 {
-                    pnlHata.Visible = true;
-                    return;
+                    //Yeni yorum
+                    //s: drpDersHocalar'i duzenle
+                    drpDersHocalar.Items.Clear();
+
+                    //Dersi veren hocalari doldur
+                    DataTable dtDersiVerenHocalar = Dersler.DersiVerenHocalariKullaniciyaGoreDondur(queryDersID, session.KullaniciID);
+                    if (!Dersler.KullaniciDerseGenelYorumYapmis(session.KullaniciID, queryDersID))
+                    {
+                        drpDersHocalar.Items.Add(new ListItem("-", "-1"));
+                    }
+                    if (dtDersiVerenHocalar != null)
+                    {
+                        foreach (DataRow dr in dtDersiVerenHocalar.Rows)
+                        {
+                            drpDersHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                        }
+                    }
+                    else
+                    {
+                        pnlHata.Visible = true;
+                        return;
+                    }
+                    drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
                 }
-                drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
+
+                
                 //e: drpDersHocalar'i duzenle
 
                 /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.Get("DersID")))

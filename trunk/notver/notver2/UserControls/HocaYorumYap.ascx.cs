@@ -59,9 +59,9 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 KontroluSakla();
 
                 //TODO: kontrol et
-                /*hocaKullaniciDerslerObj = hocaKullaniciDersler; //Null donmesin, yeni liste donsun diye
+                hocaKullaniciDerslerObj = hocaKullaniciDersler; //Null donmesin, yeni liste donsun diye
                 hocaKullaniciDerslerObj.Clear();
-                hocaKullaniciDersler = hocaKullaniciDerslerObj;*/
+                hocaKullaniciDersler = hocaKullaniciDerslerObj;
 
                 dropGenelPuan.Items.Clear();
                 foreach (string harfNotu in Enum.GetNames(typeof(Enums.KullaniciPuanAraligi)))
