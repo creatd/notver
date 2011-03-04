@@ -31,6 +31,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                 if (Query.GetInt("DersYorumID") >= 0)
                 {
                     //Yorum guncelleme
+                    dugmeYorumGuncelle.Visible = true;
                     //Kullanicinin daha once yaptigi yorumu yukle
                     DataTable dtEskiYorum = Dersler.DersYorumunuDondur(Query.GetInt("DersYorumID"));
                     if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
@@ -48,16 +49,28 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                         }
                         else if(Util.GecerliString(dtEskiYorum.Rows[0]["KAYITSIZ_HOCA_ISIM"]))
                         {
-                            drpDersHocalar.Items.Add(new ListItem(drEskiYorum["KAYITSIZ_HOCA_ISIM"].ToString(), "-2"));
+                            drpDersHocalar.Items.Add(new ListItem("Diger", "-2"));
+                            txtBilinmeyenHocaIsmi.Text = drEskiYorum["KAYITSIZ_HOCA_ISIM"].ToString();
                         }
                         else
                         {
+                        }
+                        
+                        if (Util.GecerliSayi(drEskiYorum["ZORLUK_PUANI"]))
+                        {
+                            puanDersZorluk.CurrentRating = Convert.ToInt32(drEskiYorum["ZORLUK_PUANI"]);
+                        }
+
+                        if (Util.GecerliSayi(drEskiYorum["TAVSIYE_PUANI"]))
+                        {
+                            puanDersHoca.CurrentRating = Convert.ToInt32(drEskiYorum["TAVSIYE_PUANI"]);
                         }
                     }
                 }
                 else
                 {
                     //Yeni yorum
+                    dugmeYorumGonder.Visible = true;
                     //s: drpDersHocalar'i duzenle
                     drpDersHocalar.Items.Clear();
 
@@ -85,29 +98,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                 
                 //e: drpDersHocalar'i duzenle
 
-                /*if (!Dersler.KullaniciDerseYorumYapmis(session.KullaniciID, Query.Get("DersID")))
-                {
-                    dugmeYorumGonder.Visible = true;
-                }
-                else
-                {
-                    yorumVar = true;
-                    //Kullanicinin daha once yaptigi yorumu yukle
-                    DataTable dtEskiYorum = Dersler.KullaniciDersYorumunuDondur(session.KullaniciID, Query.Get("DersID"));
-                    if (dtEskiYorum != null && dtEskiYorum.Rows.Count > 0)
-                    {
-                        if(Util.GecerliString(dtEskiYorum.Rows[0]["YORUM"]))
-                        {
-                            textYorum.Text = dtEskiYorum.Rows[0]["YORUM"].ToString();
-                        }
-                        //HocaID'yi sec
-                        if(Util.GecerliString(dtEskiYorum.Rows[0]["HOCA_ID"]))
-                        {
-                            drpDersHocalar.SelectedValue = dtEskiYorum.Rows[0]["HOCA_ID"].ToString();
-                        }
-                    }
-                
-                }*/
+
                 lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + DersYorumlarimURLDondur(queryDersID) + "';";
             }
             else
@@ -129,7 +120,17 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
-        if (!Dersler.DersYorumKaydet(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text, puanDersZorluk.CurrentRating , Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text,session.KullaniciOnayPuani))
+        int HocaID = -1;
+        if (drpDersHocalar != null && drpDersHocalar.Items.Count > 0)
+        {
+            if (Util.GecerliSayi(drpDersHocalar.SelectedValue))
+            {
+                HocaID = Convert.ToInt32(drpDersHocalar.SelectedValue);
+            }
+        }
+        if (!Dersler.DersYorumKaydet(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text,
+            puanDersZorluk.CurrentRating, HocaID, puanDersHoca.CurrentRating, 
+            txtBilinmeyenHocaIsmi.Text,session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
         }
@@ -140,10 +141,41 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         }
     }
 
+    /// <summary>
+    /// Yorumu gunceller
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void YorumGuncelle(object sender, EventArgs e)
+    {
+        int HocaID = -1;
+        if (drpDersHocalar != null && drpDersHocalar.Items.Count > 0)
+        {
+            if (Util.GecerliSayi(drpDersHocalar.SelectedValue))
+            {
+                HocaID = Convert.ToInt32(drpDersHocalar.SelectedValue);
+            }
+        }
+        if (!Dersler.DersYorumGuncelle(Query.GetInt("DersYorumID"), textYorum.Text, puanDersZorluk.CurrentRating, 
+            HocaID, puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text, 
+            session.KullaniciOnayPuani))
+        {
+            ltrDurum.Text = "Yorum guncellerken bir hata olustu. Lutfen tekrar deneyin.";
+        }
+        else
+        {
+            ltrDurum.Text = "Yorumunuz basariyla guncellendi!";
+            ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
+        }
+    }
+
+
     void KontroluSakla()
     {
         pnlPuanYorum.Visible = false;
         pnlUyeOl.Visible = false;
         pnlHata.Visible = false;
+        dugmeYorumGonder.Visible = false;
+        dugmeYorumGuncelle.Visible = false;
     }
 }

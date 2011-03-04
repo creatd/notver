@@ -5,17 +5,26 @@
 <script type="text/javascript">
 function HocaSecildi(obj)   {
     var dropDownList = obj;
-    var hocaIsim = dropDownList.options[dropDownList.selectedIndex].text; 
-    var hocaID = dropDownList.options[dropDownList.selectedIndex].value;
-    if(hocaIsim.length > 1)    {
-        document.getElementById('trPuanDersHoca').style.display='table-row';
-    }   else    {
-        document.getElementById('trPuanDersHoca').style.visibility='none';
+    if(dropDownList.options.length > 0)
+    {
+        var hocaIsim = dropDownList.options[dropDownList.selectedIndex].text; 
+        var hocaID = dropDownList.options[dropDownList.selectedIndex].value;
+        if(hocaIsim.length > 1)    {
+            document.getElementById('trPuanDersHoca').style.display='table-row';
+        }   else    {
+            document.getElementById('trPuanDersHoca').style.display='none';
+        }
+        if(hocaID == -2)    {   //Diger secildi
+            document.getElementById('trBilinmeyenHoca').style.display='table-row';
+        }   else    {
+            document.getElementById('trBilinmeyenHoca').style.display='none';
+        }
     }
-    if(hocaID == -2)    {   //Diger secildi
-        document.getElementById('trBilinmeyenHoca').style.display='table-row';
-    }   else    {
+    else
+    {
+        document.getElementById('trDersHocalar').style.display='none';
         document.getElementById('trBilinmeyenHoca').style.display='none';
+        document.getElementById('trPuanDersHoca').style.display='none';
     }
 }
 </script>
@@ -106,7 +115,7 @@ $(document).ready(function() {
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz"/>
             </td>
         </tr>
-        <tr>
+        <tr id="trDersHocalar">
             <td style="width:220px; padding:10px 10px 10px 0px">
                 Hangi hocadan aldiniz (opsiyonel):
             </td>
@@ -128,13 +137,15 @@ $(document).ready(function() {
             </td>
             <td class="DersYorumYapSutunSag">
                 <asp:Rating ID="puanDersHoca" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
-                    StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz" />
+                    StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz"/>
             </td>
         </tr>
         <tr>
             <td colspan="2" style=" padding:10px 10px 10px 0px">
                 <asp:ImageButton runat="server" ID="dugmeYorumGonder" ImageUrl="~/App_Themes/Default/Images/gonder.png" 
             OnClick="YorumKaydet"/>
+                <asp:ImageButton runat="server" ID="dugmeYorumGuncelle" ImageUrl="~/App_Themes/Default/Images/gonder.png" 
+            OnClick="YorumGuncelle"/>
             </td>
         </tr>
         <tr><td colspan="2" class="durum" style=" padding:10px 10px 10px 0px"><asp:Literal runat="server" ID="ltrDurum"></asp:Literal></td></tr>

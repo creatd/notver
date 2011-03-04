@@ -77,7 +77,7 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
 
     protected void YorumGuncelle(object sender, EventArgs e)
     {
-        if (!Okullar.OkulYorumGuncelle(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text))
+        if (!Okullar.OkulYorumGuncelle(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text, session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
         }

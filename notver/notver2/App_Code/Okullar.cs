@@ -589,7 +589,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            return (Util.ExecuteNonQuery(cmd) > 0);
+            return (Util.ExecuteNonQuery(cmd) == 1);
         }
         catch
         {
@@ -597,7 +597,7 @@ public class Okullar
         }
     }
 
-    public static bool OkulYorumGuncelle(int kullaniciID, int okulID, string yorum)
+    public static bool OkulYorumGuncelle(int kullaniciID, int okulID, string yorum, int KullaniciOnayPuani)
     {
         try
         {
@@ -623,7 +623,17 @@ public class Okullar
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            return Util.ExecuteAndCheckReturnValue(cmd);
+            Enums.YorumDurumu yorumDurumu = Enums.YorumDurumu.OnayBekliyor;
+            if (KullaniciOnayPuani >= Convert.ToInt32(ConfigurationManager.AppSettings.Get("OkulYorumOnayPuani")))
+            {
+                yorumDurumu = Enums.YorumDurumu.Onaylanmis;
+            }
+            param = new SqlParameter("YorumDurumu", (int)yorumDurumu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return (Util.ExecuteNonQuery(cmd) == 1);
         }
         catch
         {

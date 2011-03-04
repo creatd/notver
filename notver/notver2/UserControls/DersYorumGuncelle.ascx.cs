@@ -101,7 +101,9 @@ public partial class UserControls_DersYorumGuncelle : BaseUserControl
     /// <param name="e"></param>
     protected void YorumGuncelle(object sender, EventArgs e)
     {
-        if (!Dersler.DersYorumGuncelle(Query.GetInt("DersYorumID") , textYorum.Text,puanDersZorluk.CurrentRating, Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text))
+        if (!Dersler.DersYorumGuncelle(Query.GetInt("DersYorumID") , textYorum.Text,puanDersZorluk.CurrentRating, 
+            Convert.ToInt32(drpDersHocalar.SelectedValue), puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text,
+            session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Yorumunuzu guncellerken bir hata olustu. Lutfen tekrar deneyin";
         }

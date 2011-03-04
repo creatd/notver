@@ -46,7 +46,7 @@ public partial class UserControls_OkulYorumGuncelle : BaseUserControl
 
     protected void YorumGuncelle(object sender, EventArgs e)
     {
-        if (Okullar.OkulYorumGuncelle(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text))
+        if (Okullar.OkulYorumGuncelle(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text, session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Yorumunuz basariyla guncellendi";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";

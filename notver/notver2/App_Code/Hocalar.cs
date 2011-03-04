@@ -72,12 +72,12 @@ public class Hocalar
     }
 
     /// <summary>
-    /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
+    /// Yorumu ve puani onaylar ve kullanicinin onay puanini yukseltir
     /// </summary>
     /// <param name="HocaYorumID"></param>
     /// <param name="KullaniciID"></param>
     /// <returns></returns>
-    public static bool Admin_HocaYorumOnayla(int HocaYorumID, int KullaniciID)
+    public static bool Admin_HocaYorumPuanOnayla(int HocaYorumID, int KullaniciID)
     {
         try
         {
@@ -85,7 +85,7 @@ public class Hocalar
             {
                 return false;
             }
-            SqlCommand cmd = new SqlCommand("Admin_HocaYorumOnayla");
+            SqlCommand cmd = new SqlCommand("Admin_HocaYorumPuanOnayla");
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlParameter param = new SqlParameter("YorumID", HocaYorumID);
@@ -777,7 +777,8 @@ public class Hocalar
     }
 
     public static bool HocaYorumPuanKaydet(int KullaniciID, int HocaID, int[] Puanlar, string Yorum,
-        Enums.KullaniciPuanAraligi KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri, int KullaniciOnayPuani)
+        Enums.KullaniciPuanAraligi KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri, 
+        int KullaniciOnayPuani)
     {
         try
         {
@@ -922,7 +923,8 @@ public class Hocalar
     }
 
     public static bool HocaYorumPuanGuncelle(int HocaYorumID, int[] Puanlar, string Yorum,
-            Enums.KullaniciPuanAraligi KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri)
+            Enums.KullaniciPuanAraligi KullaniciPuanaraligi, List<int> DersIDleri, List<string> BilinmeyenDersIsimleri,
+            int KullaniciOnayPuani)
     {
         try
         {
@@ -995,6 +997,16 @@ public class Hocalar
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("Kullanici_Puanaraligi", (int)KullaniciPuanaraligi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            Enums.YorumDurumu yorumDurumu = Enums.YorumDurumu.OnayBekliyor;
+            if (KullaniciOnayPuani >= Convert.ToInt32(ConfigurationManager.AppSettings.Get("HocaYorumOnayPuani")))
+            {
+                yorumDurumu = Enums.YorumDurumu.Onaylanmis;
+            }
+            param = new SqlParameter("YorumDurumu", (int)yorumDurumu);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);

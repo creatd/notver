@@ -66,8 +66,8 @@ public partial class Yorumlarim : BasePage
             }
             else
             {
-                HocaYorumlariniGoster(null, null);  //Sayfa ilk acildiginda
-                YorumTipi = Enums.YorumTipi.HocaYorum;
+                DersYorumlariniGoster(null, null);  //Sayfa ilk acildiginda
+                YorumTipi = Enums.YorumTipi.DersYorum;
             }
         }
         else

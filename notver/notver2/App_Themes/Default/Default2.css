@@ -533,6 +533,7 @@ div#yorumlarim div th
 {
 	color:#191919;
 	text-decoration:none;
+	text-align:left;
 }
 div#yorumlarim div tr:hover
 {

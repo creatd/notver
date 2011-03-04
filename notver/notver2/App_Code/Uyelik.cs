@@ -152,19 +152,18 @@ public class Uyelik
     {
         try
         {
-            SqlCommand cmd = new SqlCommand("KullaniciAktifYorumSayisiniDondur");
-            cmd.CommandType = CommandType.StoredProcedure;
+            if (KullaniciID >= 0)
+            {
+                SqlCommand cmd = new SqlCommand("KullaniciAktifYorumSayisiniDondur");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
+                SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
 
-            param = new SqlParameter("YorumSayisi", SqlDbType.Int);
-            param.Direction = ParameterDirection.Output;
-            cmd.Parameters.Add(param);
-
-            return Convert.ToInt32(Util.GetResult(cmd));
+                return Convert.ToInt32(Util.GetResult(cmd));
+            }
         }
         catch (Exception) { }
         return -1;

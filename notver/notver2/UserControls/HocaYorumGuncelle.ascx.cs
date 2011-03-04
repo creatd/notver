@@ -309,7 +309,8 @@ public partial class UserControls_HocaYorumGuncelle : BaseUserControl
         puanlar[4] = Puan5.CurrentRating;
         Enums.KullaniciPuanAraligi kullaniciPuanAraligi = (Enums.KullaniciPuanAraligi)Convert.ToInt32(dropGenelPuan.SelectedValue);
         if (Hocalar.HocaYorumPuanGuncelle(hocaYorumID, puanlar, textYorum.Text,
-            kullaniciPuanAraligi, (List<int>)hocaKullaniciDerslerIDler, (List<string>)hocaKullaniciDersler))
+            kullaniciPuanAraligi, (List<int>)hocaKullaniciDerslerIDler, (List<string>)hocaKullaniciDersler,
+            session.KullaniciOnayPuani))
         {
             ltrDurum.Text = "Puan ve yorumlariniz basariyla guncellendi!";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
