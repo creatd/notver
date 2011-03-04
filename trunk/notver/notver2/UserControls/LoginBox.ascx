@@ -21,30 +21,30 @@ function SetFocusLogin(e)
     {
         document.getElementById('<%= LoginButton.ClientID %>').focus();
     }
+    document.getElementById('<%= lblDurum.ClientID %>').innerHTML='';
 }
 
 function Temizle(obj)
 {
     obj.value='';
-    document.getElementById('<%= lblDurum.ClientID %>').innerHTML='';
 }
 </script>
 
 
 <div id="LoginBox">
-    <asp:UpdatePanel runat="server">
+    <asp:UpdatePanel runat="server" ID="pnlUP">
     <ContentTemplate>
         <div class="pnlLogin">
             <p>E-posta adresi</p>       
             <asp:TextBox runat="server" ID="txtEposta" CssClass="textbox"
-                        ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" 
-                        onclick="javascript:return Temizle(this);"></asp:TextBox>
+                        ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);" 
+                        onclick="javascript:Temizle(this);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
                     CssClass="Hata" ErrorMessage="*" ToolTip="Kullanici adi girmelisiniz" ValidationGroup="vg" />
             <p>Sifre</p>
                     <asp:TextBox runat="server" ID="txtSifre" TextMode="Password" CssClass="textbox"
-                        ValidationGroup="vg" OnKeyDown="javascript:return SetFocusLogin(event);" 
-                        onclick="javascript:return Temizle(this);"></asp:TextBox>
+                        ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);" 
+                        onclick="javascript:Temizle(this);"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
                         ErrorMessage="*" ToolTip="Sifre girmelisiniz" ValidationGroup="vg" CssClass="Hata" />
             <br /><asp:ImageButton ID="LoginButton" OnClick="GirisYap" runat="server" ValidationGroup="vg" 

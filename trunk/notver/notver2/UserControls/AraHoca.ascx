@@ -36,7 +36,7 @@ function Temizle(obj)
     background-image:url('./App_Themes/Default/Images/postit.png'); float:left; display:block;">
     <p style="font-size:24px; color:#1c1c1c; font-weight:bold;
     padding-top:10px;">Hoca Ara</p>
-    <asp:TextBox ID="hocaIsmi" runat="server" OnKeyDown="javascript:return SetFocusDers(event);" 
+    <asp:TextBox ID="hocaIsmi" runat="server" OnKeyDown="javascript:SetFocusHoca(event);" 
         onclick="javascript: return Temizle(this);" BorderWidth="0"
         CssClass="araTextbox">Hoca ismini girin</asp:TextBox>
     <asp:LinkButton ID="buttonHocaAra" runat="server" Text="" OnClick="Ara" BorderWidth="0"

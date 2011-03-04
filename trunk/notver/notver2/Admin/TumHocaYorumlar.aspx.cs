@@ -340,7 +340,7 @@ public partial class Admin_TumHocaYorumlar : BasePage
             {
                 int hocaYorumID = Convert.ToInt32(ID);
                 int KullaniciID = Convert.ToInt32(kullaniciID);
-                if (Hocalar.Admin_HocaYorumOnayla(hocaYorumID, KullaniciID))
+                if (Hocalar.Admin_HocaYorumPuanOnayla(hocaYorumID, KullaniciID))
                 {
                     lblDurum1.Text = "Hoca yorumu onaylandi";
                     lblDurum2.Text = "Hoca yorumu onaylandi";

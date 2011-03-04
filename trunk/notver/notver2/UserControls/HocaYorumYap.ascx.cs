@@ -126,69 +126,72 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                     dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
                 }
                 lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + HocaYorumlarimURLDondur(queryHocaID) + "';";
-                
-                //Puan ve yorumu birlestirdim, o yuzden puan verdiyse yorum da yapmistir
-                int yorumID = Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, queryHocaID);
-                if (yorumID >= 0)
+
+                if (!Page.IsPostBack)
                 {
-                    dugmeYorumGuncelle.Visible = true;
-                    hocaYorumID.Value = Convert.ToString(yorumID);
-                    //Daha onceki yorumu yukle
-                    List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, queryHocaID);
-                    if (listEskiYorum != null)
+                    //Puan ve yorumu birlestirdim, o yuzden puan verdiyse yorum da yapmistir
+                    int yorumID = Hocalar.KullaniciHocayaYorumYapmis(session.KullaniciID, queryHocaID);
+                    if (yorumID >= 0)
                     {
-                        //yorumID - yorum - kullanici puan araligi - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu - OkulIsmi)| (-1 - Ders Ismi) }(*)
-                        //yorumID = (int)listEskiYorum[0];
-                        textYorum.Text = Util.DBToHTML((string)listEskiYorum[1]);
-                        dropGenelPuan.SelectedValue = Convert.ToString(listEskiYorum[2]);
-                        Puan1.CurrentRating = (int)listEskiYorum[3];
-                        Puan2.CurrentRating = (int)listEskiYorum[4];
-                        Puan3.CurrentRating = (int)listEskiYorum[5];
-                        Puan4.CurrentRating = (int)listEskiYorum[6];
-                        Puan5.CurrentRating = (int)listEskiYorum[7];
-                        hocaKullaniciDerslerObj = hocaKullaniciDersler;
-                        hocaKullaniciDerslerIDlerObj = hocaKullaniciDerslerIDler;
-                        for (int i = 8; i < listEskiYorum.Count - 1; )
+                        dugmeYorumGuncelle.Visible = true;
+                        hocaYorumID.Value = Convert.ToString(yorumID);
+                        //Daha onceki yorumu yukle
+                        List<object> listEskiYorum = Hocalar.KullaniciHocaYorumunuDondur(session.KullaniciID, queryHocaID);
+                        if (listEskiYorum != null)
                         {
-                            if ((int)listEskiYorum[i] == -1)
+                            //yorumID - yorum - kullanici puan araligi - puan1 - puan2 - puan3 - puan4 - puan5 - { (Ders ID - Ders Kodu - OkulIsmi)| (-1 - Ders Ismi) }(*)
+                            //yorumID = (int)listEskiYorum[0];
+                            textYorum.Text = Util.DBToHTML((string)listEskiYorum[1]);
+                            dropGenelPuan.SelectedValue = Convert.ToString(listEskiYorum[2]);
+                            Puan1.CurrentRating = (int)listEskiYorum[3];
+                            Puan2.CurrentRating = (int)listEskiYorum[4];
+                            Puan3.CurrentRating = (int)listEskiYorum[5];
+                            Puan4.CurrentRating = (int)listEskiYorum[6];
+                            Puan5.CurrentRating = (int)listEskiYorum[7];
+                            hocaKullaniciDerslerObj = hocaKullaniciDersler;
+                            hocaKullaniciDerslerIDlerObj = hocaKullaniciDerslerIDler;
+                            for (int i = 8; i < listEskiYorum.Count - 1; )
                             {
-                                hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1]);
-                                //Her "Diger" secenegi icin ID'lere de ekleyelim ki Dersler ve DerslerIDler'in index'leri ayni olsun
-                                hocaKullaniciDerslerIDlerObj.Add(-2);   //-2 degeri Hocalar sinifinda da kullaniliyor
-                                i += 2;
-                            }
-                            else
-                            {
-                                string okulIsmi = (string)listEskiYorum[i + 2];
-                                if (okulIsmi.Length > 20)
+                                if ((int)listEskiYorum[i] == -1)
                                 {
-                                    hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
+                                    hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1]);
+                                    //Her "Diger" secenegi icin ID'lere de ekleyelim ki Dersler ve DerslerIDler'in index'leri ayni olsun
+                                    hocaKullaniciDerslerIDlerObj.Add(-2);   //-2 degeri Hocalar sinifinda da kullaniliyor
+                                    i += 2;
                                 }
                                 else
                                 {
-                                    hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
-                                    dropHocaDersler.Items.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 20) + ")");
+                                    string okulIsmi = (string)listEskiYorum[i + 2];
+                                    if (okulIsmi.Length > 20)
+                                    {
+                                        hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
+                                    }
+                                    else
+                                    {
+                                        hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
+                                        dropHocaDersler.Items.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 20) + ")");
+                                    }
+                                    hocaKullaniciDerslerIDlerObj.Add((int)listEskiYorum[i]);
+                                    i += 3;
                                 }
-                                hocaKullaniciDerslerIDlerObj.Add((int)listEskiYorum[i]);
-                                i += 3;
                             }
-                        }
-                        hocaKullaniciDersler = hocaKullaniciDerslerObj;
-                        hocaKullaniciDerslerIDler = hocaKullaniciDerslerIDlerObj;
+                            hocaKullaniciDersler = hocaKullaniciDerslerObj;
+                            hocaKullaniciDerslerIDler = hocaKullaniciDerslerIDlerObj;
 
-                        repeaterDersler.DataSource = hocaKullaniciDersler;
-                        repeaterDersler.DataBind();
+                            repeaterDersler.DataSource = hocaKullaniciDersler;
+                            repeaterDersler.DataBind();
+                        }
+                        else
+                        {
+                            pnlHata.Visible = true;
+                            pnlPuanYorum.Visible = false;
+                            //TODO: admine msj
+                        }
                     }
                     else
                     {
-                        pnlHata.Visible = true;
-                        pnlPuanYorum.Visible = false;
-                        //TODO: admine msj
+                        dugmeYorumGonder.Visible = true;
                     }
-                }
-                else
-                {
-                    dugmeYorumGonder.Visible = true;
                 }
             }
             else  //Giris yapmamis
@@ -340,7 +343,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     {
         try
         {
-            if (!(Puan1.CurrentRating > 0 && Puan2.CurrentRating > 0 && Puan3.CurrentRating > 0 && Puan4.CurrentRating > 0 && Puan5.CurrentRating > 0))    //Puanlarin hepsini girmedi
+            if (!(Puan1.CurrentRating > 0 && Puan2.CurrentRating > 0 && Puan3.CurrentRating > 0 && Puan4.CurrentRating > 0 
+                && Puan5.CurrentRating > 0))    //Puanlarin hepsini girmedi
             {
                 ltrDurum.Text = "Puanlariniz eksik. Her kategoride puan girmelisiniz";
                 return;
@@ -354,7 +358,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             Enums.KullaniciPuanAraligi kullaniciPuanAraligi = (Enums.KullaniciPuanAraligi)Convert.ToInt32(dropGenelPuan.SelectedValue);
             int HocaYorumID = Convert.ToInt32(hocaYorumID.Value);
             if (Hocalar.HocaYorumPuanGuncelle(HocaYorumID, puanlar, textYorum.Text,
-                kullaniciPuanAraligi, (List<int>)hocaKullaniciDerslerIDler, (List<string>)hocaKullaniciDersler))
+                kullaniciPuanAraligi, (List<int>)hocaKullaniciDerslerIDler, (List<string>)hocaKullaniciDersler, 
+                session.KullaniciOnayPuani))
             {
                 ltrDurum.Text = "Puan ve yorumlariniz basariyla guncellendi!";
                 ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
