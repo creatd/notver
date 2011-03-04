@@ -544,16 +544,13 @@ public class Okullar
             cmd.Parameters.Add(param);
 
             DataRow dr = (Util.GetDataTable(cmd)).Rows[0];
-            if (dr["YORUM"] != null && dr["YORUM"] != System.DBNull.Value)
+            if(Util.GecerliString(dr["YORUM"]))
             {
                 return dr["YORUM"].ToString();
             }
-            return null;
         }
-        catch
-        {
-            return null;
-        }
+        catch   {}
+        return null;
     }
 
     public static bool OkulYorumKaydet(int kullaniciID, int okulID, string yorum, int KullaniciOnayPuani)

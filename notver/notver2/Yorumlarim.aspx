@@ -1,6 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Yorumlarim.aspx.cs" Inherits="Yorumlarim"
     MasterPageFile="~/Masters/Giris.master" %>
 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
+    <!-- Colorbox -->
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("a.colorboxOkul").colorbox({iframe:true,width:'590px', height:'480px', close:''});    //Okul
+        $("a.colorboxHoca").colorbox({iframe:true,width:'590px', height:'850px', close:''});    //Hoca
+        $("a.colorboxDers").colorbox({iframe:true,width:'590px', height:'620px', close:''});    //Ders
+    });
+    </script>
+</asp:Content>
+
 <asp:Content runat="server" ID="content" ContentPlaceHolderID="content">
     <div id="yorumlarim" style="background-color:White; margin-top:30px; display:block; padding:10px;">
         <table style="width:100%; border-bottom:solid 1pt #626262;">
@@ -89,8 +101,9 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a href="DersYorumGuncelle.aspx?DersID=<%# DataBinder.Eval(Container.DataItem , "DERS_ID")%>&DersYorumID=<%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600"
-                                class="thickbox" title="Yorumu guncelle"><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
+                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxDers" 
+                            href="DersYorumYap.aspx?DersID=<%# DataBinder.Eval(Container.DataItem , "DERS_ID")%>&DersYorumID=<%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>">
+                                <img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
                         <td>
@@ -160,8 +173,9 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a href="OkulYorumGuncelle.aspx?OkulID=<%# DataBinder.Eval(Container.DataItem , "OKUL_ID")%>&KeepThis=true&TB_iframe=true&modal=true&height=400&width=600"
-                                class="thickbox" title="Yorumu guncelle"><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
+                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxOkul" 
+                            href="OkulYorumYap.aspx?OkulID=<%# DataBinder.Eval(Container.DataItem , "OKUL_ID")%>">
+                                <img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
                         <td>
@@ -231,8 +245,8 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a href="HocaYorumGuncelle.aspx?HocaID=<%# DataBinder.Eval(Container.DataItem , "HOCA_ID")%>&KeepThis=true&TB_iframe=true&modal=true&height=620&width=620"
-                                class="thickbox" title="Yorumu guncelle"><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
+                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxHoca" href="HocaYorumYap.aspx?HocaID=<%# DataBinder.Eval(Container.DataItem , "HOCA_ID")%>"
+                                ><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
                         <td>
