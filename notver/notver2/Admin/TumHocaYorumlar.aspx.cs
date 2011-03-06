@@ -263,7 +263,8 @@ public partial class Admin_TumHocaYorumlar : BasePage
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            if (e.Item.Cells != null && e.Item.Cells.Count > 11 && e.Item.Cells[11].Controls.Count >0)
+            if (e.Item.Cells != null && e.Item.Cells.Count > 12 && e.Item.Cells[11].Controls.Count >0
+                && e.Item.Cells[12].Controls.Count > 0)
             {
 
                 string yorumDurumuStr = e.Item.Cells[2].Text; //Gorunmez int cekiyorum

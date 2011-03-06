@@ -39,7 +39,7 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                         DataRow drEskiYorum = dtEskiYorum.Rows[0];
                         if (Util.GecerliString(drEskiYorum["YORUM"]))
                         {
-                            textYorum.Text = drEskiYorum["YORUM"].ToString();
+                            textYorum.Text = Util.DBToHTML(drEskiYorum["YORUM"].ToString());
                         }
                         //HocaID'yi sec
                         drpDersHocalar.Enabled = false;

@@ -157,24 +157,6 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         }
     }
 
-    protected string YorumBasligiOlustur(object KullaniciAdi, object Tarih, object KullaniciPuanAraligi)
-    {
-        try
-        {
-            DateTime tarih = Convert.ToDateTime(Tarih.ToString());
-            string str = KullaniciAdi + " - " + tarih.Day + "/" + tarih.Month + "/" + tarih.Year;
-            if (KullaniciPuanAraligi != System.DBNull.Value)
-            {
-                str += " (Hocadan aldigi not : " + KullaniciPuanAraligi.ToString() + "/5)";
-            }
-            return str;
-        }
-        catch
-        {
-            return "";
-        }
-    }
-
     protected string YorumBasligiOlustur(object KullaniciAdi, object KullaniciIsim, object Tarih, object HocaIsim, object KayitsizHocaIsim)
     {
         try

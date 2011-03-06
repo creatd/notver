@@ -446,6 +446,7 @@ public partial class Admin_IcerikEkle : BasePage
         if (dtHocalar != null)
         {
             drpDosyaHocalar.Items.Clear();
+            drpDosyaHocalar.Items.Add(new ListItem("-", "-1"));
             foreach (DataRow dr in dtHocalar.Rows)
             {
                 drpDosyaHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));

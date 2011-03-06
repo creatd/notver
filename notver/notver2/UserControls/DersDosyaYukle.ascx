@@ -86,7 +86,7 @@ function Temizle(obj)
                             <td>
                                 <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti"
                                     AutoPostBack="True">
-                                    <asp:ListItem Text="1" Value="1" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="1" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="2" Value="2"></asp:ListItem>
                                     <asp:ListItem Text="5" Value="5"></asp:ListItem>
                                     <asp:ListItem Text="10" Value="10"></asp:ListItem>

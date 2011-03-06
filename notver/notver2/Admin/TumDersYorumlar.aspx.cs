@@ -315,20 +315,20 @@ public partial class Admin_TumDersYorumlar : BasePage
                 int KullaniciID = Convert.ToInt32(kullaniciID);
                 if (Dersler.Admin_DersYorumOnayla(dersYorumID, KullaniciID))
                 {
-                    lblDurum1.Text = "Hoca yorumu onaylandi";
-                    lblDurum2.Text = "Hoca yorumu onaylandi";
+                    lblDurum1.Text = "Ders yorumu onaylandi";
+                    lblDurum2.Text = "Ders yorumu onaylandi";
                     GridDoldur();
                 }
                 else
                 {
-                    lblDurum1.Text = "Hoca yorumunu onaylarken bir hata olustu";
-                    lblDurum2.Text = "Hoca yorumunu onaylarken bir hata olustu";
+                    lblDurum1.Text = "Ders yorumunu onaylarken bir hata olustu";
+                    lblDurum2.Text = "Ders yorumunu onaylarken bir hata olustu";
                 }
             }
             else
             {
-                lblDurum1.Text = "Hoca yorumunu onaylarken bir hata olustu (ID'yi alamadim)";
-                lblDurum2.Text = "Hoca yorumunu onaylarken bir hata olustu (ID'yi alamadim)";
+                lblDurum1.Text = "Ders yorumunu onaylarken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Ders yorumunu onaylarken bir hata olustu (ID'yi alamadim)";
             }
         }
         else if (e.CommandName == "Kaldir")
@@ -365,7 +365,8 @@ public partial class Admin_TumDersYorumlar : BasePage
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            if (e.Item.Cells != null && e.Item.Cells.Count > 12 && e.Item.Cells[12].Controls.Count > 0)
+            if (e.Item.Cells != null && e.Item.Cells.Count > 13 && e.Item.Cells[12].Controls.Count > 0
+                && e.Item.Cells[13].Controls.Count > 0)
             {
                 string yorumDurumuStr = e.Item.Cells[2].Text; //Gorunmez int cekiyorum
                 if (Util.GecerliSayi(yorumDurumuStr))
