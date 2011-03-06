@@ -43,6 +43,33 @@ public partial class Admin_TumDosyalar : BasePage
         GridDoldur();
     }
 
+    protected void grid_ItemDataBound(object sender, DataGridItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            if (e.Item.Cells != null && e.Item.Cells.Count > 19 && e.Item.Cells[18].Controls.Count > 0
+                && e.Item.Cells[19].Controls.Count > 0)
+            {
+                string yorumDurumuStr = e.Item.Cells[8].Text; //Gorunmez int cekiyorum
+                if (Util.GecerliSayi(yorumDurumuStr))
+                {
+                    int yorumDurumu = Convert.ToInt32(yorumDurumuStr);
+                    e.Item.Cells[18].Controls[0].Visible = false;   //Onayla
+                    e.Item.Cells[19].Controls[0].Visible = false;   //Kaldir
+                    if (yorumDurumu == (int)Enums.YorumDurumu.OnayBekliyor)
+                    {
+                        e.Item.Cells[18].Controls[0].Visible = true;
+                        e.Item.Cells[19].Controls[0].Visible = true;
+                    }
+                    else if (yorumDurumu == (int)Enums.YorumDurumu.Onaylanmis)
+                    {
+                        e.Item.Cells[19].Controls[0].Visible = true;
+                    }
+                }
+            }
+        }
+    }
+
     protected void OkulSecildi(object sender, EventArgs e)
     {
         //Secilen okula gore dersleri doldur
@@ -114,7 +141,7 @@ public partial class Admin_TumDosyalar : BasePage
 
     protected void Edit(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[20].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = false;
 
         gridDosyalar.EditItemIndex = e.Item.ItemIndex;
         GridDoldur();
@@ -122,7 +149,7 @@ public partial class Admin_TumDosyalar : BasePage
 
     protected void Cancel(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[20].Visible = false;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = false;
 
         gridDosyalar.EditItemIndex = -1;
         GridDoldur();
@@ -132,7 +159,7 @@ public partial class Admin_TumDosyalar : BasePage
     {
         try
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[20].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = false;
             string ID = e.Item.Cells[0].Text;
             string dersID = (e.Item.Cells[1].Controls[0] as TextBox).Text;
             string hocaID = (e.Item.Cells[4].Controls[0] as TextBox).Text;
@@ -319,18 +346,18 @@ public partial class Admin_TumDosyalar : BasePage
             {
                 if (i != e.Item.DataSetIndex)
                 {
-                    coll[i].Controls[20].Visible = false;
+                    coll[i].Controls[22].Visible = false;
                 }
                 else
                 {
-                    coll[i].Controls[20].Visible = true;
+                    coll[i].Controls[22].Visible = true;
                 }
             }
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[20].Visible = true;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = true;
         }
         else if(e.CommandName == "Sil2")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[20].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             if (Util.GecerliSayi(ID))
@@ -353,6 +380,62 @@ public partial class Admin_TumDosyalar : BasePage
                 lblDurum2.Text = "Dosya silerken bir hata olustu (ID'yi alamadim)";
             }
             GridDoldur();
+        }
+        else if (e.CommandName == "Onayla")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            string kullaniciID = e.Item.Cells[15].Text;
+            if (Util.GecerliSayi(ID) && Util.GecerliSayi(kullaniciID))
+            {
+                int dosyaID = Convert.ToInt32(ID);
+                int KullaniciID = Convert.ToInt32(kullaniciID);
+                if (Dersler.Admin_DersDosyaOnayla(dosyaID, KullaniciID))
+                {
+                    lblDurum1.Text = "Dosya onaylandi";
+                    lblDurum2.Text = "Dosya onaylandi";
+                    GridDoldur();
+                }
+                else
+                {
+                    lblDurum1.Text = "Dosyayi onaylarken bir hata olustu";
+                    lblDurum2.Text = "Dosyayi onaylarken bir hata olustu";
+                }
+            }
+            else
+            {
+                lblDurum1.Text = "Dosyayi onaylarken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Dosyayi onaylarken bir hata olustu (ID'yi alamadim)";
+            }
+        }
+        else if (e.CommandName == "Kaldir")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[22].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            string kullaniciID = e.Item.Cells[15].Text;
+            if (Util.GecerliSayi(ID) && Util.GecerliSayi(kullaniciID))
+            {
+                int dosyaID = Convert.ToInt32(ID);
+                int KullaniciID = Convert.ToInt32(kullaniciID);
+                if (Dersler.Admin_DersDosyaYayindanKaldir(dosyaID, KullaniciID, txtSilinmeNedeni.Text))
+                {
+                    lblDurum1.Text = "Dosya yayindan kaldirildi";
+                    lblDurum2.Text = "Dosya yayindan kaldirildi";
+                    GridDoldur();
+                }
+                else
+                {
+                    lblDurum1.Text = "Dosyayi yayindan kaldirirken bir hata olustu";
+                    lblDurum2.Text = "Dosyayi yayindan kaldirirken bir hata olustu";
+                }
+            }
+            else
+            {
+                lblDurum1.Text = "Dosyayi yayindan kaldirirken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Dosyayi yayindan kaldirirken bir hata olustu (ID'yi alamadim)";
+            }
         }
     }
 }

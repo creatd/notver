@@ -70,6 +70,104 @@ public class Dersler
     }
 
     /// <summary>
+    /// Yorumu yayindan kaldirir ve kullanicinin onay puanini dusurur
+    /// </summary>
+    /// <param name="DersYorumID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static bool Admin_DersDosyaYayindanKaldir(int DosyaID, int KullaniciID, string SilinmeNedeni)
+    {
+        try
+        {
+            if (DosyaID < 0 || KullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersDosyaYayindanKaldir");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DosyaID", DosyaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YeniDurumID", (int)Enums.YorumDurumu.SistemTarafindanSilinmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            int onayDegeri = Convert.ToInt32(ConfigurationManager.AppSettings["DersYorumOnayDegeri"]);
+            onayDegeri = onayDegeri * 2;    //Ceza olarak iki kat dusuruyoruz puani
+            param = new SqlParameter("OnayDegeri", onayDegeri);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+
+    /// <summary>
+    /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
+    /// </summary>
+    /// <param name="DersYorumID"></param>
+    /// <param name="KullaniciID"></param>
+    /// <returns></returns>
+    public static bool Admin_DersDosyaOnayla(int DosyaID, int KullaniciID)
+    {
+        try
+        {
+            if (DosyaID < 0 || KullaniciID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_DersDosyaOnayla");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DosyaID", DosyaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayliDurumID", (int)Enums.DosyaDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            int onayDegeri = Convert.ToInt32(ConfigurationManager.AppSettings["DersDosyaOnayDegeri"]);
+            param = new SqlParameter("OnayDegeri", onayDegeri);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteAndCheckReturnValue(cmd);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    /// <summary>
     /// Yorumu onaylar ve kullanicinin onay puanini yukseltir
     /// </summary>
     /// <param name="DersYorumID"></param>
@@ -560,7 +658,7 @@ public class Dersler
     }
 
     /// <summary>
-    /// Bu ders icin butun dosyalari dondurur
+    /// Bu ders icin butun onayli dosyalari dondurur
     /// </summary>
     /// <param name="dersID"></param>
     /// <returns></returns>
@@ -580,6 +678,11 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
+            param = new SqlParameter("DosyaDurumu", (int)Enums.DosyaDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
             return Util.GetDataTable(cmd);
         }
         catch (Exception)
@@ -589,7 +692,7 @@ public class Dersler
     }
 
     /// <summary>
-    /// Bu ders icin bu kategorideki butun dosyalari dondurur
+    /// Bu ders icin bu kategorideki butun onayli dosyalari dondurur
     /// </summary>
     /// <param name="dersID"></param>
     /// <param name="dosyaKategoriTipi"></param>
@@ -611,6 +714,11 @@ public class Dersler
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("DosyaKategoriTipi", (int)dosyaKategoriTipi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("DosyaDurumu", (int)Enums.DosyaDurumu.Onaylanmis);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -1114,7 +1222,7 @@ public class Dersler
                 cmd.Parameters.Add(param);
             }
 
-            param = new SqlParameter("Yorum", Yorum);
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);

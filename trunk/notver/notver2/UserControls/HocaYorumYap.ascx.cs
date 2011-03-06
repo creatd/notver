@@ -168,8 +168,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                                     }
                                     else
                                     {
-                                        hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 18) + "..)");
-                                        dropHocaDersler.Items.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi.Substring(0, 20) + ")");
+                                        hocaKullaniciDerslerObj.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi + ")");
+                                        dropHocaDersler.Items.Add((string)listEskiYorum[i + 1] + " (" + okulIsmi + ")");
                                     }
                                     hocaKullaniciDerslerIDlerObj.Add((int)listEskiYorum[i]);
                                     i += 3;
@@ -244,12 +244,14 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         dersIsim.Text = "";
         dropDersEkle.Visible = false;
         txtDersKodDiger.Visible = false;
+        
         int seciliDeger = Convert.ToInt32(dropHocaDersler.SelectedValue);
         if (seciliDeger >= 0)
         {
             if (hocaKullaniciDerslerIDler.Contains(seciliDeger))
             {
                 dersIsim.Text = "Bu dersi zaten eklediniz";
+                dropHocaDersler.SelectedIndex = 0;
                 return;
             }
             else
@@ -271,6 +273,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             if (hocaKullaniciDersler.Contains(txtDersKodDiger.Text))
             {
                 dersIsim.Text = "Bu dersi zaten eklediniz";
+                dropHocaDersler.SelectedIndex = 0;
                 return;
             }
             hocaKullaniciDerslerObj = hocaKullaniciDersler;
@@ -285,7 +288,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             repeaterDersler.DataSource = hocaKullaniciDersler;
             repeaterDersler.DataBind();
         }
-
+        dropHocaDersler.SelectedIndex = 0;
     }
 
     protected void repeaterDersSil(object sender, RepeaterCommandEventArgs e)

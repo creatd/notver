@@ -991,7 +991,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Yorum);
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
