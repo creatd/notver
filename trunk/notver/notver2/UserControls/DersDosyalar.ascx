@@ -6,7 +6,7 @@
 $(document).ready(function() 
 {
    // Notice the use of the each() method to acquire access to each elements attributes
-   $('#divDosyalar a[tooltip]').each(function()
+   $('table.gridDosyalar a img[tooltip]').each(function()
    {
       $(this).qtip({
          content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
@@ -83,8 +83,6 @@ $(document).ready(function($) {
                     <asp:ButtonColumn ButtonType="LinkButton" HeaderText="Indir" CommandName="DosyaIndir" HeaderStyle-ForeColor="Black"
                     HeaderStyle-Height="50px" HeaderStyle-Font-Size="12px" Text="&lt;img src=&quot;./App_Themes/Default/Images/indir.png&quot; /&gt;">
                     </asp:ButtonColumn>
-                    <asp:TemplateColumn>
-                    </asp:TemplateColumn>
                 </Columns>
             </asp:DataGrid> 
         </asp:Panel> 

@@ -1139,7 +1139,7 @@ public class Hocalar
 
             StringBuilder sb = new StringBuilder();
             DataTable dt = Util.GetDataTable(cmd);
-            if (!(dt.Rows.Count > 0))
+            if (dt == null || !(dt.Rows.Count > 0))
             {
                 return null;
             }
@@ -1256,6 +1256,10 @@ public class Hocalar
             cmd.Parameters.Add(param);
 
             DataTable dt = Util.GetDataTable(cmd);
+            if (dt == null || dt.Rows.Count <= 0)
+            {
+                return null;
+            }
             DataRow dr = dt.Rows[0];
             float puanSayisi = (float)Convert.ToInt32(dr["PUAN_SAYISI"]);
             if (puanSayisi < 1)
@@ -1289,6 +1293,10 @@ public class Hocalar
 
             StringBuilder sb = new StringBuilder();
             DataTable dt = Util.GetDataTable(cmd);
+            if (dt == null)
+            {
+                return null;
+            }
             result = new string[dt.Rows.Count];
             int i = 0;
             foreach (DataRow dr in dt.Rows)
