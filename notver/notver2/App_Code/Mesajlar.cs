@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Data.SqlClient;
+using System.Net.Mail;
 
 /// <summary>
 /// Summary description for Mesajlar
@@ -196,5 +197,63 @@ public static class Mesajlar
         {
             return false;
         }
+    }
+
+    public static bool EpostaGonder(int AliciID, Enums.EpostaGonderici EpostaGonderici, string Icerik, string Baslik,
+        bool IsHTML)
+    {
+        try
+        {
+            if (AliciID < 0 || string.IsNullOrEmpty(Icerik) || string.IsNullOrEmpty(Baslik))
+            {
+                return false;
+            }
+            //Alicinin eposta adresini ogren
+            string alici_adres = "";
+
+
+            alici_adres = "egeakpinar@gmail.com";
+
+            string gonderici_adres = "";
+            MailMessage message = new MailMessage();
+            switch (EpostaGonderici)
+            {
+                case Enums.EpostaGonderici.bilgi:
+                    gonderici_adres = "bilgi";
+                    break;
+                case Enums.EpostaGonderici.duyuru:
+                    gonderici_adres = "duyuru";
+                    break;
+                case Enums.EpostaGonderici.iletisim:
+                    gonderici_adres = "iletisim";
+                    break;
+                case Enums.EpostaGonderici.uyari:
+                    gonderici_adres = "uyari";
+                    break;
+                default:
+                    gonderici_adres="genel";
+                    break;
+            }
+            gonderici_adres += "@notverin.com";
+
+            message.From = new MailAddress(gonderici_adres);
+
+            message.To.Add(new MailAddress(alici_adres));
+
+            message.Subject = Baslik;
+            message.Body = Icerik;
+            message.IsBodyHtml = IsHTML;
+
+            SmtpClient client = new SmtpClient();
+            //TODO: enable SSL'i kaldir daha sonra
+            client.EnableSsl = true;
+            client.Send(message);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            //TODO: Admin'e haber ver
+        }
+        return false;
     }
 }

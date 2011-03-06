@@ -169,67 +169,94 @@ public class Uyelik
         return -1;
     }
 
+    public static string KullaniciEpostaAdresiniDondur(int KullaniciID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("KullaniciEpostaAdresiniDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciID", KullaniciID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            DataTable dt = Util.GetDataTable(cmd);
+            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Count() > 0 && Util.GecerliString(dt.Rows[0][0]))
+            {
+                return dt.Rows[0][0].ToString();
+            }
+
+        }
+        catch (Exception ex) { }
+        return "";
+    }
+
     public static bool KullaniciYukle(string Eposta)
     {
         if (string.IsNullOrEmpty(Eposta))
         {
             return false;
         }
-        SqlCommand cmd = new SqlCommand("KullaniciYukle");
-        cmd.CommandType = CommandType.StoredProcedure;
-
-        SqlParameter param = new SqlParameter("Eposta", Eposta);
-        param.Direction = ParameterDirection.Input;
-        param.SqlDbType = SqlDbType.NVarChar;
-        cmd.Parameters.Add(param);
-
-        DataTable dt = Util.GetDataTable(cmd);
-        if(dt != null && dt.Rows.Count == 1)
+        try
         {
-            DataRow dr = dt.Rows[0];
-            int kullaniciID = -1;
-            if (Util.GecerliStringSayi(dr["UYE_ID"]))
-                kullaniciID = Convert.ToInt32(dr["UYE_ID"].ToString());
-            
-            int uyelikDurumu = -1;
-            if(Util.GecerliStringSayi(dr["UYELIK_DURUMU"]))
-                uyelikDurumu = Convert.ToInt32(dr["UYELIK_DURUMU"].ToString());
+            SqlCommand cmd = new SqlCommand("KullaniciYukle");
+            cmd.CommandType = CommandType.StoredProcedure;
 
-            int rolID = -1;
-            if(Util.GecerliStringSayi(dr["ROL_ID"]))
-                rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
+            SqlParameter param = new SqlParameter("Eposta", Eposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
 
-            int onayPuani = -1;
-            if (Util.GecerliStringSayi(dr["ONAY_PUANI"]))
-                onayPuani = Convert.ToInt32(dr["ONAY_PUANI"].ToString());
-
-            Enums.Cinsiyet cinsiyet;
-            if(Util.GecerliString(dr["CINSIYET"]))
+            DataTable dt = Util.GetDataTable(cmd);
+            if (dt != null && dt.Rows.Count == 1)
             {
-                if(Convert.ToBoolean(dr["CINSIYET"].ToString()))
-                    cinsiyet = Enums.Cinsiyet.Erkek;
-                else
-                    cinsiyet = Enums.Cinsiyet.Kiz;
+                DataRow dr = dt.Rows[0];
+                int kullaniciID = -1;
+                if (Util.GecerliStringSayi(dr["UYE_ID"]))
+                    kullaniciID = Convert.ToInt32(dr["UYE_ID"].ToString());
+
+                int uyelikDurumu = -1;
+                if (Util.GecerliStringSayi(dr["UYELIK_DURUMU"]))
+                    uyelikDurumu = Convert.ToInt32(dr["UYELIK_DURUMU"].ToString());
+
+                int rolID = -1;
+                if (Util.GecerliStringSayi(dr["ROL_ID"]))
+                    rolID = Convert.ToInt32(dr["ROL_ID"].ToString());
+
+                int onayPuani = -1;
+                if (Util.GecerliStringSayi(dr["ONAY_PUANI"]))
+                    onayPuani = Convert.ToInt32(dr["ONAY_PUANI"].ToString());
+
+                Enums.Cinsiyet cinsiyet;
+                if (Util.GecerliString(dr["CINSIYET"]))
+                {
+                    if (Convert.ToBoolean(dr["CINSIYET"].ToString()))
+                        cinsiyet = Enums.Cinsiyet.Erkek;
+                    else
+                        cinsiyet = Enums.Cinsiyet.Kiz;
+                }
+
+                string kullaniciAd = "";
+                if (Util.GecerliString(dr["AD"]))
+                    kullaniciAd = dr["AD"].ToString();
+
+                string kullaniciAdi = "";
+                if (Util.GecerliString(dr["KULLANICI_ADI"]))
+                    kullaniciAdi = dr["KULLANICI_ADI"].ToString();
+
+                Session session = new Session();
+                session.IsLoggedIn = true;
+                session.KullaniciAdi = kullaniciAdi;
+                session.KullaniciID = kullaniciID;
+                session.KullaniciUyelikDurumu = (Enums.UyelikDurumu)uyelikDurumu;
+                session.KullaniciOnayPuani = onayPuani;
+                session.KullaniciAd = kullaniciAd;
+                session.KullaniciUyelikRol = (Enums.UyelikRol)rolID;
+                return true;
             }
-
-            string kullaniciAd = "";
-            if (Util.GecerliString(dr["AD"]))
-                kullaniciAd = dr["AD"].ToString();
-
-            string kullaniciAdi = "";
-            if(Util.GecerliString(dr["KULLANICI_ADI"]))
-                kullaniciAdi = dr["KULLANICI_ADI"].ToString();
-
-            Session session = new Session();
-            session.IsLoggedIn = true;
-            session.KullaniciAdi = kullaniciAdi;
-            session.KullaniciID = kullaniciID;
-            session.KullaniciUyelikDurumu = (Enums.UyelikDurumu)uyelikDurumu;
-            session.KullaniciOnayPuani = onayPuani;
-            session.KullaniciAd = kullaniciAd;
-            session.KullaniciUyelikRol = (Enums.UyelikRol)rolID;
-            return true;
         }
+        catch (Exception ex) { }
         return false;
     }
 

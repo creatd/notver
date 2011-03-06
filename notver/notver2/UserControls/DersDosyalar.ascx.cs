@@ -269,13 +269,19 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 {                    
                     dosyaTooltip = DosyaTooltipDondur(drv.Row.ItemArray[6].ToString() , drv.Row.ItemArray[4].ToString());
                 }
-                //1 isim 2 adres
+                /*//1 isim 2 adres
                 if (string.IsNullOrEmpty(drv.Row.ItemArray[1].ToString()))
                 {
                     e.Item.Cells[0].Text = drv.Row.ItemArray[2].ToString();
                     //e.Item.Cells[3].Text = drv.Row.ItemArray[2].ToString();
-                }
-                //e.Item.Cells[3].Text = DosyaAdresDondur(e.Item.Cells[3].Text,dosyaTooltip,Convert.ToInt32(drv.Row.ItemArray[7]));
+                }*/
+                //Tooltip ekle linke
+                //string imgText = ((System.Web.UI.WebControls.LinkButton)(((System.Web.UI.WebControls.DataGridLinkButton)(e.Item.Cells[4].Controls[0])))).Text;
+                //((System.Web.UI.WebControls.LinkButton)(((System.Web.UI.WebControls.DataGridLinkButton)(e.Item.Cells[4].Controls[0])))).Text = imgText.Replace("<img ", "img tooltip='" + dosyaTooltip + "' ");
+                //e.Item.Cells[4].Text = "deneme";
+                //e.Item.Cells[4].Controls[0];
+                string imgText = ((System.Web.UI.WebControls.LinkButton)(e.Item.Cells[4].Controls[0])).Text;
+                ((System.Web.UI.WebControls.LinkButton)(e.Item.Cells[4].Controls[0])).Text = imgText.Replace("<img ", "<img tooltip='" + dosyaTooltip + "' ");
             }
         }
     }

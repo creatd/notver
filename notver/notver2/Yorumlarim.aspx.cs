@@ -35,8 +35,7 @@ public partial class Yorumlarim : BasePage
         ltrScript.Text = "";
         if (!session.IsLoggedIn)
         {
-            //TODO: Uncomment
-            //GoToDefaultPage();
+            GoToDefaultPage();
         }
         if (!Page.IsPostBack)
         {

@@ -99,4 +99,12 @@ public class Enums
         E=1,
         F=0
     }
+
+    public enum EpostaGonderici
+    {
+        iletisim,
+        bilgi,
+        duyuru,
+        uyari
+    }
 }
