@@ -50,9 +50,10 @@ function Temizle(obj)
             <br /><asp:ImageButton ID="LoginButton" OnClick="GirisYap" runat="server" ValidationGroup="vg" 
             CssClass="loginTus clear fltLeft"
                 ImageUrl="~/App_Themes/Default/Images/giris.png"/>
-            <asp:CheckBox ID="RememberMe" runat="server" Text="beni hatirla" CssClass="beniHatirla"/>
+            <!-- <asp:CheckBox ID="RememberMe" runat="server" Text="beni hatirla" CssClass="beniHatirla"/> -->
             <br />
-            <asp:HyperLink runat="server" Text="Sifremi unuttum!" CssClass="fltLeft clear sifremiUnuttum"></asp:HyperLink>
+            <asp:LinkButton runat="server" Text="Sifremi unuttum!" CssClass="fltLeft clear sifremiUnuttum" 
+            OnClick="SifremiUnuttum"></asp:LinkButton>
             <asp:Label runat="server" ID="lblDurum" CssClass="hata fltLeft girisDurum"></asp:Label>
         </div>
     </ContentTemplate>

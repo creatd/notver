@@ -101,14 +101,14 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxDers" 
+                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxDers" title="Guncelle"
                             href="DersYorumYap.aspx?DersID=<%# DataBinder.Eval(Container.DataItem , "DERS_ID")%>&DersYorumID=<%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>">
-                                <img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
+                                <img src="App_Themes/Default/Images/guncelle.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
                         <td>
-                            <asp:ImageButton runat="server" ID="btnDersYorumSil" AlternateText="Sil" ImageUrl="App_Themes/Default/Images/Diger/silgi.png"
-                            OnClick="DersYorumSil" ToolTip="Yorumu sil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
+                            <asp:ImageButton runat="server" ID="btnDersYorumSil" AlternateText="Sil" ImageUrl="App_Themes/Default/Images/sil.png"
+                            OnClick="DersYorumSil" ToolTip="Sil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -173,14 +173,15 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxOkul" 
+                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxOkul" title="Guncelle"
                             href="OkulYorumYap.aspx?OkulID=<%# DataBinder.Eval(Container.DataItem , "OKUL_ID")%>">
-                                <img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
+                                <img src="App_Themes/Default/Images/guncelle.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
                         <td>
-                            <asp:ImageButton runat="server" ID="btnOkulYorumSil" AlternateText="Sil" ImageUrl="App_Themes/Default/Images/Diger/silgi.png"
-                            ToolTip="Yorumu sil" OnClick="OkulYorumSil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
+                            <asp:ImageButton runat="server" ID="btnOkulYorumSil" AlternateText="Sil" 
+                            ImageUrl="App_Themes/Default/Images/sil.png"
+                            ToolTip="Sil" OnClick="OkulYorumSil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -245,13 +246,15 @@
                             <%# YorumDurumunuDondur(DataBinder.Eval(Container.DataItem , "YORUM_DURUMU")) %>
                         </td>
                         <td>
-                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxHoca" href="HocaYorumYap.aspx?HocaID=<%# DataBinder.Eval(Container.DataItem , "HOCA_ID")%>"
-                                ><img src="App_Themes/Default/Images/diger/kalem.png" alt="Guncelle" /></a>
+                            <asp:Literal runat="server" ID="ltrHack" /><a class="colorboxHoca" title="Guncelle"
+                            href="HocaYorumYap.aspx?HocaID=<%# DataBinder.Eval(Container.DataItem , "HOCA_ID")%>"
+                                ><img src="App_Themes/Default/Images/guncelle.png" alt="Guncelle" /></a>
                                 <asp:Literal runat="server" ID="ltrHack2" />
                         </td>
                         <td>
-                            <asp:ImageButton runat="server" ID="btnHocaYorumSil" AlternateText="Sil" ImageUrl="App_Themes/Default/Images/Diger/silgi.png"
-                            OnClick="HocaYorumSil" ToolTip="Yorumu sil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
+                            <asp:ImageButton runat="server" ID="btnHocaYorumSil" AlternateText="Sil" 
+                            ImageUrl="App_Themes/Default/Images/sil.png"
+                            OnClick="HocaYorumSil" ToolTip="Sil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
                         </td>                                           
                     </tr>
                 </ItemTemplate>

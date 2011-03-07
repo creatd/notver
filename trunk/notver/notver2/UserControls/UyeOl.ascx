@@ -41,6 +41,9 @@ function DurumTemizle() {
                     <asp:RequiredFieldValidator ID="ConfirmPasswordRequired" runat="server" ControlToValidate="txtSifre2"
                         ErrorMessage="Şifre tekrar girilmelidir" ToolTip="Şifre tekrar girilmelidir"
                         ValidationGroup="vg1">*</asp:RequiredFieldValidator>
+                    <asp:CompareValidator runat="server" ID="Passwords" ControlToValidate="txtSifre" ControlToCompare="txtSifre2"
+                        ErrorMessage="Girilen iki sifre ayni olmali" ToolTip="Girilen iki sifre ayni olmali"
+                        ValidationGroup="vg1">*</asp:CompareValidator>
                 <p>Cinsiyet</p>
                     <asp:RadioButtonList runat="server" ID="rdCinsiyetler" onchange="DurumTemizle();" CssClass="rdCinsiyetler">
                         <asp:ListItem Text="Bay" Selected="True" Value="0"></asp:ListItem>

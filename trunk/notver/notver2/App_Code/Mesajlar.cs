@@ -18,6 +18,31 @@ using System.IO;
 /// </summary>
 public static class Mesajlar
 {
+    public static bool SifremiUnuttumEpostasiGonder(string KullaniciEpostasi)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(KullaniciEpostasi))
+            {
+                return false;
+            }
+            string kod = Uyelik.SifremiUnuttumIcinHashOlustur(KullaniciEpostasi);
+            if (string.IsNullOrEmpty(kod))
+            {
+                return false;
+            }
+            string url = "http://www.notverin.com/SifremiUnuttum.aspx?KullaniciEposta=" + KullaniciEpostasi + "&Kod=" + kod;
+            string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/SifremiUnuttumMesaji.htm"));
+            while (icerik.Contains("!!!URL!!!"))
+            {
+                icerik = icerik.Replace("!!!URL!!!", url);
+            }
+            string baslik = "NotVerin - Sifre sifirlama mesaji";
+            return Mesajlar.EpostaGonder(KullaniciEpostasi, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
 
     public static bool MesajGonder(int AliciID, int GonderenID, string Icerik, string Baslik, DateTime GondermeZamani)
     {
