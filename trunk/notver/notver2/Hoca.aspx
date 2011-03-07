@@ -13,6 +13,7 @@
     <script type="text/javascript">
     $(document).ready(function(){
         $("a.colorbox").colorbox({iframe:true,width:'590px', height:'850px', close:''});
+        $("a.colorboxSikayet").colorbox({iframe:true,width:'590px', height:'480px', close:''});
     });
     </script>
     

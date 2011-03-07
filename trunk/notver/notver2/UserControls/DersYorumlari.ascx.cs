@@ -145,7 +145,19 @@ public partial class UserControls_DersYorumlari : BaseUserControl
 
     protected void repeaterYorumlar_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString() + "&nbsp;";
+        //yorumPuan.Text = ((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"].ToString() + "&nbsp;";
+        if (Util.GecerliSayi(((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"]))
+        {
+            int alkis_puani = Convert.ToInt32(((System.Data.DataRowView)(e.Item.DataItem)).Row["ALKIS_PUANI"]);
+            if (alkis_puani > 0)
+            {
+                yorumPuan.Text = "+" + alkis_puani + "&nbsp;";
+            }
+            else
+            {
+                yorumPuan.Text = alkis_puani + "&nbsp;";
+            }
+        }     
     }
 
     protected void rptPager_DataBound(object sender, RepeaterItemEventArgs e)

@@ -23,14 +23,20 @@
                 <asp:UpdatePanel runat="server" ID="pnlSevSevme">
                     <ContentTemplate>
                         <asp:Literal runat="server" ID="yorumPuan" Text=""></asp:Literal>
-                        <asp:ImageButton runat="server" ID="yorumSev" OnClick="yorumSev_click" ImageUrl="~/App_Themes/Default/Images/thumbsup.png"/>
-                        <asp:ImageButton runat="server" ID="yorumSevme" OnClick="yorumSevme_click" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png"/>
+                        <asp:ImageButton runat="server" ID="yorumSev" OnClick="yorumSev_click" ImageUrl="~/App_Themes/Default/Images/thumbsup.png" ToolTip="Sev"/>
+                        <asp:ImageButton runat="server" ID="yorumSevme" OnClick="yorumSevme_click" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" ToolTip="Sevme"/>
                         <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                     </ContentTemplate>
                 </asp:UpdatePanel>                    
             </div>
-            <p style="font-weight:bold; padding:10px; color:#313131; font-size:13px;">
+            <p style="font-weight:bold; padding:10px 10px 0px 10px; color:#313131; font-size:13px;">
                 <%# DataBinder.Eval(Container.DataItem, "YORUM")%>
+            </p>
+            <p style="text-align:right; padding-bottom:20px;">
+                <a style="font-size:11px; font-weight:bold;" class="colorboxSikayet" 
+        href="<%= Page.ResolveUrl("~/") %>YorumSikayetEt.aspx?YorumTipi=<%= ((int)Enums.YorumTipi.OkulYorum).ToString() %>&YorumID=<%# DataBinder.Eval(Container.DataItem , "OKULYORUM_ID") %>">
+                    sikayet et
+                </a>
             </p>
         </ItemTemplate>
     </asp:Repeater>

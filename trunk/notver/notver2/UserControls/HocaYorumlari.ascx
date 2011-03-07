@@ -29,8 +29,8 @@
                             <asp:UpdatePanel runat="server" ID="pnlSevSevme">
                                 <ContentTemplate>
                                     <asp:Literal runat="server" ID="yorumPuan" Text=""></asp:Literal>
-                                    <asp:ImageButton runat="server" ID="yorumSev" Text="Sevdim" OnClick="yorumSev_click" ImageUrl="~/App_Themes/Default/Images/thumbsup.png"></asp:ImageButton>
-                                    <asp:ImageButton runat="server" ID="yorumSevme" Text="Sevmedim" OnClick="yorumSevme_click" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png"></asp:ImageButton>
+                                    <asp:ImageButton runat="server" ID="yorumSev" Text="Sevdim" OnClick="yorumSev_click" ImageUrl="~/App_Themes/Default/Images/thumbsup.png" ToolTip="Sev"></asp:ImageButton>
+                                    <asp:ImageButton runat="server" ID="yorumSevme" Text="Sevmedim" OnClick="yorumSevme_click" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" ToolTip="Sevme"></asp:ImageButton>
                                     <br />
                                     <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                                 </ContentTemplate>
@@ -39,17 +39,16 @@
                     </tr>
                 </table>
             
-            <p style="font-weight:bold; padding:10px; color:#313131; font-size:13px;">
+            <p style="font-weight:bold; padding:10px 10px 0px 10px; color:#313131; font-size:13px;">
                 <%# DataBinder.Eval(Container.DataItem, "YORUM")%>
             </p>
-            <table style="border: none;" border="0" width="600">
-                <tr>
-                    <td>
-                        <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "HOCAYORUM_ID") %>' />
-                        
-                    </td>
-                </tr>
-            </table>
+            <p style="text-align:right; padding-bottom:20px;">
+                <a style="font-size:11px; font-weight:bold;" class="colorboxSikayet" 
+        href="<%= Page.ResolveUrl("~/") %>YorumSikayetEt.aspx?YorumTipi=<%= ((int)Enums.YorumTipi.HocaYorum).ToString() %>&YorumID=<%# DataBinder.Eval(Container.DataItem , "HOCAYORUM_ID") %>">
+                    sikayet et
+                </a>
+            </p>   
+            <asp:HiddenField runat="server" ID="yorumID" Value=' <%# DataBinder.Eval(Container.DataItem , "HOCAYORUM_ID") %>' />
             <br />
         </ItemTemplate>
     </asp:Repeater>
