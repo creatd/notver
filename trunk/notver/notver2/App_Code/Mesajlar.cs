@@ -11,6 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Data.SqlClient;
 using System.Net.Mail;
+using System.IO;
 
 /// <summary>
 /// Summary description for Mesajlar
@@ -199,6 +200,51 @@ public static class Mesajlar
         }
     }
 
+    public static bool OnayEpostasiGonder(string KullaniciIsmi, string KullaniciEpostasi, bool UniversiteEpostasi)
+    {
+        if (string.IsNullOrEmpty(KullaniciIsmi) || string.IsNullOrEmpty(KullaniciEpostasi))
+        {
+            return false;
+        }
+        //Kullanici icin bir hash olustur
+        string hash = Uyelik.OnayIcinHashOlustur(KullaniciIsmi, KullaniciEpostasi);
+        if (UniversiteEpostasi)
+        {
+            hash = "1" + hash;
+        }
+        else
+        {
+            hash = "0" + hash;
+        }
+        string url = "http://www.notverin.com/EpostaOnayla.aspx?KullaniciEposta=" + KullaniciEpostasi + "&OnayKodu=" + hash;
+        string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/OnayMesaji.htm"));
+        while (icerik.Contains("!!!URL!!!"))
+        {
+            icerik = icerik.Replace("!!!URL!!!", url);
+        }
+        while (icerik.Contains("!!!KULLANICI_ISMI!!!"))
+        {
+            icerik = icerik.Replace("!!!KULLANICI_ISMI!!!", KullaniciIsmi);
+        }
+        string baslik = "NotVerin - E-posta onay mesaji";
+        return Mesajlar.EpostaGonder(KullaniciEpostasi, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
+    }
+
+    public static bool HosgeldinEpostasiGonder(string KullaniciIsmi, string KullaniciEpostasi)
+    {
+        if (string.IsNullOrEmpty(KullaniciIsmi) || string.IsNullOrEmpty(KullaniciEpostasi))
+        {
+            return false;
+        }
+        string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/Hosgeldin.htm"));
+        while (icerik.Contains("!!!KULLANICI_ISMI!!!"))
+        {
+            icerik = icerik.Replace("!!!KULLANICI_ISMI!!!", KullaniciIsmi);
+        }
+        string baslik = "NotVerin - Hosgeldin";
+        return Mesajlar.EpostaGonder(KullaniciEpostasi, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
+    }
+
     public static bool EpostaGonder(int AliciID, Enums.EpostaGonderici EpostaGonderici, string Icerik, string Baslik,
         bool IsHTML)
     {
@@ -209,10 +255,25 @@ public static class Mesajlar
                 return false;
             }
             //Alicinin eposta adresini ogren
-            string alici_adres = "";
+            string alici_adres = Uyelik.KullaniciEpostaAdresiniDondur(AliciID);
+            if (!string.IsNullOrEmpty(alici_adres))
+            {
+                return EpostaGonder(alici_adres, EpostaGonderici, Icerik, Baslik, IsHTML);
+            }
+        }
+        catch (Exception ex) { }
+        return false;
+    }
 
-
-            alici_adres = "egeakpinar@gmail.com";
+    public static bool EpostaGonder(string AliciAdres, Enums.EpostaGonderici EpostaGonderici, string Icerik, string Baslik,
+        bool IsHTML)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(AliciAdres) || string.IsNullOrEmpty(Icerik) || string.IsNullOrEmpty(Baslik))
+            {
+                return false;
+            }
 
             string gonderici_adres = "";
             MailMessage message = new MailMessage();
@@ -238,10 +299,10 @@ public static class Mesajlar
 
             message.From = new MailAddress(gonderici_adres);
 
-            message.To.Add(new MailAddress(alici_adres));
+            message.To.Add(new MailAddress(AliciAdres));
 
             message.Subject = Baslik;
-            message.Body = Icerik;
+            message.Body = EpostaIcerikOlustur(Icerik);
             message.IsBodyHtml = IsHTML;
 
             SmtpClient client = new SmtpClient();
@@ -255,5 +316,16 @@ public static class Mesajlar
             //TODO: Admin'e haber ver
         }
         return false;
+    }
+
+    public static string EpostaIcerikOlustur(string Icerik)
+    {
+        //Cerceve ekle
+        string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/Cerceve.htm"));
+        while(icerik.Contains("!!!ICERIK!!!"))
+        {
+            icerik = icerik.Replace("!!!ICERIK!!!" , Icerik);
+        }
+        return icerik;
     }
 }

@@ -18,6 +18,68 @@ using System.Data.SqlClient;
 /// </summary>
 public class Uyelik
 {
+    public static bool KullaniciEpostaOnayla(string KullaniciEpostasi, bool UniversiteEpostasi)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(KullaniciEpostasi))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("KullaniciEpostaOnayla");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciEposta", KullaniciEpostasi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            //Universite epostasi mi kontrolune gore DurumID gonder
+
+            if (UniversiteEpostasi)
+            {
+                param = new SqlParameter("OnayliDurumID", (int)Enums.UyelikDurumu.UniEpostaOnayli);
+            }
+            else
+            {
+                param = new SqlParameter("OnayliDurumID", (int)Enums.UyelikDurumu.EpostaOnayli);
+            }
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static string OnayIcinHashOlustur(string KullaniciEpostasi)
+    {
+        if (string.IsNullOrEmpty(KullaniciEpostasi))
+        {
+            return "";
+        }
+        //Kullanici ismini bul
+        string kullanici_isim = KullaniciIsminiDondur(KullaniciEpostasi);
+        if (string.IsNullOrEmpty(kullanici_isim))
+        {
+            return "";
+        }
+        return OnayIcinHashOlustur(kullanici_isim, KullaniciEpostasi);
+    }
+
+    public static string OnayIcinHashOlustur(string KullaniciIsmi, string KullaniciEpostasi)
+    {
+        if (string.IsNullOrEmpty(KullaniciIsmi) || string.IsNullOrEmpty(KullaniciEpostasi))
+        {
+            return "";
+        }
+        string hash_girdi = KullaniciIsmi + KullaniciIsmi.Length.ToString() +
+            KullaniciEpostasi.Length.ToString() + KullaniciEpostasi;
+        return Util.HashString(hash_girdi);
+    }
+
     /// <summary>
     /// Uyeyi veritabanindan siler. Blok etmek icin kullaniciyi bloke olarak guncelle, burayi kullanma.
     /// </summary>
@@ -167,6 +229,29 @@ public class Uyelik
         }
         catch (Exception) { }
         return -1;
+    }
+
+    public static string KullaniciIsminiDondur(string KullaniciEpostasi)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("KullaniciIsminiDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciEposta", KullaniciEpostasi);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            DataTable dt = Util.GetDataTable(cmd);
+            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Count() > 0 && Util.GecerliString(dt.Rows[0][0]))
+            {
+                return dt.Rows[0][0].ToString();
+            }
+
+        }
+        catch (Exception ex) { }
+        return "";
     }
 
     public static string KullaniciEpostaAdresiniDondur(int KullaniciID)

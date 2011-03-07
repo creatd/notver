@@ -74,10 +74,18 @@ public class Util
         return output;
     }
 
+
     public static string TextFileToString(string filePath)
     {
-        StreamReader sr = new StreamReader(filePath);
-        return sr.ReadToEnd();
+        try
+        {
+            StreamReader sr = new StreamReader(filePath);
+            string sonuc = sr.ReadToEnd();
+            sr.Close();
+            return sonuc;
+        }
+        catch (Exception ex) { }
+        return "";
     }
 
     public static DataTable GetDataTable(SqlCommand cmd)
