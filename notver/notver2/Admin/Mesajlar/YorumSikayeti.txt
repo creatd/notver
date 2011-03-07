@@ -1,0 +1,5 @@
+﻿Yorum ID : !!!YORUM_ID!!!
+Yorum tipi : !!!YORUM_TIPI!!!
+Sikayet nedeni : !!!SIKAYET_NEDENI!!!
+Sikayet eden kullanici ID : !!!SIKAYET_EDEN!!!
+Sikayet tarihi : !!!SIKAYET_TARIHI!!!

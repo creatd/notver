@@ -5,16 +5,16 @@ MasterPageFile="~/Masters/Giris.master" %>
 <div style="text-align:center; margin-top:30px;">
 <asp:Panel runat="server" ID="pnlOnayBasari">
     <span style="font-size:18px; font-weight:bold;">
-    E-posta adresin onaylandi.
+    - E-posta adresin onaylandi -
     </span>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlOnayBasari_UniEposta">
     <span style="font-size:18px; font-weight:bold;">
-    Universite e-posta adresin onaylandi.
+    - Universite e-posta adresin onaylandi -
     </span>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlOnayHata">
-    <span class="hata" style="font-size:18px; font-weight:bold;">E-posta onaylama basarisiz.</span>
+    <span class="hata" style="font-size:18px; font-weight:bold;">- E-posta onaylama basarisiz -</span>
     <br /> 
     <br />
     <br />

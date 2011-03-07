@@ -14,7 +14,7 @@ function DurumTemizle() {
 <div style="text-align:center; margin-top:30px;">
 <asp:Panel runat="server" ID="pnlBasari">
     <span style="font-size:14px; font-weight:bold;">
-    Asagidaki kutulara yeni sifrenizi iki kere girerek sifrenizi degistirebilirsiniz.
+    Asagidaki kutulara yeni sifrenizi iki kere girerek sifrenizi degistirebilirsiniz
     </span>
     <br /><br /><br />
     <p>Sifre</p>
@@ -40,9 +40,9 @@ function DurumTemizle() {
 <asp:Label runat="server" ID="lblDurum" CssClass="bilgi"></asp:Label>
 <asp:Panel runat="server" ID="pnlHata">
     <span class="hata" style="font-size:14px; font-weight:bold;">
-    Kod yanlis. Sifrenizi sifirlamak icin gelen e-postadaki kod sadece ayni gun gecerlidir. 
+    Kod yanlis (Sifrenizi sifirlamak icin gelen e-postadaki kod sadece ayni gun gecerlidir)
     <br /><br />Tekrar sifre sifirlama
-    talebinde bulunmak icin sag ustten "giris"e tiklayip "sifremi unuttum"a tiklayabilirsiniz.    
+    talebinde bulunmak icin sag ustten "giris"e tiklayip "sifremi unuttum"a tiklayabilirsiniz    
     </span>
 </asp:Panel>
 </div>

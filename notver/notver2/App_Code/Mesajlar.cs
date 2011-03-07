@@ -160,6 +160,42 @@ public static class Mesajlar
         }
     }
 
+    public static bool AdmineYorumSikayetiGonder(int YorumID, Enums.YorumTipi YorumTipi, string SikayetNedeni,
+        int KullaniciID, Enums.SistemHataSeviyesi HataSeviyesi)
+    {
+        try
+        {
+            string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Admin/Mesajlar/YorumSikayeti.txt"));
+            while (icerik.Contains("!!!YORUM_ID!!!"))
+            {
+                icerik = icerik.Replace("!!!YORUM_ID!!!", YorumID.ToString());
+            }
+            while (icerik.Contains("!!!YORUM_TIPI!!!"))
+            {
+                icerik = icerik.Replace("!!!YORUM_TIPI!!!", YorumTipi.ToString());
+            }
+            while (icerik.Contains("!!!SIKAYET_NEDENI!!!"))
+            {
+                icerik = icerik.Replace("!!!SIKAYET_NEDENI!!!", SikayetNedeni);
+            }
+            while (icerik.Contains("!!!SIKAYET_TARIHI!!!"))
+            {
+                icerik = icerik.Replace("!!!SIKAYET_TARIHI!!!", DateTime.Now.ToString());
+            }
+            while (icerik.Contains("!!!SIKAYET_EDEN!!!"))
+            {
+                icerik = icerik.Replace("!!!SIKAYET_EDEN!!!", KullaniciID.ToString());
+            }
+            string baslik = "Yorum sikayeti";
+
+            return MesajGonder(-1, -1, icerik, baslik, DateTime.Now);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
     public static bool AdmineHataMesajiGonder(string URL, string Mesaj, int KullaniciID, Enums.SistemHataSeviyesi HataSeviyesi)
     {
         try

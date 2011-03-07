@@ -147,5 +147,20 @@ public class Genel
         return false;
     }
 
+    public static bool YorumSikayetEt(int YorumID, Enums.YorumTipi YorumTipi, string SikayetNedeni, int KullaniciID)
+    {
+        try
+        {
+            if (KullaniciID < 0 || YorumID < 0)
+            {
+                return false;
+            }
+
+            return Mesajlar.AdmineYorumSikayetiGonder(YorumID, YorumTipi, SikayetNedeni, KullaniciID, Enums.SistemHataSeviyesi.Orta);
+        }
+        catch (Exception) { }
+        return false;
+    }
+
 
 }

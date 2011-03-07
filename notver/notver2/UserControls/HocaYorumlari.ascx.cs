@@ -157,9 +157,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
             {
                 yorumPuan.Text = alkis_puani + "&nbsp;";
             }
-
-        }
-        
+        }        
     }
 
     protected void rptPager_DataBound(object sender, RepeaterItemEventArgs e)
