@@ -16,6 +16,33 @@ using System.Data.SqlClient;
 /// </summary>
 public class Okullar
 {
+    //Universite epostasi mi kontrolu icin kullanilir
+    public static string OkulUrlDondur(int OkulID)
+    {
+        try
+        {
+            if (OkulID < 0)
+            {
+                return "";
+            }
+            SqlCommand cmd = new SqlCommand("OkulUrlDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            DataTable dt = Util.GetDataTable(cmd);
+            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Count() > 0 && Util.GecerliString(dt.Rows[0][0]))
+            {
+                return dt.Rows[0][0].ToString();
+            }
+        }
+        catch (Exception ex) { }
+        return "";
+    }
+
     /// <summary>
     /// Yorumu yayindan kaldirir ve kullanicinin onay puanini dusurur
     /// </summary>

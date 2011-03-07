@@ -59,6 +59,33 @@ public partial class UserControls_UyeOl : BaseUserControl
         }
         else if (result == 1)
         {
+            bool universite_epostasi = false;
+            //Universite epostasi mi 
+            if(okulId >= 0)
+            {
+                string okul_alanadi = Okullar.OkulUrlDondur(okulId);
+                if(!string.IsNullOrEmpty(okul_alanadi))
+                {
+                    if (okul_alanadi.Contains("www."))
+                    {
+                        okul_alanadi = okul_alanadi.Substring(okul_alanadi.IndexOf("www.") + 4).ToLowerInvariant();
+                    }
+                    else
+                    {
+                        okul_alanadi = okul_alanadi.Substring(okul_alanadi.IndexOf("http://") + 7).ToLowerInvariant();
+                    }
+                    string eposta_alanadi = eposta.Substring(eposta.IndexOf("@") + 1).ToLowerInvariant();
+                    if (eposta_alanadi.Contains(okul_alanadi))
+                    {
+                        universite_epostasi = true;
+                    }
+                }
+            }
+            if (!Mesajlar.OnayEpostasiGonder(ad, eposta,universite_epostasi))
+            {
+                //Onay epostasi gonderemedik
+                //TODO: Admin'e mesaj
+            }
             Uyelik.GirisYap(eposta, sifre);
             RefreshPage();
         }
