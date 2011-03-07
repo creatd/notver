@@ -223,8 +223,8 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 	.dropdown-menu  { background:#e2e2e2; padding:0px; position:absolute;
 	                  top:35px; right:0px; display:none; z-index:5000; }
 	  .dropdown-menu p { padding-right:10px; }
-	.dropdown-menu a:link, .dropdown-menu a:visited { font-weight:bold; color:#59b; text-decoration:none; line-height:1.7em; }
-	.dropdown-menu a:active, .dropdown-menu a:hover { color:#555; }
+	.dropdown-menu a:link, .dropdown-menu a:visited { font-weight:bold; text-decoration:none; line-height:1.7em; }
+	.dropdown-menu a:active, .dropdown-menu a:hover {}
 
 		  * html .dropdown-menu { top:28px; }
 		  *+ html .dropdown-menu { top:28px; }

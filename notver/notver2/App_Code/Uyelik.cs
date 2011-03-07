@@ -18,6 +18,33 @@ using System.Data.SqlClient;
 /// </summary>
 public class Uyelik
 {
+    public static bool KullaniciSifreDegistir(string KullaniciEposta, string YeniSifre)
+    {
+        if (string.IsNullOrEmpty(KullaniciEposta) || string.IsNullOrEmpty(YeniSifre))
+        {
+            return false;
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand("KullaniciSifreDegistir");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("KullaniciEposta", KullaniciEposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("YeniSifre", Util.HashString(YeniSifre));
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
     public static bool KullaniciEpostaOnayla(string KullaniciEpostasi, bool UniversiteEpostasi)
     {
         try
@@ -52,6 +79,29 @@ public class Uyelik
         }
         catch (Exception ex) { }
         return false;
+    }
+
+    /// <summary>
+    /// Sifremi unuttum mekanizmasi icin hash kodu olusturur. Olusturdugu hash kodu her gun degisir.
+    /// </summary>
+    /// <param name="KullaniciEpostasi"></param>
+    /// <returns></returns>
+    public static string SifremiUnuttumIcinHashOlustur(string KullaniciEpostasi)
+    {
+        if (string.IsNullOrEmpty(KullaniciEpostasi))
+        {
+            return "";
+        }
+        KullaniciEpostasi = KullaniciEpostasi.ToLowerInvariant().Trim();
+        //Kullanici ismini bul
+        string kullanici_isim = KullaniciIsminiDondur(KullaniciEpostasi);
+        if (string.IsNullOrEmpty(kullanici_isim))
+        {
+            return "";
+        }
+        string hash_girdi = kullanici_isim + kullanici_isim.Length.ToString() +
+            KullaniciEpostasi.Length.ToString() + KullaniciEpostasi + DateTime.Today.ToString();
+        return Util.HashString(hash_girdi);
     }
 
     public static string OnayIcinHashOlustur(string KullaniciEpostasi)
@@ -277,6 +327,28 @@ public class Uyelik
         return "";
     }
 
+    public static DataTable KullaniciProfilDondur(string Eposta)
+    {
+        if (string.IsNullOrEmpty(Eposta))
+        {
+            return null;
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand("KullaniciYukle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("Eposta", Eposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     public static bool KullaniciYukle(string Eposta)
     {
         if (string.IsNullOrEmpty(Eposta))
@@ -353,6 +425,35 @@ public class Uyelik
         session.IsLoggedIn = false;
         session.KullaniciAdi = "";
         Session.Temizle();
+    }
+
+    public static bool EpostaAdresiVarMi(string Eposta)
+    {
+        try
+        {
+            //Eposta adresi var mi kontrol et
+            SqlCommand cmd = new SqlCommand("EpostaAdresiVarMi");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            Eposta = Eposta.Trim();
+            Eposta = Eposta.ToLowerInvariant();
+
+            SqlParameter param = new SqlParameter("Eposta", Eposta);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+            object obj = Util.ExecuteScalar(cmd);
+            if (obj != null)
+            {
+                if ((int)obj == 1)
+                {
+                    return true;
+                }
+            }
+        }
+        catch (Exception ex) { }
+
+        return false;
     }
 
     /// <summary>

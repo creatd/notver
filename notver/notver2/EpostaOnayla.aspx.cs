@@ -30,7 +30,8 @@ public partial class EpostaOnayla : BasePage
                     universite_epostasi = true;
                 }
                 onay_kodu = onay_kodu.Substring(1);
-                if (onay_kodu == Uyelik.OnayIcinHashOlustur(kullanici_eposta))
+                string dogru_onay_kodu = Uyelik.OnayIcinHashOlustur(kullanici_eposta);
+                if (!string.IsNullOrEmpty(dogru_onay_kodu) && onay_kodu == dogru_onay_kodu)
                 {
                     if (!Uyelik.KullaniciEpostaOnayla(kullanici_eposta,universite_epostasi))
                     {
@@ -49,6 +50,69 @@ public partial class EpostaOnayla : BasePage
                 }
             }
         }
+    }
 
+    protected void OnayEpostasiGonder(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(txtEposta.Text))
+        {
+            lblDurum.Text = "E-posta adresinizi girin";
+            return;
+        }
+        string eposta = txtEposta.Text.ToLowerInvariant().Trim();
+        if (Uyelik.EpostaAdresiVarMi(eposta))
+        {
+            DataTable dtKullanici = Uyelik.KullaniciProfilDondur(eposta);
+            if (dtKullanici != null && dtKullanici.Rows.Count == 1)
+            {
+                DataRow dr = dtKullanici.Rows[0];
+                string kullanici_ismi ="";
+                if(Util.GecerliString(dr["AD"]))
+                {
+                    kullanici_ismi = dr["AD"].ToString();
+                }
+                string okul_alanadi = "";
+                if (Util.GecerliString(dr["OKUL_URL"]))
+                {
+                    okul_alanadi = dr["OKUL_URL"].ToString();
+                }
+
+                bool universite_epostasi = false;
+                if (!string.IsNullOrEmpty(okul_alanadi))
+                {
+                    if (okul_alanadi.Contains("www."))
+                    {
+                        okul_alanadi = okul_alanadi.Substring(okul_alanadi.IndexOf("www.") + 4).ToLowerInvariant();
+                    }
+                    else
+                    {
+                        okul_alanadi = okul_alanadi.Substring(okul_alanadi.IndexOf("http://") + 7).ToLowerInvariant();
+                    }
+                    string eposta_alanadi = eposta.Substring(eposta.IndexOf("@") + 1).ToLowerInvariant();
+                    if (eposta_alanadi.Contains(okul_alanadi))
+                    {
+                        universite_epostasi = true;
+                    }
+                }
+
+                if (Mesajlar.OnayEpostasiGonder(kullanici_ismi, eposta, universite_epostasi))
+                {
+                    lblDurum.Text = "E-posta adresinize onay e-postasi gonderildi";
+                }
+                else
+                {
+                    lblDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
+                }
+            }
+            else
+            {
+                lblDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
+            }
+
+        }
+        else
+        {
+            lblDurum.Text = "Bu e-posta adresi sistemimizde kayitli degil";
+        }
     }
 }

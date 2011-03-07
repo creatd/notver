@@ -35,4 +35,29 @@ public partial class UserControls_LoginBox : BaseUserControl
             lblDurum.Text = "tekrar deneyin";
         }
     }
+
+    protected void SifremiUnuttum(object sender, EventArgs e)
+    {
+        lblDurum.Text = "";
+        if (string.IsNullOrEmpty(txtEposta.Text))
+        {
+            lblDurum.Text = "e-posta adresinizi girin";
+            return;
+        }
+        if (Uyelik.EpostaAdresiVarMi(txtEposta.Text))
+        {
+            if (Mesajlar.SifremiUnuttumEpostasiGonder(txtEposta.Text))
+            {
+                lblDurum.Text = "e-posta adresinize sifre talimatlari gonderildi";
+            }
+            else
+            {
+                lblDurum.Text = "bir hata olustu, lutfen tekrar deneyin";
+            }
+        }
+        else
+        {
+            lblDurum.Text = "bu e-posta adresi sistemimizde kayitli degil";
+        }
+    }
 }
