@@ -96,7 +96,7 @@ $(document).ready(function($) {
 <tr>
     <td style="width:160px;color:#F25755; padding-bottom:30px; background-color:#F6F6F6; border-right:1pt solid #C3C3C3;">
         <br /><br />
-        <a style="padding-left:10px; display:block;"
+        <a style="padding-left:10px; display:block;" class="colorbox"
         href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>">Dosya yuklemek icin tiklayin</a>
     </td>
     <td style="background-color:White; padding-left:30px; padding-right:30px;">
@@ -116,7 +116,5 @@ $(document).ready(function($) {
     </td>
 </tr>
 </table>
-
-
 
 <asp:Literal runat="server" ID="ltrScript" EnableViewState="false"></asp:Literal>

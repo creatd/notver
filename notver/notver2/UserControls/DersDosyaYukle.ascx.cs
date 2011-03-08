@@ -124,24 +124,42 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
         }
     }
 
+    protected void KontroluSakla()
+    {
+        pnlHata.Visible = false;
+        pnlDosyaYukle.Visible = false;
+        pnlUyeOl.Visible = false;
+    }
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {
             if (!IsPostBack)
             {
-                //Sayfa ilk acildiginda, hangi sayfadan geldiysen onu aktar
-                if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
+                KontroluSakla();
+                if (!session.IsLoggedIn)
                 {
-                    SeciliDersID = Query.GetInt("DersID");
-                    DersSec(null);
+                    pnlUyeOl.Visible = true;
                 }
-                MevcutSayfa = 1;
-                SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+                else
+                {
+                    pnlDosyaYukle.Visible = true;
+                    //Sayfa ilk acildiginda, hangi sayfadan geldiysen onu aktar
+                    if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
+                    {
+                        SeciliDersID = Query.GetInt("DersID");
+                        DersSec(null);
+                    }
+                    MevcutSayfa = 1;
+                    SayfaBoyutu = Convert.ToInt32(dropSayfaBoyutu.SelectedValue);
+                }
             }
         }
         catch (Exception ex)
         {
+            KontroluSakla();
+            pnlHata.Visible = true;
             Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }

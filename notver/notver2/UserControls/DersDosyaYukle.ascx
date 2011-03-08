@@ -28,87 +28,76 @@ function Temizle(obj)
     obj.value='';
 }
 </script>
-<table>
-    <tr>
-        <td>
-            <asp:TextBox runat="server" ID="txtDersKodu" Text="Ders kodu" Width="100" onclick="javascript:return Temizle(this);"
-            OnKeyDown="javascript:return SetFocusDersAra(event);"></asp:TextBox>
+<asp:Panel ID="pnlDosyaYukle" runat="server" Width="510" Height="380" CssClass="DersDosyaYukle">
+    <p style="padding-bottom:10px; font-size:11px;">
+    Baska bir ders sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox runat="server" ID="txtDersKodu" Text="Ders kodu veya ismi" onclick="javascript:return Temizle(this);"
+            OnKeyDown="javascript:return SetFocusDersAra(event);" CssClass="textbox"></asp:TextBox>
             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDersKodu" Display="Dynamic"
                 ErrorMessage="*" ID="reqDersIsmi" ValidationGroup="vgDersAra"></asp:RequiredFieldValidator>
-        </td>
-        <td>
-            <asp:LinkButton runat="server" ID="btnDersAra" OnClick="DersAra" ValidationGroup="vgDersAra"
-                CausesValidation="true" Text="Ara"></asp:LinkButton>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <asp:Panel runat="server" ID="pnlDersAramaSonuclari" Visible="false">
-                <asp:DataGrid runat="server" ID="gridDersAramaSonuclari" AutoGenerateColumns="false"
-                    AllowPaging="false" AllowSorting="false" OnItemCommand="ItemCommand">
-                    <Columns>
-                        <asp:BoundColumn DataField="KOD" HeaderText="Ders Kodu"></asp:BoundColumn>
-                        <asp:BoundColumn DataField="DERS_ISIM" HeaderText="Isim"></asp:BoundColumn>
-                        <asp:BoundColumn DataField="OKUL_ISIM" HeaderText="Universite"></asp:BoundColumn>
-                        <asp:TemplateColumn>
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" Text="Sec" CommandName="DersSec"
-                                    CommandArgument='<%# DataBinder.Eval(Container,"DataItem.DERS_ID")%>'>
-                                </asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateColumn>
-                        <asp:BoundColumn Visible="false" DataField="OKUL_ID"></asp:BoundColumn>
-                    </Columns>
-                </asp:DataGrid>
-                <asp:Panel ID="pnlPager" runat="server">
-                    <table class="pager">
-                        <tr>
-                            <td>
-                                <asp:LinkButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiSayfayaGit" runat="server"></asp:LinkButton>
-                            </td>
-                            <td>
-                                <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
-                                    <HeaderTemplate>
-                                        <ol>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <li>
-                                            <asp:LinkButton runat="server" Text="<%# Container.DataItem %>" CommandName="SayfayaGit"
-                                                CommandArgument="<%# Container.DataItem %>" ID="lnkSayfa"></asp:LinkButton></li>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                        </ol></FooterTemplate>
-                                </asp:Repeater>
-                            </td>
-                            <td>
-                                <asp:LinkButton ID="lnkSonraki" Text="Sonraki" OnClick="SonrakiSayfayaGit" runat="server"></asp:LinkButton>
-                            </td>
-                            <td>
-                                <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti"
-                                    AutoPostBack="True">
-                                    <asp:ListItem Text="1" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="2" Value="2"></asp:ListItem>
-                                    <asp:ListItem Text="5" Value="5"></asp:ListItem>
-                                    <asp:ListItem Text="10" Value="10"></asp:ListItem>
-                                    <asp:ListItem Text="20" Value="20"></asp:ListItem>
-                                    <asp:ListItem Text="40" Value="40"></asp:ListItem>
-                                    <asp:ListItem Text="Hepsi" Value="0"></asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>
-            </asp:Panel>
-            <asp:Panel runat="server" ID="pnlDersAramaSonuclariBos" Visible="false">
-                Ders bulunamadi
-            </asp:Panel>
-        </td>
-    </tr>
-    <tr>
-        <td>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:LinkButton runat="server" ID="btnDersAra" OnClick="DersAra" ValidationGroup="vgDersAra"
+                CausesValidation="true"><span style="font-size:11px;">Ara</span></asp:LinkButton>                
+    </p>
+    
+    <asp:Panel runat="server" ID="pnlDersAramaSonuclari" Visible="false">
+        <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
+            Sayfa basi <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
+            AutoPostBack="True" CssClass="dropdownPager">
+                            <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                            <asp:ListItem Text="10" Value="10"></asp:ListItem>
+                            <asp:ListItem Text="20" Value="20"></asp:ListItem>
+                            <asp:ListItem Text="40" Value="40"></asp:ListItem>
+                            <asp:ListItem Text="Hepsi" Value="0"></asp:ListItem>
+                        </asp:DropDownList> ders
+        </p>    
+        <asp:DataGrid runat="server" ID="gridDersAramaSonuclari" AutoGenerateColumns="false"
+            AllowPaging="false" AllowSorting="false" OnItemCommand="ItemCommand" GridLines="None">
+            <Columns>
+                <asp:BoundColumn DataField="KOD" HeaderText="Ders Kodu" HeaderStyle-ForeColor="#191919"></asp:BoundColumn>
+                <asp:BoundColumn DataField="DERS_ISIM" HeaderText="Isim" HeaderStyle-ForeColor="#191919"></asp:BoundColumn>
+                <asp:BoundColumn DataField="OKUL_ISIM" HeaderText="Universite" HeaderStyle-ForeColor="#191919"></asp:BoundColumn>
+                <asp:TemplateColumn ItemStyle-ForeColor="#191919">
+                    <ItemTemplate>
+                        &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" Text="Sec" CommandName="DersSec"
+                            CommandArgument='<%# DataBinder.Eval(Container,"DataItem.DERS_ID")%>'>
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:BoundColumn Visible="false" DataField="OKUL_ID"></asp:BoundColumn>
+            </Columns>
+        </asp:DataGrid>
+        <asp:Panel ID="pnlPager" runat="server">
+            <div id="pager" style="text-align:center;">
+                <asp:ImageButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiSayfayaGit" runat="server"
+                ImageUrl="~/App_Themes/Default/Images/prev.png"></asp:ImageButton>
+                <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
+                    <ItemTemplate>
+                            <asp:LinkButton runat="server" Text="<%# Container.DataItem %>" CommandName="SayfayaGit" 
+                            CommandArgument="<%# Container.DataItem %>" ID="lnkSayfa" CssClass="pager"></asp:LinkButton></li>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <asp:ImageButton ID="lnkSonraki" Text="Sonraki" OnClick="SonrakiSayfayaGit" runat="server"
+                ImageUrl="~/App_Themes/Default/Images/next.png">
+                </asp:ImageButton>
+            </div>
+        </asp:Panel>
+            
+
+    </asp:Panel>
+    <asp:Panel runat="server" ID="pnlDersAramaSonuclariBos" Visible="false" CssClass="hata">
+        Ders bulunamadi
+        <br /><br />
+    </asp:Panel>
+
+<table style="border: none; font-weight:bold; font-size:13px;" width="500">
+    <tr style="border-top:solid 1pt #626262;">
+        <td style="padding-bottom:30px; padding-top:30px;">
             Secilen ders :
         </td>
-        <td>
+        <td style="padding-bottom:30px; padding-top:30px;">
             <asp:Label runat="server" ID="lblSecilenDers"></asp:Label>
         </td>
     </tr>
@@ -116,7 +105,7 @@ function Temizle(obj)
         <td>
             Dosya tipi :
         </td>
-        <td>
+        <td style="font-weight:normal;">
             <asp:RadioButtonList runat="server" ID="rbDosyaTipleri">
                 <asp:ListItem Text="Sinav ve/veya Cozum" Value="0" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Ders notu" Value="1"></asp:ListItem>
@@ -134,7 +123,7 @@ function Temizle(obj)
             <span class="sessiz">(Opsiyonel)</span>
         </td>
         <td>
-            <asp:TextBox runat="server" TextMode="SingleLine" Width="250" ID="txtDosyaIsim"></asp:TextBox>
+            <asp:TextBox runat="server" TextMode="SingleLine" ID="txtDosyaIsim" CssClass="textbox"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -154,20 +143,30 @@ function Temizle(obj)
             <span class="sessiz">(Opsiyonel)</span>
         </td>
         <td>
-            <asp:TextBox runat="server" TextMode="MultiLine" Width="250" Height="100" ID="txtDosyaAciklama"></asp:TextBox>
+            <asp:TextBox runat="server" TextMode="MultiLine" Width="250" Height="100" ID="txtDosyaAciklama" CssClass="multitextbox"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td colspan="2" align="center">
+        <td colspan="2" align="left" style="padding-bottom:30px;">
             <asp:FileUpload runat="server" ID="fileUpload" />
         </td>
     </tr>
     <tr>
         <td colspan="2" align="right">
             <asp:Label runat="server" ID="lblYuklemeDurum" CssClass="hata"></asp:Label>
-            <asp:LinkButton runat="server" ID="btnYukle" Text="Yukle" OnClick="DosyaYukle" ValidationGroup="vg1"
-                CausesValidation="true"></asp:LinkButton>
+            <asp:ImageButton runat="server" ID="btnYukle" Text="Yukle" OnClick="DosyaYukle" ValidationGroup="vg1"
+            ImageUrl="~/App_Themes/Default/Images/gonder.png" CausesValidation="true"></asp:ImageButton>
         </td>
     </tr>
 </table>
+</asp:Panel>
+<asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
+    <br/><br/>
+    Dosya yukleyebilmek icin giris yapmaniz gereklidir.
+    <br/><br/>
+    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+</asp:Panel>
+<asp:Panel ID="pnlHata" runat="server" CssClass="durum">
+Bir hata olustu :(
+</asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>
