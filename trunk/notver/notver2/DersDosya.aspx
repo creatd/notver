@@ -5,7 +5,13 @@ MaintainScrollPositionOnPostback="true" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="head">
-<script src="Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.qtip-1.0.0-rc3.min.js" type="text/javascript"></script>
+    <!-- Colorbox -->
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("a.colorbox").colorbox({iframe:true,width:'590px', height:'850px', close:''});
+    });
+    </script>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="content" ID="mainContent">
