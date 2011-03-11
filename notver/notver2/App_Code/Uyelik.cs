@@ -18,6 +18,8 @@ using System.Data.SqlClient;
 /// </summary>
 public class Uyelik
 {
+
+
     public static bool KullaniciSifreDegistir(string KullaniciEposta, string YeniSifre)
     {
         if (string.IsNullOrEmpty(KullaniciEposta) || string.IsNullOrEmpty(YeniSifre))

@@ -8,6 +8,10 @@
     <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/Default2.css" rel="stylesheet" type="text/css" />
+    <link href="../Scripts/colorbox.css" rel="stylesheet" type="text/css" />
+    
+    <script src="../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="../Scripts/colorbox.js" type="text/javascript"></script>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -25,7 +29,8 @@
             <asp:HyperLink runat="server" ID="lnkTumDersler" Text="Dersler" NavigateUrl="~/Admin/TumDersler.aspx"></asp:HyperLink>&nbsp;-&nbsp;
             <asp:HyperLink runat="server" ID="lnkTumDersYorumlar" Text="Ders Yorumlari" NavigateUrl="~/Admin/TumDersYorumlar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
             <asp:HyperLink runat="server" ID="lnkTumDosyalar" Text="Dosyalar" NavigateUrl="~/Admin/TumDosyalar.aspx"></asp:HyperLink>&nbsp;-&nbsp;
-            <asp:HyperLink runat="server" ID="lnkTumUyeler" Text="Uyeler" NavigateUrl="~/Admin/TumUyeler.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumUyeler" Text="Uyeler" NavigateUrl="~/Admin/TumUyeler.aspx"></asp:HyperLink>&nbsp;-&nbsp;
+            <asp:HyperLink runat="server" ID="lnkTumMesajlar" Text="Mesajlar" NavigateUrl="~/Admin/TumMesajlar.aspx"></asp:HyperLink>
         </p>
         <asp:ContentPlaceHolder id="content" runat="server">
         

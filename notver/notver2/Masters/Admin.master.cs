@@ -46,6 +46,7 @@ public partial class Masters_Admin : System.Web.UI.MasterPage
             lnkTumHocaYorumlar.Enabled = true;
             lnkTumDersYorumlar.Enabled = true;
             lnkTumUyeler.Enabled = true;
+            lnkTumMesajlar.Enabled = true;
             string url = Request.Url.AbsolutePath;
             if(url.Contains("TumOkullar.aspx"))
             {
@@ -78,6 +79,10 @@ public partial class Masters_Admin : System.Web.UI.MasterPage
             else if (url.Contains("TumUyeler.aspx"))
             {
                 lnkTumUyeler.Enabled = false;
+            }
+            else if (url.Contains("TumMesajlar.aspx"))
+            {
+                lnkTumMesajlar.Enabled = false;
             }
             else if (url.Contains("IcerikEkle.aspx"))
             {

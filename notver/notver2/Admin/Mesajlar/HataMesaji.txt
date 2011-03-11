@@ -1,4 +1,7 @@
 ﻿URL : ||URL||
+<br />
 Tarih : ||TARIH||
+<br />
 Kullanici ID : ||KULLANICI_ID||
+<br />
 Hata mesaji : ||MESAJ||
