@@ -18,6 +18,91 @@ using System.IO;
 /// </summary>
 public static class Mesajlar
 {
+    public static DataTable MesajYukle(int MesajID)
+    {
+        if (MesajID < 0)
+        {
+            return null;
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand("MesajYukle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("MesajID", MesajID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
+    public static bool Admin_MesajOkunduIsaretle(int MesajID)
+    {
+        if (MesajID < 0)
+        {
+            return false;
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_MesajOkunduIsaretle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("MesajID", MesajID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static bool Admin_MesajSil(int MesajID)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_MesajSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("MesajID", MesajID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    /// <summary>
+    /// Admine gonderilen mesajlari dondurur. Verilen parametreye gore sadece okunmamislari ya da tumunu dondurur.
+    /// </summary>
+    /// <param name="Tumu"></param>
+    /// <returns></returns>
+    public static DataTable Admin_MesajlariDondur(bool Tumu)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_MesajlariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("Tumu", Tumu);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     public static bool SifremiUnuttumEpostasiGonder(string KullaniciEpostasi)
     {
         try
