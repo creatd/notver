@@ -152,6 +152,7 @@ public class Uyelik
         catch (Exception ex) { }
         return false;
     }
+
     public static bool Admin_UyeGuncelle(int UyeID, string Eposta, bool Bloke, string BlokNedeni,
         string KullaniciAdi, string Ad, string Soyad, int OkulID, Enums.UyelikDurumu UyelikDurumu,
         Enums.UyelikRol UyelikRol, bool KizMi, int OnayPuani)
@@ -587,14 +588,23 @@ public class Uyelik
         return 0;
     }
 
-    public static bool GirisYap(string Eposta, string sifre)
+    /// <summary>
+    /// 0: Giris basarili
+    /// -1: Eposta-sifre taninmadi
+    /// -2: Kullanici engellenmis
+    /// -999: Bilinmeyen hata
+    /// </summary>
+    /// <param name="Eposta"></param>
+    /// <param name="sifre"></param>
+    /// <returns></returns>
+    public static int GirisYap(string Eposta, string sifre)
     {
         try
         {
             //Bu kontrol giris kutusunda yapilmis olmali ama yine de burada da yapalim
             if (string.IsNullOrEmpty(Eposta) || string.IsNullOrEmpty(sifre))
             {
-                return false;
+                return -999;
             }
             Eposta = Eposta.Trim();
             Eposta = Eposta.ToLowerInvariant();
@@ -613,16 +623,27 @@ public class Uyelik
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            if (Util.ExecuteAndCheckReturnValue(cmd))
+            int sonuc = Util.GetReturnValue(cmd);
+            switch(sonuc)
             {
-                KullaniciYukle(Eposta); 
-                return true;
+                case 0: //Sorun yok
+                    KullaniciYukle(Eposta); 
+                    return 0;
+                    break;
+                case -1:    //Eposta-sifre bulunamadi
+                    return -1;
+                    break;
+                case -2:    //Kullanici engellenmis
+                    return -2;
+                    break;
+                default:    //Bilinmeyen hata
+                    break;
             }
         }
         catch
         {
         }
-        return false;
+        return -999;
     }
 
     

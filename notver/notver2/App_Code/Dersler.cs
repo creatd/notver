@@ -731,7 +731,7 @@ public class Dersler
         }
     }
 
-    public static void DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, 
+    public static bool DersDosyasiniKaydet(int dersID, int HocaID, Enums.DosyaKategoriTipi dosyaKategoriTipi, 
         string dosyaIsmi, string dosyaAdresi, int yukleyenKullaniciID, string aciklama, int KullaniciOnayPuani,
         int DosyaBoyut)
     {
@@ -739,8 +739,7 @@ public class Dersler
         {
             if (dersID < 0)
             {
-                //TODO: admine msj (dosyayi kaydettik ama veritabanina yazamadik)
-                return;
+                return false;
             }
             SqlCommand cmd = new SqlCommand("DersDosyasiniKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -763,7 +762,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("DosyaIsmi",dosyaIsmi);
+            param = new SqlParameter("DosyaIsmi", dosyaIsmi);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -778,10 +777,13 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Aciklama", aciklama);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.NVarChar;
-            cmd.Parameters.Add(param);
+            if (!string.IsNullOrEmpty(aciklama))
+            {
+                param = new SqlParameter("Aciklama", Util.HTMLToDB(aciklama));
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.NVarChar;
+                cmd.Parameters.Add(param);
+            }
 
             param = new SqlParameter("YuklemeTarihi", System.DateTime.Now);
             param.Direction = ParameterDirection.Input;
@@ -803,15 +805,10 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (Util.ExecuteNonQuery(cmd) == -1)
-            {
-                //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
-            }
+            return Util.ExecuteNonQuery(cmd) == 1;
         }
-        catch (Exception)
-        {
-            //TODO: ciddi sorun, admine haber ver (dosyayi kaydettik ama veritabanina yazamadik)
-        }
+        catch (Exception ex) { }
+        return false;
     }
 
     /// <summary>

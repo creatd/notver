@@ -49,13 +49,14 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                 {
                     pnlNotYok.Visible = true;
                 }
-                else if (puanlar.Length != 5)   //Hata
+                else if (puanlar.Length != 6)   //Hata, 5 puan + Puan sayisi olmali
                 {
+                    //TODO: Admine msj
                 }
                 else
                 {
                     pnlNotYok.Visible = false;
-                    //Puanlari yildizlarin genisligine gore orantilamaliyiz, 5 yildizin genisligi 84px
+                    //Puanlari yildizlarin genisligine gore orantilamaliyiz, 5 yildizin genisligi 100px
                     for (int i = 0; i < 5; i++)
                     {
                         puanlar[i] = (puanlar[i] * 20) * ((float)100 / 100);
@@ -71,6 +72,8 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                     sb.Append("</script>");
                     script.Text = sb.ToString();
                     //   Puan1.
+
+                    lblToplamPuanSayisi.Text = "(Toplam <strong>" + puanlar[5] + "</strong> kisi puan vermis)";
                 }
                 //e: Hoca puanlarini doldur
             }

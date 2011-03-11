@@ -173,6 +173,31 @@ public class Util
     }
 
     /// <summary>
+    /// Prosedurden return ile donen degeri dondurur, hata olursa -999 dondurur
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <returns></returns>
+    public static int GetReturnValue(SqlCommand cmd)
+    {
+        try
+        {
+            SqlParameter param = new SqlParameter("Return_Value", DbType.Int32);
+            param.Direction = ParameterDirection.ReturnValue;
+            cmd.Parameters.Add(param);
+
+            cmd.Connection = Util.GetSqlConnection();
+            cmd.ExecuteNonQuery();
+
+            if (Util.GecerliSayi(cmd.Parameters["Return_Value"].Value))
+            {
+                return Convert.ToInt32(cmd.Parameters["Return_Value"].Value);
+            }
+        }
+        catch { }
+        return -999;
+    }
+
+    /// <summary>
     /// Prosedurden return ile donen deger 0 ise true, degilse false dondurur
     /// </summary>
     /// <param name="cmd"></param>

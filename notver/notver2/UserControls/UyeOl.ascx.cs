@@ -86,7 +86,10 @@ public partial class UserControls_UyeOl : BaseUserControl
                 //Onay epostasi gonderemedik
                 //TODO: Admin'e mesaj
             }
-            Uyelik.GirisYap(eposta, sifre);
+            if (Uyelik.GirisYap(eposta, sifre) != 0)
+            {
+                //TODO: Admin'e mesaj gonder, yeni uyeyi giris yaptiramadin
+            }
             RefreshPage();
         }
     }
