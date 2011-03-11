@@ -40,7 +40,7 @@ public partial class Giris : BasePage
 
     protected void GirisYap(object sender, EventArgs e)
     {
-        if (Uyelik.GirisYap(txtEposta.Text, txtSifreGiris.Text))
+        if (Uyelik.GirisYap(txtEposta.Text, txtSifreGiris.Text) == 0)
         {
             //session.LoggedIn = true;
             //session.KullaniciAdi = txtUsername.Text.Trim();

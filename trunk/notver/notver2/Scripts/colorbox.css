@@ -9,7 +9,7 @@
 #cboxContent{position:relative; overflow:hidden;}
 #cboxLoadedContent{overflow:auto;}
 #cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
-#cboxTitle{margin:0;}
+#cboxTitle{margin:0; display:none;}
 #cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
 #cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
 
@@ -31,7 +31,7 @@
     #cboxMiddleRight{width:25px; background:url(images/border2.png) repeat-y -25px 0;}
     #cboxContent{background:#fff;}
         #cboxLoadedContent{margin-bottom:0px; background-color:#f6f6f6;}
-        #cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#999;}
+        #cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#f6f6f6; display:none !important;}
         #cboxCurrent{position:absolute; bottom:0px; left:100px; color:#999;}
         #cboxSlideshow{position:absolute; bottom:0px; right:42px; color:#444;}
         #cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}

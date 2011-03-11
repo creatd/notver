@@ -1264,12 +1264,13 @@ public class Hocalar
             float puanSayisi = (float)Convert.ToInt32(dr["PUAN_SAYISI"]);
             if (puanSayisi < 1)
                 return null;
-            float[] result = new float[5];
+            float[] result = new float[6];
             result[0] = Convert.ToInt32(dr["PUAN1"]) / puanSayisi;
             result[1] = Convert.ToInt32(dr["PUAN2"]) / puanSayisi;
             result[2] = Convert.ToInt32(dr["PUAN3"]) / puanSayisi;
             result[3] = Convert.ToInt32(dr["PUAN4"]) / puanSayisi;
             result[4] = Convert.ToInt32(dr["PUAN5"]) / puanSayisi;
+            result[5] = Convert.ToInt32(dr["PUAN_SAYISI"]);
             return result;
         }
         catch (Exception)

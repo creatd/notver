@@ -25,14 +25,22 @@ public partial class UserControls_LoginBox : BaseUserControl
 
     protected void GirisYap(object sender, EventArgs e)
     {
-        if (Uyelik.GirisYap(txtEposta.Text, txtSifre.Text))
+        int sonuc = Uyelik.GirisYap(txtEposta.Text, txtSifre.Text);
+        switch(sonuc)
         {
-            RefreshPage();
-            lblDurum.Text = "";
-        }
-        else
-        {
-            lblDurum.Text = "tekrar deneyin";
+            case 0: //Sorun yok
+                RefreshPage();
+                lblDurum.Text = "";
+                break;
+            case -1:    //Eposta-sifre bulunamadi
+                lblDurum.Text = "tekrar deneyin";
+                break;
+            case -2:    //Kullanici engellenmis
+                lblDurum.Text = "hesabiniz engellenmistir";
+                break;
+            default:    //Bilinmeyen hata
+                lblDurum.Text = "hata olustu - tekrar deneyin";
+                break;
         }
     }
 

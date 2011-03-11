@@ -153,9 +153,13 @@ function Temizle(obj)
     </tr>
     <tr>
         <td colspan="2" align="right">
-            <asp:Label runat="server" ID="lblYuklemeDurum" CssClass="hata"></asp:Label>
             <asp:ImageButton runat="server" ID="btnYukle" Text="Yukle" OnClick="DosyaYukle" ValidationGroup="vg1"
             ImageUrl="~/App_Themes/Default/Images/gonder.png" CausesValidation="true"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center" style="padding-top:20px;">
+            <asp:Label runat="server" ID="lblYuklemeDurum" CssClass="hata"></asp:Label>
         </td>
     </tr>
 </table>

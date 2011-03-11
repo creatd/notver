@@ -350,13 +350,16 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                     }
                 }
 
-                Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue), 
+                if (!Dersler.DersDosyasiniKaydet(SeciliDersID, Convert.ToInt32(drpDersHocalar.SelectedValue),
                     (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue), dosyaIsimFinal,
                     klasorIsim + dosyaIsimFinal, session.KullaniciID, txtDosyaAciklama.Text, session.KullaniciOnayPuani,
-                    dosyaBoyut);
+                    dosyaBoyut))
+                {
+                    //TODO: Admin'e haber ver, amazon'a yukledik veritabanina yazamadik
+                }
 
                 lblYuklemeDurum.Text = "Yuklendi! Tesekkurler :)";
-                ltrScript.Text = "<script type='text/javascript'>setTimeout('self.parent.tb_remove()',1500);</script>";
+                ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
             }
             catch (Exception ex)
             {

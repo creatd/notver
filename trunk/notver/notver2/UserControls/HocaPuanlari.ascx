@@ -106,6 +106,11 @@
         </table>        
     </td>
 </tr>
+<tr>
+    <td colspan="2" align="right" style="font-style:italic;">
+        <asp:Label runat="server" ID="lblToplamPuanSayisi"></asp:Label>
+    </td>
+</tr>
 </table>
 </asp:Panel>
 

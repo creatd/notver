@@ -66,7 +66,7 @@ public class Enums
         Gecersiz = -1,  //Bir hata olusunca bunu dondurur (session expire oldugunda mesela)
         EpostaOnayBekliyor = 0, 
         EpostaOnayli = 1,       
-        UniEpostaOnayli = 2     
+        UniEpostaOnayli = 2
     }
 
     public enum UyelikRol
