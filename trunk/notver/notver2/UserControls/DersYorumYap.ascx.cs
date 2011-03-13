@@ -108,7 +108,6 @@ public partial class UserControls_DersYorumYap : BaseUserControl
         }
         catch (Exception ex)
         {
-
             Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
@@ -120,23 +119,43 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
+        if (string.IsNullOrEmpty(textYorum.Text))
+        {
+            ltrDurum.Text = "Yorum girmeyi unuttun";
+            return;
+        }
+
+        ltrDurum.Text = "";
+        if (puanDersZorluk.CurrentRating < 1 || puanDersZorluk.CurrentRating > 5)
+        {
+            ltrDurum.Text = "Ders zor muydu sorusuna cevap vermedin";
+            return;
+        }
         int HocaID = -1;
         if (drpDersHocalar != null && drpDersHocalar.Items.Count > 0)
         {
             if (Util.GecerliSayi(drpDersHocalar.SelectedValue))
             {
                 HocaID = Convert.ToInt32(drpDersHocalar.SelectedValue);
+                if (HocaID >= 0)
+                {
+                    if (puanDersHoca.CurrentRating < 1 || puanDersHoca.CurrentRating > 5)
+                    {
+                        ltrDurum.Text = "Bu hocadan almak sorusuna cevap vermedin";
+                        return;
+                    }
+                }
             }
         }
         if (!Dersler.DersYorumKaydet(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text,
             puanDersZorluk.CurrentRating, HocaID, puanDersHoca.CurrentRating, 
             txtBilinmeyenHocaIsmi.Text,session.KullaniciOnayPuani))
         {
-            ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
+            ltrDurum.Text = "Yorum kaydederken bir hata oldu, lütfen tekrar deneyin.";
         }
         else
         {
-            ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
+            ltrDurum.Text = "Yorumun başarıyla kaydedildi!";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }
@@ -148,23 +167,42 @@ public partial class UserControls_DersYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumGuncelle(object sender, EventArgs e)
     {
+        ltrDurum.Text = "";
+        if (puanDersZorluk.CurrentRating < 1 || puanDersZorluk.CurrentRating > 5)
+        {
+            ltrDurum.Text = "Ders zor muydu sorusuna cevap vermedin";
+            return;
+        }
+        if (string.IsNullOrEmpty(textYorum.Text))
+        {
+            ltrDurum.Text = "Yorum girmeyi unuttun";
+            return;
+        }
         int HocaID = -1;
         if (drpDersHocalar != null && drpDersHocalar.Items.Count > 0)
         {
             if (Util.GecerliSayi(drpDersHocalar.SelectedValue))
             {
                 HocaID = Convert.ToInt32(drpDersHocalar.SelectedValue);
+                if (HocaID >= 0)
+                {
+                    if (puanDersHoca.CurrentRating < 1 || puanDersHoca.CurrentRating > 5)
+                    {
+                        ltrDurum.Text = "Bu hocadan almak sorusuna cevap vermedin";
+                        return;
+                    }
+                }
             }
         }
         if (!Dersler.DersYorumGuncelle(Query.GetInt("DersYorumID"), textYorum.Text, puanDersZorluk.CurrentRating, 
             HocaID, puanDersHoca.CurrentRating, txtBilinmeyenHocaIsmi.Text, 
             session.KullaniciOnayPuani))
         {
-            ltrDurum.Text = "Yorum guncellerken bir hata olustu. Lutfen tekrar deneyin.";
+            ltrDurum.Text = "Yorum güncellerken bir hata oldu, lütfen tekrar deneyin.";
         }
         else
         {
-            ltrDurum.Text = "Yorumunuz basariyla guncellendi!";
+            ltrDurum.Text = "Yorumun başarıyla güncellendi!";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }

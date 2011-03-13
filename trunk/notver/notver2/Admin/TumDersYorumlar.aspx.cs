@@ -343,8 +343,21 @@ public partial class Admin_TumDersYorumlar : BasePage
                 int KullaniciID = Convert.ToInt32(kullaniciID);
                 if (Dersler.Admin_DersYorumYayindanKaldir(dersYorumID, KullaniciID, txtSilinmeNedeni.Text))
                 {
-                    lblDurum1.Text = "Ders yorumu yayindan kaldirildi";
-                    lblDurum2.Text = "Ders yorumu yayindan kaldirildi";
+                    //Kullaniciya mesaj gonder
+                    string yorum = e.Item.Cells[8].Text;
+                    string gonderilmeTarihi = e.Item.Cells[9].Text;
+                    //DateTime donusumu patlayabilir ama patlamiycagini umabiliriz
+                    if (Mesajlar.KullaniciyaYorumSilindiEpostasiGonder(KullaniciID, yorum, txtSilinmeNedeni.Text, 
+                        Convert.ToDateTime(gonderilmeTarihi)))
+                    {
+                        lblDurum1.Text = "Ders yorumu yayindan kaldirildi";
+                        lblDurum2.Text = "Ders yorumu yayindan kaldirildi";
+                    }
+                    else
+                    {
+                        lblDurum1.Text = "Ders yorumu yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                        lblDurum2.Text = "Ders yorumu yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                    }
                     GridDoldur();
                 }
                 else

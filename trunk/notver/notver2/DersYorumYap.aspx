@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>NotVer - Hocalarla ogrencilerin rol degistirdigi yer..</title>
+    <title>NotVerin - Hocalarla öğrenciler yer değiştiriyor</title>
     <link href="App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
     <link href="App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
     <link href="App_Themes/Default/Default2.css" rel="stylesheet" type="text/css" />

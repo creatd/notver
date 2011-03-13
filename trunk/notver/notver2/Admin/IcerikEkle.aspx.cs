@@ -152,7 +152,7 @@ public partial class Admin_IcerikEkle : BasePage
             txtOkulWebAdresi.Text))
         {
             OkulSifirla();
-            lblDurumOkulEkle.Text = "Okul basariyla eklendi";
+            lblDurumOkulEkle.Text = "Okul başarıyla eklendi";
             if (session == null)
             {
                 session = new Session();
@@ -162,7 +162,7 @@ public partial class Admin_IcerikEkle : BasePage
         }
         else
         {
-            lblDurumOkulEkle.Text = "Bir hata olustu";
+            lblDurumOkulEkle.Text = "Bir hata oldu";
         }
         
     }
@@ -206,12 +206,12 @@ public partial class Admin_IcerikEkle : BasePage
             txtHocaIsim.Text, txtHocaUnvan.Text, yorumSayisi,
             hocaOkullarIDler, okulBaslangicYillari, okulBitisYillari, hocaDerslerIDler))
         {
-            lblDurumHocaEkle.Text = "Hoca basariyla eklendi";
+            lblDurumHocaEkle.Text = "Hoca başarıyla eklendi";
             HocaSifirla();
         }
         else
         {
-            lblDurumHocaEkle.Text = "Hoca eklerken bir hata olustu!";
+            lblDurumHocaEkle.Text = "Hoca eklerken bir hata oldu!";
         }
     }
 
@@ -232,7 +232,7 @@ public partial class Admin_IcerikEkle : BasePage
 
         if (bitis_yili > 0 && bitis_yili < baslangic_yili)
         {
-            lblHocaOkulEkleDurum.Text = "Bitis yili baslangic yilindan once olamaz";
+            lblHocaOkulEkleDurum.Text = "Bitiş yılı başlangıç yılından önce olamaz";
             return;
         }
 
@@ -412,12 +412,12 @@ public partial class Admin_IcerikEkle : BasePage
         if (Dersler.DersEkle(Convert.ToInt32(drpDersOkullar.SelectedValue), Convert.ToBoolean(Convert.ToInt32(drpDersIsActive.SelectedValue)),
             txtDersKod.Text, txtDersIsim.Text, txtDersAciklama.Text))
         {
-            lblDurumDersEkle.Text = "Ders basariyla eklendi";
+            lblDurumDersEkle.Text = "Ders başarıyla eklendi";
             DersSifirla();
         }
         else
         {
-            lblDurumDersEkle.Text = "Ders eklenirken bir hata olustu!";
+            lblDurumDersEkle.Text = "Ders eklenirken bir hata oldu!";
         }
     }
 
@@ -439,7 +439,7 @@ public partial class Admin_IcerikEkle : BasePage
         }
         else
         {
-            lblDurumDersEkle.Text = "Okuldaki dersleri dondururken hata olustu!";
+            lblDurumDersEkle.Text = "Okuldaki dersleri döndürürken bir hata oldu!";
         }
         //Secili okula gore hocalari doldur
         DataTable dtHocalar = Hocalar.OkuldakiHocalariDondur(okulID);
@@ -454,7 +454,7 @@ public partial class Admin_IcerikEkle : BasePage
         }
         else
         {
-            lblDurumDersEkle.Text = "Okuldaki hocalari dondururken hata olustu!";
+            lblDurumDersEkle.Text = "Okuldaki hocaları döndürürken bir hata oldu!";
         }
     }
 
@@ -469,7 +469,7 @@ public partial class Admin_IcerikEkle : BasePage
         int seciliDersID = Convert.ToInt32(drpDosyaDersler.SelectedValue);
         if (seciliDersID <= 0)
         {
-            lblDurumDosyaYukle.Text = "Ders secmeniz gerekmektedir";
+            lblDurumDosyaYukle.Text = "Ders seçmen gerekli";
             return;
         }
         if (fileUpload.HasFile)
@@ -479,11 +479,11 @@ public partial class Admin_IcerikEkle : BasePage
                 int dosyaBoyut = fileUpload.PostedFile.ContentLength;
                 if (dosyaBoyut <= 0)
                 {
-                    lblDurumDosyaYukle.Text = "Sectiginiz dosyanin iceriginde bir sorun var, lutfen tekrar deneyin";
+                    lblDurumDosyaYukle.Text = "Seçtiğin dosyanın içeriğinde bir sorun var, tekrar dene";
                 }
                 else if (dosyaBoyut > 5 * 1024 * 1024)
                 {
-                    lblDurumDosyaYukle.Text = "5 GB'tan buyuk bir dosya yukleyemezsiniz, lutfen daha kucuk bir dosya secin";
+                    lblDurumDosyaYukle.Text = "YUH! 5 GB'tan büyük bir dosya yükleyemezsin, daha küçük bir dosya seç";
                 }
 
                 string dosyaAdres = Path.GetFileName(fileUpload.FileName);
@@ -503,7 +503,7 @@ public partial class Admin_IcerikEkle : BasePage
                 //Amazon'a yuklemeden once bu isimde bir dosya var mi kontrol et, yoksa uzerine yaziyo
                 if (Dersler.DersDosyaIsmiVarMi(seciliDersID, (Enums.DosyaKategoriTipi)Convert.ToInt32(drpDosyaTipler.SelectedValue), dosyaIsimFinal))
                 {
-                    lblDurumDosyaYukle.Text = "Ayni ders icin bu isimde bir dosya daha once yuklenmis. Lutfen baska bir isim secip tekrar deneyin";
+                    lblDurumDosyaYukle.Text = "Aynı ders için bu isimde bir dosya daha önce yüklenmiş. Lütfen başka bir isim seçip tekrar deneyin";
                     return;
                 }
 
@@ -555,18 +555,18 @@ public partial class Admin_IcerikEkle : BasePage
                     klasorIsim + dosyaIsimFinal, session.KullaniciID, txtDosyaAciklama.Text, session.KullaniciOnayPuani,
                     dosyaBoyut);
 
-                lblDurumDosyaYukle.Text = "Yuklendi! Tesekkurler :)";
+                lblDurumDosyaYukle.Text = "Yüklendi! Teşekkürler :)";
                 DersDosyaSifirla();
             }
             catch (Exception ex)
             {
                 //TODO: Admine msj
-                lblDurumDosyaYukle.Text = "Bir hata olustu, lutfen tekrar deneyin";
+                lblDurumDosyaYukle.Text = "Bir hata oluştu, lütfen tekrar deneyin";
             }
         }
         else
         {
-            lblDurumDosyaYukle.Text = "Dosya secmeyi unuttunuz";
+            lblDurumDosyaYukle.Text = "Dosya seçmeyi unuttun";
         }
     }
 

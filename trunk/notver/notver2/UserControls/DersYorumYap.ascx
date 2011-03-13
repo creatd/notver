@@ -60,25 +60,25 @@ function pageLoad() {
         if ($find("<%=puanDersZorluk.ClientID %>" + "_RatingExtender").get_ReadOnly()) {
             var rate = $("#<%=puanDersZorluk.ClientID %> > a").attr("title");
             if (rate != 0) {
-                $("#<%=puanDersZorluk.ClientID %> > a").attr("title", "Rated " + rate + " star(s)");
+                $("#<%=puanDersZorluk.ClientID %> > a").attr("title", rate + " yıldız verildi");
             }           
         }
         else {
             $("#<%=puanDersZorluk.ClientID %>").find("span").each(function() {
                 if (this.value == 1) {
-                    $(this).attr("title", "Click to rate as 1 star");
+                    $(this).attr("title", "Çok kötü fikir");
                 }
                 if (this.value == 2) {
-                    $(this).attr("title", "Click to rate as 2 stars");
+                    $(this).attr("title", "Kötü fikir");
                 }
                 if (this.value == 3) {
-                    $(this).attr("title", "Click to rate as 3 stars");
+                    $(this).attr("title", "Orta karar");
                 }
                 if (this.value == 4) {
-                    $(this).attr("title", "Click to rate as 4 stars");
+                    $(this).attr("title", "İyi fikir");
                 }
                 if (this.value == 5) {
-                    $(this).attr("title", "Click to rate as 5 stars");
+                    $(this).attr("title", "Çok iyi fikir");
                 }
             });
         }    
@@ -95,8 +95,8 @@ $(document).ready(function() {
 <asp:ToolkitScriptManager runat="server" ScriptMode="Release"></asp:ToolkitScriptManager>
 
 <asp:Panel ID="pnlPuanYorum" runat="server" Width="510" Height="395" CssClass="DersYorumYap">
-    <p style="color:#626262; font-size:12px;">Yapmis oldugunuz tum yorumlari goruntulemek veya degistirmek icin 
-    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
+    <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya değiştirmek için
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tıklayın</asp:HyperLink></p>
     <br />
     <p>Yorumunuz</p>
     <p style="margin-bottom:20px;">
@@ -153,9 +153,9 @@ $(document).ready(function() {
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
     <br/><br/>
-    Yorum yapabilmek icin giris yapmaniz gereklidir.
+    Yorum yapabilmek için giriş yapmalısın.
     <br/><br/>
-    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+    Üyeliğin yoksa ana sayfada sağ üstten hemen ücretsiz üye olabilirsin.
 </asp:Panel>
 <asp:Panel ID="pnlHata" runat="server" CssClass="durum">
 Bir hata olustu :(

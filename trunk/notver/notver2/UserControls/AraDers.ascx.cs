@@ -14,11 +14,6 @@ using System.Text;
 
 public partial class UserControls_AraDers : BaseUserControl
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
-
     protected void Ara(object sender, EventArgs e)
     {
         try

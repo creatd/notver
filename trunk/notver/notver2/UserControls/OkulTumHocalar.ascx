@@ -16,6 +16,6 @@
 </asp:Repeater>
 <asp:Label runat="server" ID="lblHocaYok">
     <span style="border-left:solid 1pt #c3c3c3; padding-left:30px; font-weight:normal; font-style:italic;">
-        Henuz hoca yok
+        Henüz hoca eklenmemiş
     </span>
 </asp:Label>

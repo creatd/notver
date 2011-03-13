@@ -27,15 +27,15 @@ $(document).ready(function($) {
 <tr>
     <td id="divKlasorler">
         <p>
-            <asp:LinkButton runat="server" Text="Sinav ve Cozumler" ID="butKlasor0" CommandArgument="0"
+            <asp:LinkButton runat="server" Text="Sınav ve Çözümler" ID="butKlasor0" CommandArgument="0"
                 OnCommand="KlasorSec"  /></p>
         <span>&nbsp;</span>
         <p>
-            <asp:LinkButton runat="server" Text="Ders Notlari" ID="butKlasor1" CommandArgument="1"
+            <asp:LinkButton runat="server" Text="Ders Notları" ID="butKlasor1" CommandArgument="1"
                 OnCommand="KlasorSec" /></p>
         <span>&nbsp;</span>
         <p>
-            <asp:LinkButton runat="server" Text="Odevler" ID="butKlasor2" CommandArgument="2"
+            <asp:LinkButton runat="server" Text="Ödevler" ID="butKlasor2" CommandArgument="2"
                 OnCommand="KlasorSec" /></p>
         <span>&nbsp;</span>
         <p>
@@ -43,22 +43,22 @@ $(document).ready(function($) {
                 OnCommand="KlasorSec" /></p>
         <span>&nbsp;</span>
         <p>
-            <asp:LinkButton runat="server" Text="Yararli Kaynaklar" ID="butKlasor4" CommandArgument="4"
+            <asp:LinkButton runat="server" Text="Yararlı Kaynaklar" ID="butKlasor4" CommandArgument="4"
                 OnCommand="KlasorSec" /></p>
         <span>&nbsp;</span>
         <p>
-            <asp:LinkButton runat="server" Text="Diger" ID="butKlasor5" CommandArgument="5" OnCommand="KlasorSec" /></p>
+            <asp:LinkButton runat="server" Text="Diğer" ID="butKlasor5" CommandArgument="5" OnCommand="KlasorSec" /></p>
         <span>&nbsp;</span>
         <p>
             <br />
-            <asp:LinkButton runat="server" Text="Tum dosyalar..." ID="butKlasor6" CommandArgument="6" OnCommand="KlasorSec" /></p>        
+            <asp:LinkButton runat="server" Text="Tüm dosyalar..." ID="butKlasor6" CommandArgument="6" OnCommand="KlasorSec" /></p>        
         <br /><br /><br />
 
     </td>
     <td class="pnlDosyalar">
         <asp:Panel runat="server" ID="pnlDosyalar">
             <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
-                Sayfa basi&nbsp;<asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti"
+                Sayfa başı&nbsp;<asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti"
                     AutoPostBack="True">
                     <asp:ListItem Text="1" Value="1"></asp:ListItem>
                     <asp:ListItem Text="2" Value="2"></asp:ListItem>
@@ -73,14 +73,14 @@ $(document).ready(function($) {
                 AllowSorting="true" AllowPaging="false" OnItemCommand="gridDosyalar_ItemCommand" CssClass="gridDosyalar" BorderStyle="None"
                 BorderWidth="0" GridLines="None">
                 <Columns>
-                    <asp:BoundColumn DataField="DOSYA_ISMI" HeaderText="Dosya Ismi" ItemStyle-Width="300px" HeaderStyle-ForeColor="Black"
+                    <asp:BoundColumn DataField="DOSYA_ISMI" HeaderText="Dosya İsmi" ItemStyle-Width="300px" HeaderStyle-ForeColor="Black"
                     HeaderStyle-Height="50px" HeaderStyle-Font-Size="12px"></asp:BoundColumn>
-                    <asp:BoundColumn DataField="HOCA_ISIM" HeaderText="Hoca Ismi" ItemStyle-Width="150px"  HeaderStyle-ForeColor="Black"
+                    <asp:BoundColumn DataField="HOCA_ISIM" HeaderText="Hoca İsmi" ItemStyle-Width="150px"  HeaderStyle-ForeColor="Black"
                     HeaderStyle-Height="50px" HeaderStyle-Font-Size="12px"></asp:BoundColumn>
                     <asp:BoundColumn DataField="EKLENME_TARIHI" HeaderText="Eklenme Tarihi" ItemStyle-Width="150px" HeaderStyle-ForeColor="Black"
                     HeaderStyle-Height="50px" HeaderStyle-Font-Size="12px"></asp:BoundColumn>
                     <asp:BoundColumn DataField="DOSYA_ADRES" Visible="false"></asp:BoundColumn>
-                    <asp:ButtonColumn ButtonType="LinkButton" HeaderText="Indir" CommandName="DosyaIndir" HeaderStyle-ForeColor="Black"
+                    <asp:ButtonColumn ButtonType="LinkButton" HeaderText="İndir" CommandName="DosyaIndir" HeaderStyle-ForeColor="Black"
                     HeaderStyle-Height="50px" HeaderStyle-Font-Size="12px" Text="&lt;img src=&quot;./App_Themes/Default/Images/indir.png&quot; /&gt;">
                     </asp:ButtonColumn>
                 </Columns>
@@ -88,7 +88,7 @@ $(document).ready(function($) {
         </asp:Panel> 
         <asp:Panel ID="pnlDosyaYok" runat="server" Visible="false">
             <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
-                Daha once sectiginiz kategoride dosya eklenmemis. Sol taraftan baska bir kategori secin.
+                Sectiğiniz kategoride henüz dosya eklenmemiş. Sol taraftan başka bir kategori seçin.
             </p>
         </asp:Panel>         
     </td>
@@ -97,11 +97,11 @@ $(document).ready(function($) {
     <td style="width:160px;color:#F25755; padding-bottom:30px; background-color:#F6F6F6; border-right:1pt solid #C3C3C3;">
         <br /><br />
         <a style="padding-left:10px; display:block;" class="colorbox"
-        href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>">Dosya yuklemek icin tiklayin</a>
+        href="DersDosyaYukle.aspx?DersID=<%=Query.GetInt("DersID")%>">Dosya yüklemek için tıklayın</a>
     </td>
     <td style="background-color:White; padding-left:30px; padding-right:30px;">
         <div id="pager" style="text-align:center; height:100%;">
-            <asp:ImageButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiSayfayaGit" runat="server"
+            <asp:ImageButton ID="lnkOnceki" Text="Önceki" OnClick="OncekiSayfayaGit" runat="server"
             ImageUrl="~/App_Themes/Default/Images/prev.png"></asp:ImageButton>
             <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
                 <ItemTemplate>

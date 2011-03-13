@@ -14,35 +14,35 @@ function DurumTemizle() {
                 <p>Ad (*)</p>
                 <asp:TextBox ID="txtAd" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAd"
-                        ErrorMessage="Isim girilmelidir" ToolTip="Isim girilmelidir" ValidationGroup="vg1">*</asp:RequiredFieldValidator>                
+                        ErrorMessage="İsim girmelisin" ToolTip="Isim girilmelidir" ValidationGroup="vg1">*</asp:RequiredFieldValidator>                
                 <p>Soyad (*)</p>
                 <asp:TextBox ID="txtSoyad" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtSoyad"
-                        ErrorMessage="Soyad girilmelidir" ToolTip="Soyad girilmelidir" ValidationGroup="vg1">*</asp:RequiredFieldValidator>                                
+                        ErrorMessage="Soyad girmelisin" ToolTip="Soyad girilmelidir" ValidationGroup="vg1">*</asp:RequiredFieldValidator>                                
                 <p>E-posta (*)</p>
                     <asp:TextBox ID="txtEposta" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="txtEposta"
-                        ErrorMessage="E-posta adresi girmeniz gereklidir" ToolTip="E-posta adresi girmeniz gereklidir"
+                        ErrorMessage="E-posta adresi girmelisin" ToolTip="E-posta adresi girmelisin"
                         ValidationGroup="vg1">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
-                        ErrorMessage="E-posta adresini yanlis girdiniz" ToolTip="E-posta adresini yanlis girdiniz"
+                        ErrorMessage="E-posta adresini yanlış girdin" ToolTip="E-posta adresini yanlis girdin"
                         ValidationExpression="^[a-zA-Z0-9.-]+@[a-zA-Z0-9.:-]+$" ValidationGroup="vg1">*</asp:RegularExpressionValidator>
-                <p class="sessiz">(Okul e-postanla kayit olarak okulunu temsil edebilirsin)</p>
-                <p>Kullanici adi</p>
+                <p class="sessiz">(Okul e-postanla kayıt olarak okulunu temsil edebilirsin)</p>
+                <p>Kullanıcı adı</p>
                     <asp:TextBox ID="txtKullaniciAdi" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
-                <p class="sessiz">(Yorumlarin yayinlanirken ilk ismin yerine kullanici adinla yayinlansin istiyorsan)</p>
-                <p>Sifre (*)</p>
+                <p class="sessiz">(Yorumların yayinlanırken ilk ismin yerine kullanıcı adınla yayınlansın istiyorsan)</p>
+                <p>Şifre (*)</p>
                     <asp:TextBox ID="txtSifre" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
-                        ErrorMessage="Şifre girmeniz gereklidir" ToolTip="Şifre girmeniz gereklidir"
+                        ErrorMessage="Şifre girmelisin" ToolTip="Şifre girmelisin"
                         ValidationGroup="vg1">*</asp:RequiredFieldValidator>
-                <p>Sifre tekrar (*)</p>
+                <p>Şifre tekrar (*)</p>
                     <asp:TextBox ID="txtSifre2" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="ConfirmPasswordRequired" runat="server" ControlToValidate="txtSifre2"
-                        ErrorMessage="Şifre tekrar girilmelidir" ToolTip="Şifre tekrar girilmelidir"
+                        ErrorMessage="Şifreni tekrar girmelisin" ToolTip="Şifreni tekrar girmelisin"
                         ValidationGroup="vg1">*</asp:RequiredFieldValidator>
                     <asp:CompareValidator runat="server" ID="Passwords" ControlToValidate="txtSifre" ControlToCompare="txtSifre2"
-                        ErrorMessage="Girilen iki sifre ayni olmali" ToolTip="Girilen iki sifre ayni olmali"
+                        ErrorMessage="Girilen iki şifre aynı olmalı" ToolTip="Girilen iki şifre aynı olmalı"
                         ValidationGroup="vg1">*</asp:CompareValidator>
                 <p>Cinsiyet</p>
                     <asp:RadioButtonList runat="server" ID="rdCinsiyetler" onchange="DurumTemizle();" CssClass="rdCinsiyetler">

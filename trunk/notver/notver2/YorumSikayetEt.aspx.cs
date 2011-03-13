@@ -13,6 +13,22 @@ using System.Xml.Linq;
 
 public partial class YorumSikayetEt : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         try
@@ -55,11 +71,11 @@ public partial class YorumSikayetEt : BasePage
         Enums.YorumTipi yorumTipi = (Enums.YorumTipi)queryYorumTipi;
         if (!Genel.YorumSikayetEt(queryYorumID, yorumTipi, textSikayetNeden.Text, session.KullaniciID))
         {
-            ltrDurum.Text = "Sikayet iletirken bir hata olustu, lutfen tekrar deneyin";
+            ltrDurum.Text = "Şikayet iletirken bir hata oldu, lütfen tekrar deneyin";
         }
         else
         {
-            ltrDurum.Text = "Sikayetinizi incelemeye aldik, tesekkurler";
+            ltrDurum.Text = "Şikayetini incelemeye aldık, ilgine teşekkürler";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }

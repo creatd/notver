@@ -11,18 +11,6 @@ using System.Web.UI.WebControls.WebParts;
 
 public partial class UserControls_LoginBox : BaseUserControl
 {
-    protected void Page_Prerender(object sender, EventArgs e)
-    {
-        try
-        {
-
-        }
-        catch (Exception ex)
-        {
-            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
-        }
-    }
-
     protected void GirisYap(object sender, EventArgs e)
     {
         int sonuc = Uyelik.GirisYap(txtEposta.Text, txtSifre.Text);
@@ -36,12 +24,14 @@ public partial class UserControls_LoginBox : BaseUserControl
                 lblDurum.Text = "tekrar deneyin";
                 break;
             case -2:    //Kullanici engellenmis
-                lblDurum.Text = "hesabiniz engellenmistir";
+                lblDurum.Text = "hesabın engellenmiştir";
                 break;
             default:    //Bilinmeyen hata
-                lblDurum.Text = "hata olustu - tekrar deneyin";
+                lblDurum.Text = "hata oluştu - tekrar deneyin";
                 break;
         }
+        int dummy = 0;
+        dummy = dummy / dummy;
     }
 
     protected void SifremiUnuttum(object sender, EventArgs e)
@@ -49,23 +39,23 @@ public partial class UserControls_LoginBox : BaseUserControl
         lblDurum.Text = "";
         if (string.IsNullOrEmpty(txtEposta.Text))
         {
-            lblDurum.Text = "e-posta adresinizi girin";
+            lblDurum.Text = "e-posta adresini girmelisin";
             return;
         }
         if (Uyelik.EpostaAdresiVarMi(txtEposta.Text))
         {
             if (Mesajlar.SifremiUnuttumEpostasiGonder(txtEposta.Text))
             {
-                lblDurum.Text = "e-posta adresinize sifre talimatlari gonderildi";
+                lblDurum.Text = "e-posta adresini şifre talimatlari gönderildi";
             }
             else
             {
-                lblDurum.Text = "bir hata olustu, lutfen tekrar deneyin";
+                lblDurum.Text = "bir hata oluştu, lütfen tekrar dene";
             }
         }
         else
         {
-            lblDurum.Text = "bu e-posta adresi sistemimizde kayitli degil";
+            lblDurum.Text = "bu e-posta adresi kayıtlı değil";
         }
     }
 }

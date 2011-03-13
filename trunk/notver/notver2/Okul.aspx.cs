@@ -14,6 +14,21 @@ using System.IO;
 
 public partial class Okul : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
 
     protected void Page_Prerender(object sender, EventArgs e)
     {
@@ -95,7 +110,7 @@ public partial class Okul : BasePage
                     bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
                     if (yorumVar)
                     {
-                        ltrYorumYazi.Text = "Yorumunu guncelle&nbsp;&nbsp;";
+                        ltrYorumYazi.Text = "Yorum güncelle&nbsp;&nbsp;";
                     }
                     else
                     {

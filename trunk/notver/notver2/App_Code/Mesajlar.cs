@@ -18,6 +18,64 @@ using System.IO;
 /// </summary>
 public static class Mesajlar
 {
+    public static bool KullaniciyaDosyaSilindiEpostasiGonder(int KullaniciID, string DosyaIsmi, string SilinmeNedeni,
+        DateTime GonderilmeTarihi)
+    {
+        try
+        {
+            string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/DosyaSilindi.htm"));
+            while (icerik.Contains("!!!TARIH!!!"))
+            {
+                icerik = icerik.Replace("!!!TARIH!!!", GonderilmeTarihi.ToString());
+            }
+            while (icerik.Contains("!!!DOSYA_ISMI!!!"))
+            {
+                icerik = icerik.Replace("!!!DOSYA_ISMI!!!", DosyaIsmi);
+            }
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                SilinmeNedeni = "<strong>\"" + SilinmeNedeni + "\"</strong> nedeniyle ";
+            }
+            while (icerik.Contains("!!!NEDEN!!!"))
+            {
+                icerik = icerik.Replace("!!!NEDEN!!!", SilinmeNedeni);
+            }
+            string baslik = "NotVerin - Yuklediginiz bir dosya silinmistir";
+            return Mesajlar.EpostaGonder(KullaniciID, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static bool KullaniciyaYorumSilindiEpostasiGonder(int KullaniciID, string Yorum, string SilinmeNedeni,
+        DateTime GonderilmeTarihi)
+    {
+        try
+        {
+            string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/YorumSilindi.htm"));
+            while (icerik.Contains("!!!TARIH!!!"))
+            {
+                icerik = icerik.Replace("!!!TARIH!!!", GonderilmeTarihi.ToString());
+            }
+            while (icerik.Contains("!!!YORUM!!!"))
+            {
+                icerik = icerik.Replace("!!!YORUM!!!", Yorum);
+            }
+            if (!string.IsNullOrEmpty(SilinmeNedeni))
+            {
+                SilinmeNedeni = "<strong>\"" + SilinmeNedeni + "\"</strong> nedeniyle ";
+            }
+            while (icerik.Contains("!!!NEDEN!!!"))
+            {
+                icerik = icerik.Replace("!!!NEDEN!!!", SilinmeNedeni);
+            }
+            string baslik = "NotVerin - Yaptiginiz bir yorum silinmistir";
+            return Mesajlar.EpostaGonder(KullaniciID, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
     public static DataTable MesajYukle(int MesajID)
     {
         if (MesajID < 0)
@@ -448,6 +506,10 @@ public static class Mesajlar
             message.To.Add(new MailAddress(AliciAdres));
 
             message.Subject = Baslik;
+            if (IsHTML)
+            {
+                Icerik = Util.HTMLToDB(Icerik);
+            }
             message.Body = EpostaIcerikOlustur(Icerik);
             message.IsBodyHtml = IsHTML;
 

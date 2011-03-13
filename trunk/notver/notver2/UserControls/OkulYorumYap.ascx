@@ -2,8 +2,8 @@
 
 
 <asp:Panel ID="pnlPuanYorum" runat="server" Width="510" Height="380" CssClass="OkulYorumYap">
-    <p style="color:#626262; font-size:12px;">Yapmis oldugunuz tum yorumlari goruntulemek veya degistirmek icin 
-    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
+    <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya değiştirmek için
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tıklayın</asp:HyperLink></p>
     <br />
     <p>Yorumunuz</p>
     <p>
@@ -22,9 +22,9 @@
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
     <br/><br/>
-    Yorum yapabilmek icin giris yapmaniz gereklidir.
+    Yorum yapabilmek için giriş yapmalısın.
     <br/><br/>
-    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+    Üyeliğin yoksa ana sayfada sağ üstten hemen ücretsiz üye olabilirsin.
 </asp:Panel>
 <asp:Panel ID="pnlHata" runat="server" CssClass="durum">
 Bir hata olustu :(

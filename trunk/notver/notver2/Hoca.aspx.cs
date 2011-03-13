@@ -15,6 +15,23 @@ using System.Text;
 
 public partial class Hoca : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         try
@@ -31,23 +48,23 @@ public partial class Hoca : BasePage
                         if (!string.IsNullOrEmpty(session.HocaUnvan))
                         {
                             hocaIsim.Text = session.HocaUnvan + " " + session.HocaIsim + " / ";
-                            Page.Title = "NotVer.com - " + session.HocaUnvan + " " + session.HocaIsim;
+                            Page.Title = "NotVerin - " + session.HocaUnvan + " " + session.HocaIsim;
                         }
                         else
                         {
                             hocaIsim.Text = session.HocaIsim + " / ";
-                            Page.Title = "NotVer.com - " + session.HocaIsim + " / ";
+                            Page.Title = "NotVerin - " + session.HocaIsim + " / ";
                         }
                     }
                     else
                     {
-                        hocaIsim.Text = "Hoca bulunamadi";
+                        hocaIsim.Text = "Hoca bulunamadı";
                     }
 
                     //Hoca okullar
                     if (session.HocaOkulIsimleri == null || session.HocaOkulIsimleri.Count() <= 0)
                     {
-                        hocaOkullar.Text = "<span class=\"HocaOkullar\">(Okul bilgisi bulunamadi!)</span>";
+                        hocaOkullar.Text = "<span class=\"HocaOkullar\">(Okul bilgisi bulunamadı!)</span>";
                     }
                     else
                     {
@@ -76,7 +93,7 @@ public partial class Hoca : BasePage
 
                     if (yorumID >= 0)
                     {
-                        ltrYorumYazi.Text = "Yorum guncelle&nbsp;&nbsp;";
+                        ltrYorumYazi.Text = "Yorum güncelle&nbsp;&nbsp;";
                     }
                     else
                     {

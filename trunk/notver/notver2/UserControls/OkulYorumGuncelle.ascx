@@ -19,7 +19,7 @@
     </p>
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server">
-    Yorum yapabilmek icin (sag ust koseden) giris yapmaniz veya uye olmaniz gereklidir.
+    Yorum yapabilmek için (sağ üst köşeden) giriş yapmalı veya üye olmalısın
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>
 </div>

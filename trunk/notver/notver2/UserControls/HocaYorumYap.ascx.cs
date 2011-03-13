@@ -123,7 +123,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                             dersIsimleri[i] = hocaDersler[i][2];
                         }
                     }
-                    dropHocaDersler.Items.Add(new ListItem("Diger", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
+                    dropHocaDersler.Items.Add(new ListItem("Diğer", "-2")); //-2 degeri Hocalar sinifinda da kullaniliyor
                 }
                 lnkKullaniciYorumlar.NavigateUrl = "javascript:parent.document.location='" + HocaYorumlarimURLDondur(queryHocaID) + "';";
 
@@ -250,7 +250,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         {
             if (hocaKullaniciDerslerIDler.Contains(seciliDeger))
             {
-                dersIsim.Text = "Bu dersi zaten eklediniz";
+                dersIsim.Text = "Bu dersi zaten ekledin";
                 dropHocaDersler.SelectedIndex = 0;
                 return;
             }
@@ -272,7 +272,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         {
             if (hocaKullaniciDersler.Contains(txtDersKodDiger.Text))
             {
-                dersIsim.Text = "Bu dersi zaten eklediniz";
+                dersIsim.Text = "Bu dersi zaten ekledin";
                 dropHocaDersler.SelectedIndex = 0;
                 return;
             }
@@ -313,9 +313,15 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void PuanYorumKaydet(object sender, EventArgs e)
     {
+        ltrDurum.Text = "";
         if (!(Puan1.CurrentRating > 0 && Puan2.CurrentRating > 0 && Puan3.CurrentRating > 0 && Puan4.CurrentRating > 0 && Puan5.CurrentRating > 0))    //Puanlarin hepsini girmedi
         {
-            ltrDurum.Text = "Puanlariniz eksik. Her kategoride puan girmelisiniz";
+            ltrDurum.Text = "Puanların eksik. Her kategoride puan girmelisin.";
+            return;
+        }
+        if (string.IsNullOrEmpty(textYorum.Text))
+        {
+            ltrDurum.Text = "Yorum girmeyi unuttun";
             return;
         }
         int[] puanlar = new int[5];
@@ -328,12 +334,12 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         if (Hocalar.HocaYorumPuanKaydet(session.KullaniciID, Query.GetInt("HocaID"), puanlar,textYorum.Text,
             kullaniciPuanAraligi,(List<int>) hocaKullaniciDerslerIDler , (List<string>)hocaKullaniciDersler, session.KullaniciOnayPuani))
         {
-            ltrDurum.Text = "Puan ve yorumlariniz basariyla kaydedildi!";
+            ltrDurum.Text = "Yorum ve puanların başarıyla kaydedildi!";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
         else
         {
-            ltrDurum.Text = "Puan ve yorumlarinizi kaydederken bir hata olustu, lutfen tekrar deneyin.";
+            ltrDurum.Text = "Yorum ve puanlarını kaydederken bir hata oldu, lütfen tekrar deneyin.";
         }
     }
 
@@ -346,10 +352,16 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
     {
         try
         {
+            ltrDurum.Text = "";
             if (!(Puan1.CurrentRating > 0 && Puan2.CurrentRating > 0 && Puan3.CurrentRating > 0 && Puan4.CurrentRating > 0 
                 && Puan5.CurrentRating > 0))    //Puanlarin hepsini girmedi
             {
-                ltrDurum.Text = "Puanlariniz eksik. Her kategoride puan girmelisiniz";
+                ltrDurum.Text = "Puanların eksik. Her kategoride puan girmelisin";
+                return;
+            }
+            if (string.IsNullOrEmpty(textYorum.Text))
+            {
+                ltrDurum.Text = "Yorum girmeyi unuttun";
                 return;
             }
             int[] puanlar = new int[5];
@@ -364,17 +376,17 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 kullaniciPuanAraligi, (List<int>)hocaKullaniciDerslerIDler, (List<string>)hocaKullaniciDersler, 
                 session.KullaniciOnayPuani))
             {
-                ltrDurum.Text = "Puan ve yorumlariniz basariyla guncellendi!";
+                ltrDurum.Text = "Yorum ve puanların başarıyla güncellendi!";
                 ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
             }
             else
             {
-                ltrDurum.Text = "Puan ve yorumlarinizi guncellerken bir hata olustu, lutfen tekrar deneyin.";
+                ltrDurum.Text = "Yorum ve puanlarını güncellerken bir hata oldu, lütfen tekrar deneyin.";
             }
         }
         catch (Exception ex)
         {
-            ltrDurum.Text = "Puan ve yorumlarinizi guncellerken bir hata olustu, lutfen tekrar deneyin.";
+            ltrDurum.Text = "Yorum ve puanlarını güncellerken bir hata oldu, lütfen tekrar deneyin.";
             //TODO: admin'e mesaj
         }
     }

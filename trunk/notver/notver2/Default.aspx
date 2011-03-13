@@ -5,6 +5,6 @@ MasterPageFile="~/Masters/Giris.master" %>
 <p>Sayfamiza hos geldiniz!</p>
 <p>Bu sayfada bircok yararli bilgi bulabilirsiniz</p>
 <asp:Label runat="server" ID="lblTimeout">
-Yarim saattir yoksunuz diye gittiniz sandik. Tekrar giris yapmaniz gereklidir.
+Yarim saattir yoksun diye gittin sandık. Tekrar giriş yapmalısın.
 </asp:Label>
 </asp:Content>

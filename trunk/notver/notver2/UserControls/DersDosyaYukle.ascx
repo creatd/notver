@@ -42,7 +42,7 @@ function Temizle(obj)
     
     <asp:Panel runat="server" ID="pnlDersAramaSonuclari" Visible="false">
         <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
-            Sayfa basi <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
+            Sayfa başı <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
             AutoPostBack="True" CssClass="dropdownPager">
                             <asp:ListItem Text="1" Value="1"></asp:ListItem>
                             <asp:ListItem Text="2" Value="2"></asp:ListItem>
@@ -71,7 +71,7 @@ function Temizle(obj)
         </asp:DataGrid>
         <asp:Panel ID="pnlPager" runat="server">
             <div id="pager" style="text-align:center;">
-                <asp:ImageButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiSayfayaGit" runat="server"
+                <asp:ImageButton ID="lnkOnceki" Text="Önceki" OnClick="OncekiSayfayaGit" runat="server"
                 ImageUrl="~/App_Themes/Default/Images/prev.png"></asp:ImageButton>
                 <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
                     <ItemTemplate>
@@ -88,14 +88,14 @@ function Temizle(obj)
 
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlDersAramaSonuclariBos" Visible="false" CssClass="hata">
-        Ders bulunamadi
+        Ders bulunamadı
         <br /><br />
     </asp:Panel>
 
 <table style="border: none; font-weight:bold; font-size:13px;" width="500">
     <tr style="border-top:solid 1pt #626262;">
         <td style="padding-bottom:30px; padding-top:30px;">
-            Secilen ders :
+            Seçilen ders :
         </td>
         <td style="padding-bottom:30px; padding-top:30px;">
             <asp:Label runat="server" ID="lblSecilenDers"></asp:Label>
@@ -138,7 +138,7 @@ function Temizle(obj)
     </tr>
     <tr>
         <td>
-            Aciklama :
+            Açıklama :
             <br />
             <span class="sessiz">(Opsiyonel)</span>
         </td>
@@ -153,7 +153,7 @@ function Temizle(obj)
     </tr>
     <tr>
         <td colspan="2" align="right">
-            <asp:ImageButton runat="server" ID="btnYukle" Text="Yukle" OnClick="DosyaYukle" ValidationGroup="vg1"
+            <asp:ImageButton runat="server" ID="btnYukle" Text="Yükle" OnClick="DosyaYukle" ValidationGroup="vg1"
             ImageUrl="~/App_Themes/Default/Images/gonder.png" CausesValidation="true"></asp:ImageButton>
         </td>
     </tr>
@@ -166,11 +166,11 @@ function Temizle(obj)
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
     <br/><br/>
-    Dosya yukleyebilmek icin giris yapmaniz gereklidir.
+    Dosya yükleyebilmek için giriş yapmanız gereklidir.
     <br/><br/>
-    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+    Uyeliğiniz yoksa ana sayfada sağ üstten hemen ücretsiz üye olabilirsiniz.
 </asp:Panel>
 <asp:Panel ID="pnlHata" runat="server" CssClass="durum">
-Bir hata olustu :(
+Bir hata oluştu :(
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>

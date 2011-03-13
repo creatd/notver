@@ -13,6 +13,22 @@ using System.Xml.Linq;
 
 public partial class EpostaOnayla : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -56,7 +72,7 @@ public partial class EpostaOnayla : BasePage
     {
         if (string.IsNullOrEmpty(txtEposta.Text))
         {
-            lblDurum.Text = "E-posta adresinizi girin";
+            lblDurum.Text = "E-posta adresini girmelisin";
             return;
         }
         string eposta = txtEposta.Text.ToLowerInvariant().Trim();
@@ -97,22 +113,22 @@ public partial class EpostaOnayla : BasePage
 
                 if (Mesajlar.OnayEpostasiGonder(kullanici_ismi, eposta, universite_epostasi))
                 {
-                    lblDurum.Text = "E-posta adresinize onay e-postasi gonderildi";
+                    lblDurum.Text = "E-posta adresine onay e-postası gönderildi";
                 }
                 else
                 {
-                    lblDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
+                    lblDurum.Text = "Bir hata oldu, lütfen tekrar deneyin";
                 }
             }
             else
             {
-                lblDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
+                lblDurum.Text = "Bir hata oldu, lütfen tekrar deneyin";
             }
 
         }
         else
         {
-            lblDurum.Text = "Bu e-posta adresi sistemimizde kayitli degil";
+            lblDurum.Text = "Bu e-posta adresi sistemimizde kayıtlı değil";
         }
     }
 }

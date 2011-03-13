@@ -15,7 +15,7 @@
     <br />
     <asp:Repeater runat="server" ID="repeaterDersler">
         <HeaderTemplate>
-            <table style="font-weight:bold;">
+            <table style="font-weight:bold; margin-left:13px;">
         </HeaderTemplate>
         <ItemTemplate>
         <tr id="item" style="margin-bottom:20px; background-color:#f6f6f6; width:960px;">
@@ -26,7 +26,7 @@
                 <uc1:OkulTumDersler ID="OkulTumDersler1" runat="server" _OkulID='<%# DataBinder.Eval(Container.DataItem, "OKUL_ID")%>'>
                 </uc1:OkulTumDersler>
             </td>
-            <td id="linkBasaDon" style="width:30px;padding-left:20px;">
+            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top; padding-top:10px;">
                 <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
             </td>
         </tr>
@@ -41,7 +41,7 @@
                 <uc1:OkulTumDersler ID="OkulTumDersler1" runat="server" _OkulID='<%# DataBinder.Eval(Container.DataItem, "OKUL_ID")%>'>
                     </uc1:OkulTumDersler>
             </td>
-            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top;">
+            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top; padding-top:10px;">
                 <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
             </td>
         </tr>

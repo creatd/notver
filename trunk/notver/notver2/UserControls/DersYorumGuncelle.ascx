@@ -30,19 +30,19 @@ function pageLoad() {
         else {
             $("#<%=puanDersHoca.ClientID %>").find("span").each(function() {
                 if (this.value == 1) {
-                    $(this).attr("title", "Click to rate as 1 star");
+                    $(this).attr("title", "Çok kötü fikir");
                 }
                 if (this.value == 2) {
-                    $(this).attr("title", "Click to rate as 2 stars");
+                    $(this).attr("title", "Kötü fikir");
                 }
                 if (this.value == 3) {
-                    $(this).attr("title", "Click to rate as 3 stars");
+                    $(this).attr("title", "Orta karar");
                 }
                 if (this.value == 4) {
-                    $(this).attr("title", "Click to rate as 4 stars");
+                    $(this).attr("title", "İyi fikir");
                 }
                 if (this.value == 5) {
-                    $(this).attr("title", "Click to rate as 5 stars");
+                    $(this).attr("title", "Çok iyi fikir");
                 }
             });
         }    
@@ -56,19 +56,19 @@ function pageLoad() {
         else {
             $("#<%=puanDersZorluk.ClientID %>").find("span").each(function() {
                 if (this.value == 1) {
-                    $(this).attr("title", "Click to rate as 1 star");
+                    $(this).attr("title", "Çok kolay");
                 }
                 if (this.value == 2) {
-                    $(this).attr("title", "Click to rate as 2 stars");
+                    $(this).attr("title", "Kolay");
                 }
                 if (this.value == 3) {
-                    $(this).attr("title", "Click to rate as 3 stars");
+                    $(this).attr("title", "Normal");
                 }
                 if (this.value == 4) {
-                    $(this).attr("title", "Click to rate as 4 stars");
+                    $(this).attr("title", "Zor");
                 }
                 if (this.value == 5) {
-                    $(this).attr("title", "Click to rate as 5 stars");
+                    $(this).attr("title", "Çok zor");
                 }
             });
         }    
@@ -106,7 +106,7 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td style="text-align:right;width:350px;">
-                Hangi hocadan aldiniz (opsiyonel)
+                Hangi hocadan aldınız (opsiyonel)
             </td>
             <td class="DersYorumYapSutunSag">
                 <asp:DropDownList runat="server" ID="drpDersHocalar" onchange="javascript:HocaSecildi(this);"></asp:DropDownList>
@@ -114,7 +114,7 @@ $(document).ready(function() {
         </tr>
         <tr id="trBilinmeyenHoca">
             <td style="text-align:right;width:350px;">
-                Hocanin ismini girin
+                Hocanın ismini girin
             </td>
             <td class="DersYorumYapSutunSag">
                 <asp:TextBox runat="server" ID="txtBilinmeyenHocaIsmi"></asp:TextBox>
@@ -139,6 +139,6 @@ $(document).ready(function() {
     </table>
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server">
-    Puan vermek ve yorum yapabilmek icin giris yapmaniz gereklidir.
+    Puan vermek ve yorum yapabilmek için giriş yapmanız gereklidir.
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>

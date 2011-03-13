@@ -64,26 +64,36 @@ public partial class UserControls_OkulYorumYap : BaseUserControl
     /// <param name="e"></param>
     protected void YorumKaydet(object sender, EventArgs e)
     {
+        if (string.IsNullOrEmpty(textYorum.Text))
+        {
+            ltrDurum.Text = "Yorum girmeyi unuttun";
+            return;
+        }
         if (!Okullar.OkulYorumKaydet(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text, session.KullaniciOnayPuani))
         {
-            ltrDurum.Text = "Yorum kaydederken bir hata olustu. Lutfen tekrar deneyiniz.";
+            ltrDurum.Text = "Yorum kaydederken bir hata oluştu, lütfen tekrar deneyin.";
         }
         else
         {
-            ltrDurum.Text = "Yorumunuz basariyla kaydedildi!";
+            ltrDurum.Text = "Yorumun başarıyla kaydedildi!";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }
 
     protected void YorumGuncelle(object sender, EventArgs e)
     {
+        if (string.IsNullOrEmpty(textYorum.Text))
+        {
+            ltrDurum.Text = "Yorum girmeyi unuttun";
+            return;
+        }
         if (!Okullar.OkulYorumGuncelle(session.KullaniciID, Query.GetInt("OkulID"), textYorum.Text, session.KullaniciOnayPuani))
         {
-            ltrDurum.Text = "Yorum guncellerken bir hata olustu, lutfen tekrar deneyin";
+            ltrDurum.Text = "Yorum güncellerken bir hata oluştu, lütfen tekrar deneyin";
         }
         else
         {
-            ltrDurum.Text = "Yorumunuz guncellendi!";
+            ltrDurum.Text = "Yorumun guncellendi!";
             ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
         }
     }

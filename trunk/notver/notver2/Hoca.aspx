@@ -43,7 +43,7 @@
                 </td>
                 <td style="width:280px;">
                    <p style="color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
-                        Cok Yorumlananlar
+                        Çok Yorumlananlar
                     </p> 
                 </td>
             </tr>

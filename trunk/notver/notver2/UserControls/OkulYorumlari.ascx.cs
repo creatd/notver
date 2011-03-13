@@ -213,7 +213,7 @@ public partial class UserControls_OkulYorumlari : BaseUserControl
         }
         else
         {
-            if (result[0] == 1) //Ilk defa puan verildi.
+            if (result[0] == 1) //İlk defa puan verildi.
             {
                 lblYorumPuanDurumu.Text = "Puaniniz kaydedildi";
             }
@@ -250,7 +250,7 @@ public partial class UserControls_OkulYorumlari : BaseUserControl
         }
         else
         {
-            if (result[0] == 1) //Ilk defa puan verildi.
+            if (result[0] == 1) //İlk defa puan verildi.
             {
                 lblYorumPuanDurumu.Text = "Puaniniz kaydedildi";
             }

@@ -14,21 +14,21 @@ function DurumTemizle() {
 <div style="text-align:center; margin-top:30px;">
 <asp:Panel runat="server" ID="pnlBasari">
     <span style="font-size:14px; font-weight:bold;">
-    Asagidaki kutulara yeni sifrenizi iki kere girerek sifrenizi degistirebilirsiniz
+    Aşağıdaki kutulara yeni şifreni iki kere girerek şifreni değiştirebilirsin
     </span>
     <br /><br /><br />
-    <p>Sifre</p>
+    <p>Yeni şifre</p>
         <asp:TextBox ID="txtSifre" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
         <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
-                        ErrorMessage="Şifre girmeniz gereklidir" ToolTip="Şifre girmeniz gereklidir"
+                        ErrorMessage="Şifre girmelisin" ToolTip="Şifre girmelisin"
                         >*</asp:RequiredFieldValidator>
-    <p style="margin-top:20px;">Sifre tekrar</p>
+    <p style="margin-top:20px;">Yeni şifre (tekrar)</p>
         <asp:TextBox ID="txtSifre2" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
         <asp:RequiredFieldValidator ID="ConfirmPasswordRequired" runat="server" ControlToValidate="txtSifre2"
-                        ErrorMessage="Şifre tekrar girilmelidir" ToolTip="Şifre tekrar girilmelidir"
+                        ErrorMessage="Aynı şifreyi tekrar girmelisin" ToolTip="Aynı şifreyi tekrar girmelisin"
                         >*</asp:RequiredFieldValidator>
         <asp:CompareValidator runat="server" ID="Passwords" ControlToValidate="txtSifre2" ControlToCompare="txtSifre"
-                        ErrorMessage="Girilen iki sifre ayni olmali" ToolTip="Girilen iki sifre ayni olmali"
+                        ErrorMessage="Girdiğin iki şifre aynı olmalı" ToolTip="Girdiğin iki şifre aynı olmalı"
                         >*</asp:CompareValidator>                        
     <br />
     <asp:ImageButton ID="btnSifreDegistir" OnClick="SifreDegistir" runat="server" CausesValidation="true"
@@ -40,9 +40,9 @@ function DurumTemizle() {
 <asp:Label runat="server" ID="lblDurum" CssClass="bilgi"></asp:Label>
 <asp:Panel runat="server" ID="pnlHata">
     <span class="hata" style="font-size:14px; font-weight:bold;">
-    Kod yanlis (Sifrenizi sifirlamak icin gelen e-postadaki kod sadece ayni gun gecerlidir)
-    <br /><br />Tekrar sifre sifirlama
-    talebinde bulunmak icin sag ustten "giris"e tiklayip "sifremi unuttum"a tiklayabilirsiniz    
+    Kod yanlış (Şifreni sıfırlamak için gelen e-postadaki link sadece aynı gün geçerlidir)
+    <br /><br />Tekrar şifre sıfırlama
+    talebinde bulunmak için sağ üstten "giriş"e tıklayıp "şifremi unuttum"a tıklayabilirsin
     </span>
 </asp:Panel>
 </div>

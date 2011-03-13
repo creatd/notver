@@ -41,7 +41,7 @@ function Temizle(obj)
                         onclick="javascript:Temizle(this);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
                     CssClass="Hata" ErrorMessage="*" ToolTip="Kullanici adi girmelisiniz" ValidationGroup="vg" />
-            <p>Sifre</p>
+            <p>Şifre</p>
                     <asp:TextBox runat="server" ID="txtSifre" TextMode="Password" CssClass="textbox"
                         ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);" 
                         onclick="javascript:Temizle(this);"></asp:TextBox>

@@ -291,8 +291,20 @@ public partial class Admin_TumOkulYorumlar : BasePage
                 int KullaniciID = Convert.ToInt32(kullaniciID);
                 if (Okullar.Admin_OkulYorumYayindanKaldir(okulYorumID, KullaniciID, txtSilinmeNedeni.Text))
                 {
-                    lblDurum1.Text = "Okul yorumu yayindan kaldirildi";
-                    lblDurum2.Text = "Okul yorumu yayindan kaldirildi";
+                    string yorum = e.Item.Cells[7].Text;
+                    string gonderilmeTarihi = e.Item.Cells[8].Text;
+                    //DateTime donusumu patlayabilir ama patlamiycagini umabiliriz
+                    if (Mesajlar.KullaniciyaYorumSilindiEpostasiGonder(KullaniciID, yorum, txtSilinmeNedeni.Text,
+                        Convert.ToDateTime(gonderilmeTarihi)))
+                    {
+                        lblDurum1.Text = "Okul yorumu yayindan kaldirildi";
+                        lblDurum2.Text = "Okul yorumu yayindan kaldirildi";
+                    }
+                    else
+                    {
+                        lblDurum1.Text = "Okul yorumu yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                        lblDurum2.Text = "Okul yorumu yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                    }
                     GridDoldur();
                 }
                 else
