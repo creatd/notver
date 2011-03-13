@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeFile="Default.aspx.cs" Inherits="_Default" 
-MasterPageFile="~/Masters/Giris.master" %>
+MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
 <p>Sayfamiza hos geldiniz!</p>

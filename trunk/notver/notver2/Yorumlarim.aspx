@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Yorumlarim.aspx.cs" Inherits="Yorumlarim"
-    MasterPageFile="~/Masters/Giris.master" %>
+    MasterPageFile="~/Masters/Giris.master"  MaintainScrollPositionOnPostback="true"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     

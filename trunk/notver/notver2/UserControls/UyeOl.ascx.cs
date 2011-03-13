@@ -84,11 +84,14 @@ public partial class UserControls_UyeOl : BaseUserControl
             if (!Mesajlar.OnayEpostasiGonder(ad, eposta,universite_epostasi))
             {
                 //Onay epostasi gonderemedik
-                //TODO: Admin'e mesaj
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                    "Kullaniciya onay epostasi gonderemedik. Epostasi : " + eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             }
             if (Uyelik.GirisYap(eposta, sifre) != 0)
             {
-                //TODO: Admin'e mesaj gonder, yeni uyeyi giris yaptiramadin
+                //Yeni uyeyi giris yaptiramadin
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                    "Yeni uyeyi giris yaptiramadik. Eposta : " + eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             }
             RefreshPage();
         }

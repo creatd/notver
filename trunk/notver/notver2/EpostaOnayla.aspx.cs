@@ -51,8 +51,9 @@ public partial class EpostaOnayla : BasePage
                 {
                     if (!Uyelik.KullaniciEpostaOnayla(kullanici_eposta,universite_epostasi))
                     {
-                        //TODO: admin'e mesaj
                         //Kullanicinin epostasini onaylamamiz gerekirken veritabanina yazamadik
+                        Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                            "Kullanicinin epostasini onaylamamiz gerekirken veritabanina yazamadik. Kullanici epostasi:" + kullanici_eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                     }
                     pnlOnayHata.Visible = false;
                     if (universite_epostasi)

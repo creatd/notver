@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SearchResults.aspx.cs" Inherits="SearchResults"
-    MasterPageFile="~/Masters/Giris.master" %>
+    MasterPageFile="~/Masters/Giris.master"  MaintainScrollPositionOnPostback="true"%>
 
 <asp:Content runat="server" ContentPlaceHolderID="head" ID="headContent">
     <script type="text/javascript">

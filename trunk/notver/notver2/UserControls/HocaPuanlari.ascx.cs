@@ -32,7 +32,8 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                 }
                 else
                 {
-                    //TODO: admin mesaj
+                    Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                        "Hoca puan aciklamalari 5 tane degil", session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 }
                 //e: Puan aciklamalarini doldur
 
@@ -51,7 +52,8 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                 }
                 else if (puanlar.Length != 6)   //Hata, 5 puan + Puan sayisi olmali
                 {
-                    //TODO: Admine msj
+                    Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                        "Hoca puanlari 6 adet olmali, degil", session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 }
                 else
                 {

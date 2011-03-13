@@ -5,9 +5,9 @@
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
         Sayfa başı <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
         AutoPostBack="True" CssClass="dropdownPager" EnableViewState="true">
-                        <asp:ListItem Text="1" Value="1"></asp:ListItem>
-                        <asp:ListItem Text="2" Value="2"></asp:ListItem>
-                        <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                        
+                        
+                        
                         <asp:ListItem Text="10" Value="10"></asp:ListItem>
                         <asp:ListItem Text="20" Value="20"></asp:ListItem>
                         <asp:ListItem Text="40" Value="40"></asp:ListItem>

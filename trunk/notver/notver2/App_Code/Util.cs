@@ -240,7 +240,6 @@ public class Util
         return sb.ToString();
     }
 
-    //TODO: gereksiz bosluklari ayir ne demek ya?
     /// <summary>
     /// Turns the given input into a proper LIKE expression
     /// Gereksiz bosluklari ayir

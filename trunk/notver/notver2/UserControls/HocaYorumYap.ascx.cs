@@ -58,7 +58,6 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
             {
                 KontroluSakla();
 
-                //TODO: kontrol et
                 hocaKullaniciDerslerObj = hocaKullaniciDersler; //Null donmesin, yeni liste donsun diye
                 hocaKullaniciDerslerObj.Clear();
                 hocaKullaniciDersler = hocaKullaniciDerslerObj;
@@ -91,10 +90,11 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                 }
                 else
                 {
+                    Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                        "Hoca puan aciklamalari 5 tane degil", session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                     pnlPuanYorum.Visible = false;
                     pnlHata.Visible = true;
                     return;
-                    //TODO: admin mesaj
                 }
 
                 if (!Page.IsPostBack || dropHocaDersler.Items.Count == 0)  //Items.Count ==0 'i, sayfa acildiktan sonra login yapilirsa
@@ -185,7 +185,8 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
                         {
                             pnlHata.Visible = true;
                             pnlPuanYorum.Visible = false;
-                            //TODO: admine msj
+                            Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                                "Kullanici hoca yorumunu yukleyemedik", session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                         }
                     }
                     else
@@ -228,7 +229,6 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         }
         else if (seciliDeger == -2)  //Diger
         {
-            //TODO: Admin'e mesaj gonder
             dropDersEkle.Visible = true;
             txtDersKodDiger.Visible = true;
         }
@@ -387,7 +387,7 @@ public partial class UserControls_HocaYorumYap : BaseUserControl
         catch (Exception ex)
         {
             ltrDurum.Text = "Yorum ve puanlarını güncellerken bir hata oldu, lütfen tekrar deneyin.";
-            //TODO: admin'e mesaj
+            Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
     }
 
