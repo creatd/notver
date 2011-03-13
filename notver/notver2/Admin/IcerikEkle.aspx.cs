@@ -92,36 +92,44 @@ public partial class Admin_IcerikEkle : BasePage
             session = new Session();
         }
 
-        if (!Page.IsPostBack)
+        try
         {
-            /*hocaOkullarObj = hocaOkullar;   //Null donmesin, yeni liste donsun diye
-            hocaOkullarObj.Clear();
-            hocaOkullar = hocaOkullarObj;*/
-
-            drpHocaOkullar.Items.Clear();
-            drpDersOkullar.Items.Clear();
-            drpDosyaOkullar.Items.Clear();
-            drpDosyaOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
-            foreach (DataRow dr in session.dtOkullar.Rows)
+            if (!Page.IsPostBack)
             {
-                drpHocaOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
-                drpDersOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
-                drpDosyaOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
-            }
+                /*hocaOkullarObj = hocaOkullar;   //Null donmesin, yeni liste donsun diye
+                hocaOkullarObj.Clear();
+                hocaOkullar = hocaOkullarObj;*/
 
-            drpDosyaDurum.Items.Clear();
-            foreach (string durum in Enum.GetNames(typeof(Enums.DosyaDurumu)))
-            {
-                drpDosyaDurum.Items.Add(new ListItem(durum,durum));
-            }
-            drpDosyaDurum.SelectedValue = Enum.GetName(typeof(Enums.DosyaDurumu), Enums.DosyaDurumu.Onaylanmis);
+                drpHocaOkullar.Items.Clear();
+                drpDersOkullar.Items.Clear();
+                drpDosyaOkullar.Items.Clear();
+                drpDosyaOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+                foreach (DataRow dr in session.dtOkullar.Rows)
+                {
+                    drpHocaOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                    drpDersOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                    drpDosyaOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                }
 
-            drpDosyaTipler.Items.Clear();
-            foreach (string dosyaTipi in Enum.GetNames(typeof(Enums.DosyaKategoriTipi)))
-            {
-                drpDosyaTipler.Items.Add(new ListItem(dosyaTipi , ((int)((Enums.DosyaKategoriTipi)(Enum.Parse(typeof(Enums.DosyaKategoriTipi) , dosyaTipi)))).ToString()));
+                drpDosyaDurum.Items.Clear();
+                foreach (string durum in Enum.GetNames(typeof(Enums.DosyaDurumu)))
+                {
+                    drpDosyaDurum.Items.Add(new ListItem(durum, durum));
+                }
+                drpDosyaDurum.SelectedValue = Enum.GetName(typeof(Enums.DosyaDurumu), Enums.DosyaDurumu.Onaylanmis);
+
+                drpDosyaTipler.Items.Clear();
+                foreach (string dosyaTipi in Enum.GetNames(typeof(Enums.DosyaKategoriTipi)))
+                {
+                    drpDosyaTipler.Items.Add(new ListItem(dosyaTipi, ((int)((Enums.DosyaKategoriTipi)(Enum.Parse(typeof(Enums.DosyaKategoriTipi), dosyaTipi)))).ToString()));
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+        }
+        
     }
 
     protected void OkulEkle(object sender, EventArgs e)
@@ -560,7 +568,7 @@ public partial class Admin_IcerikEkle : BasePage
             }
             catch (Exception ex)
             {
-                //TODO: Admine msj
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 lblDurumDosyaYukle.Text = "Bir hata oluştu, lütfen tekrar deneyin";
             }
         }

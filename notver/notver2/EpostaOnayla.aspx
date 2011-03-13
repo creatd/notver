@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EpostaOnayla.aspx.cs" Inherits="EpostaOnayla" 
-MasterPageFile="~/Masters/Giris.master" %>
+MasterPageFile="~/Masters/Giris.master"  MaintainScrollPositionOnPostback="true"%>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <div style="text-align:center; margin-top:30px;">

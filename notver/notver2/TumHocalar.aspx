@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumHocalar.aspx.cs" Inherits="TumHocalar"
-    MasterPageFile="~/Masters/Giris.master" %>
+    MasterPageFile="~/Masters/Giris.master"  MaintainScrollPositionOnPostback="true"%>
 
 <%@ Register TagPrefix="uc1" TagName="OkulTumHocalar" Src="~/UserControls/OkulTumHocalar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="Ayrac" Src="~/UserControls/Ayrac.ascx" %>

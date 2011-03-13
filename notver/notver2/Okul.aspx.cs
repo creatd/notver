@@ -101,11 +101,14 @@ public partial class Okul : BasePage
                     string imageFilePath = Server.MapPath(imageRelativePath);
                     if (File.Exists(imageFilePath))
                     {
+                        imgOkul.Visible = true;
                         imgOkul.ImageUrl = imageRelativePath;
                     }
                     else
                     {
-                        imgOkul.ImageUrl = "~/Images/Okullar/p_yok.jpg";
+                        imgOkul.Visible = false;
+                        imgOkul.ImageUrl = "";
+                        //imgOkul.ImageUrl = "~/Images/Okullar/p_yok.jpg";
                     }
                     bool yorumVar = Okullar.KullaniciOkulaYorumYapmis(session.KullaniciID, Query.GetInt("OkulID"));
                     if (yorumVar)

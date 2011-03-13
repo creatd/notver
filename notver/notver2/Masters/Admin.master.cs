@@ -20,7 +20,6 @@ public partial class Masters_Admin : System.Web.UI.MasterPage
         {
             session = new Session();
         }
-        //TODO: Gecici olarak kaldirdim
         if (!session.IsLoggedIn)
         {
             GoToLoginPage_WithRedirect();

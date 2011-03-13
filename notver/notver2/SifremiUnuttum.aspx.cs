@@ -72,7 +72,8 @@ public partial class SifremiUnuttum : BasePage
         }
         else
         {
-            //TODO: Admine msj
+            Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                "Kullanicinin sifresini degistiremedik. Kullanici eposta:" + kullanici_eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             lblDurum.Text = "Bir hata oldu, lütfen tekrar deneyin.";
         }
     }

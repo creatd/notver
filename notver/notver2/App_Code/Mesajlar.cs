@@ -521,7 +521,7 @@ public static class Mesajlar
         }
         catch (Exception ex)
         {
-            //TODO: Admin'e haber ver
+            Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
         return false;
     }

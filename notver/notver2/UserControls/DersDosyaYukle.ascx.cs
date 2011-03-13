@@ -355,7 +355,10 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                     klasorIsim + dosyaIsimFinal, session.KullaniciID, txtDosyaAciklama.Text, session.KullaniciOnayPuani,
                     dosyaBoyut))
                 {
-                    //TODO: Admin'e haber ver, amazon'a yukledik veritabanina yazamadik
+                    //Amazon'a yukledik, veritabanina yazamadik
+                    Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
+                        "Dosyayi amazon'a yukledik, veritabanina yazamadik. Klasor isim : " + klasorIsim + " dosya isim : " + dosyaIsimFinal,
+                        session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 }
 
                 lblYuklemeDurum.Text = "Yüklendi! Teşekkürler :)";
@@ -363,7 +366,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
             }
             catch (Exception ex)
             {
-                //TODO: Admine msj
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 lblYuklemeDurum.Text = "Bir hata oluştu, lütfen tekrar deneyin";
             }
         }

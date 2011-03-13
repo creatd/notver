@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Hata.aspx.cs" Inherits="Hata" MasterPageFile="~/Masters/Giris.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Hata.aspx.cs" Inherits="Hata" MasterPageFile="~/Masters/Giris.master" 
+ MaintainScrollPositionOnPostback="true"%>
 
 <asp:Content runat="server" ContentPlaceHolderID="head">
 <script type="text/javascript">
