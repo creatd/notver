@@ -11,10 +11,22 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class OkulYorumYap : System.Web.UI.Page
+public partial class OkulYorumYap : BasePage
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Error(object sender, EventArgs e)
     {
-
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
     }
+
 }

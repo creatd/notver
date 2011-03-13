@@ -16,6 +16,46 @@ using System.Data.SqlClient;
 /// </summary>
 public class Dersler
 {
+    public static bool Admin_KayitsizDersIliskilendir(int DersID, string KayitsizDersIsim)
+    {
+        try
+        {
+            if (DersID < 0 || string.IsNullOrEmpty(KayitsizDersIsim))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_KayitsizDersIliskilendir");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DersID", DersID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KayitsizDersIsim", KayitsizDersIsim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) >= 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
+    public static DataTable Admin_KayitsizDersleriDondur()
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_KayitsizDersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     /// <summary>
     /// Yorumu yayindan kaldirir ve kullanicinin onay puanini dusurur
     /// </summary>
@@ -1123,7 +1163,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (HocaID > 0)
+            if (HocaID >= 0)
             {
                 param = new SqlParameter("HocaID", HocaID);
                 param.Direction = ParameterDirection.Input;
@@ -1194,7 +1234,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (HocaID > 0)
+            if (HocaID >= 0)
             {
                 param = new SqlParameter("HocaID", HocaID);
                 param.Direction = ParameterDirection.Input;

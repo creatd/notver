@@ -38,7 +38,7 @@ function Temizle(obj)
     padding-top:10px;">Ders Ara</p>
     <asp:TextBox ID="dersIsmi" runat="server" OnKeyDown="javascript:SetFocusDers(event);" 
         onclick="javascript:return Temizle(this);" BorderWidth="0"
-        CssClass="araTextbox">Ismini ya da kodunu girin</asp:TextBox>
+        CssClass="araTextbox">İsmini ya da kodunu girin</asp:TextBox>
     <asp:LinkButton ID="buttonDersAra" runat="server" Text="" OnClick="Ara" BorderWidth="0"
     CssClass="araTus"/>
     <asp:HyperLink runat="server" ID="lnkTumDersler" NavigateUrl="~/TumDersler.aspx"
@@ -46,7 +46,7 @@ function Temizle(obj)
         <span style="width:10px;
 	height:30px;	float:left;	clear:left;	background-image:url('App_Themes/Default/Images/buton_sol.png');"></span>
         <span style="height:22px;	padding-top:8px;	padding-right:10px; font-size:14px;
-	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');">Tum dersleri goster</span>
+	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');">Tüm dersleri göster</span>
         <span style="width:30px;
 	height:30px;	float:left;	background-image:url('App_Themes/Default/Images/buton_sag_uzun.png');"></span>
     </asp:HyperLink>   

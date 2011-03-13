@@ -10,6 +10,22 @@ using System.Web.UI.WebControls.WebParts;
 
 public partial class _Default : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         lblTimeout.Visible = false;

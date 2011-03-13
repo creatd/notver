@@ -13,27 +13,52 @@ using System.Xml.Linq;
 
 public partial class SifremiUnuttum : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        try
         {
-            if (session.IsLoggedIn)
+            if (!Page.IsPostBack)
             {
-                GoToDefaultPage();
-            }
-            pnlBasari.Visible = false;
-            pnlHata.Visible = true;
-            string kullanici_eposta = Query.GetString("KullaniciEposta");
-            string onay_kodu = Query.GetString("Kod");
-            if (!string.IsNullOrEmpty(kullanici_eposta) && !string.IsNullOrEmpty(onay_kodu))
-            {
-                string dogru_onay_kodu = Uyelik.SifremiUnuttumIcinHashOlustur(kullanici_eposta);
-                if (!string.IsNullOrEmpty(dogru_onay_kodu) && onay_kodu == dogru_onay_kodu)
+                if (session.IsLoggedIn)
                 {
-                    pnlBasari.Visible = true;
-                    pnlHata.Visible = false;
+                    GoToDefaultPage();
+                }
+                pnlBasari.Visible = false;
+                pnlHata.Visible = true;
+                string kullanici_eposta = Query.GetString("KullaniciEposta");
+                string onay_kodu = Query.GetString("Kod");
+                if (!string.IsNullOrEmpty(kullanici_eposta) && !string.IsNullOrEmpty(onay_kodu))
+                {
+                    string dogru_onay_kodu = Uyelik.SifremiUnuttumIcinHashOlustur(kullanici_eposta);
+                    if (!string.IsNullOrEmpty(dogru_onay_kodu) && onay_kodu == dogru_onay_kodu)
+                    {
+                        pnlBasari.Visible = true;
+                        pnlHata.Visible = false;
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            pnlHata.Visible = true;
+            pnlBasari.Visible = false;
         }
     }
 
@@ -43,12 +68,12 @@ public partial class SifremiUnuttum : BasePage
         if (Uyelik.KullaniciSifreDegistir(kullanici_eposta, txtSifre.Text))
         {
             pnlBasari.Visible = false;
-            lblDurum.Text = "Sifreniz degistirildi. Yeni sifrenizle giris yapabilirsiniz.";
+            lblDurum.Text = "Şifreni değiştirdik. Bundan sonra yeni şifrenle giriş yapabilirsin.";
         }
         else
         {
             //TODO: Admine msj
-            lblDurum.Text = "Bir hata olustu. Lutfen tekrar deneyin.";
+            lblDurum.Text = "Bir hata oldu, lütfen tekrar deneyin.";
         }
     }
 

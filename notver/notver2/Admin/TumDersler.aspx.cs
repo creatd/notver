@@ -18,12 +18,16 @@ public partial class Admin_TumDersler : BasePage
         if (!Page.IsPostBack)
         {
             drpOkullar.Items.Clear();
+            drpOkullar2.Items.Clear();
             drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+            drpOkullar2.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             foreach (DataRow dr in session.dtOkullar.Rows)
             {
                 drpOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                drpOkullar2.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
             }
             GridDoldur();
+            KayitsizDersleriDoldur();
         }
     }
 
@@ -180,6 +184,61 @@ public partial class Admin_TumDersler : BasePage
                 lblDurum2.Text = "Ders silerken bir hata olustu (ID'yi alamadim)";
             }
             GridDoldur();
+        }
+    }
+
+    protected void OkulSecildi2(object sender, EventArgs e)
+    {
+        int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+        drpOkulDersler.Items.Clear();
+        if (okulID >= 0)
+        {
+            DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
+            if (dtDersler != null)
+            {
+                foreach (DataRow dr in dtDersler.Rows)
+                {
+                    drpOkulDersler.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
+                }
+            }
+        }
+    }
+
+    protected void KayitsizDersleriDoldur()
+    {
+        drpKayitsizDersler.Items.Clear();
+        DataTable dtKayitsizDersler = Dersler.Admin_KayitsizDersleriDondur();
+        if (dtKayitsizDersler != null)
+        {
+            foreach (DataRow dr in dtKayitsizDersler.Rows)
+            {
+                drpKayitsizDersler.Items.Add(new ListItem(dr["KAYITSIZ_DERS_ISMI"].ToString() + " (" + 
+                    dr["HOCA_ISIM"].ToString() + ") " + ((Enums.YorumDurumu)(Convert.ToInt32(dr["YORUM_DURUMU"]))).ToString())); 
+            }
+        }
+    }
+
+    protected void KayitsizDersIliskilendir(object sender, EventArgs e)
+    {
+        lblDurum3.Text = "Ders iliskilendirilirken bir hata olustu";
+        int seciliDersID = -1;
+        if (Util.GecerliSayi(drpOkulDersler.SelectedValue))
+        {
+            seciliDersID = Convert.ToInt32(drpOkulDersler.SelectedValue);
+        }
+        if (seciliDersID < 0 && Util.GecerliSayi(txtDersID.Text))
+        {
+            seciliDersID = Convert.ToInt32(txtDersID.Text);
+        }
+        if (seciliDersID >= 0)
+        {
+            string ders_isim = drpKayitsizDersler.SelectedValue;
+            ders_isim = ders_isim.Substring(0, ders_isim.LastIndexOf("(") - 1);
+            if (Dersler.Admin_KayitsizDersIliskilendir(seciliDersID, ders_isim))
+            {
+                lblDurum3.Text = "Ders basariyla iliskilendirildi";
+                KayitsizDersleriDoldur();
+            }
         }
     }
 }

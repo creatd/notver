@@ -7,7 +7,7 @@
     <title>Mesaj oku</title>
     
     <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
-    <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
+    <link href="../App_Themes/Default/Admin.css" rel="stylesheet" type="text/css" />
     <link href="../Scripts/colorbox.css" rel="stylesheet" type="text/css" />
 
     <link href="../App_Themes/Default/Default2.css" rel="stylesheet" type="text/css" />
@@ -17,20 +17,20 @@
     <asp:Panel runat="server" ID="pnlMesaj">
     <div style="padding:10px;">
         <table>
-            <tr style="background-color:Gray;">
-                <td>
+            <tr style="background-color:Gray;" align="center">
+                <td style="padding:10px;">
                     <asp:Label runat="server" ID="lblBaslik"></asp:Label>
                 </td>
             </tr>
-            <tr style="border:solid 1pt Black;">
-                <td>
-                    <asp:Label runat="server" ID="lblGonderen"></asp:Label>
-                    &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
-                    <asp:Label runat="server" ID="lblGonderilmeTarihi"></asp:Label>
+            <tr align="right">
+                <td style="font-weight:normal;">
+                    gönderen ID : <strong><asp:Label runat="server" ID="lblGonderen"></asp:Label></strong>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    tarih : <strong><asp:Label runat="server" ID="lblGonderilmeTarihi"></asp:Label></strong>
                 </td>
             </tr>
-            <tr>
-                <td>
+            <tr style="border:solid 1pt Gray;">
+                <td style="background-color:White; padding:20px;">
                     <asp:Label runat="server" ID="lblMesaj"></asp:Label>
                 </td>
             </tr>
@@ -41,17 +41,17 @@
             </tr>
             <tr align="right">
                 <td>
-                    <asp:Label runat="server" ID="lblDurum"></asp:Label>
+                    <asp:Label runat="server" ID="lblDurum" CssClass="bilgi"></asp:Label>
                 </td>
             </tr>
         </table>
     </div>
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlGirisYap">
-        Giris yapmaniz gereklidir
+        Giriş yapmalısın
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlHata" CssClass="hata">
-        Hata olustu :(
+        Hata oldu :(
     </asp:Panel>
     </form>
 </body>

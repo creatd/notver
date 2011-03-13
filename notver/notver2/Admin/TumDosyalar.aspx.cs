@@ -421,8 +421,20 @@ public partial class Admin_TumDosyalar : BasePage
                 int KullaniciID = Convert.ToInt32(kullaniciID);
                 if (Dersler.Admin_DersDosyaYayindanKaldir(dosyaID, KullaniciID, txtSilinmeNedeni.Text))
                 {
-                    lblDurum1.Text = "Dosya yayindan kaldirildi";
-                    lblDurum2.Text = "Dosya yayindan kaldirildi";
+                    string dosyaIsmi = e.Item.Cells[11].Text;
+                    string gonderilmeTarihi = e.Item.Cells[8].Text;
+                    //DateTime donusumu patlayabilir ama patlamiycagini umabiliriz
+                    if (Mesajlar.KullaniciyaDosyaSilindiEpostasiGonder(KullaniciID, dosyaIsmi, txtSilinmeNedeni.Text,
+                        Convert.ToDateTime(gonderilmeTarihi)))
+                    {
+                        lblDurum1.Text = "Dosya yayindan kaldirildi";
+                        lblDurum2.Text = "Dosya yayindan kaldirildi";
+                    }
+                    else
+                    {
+                        lblDurum1.Text = "Dosya yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                        lblDurum2.Text = "Dosya yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                    }
                     GridDoldur();
                 }
                 else

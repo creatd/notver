@@ -17,7 +17,8 @@ MasterPageFile="~/Masters/Admin.master" %>
 <asp:CheckBox Text="Tumunu goster" runat="server" ID="chkTumu" AutoPostBack="true" OnCheckedChanged="chk_changed"/>
 <asp:Label runat="server" ID="lblAlici"></asp:Label>
 <br />
-    <asp:Label runat="server" ID="lblDurum1"></asp:Label>
+    <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
+    <br /><br />
     <asp:DataGrid ID="gridMesajlar" runat="server" AllowPaging="true" AllowSorting="true"
         OnPageIndexChanged="grid_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnItemCommand="ItemCommand">
@@ -42,7 +43,7 @@ MasterPageFile="~/Masters/Admin.master" %>
         </Columns>
         <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
-<asp:Label runat="server" ID="lblDurum2"></asp:Label>
+<asp:Label runat="server" ID="lblDurum2" CssClass="bilgi"></asp:Label>
 </asp:Content>
 
 

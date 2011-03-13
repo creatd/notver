@@ -321,7 +321,7 @@ public partial class UserControls_DersDosyalar : BaseUserControl
         string tooltip = "";
         if(!string.IsNullOrEmpty(Aciklama))
             tooltip += "\"" + Aciklama + "\"<br />";
-        tooltip += "<b>" + IndirilmeSayisi + "</b> kere indirilmis";
+        tooltip += "<b>" + IndirilmeSayisi + "</b> kere indirilmiş";
         return tooltip;
     }
     

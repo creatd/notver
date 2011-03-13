@@ -14,5 +14,14 @@ using System.IO;
 
 public partial class DersDosyaYukle : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+        }
+    }
+
 
 }

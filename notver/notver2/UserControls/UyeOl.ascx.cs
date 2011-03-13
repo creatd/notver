@@ -47,15 +47,15 @@ public partial class UserControls_UyeOl : BaseUserControl
         lblDurum.Text = "";
         if (result == -1)
         {
-            lblDurum.Text = "Kullanici adi alinmis, lutfen baska bir kullanici adi secin.";
+            lblDurum.Text = "Girdiğin kullanıcı adı alınmış, başka bir kullanıcı adı seçin.";
         }
         else if (result == 0)
         {
-            lblDurum.Text = "Bilinmeyen hata, lutfen tekrar deneyin.";
+            lblDurum.Text = "Bilinmeyen hata, lütfen tekrar deneyin.";
         }
         else if (result == -2)
         {
-            lblDurum.Text = "E-posta adresi zaten kayitli. Sag ustten 'Giris yap'a basip 'Sifremi unuttum'a tiklayabilirsin.";
+            lblDurum.Text = "Girdiğin e-posta adresi zaten kayıtlı. Sağ üstten 'Giriş yap'a basıp 'Şifremi unuttum'a tıklayabilirsin.";
         }
         else if (result == 1)
         {

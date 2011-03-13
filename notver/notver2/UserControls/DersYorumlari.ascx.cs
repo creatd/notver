@@ -205,7 +205,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         Label lblYorumPuanDurumu = ((ImageButton)sender).Parent.FindControl("yorumPuanDurumu") as Label;
         if (!session.IsLoggedIn)
         {
-            lblYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
+            lblYorumPuanDurumu.Text = "Puan verebilmek icin üye girişi yapmalısınız!";
             return;
         }
         Literal ltrYorumPuan = ((ImageButton)sender).Parent.FindControl("yorumPuan") as Literal;
@@ -214,17 +214,17 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         int[] result = Genel.YorumPuanVer(true, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
-            lblYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
+            lblYorumPuanDurumu.Text = "Bir hata oluştu, lütfen tekrar deneyin";
         }
         else
         {
-            if (result[0] == 1) //Ilk defa puan verildi.
+            if (result[0] == 1) //İlk defa puan verildi.
             {
-                lblYorumPuanDurumu.Text = "Puaniniz kaydedildi";
+                lblYorumPuanDurumu.Text = "Puanınız kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                lblYorumPuanDurumu.Text = "Puaniniz guncellendi";
+                lblYorumPuanDurumu.Text = "Puanınız güncellendi";
             }
             if (result[1] > 0)
             {
@@ -242,7 +242,7 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         Label lblYorumPuanDurumu = ((ImageButton)sender).Parent.FindControl("yorumPuanDurumu") as Label;
         if (!session.IsLoggedIn)
         {
-            lblYorumPuanDurumu.Text = "Puan verebilmek icin uye girisi yapmalisiniz!";
+            lblYorumPuanDurumu.Text = "Puan verebilmek icin üye girişi yapmalısınız!";
             return;
         }
         Literal ltrYorumPuan = ((ImageButton)sender).Parent.FindControl("yorumPuan") as Literal;
@@ -251,17 +251,17 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         int[] result = Genel.YorumPuanVer(false, session.KullaniciID, yorumID, Enums.YorumTipi.DersYorum);
         if (result == null || result.Length != 2) //Bir hata olustu
         {
-            lblYorumPuanDurumu.Text = "Bir hata olustu, lutfen tekrar deneyin";
+            lblYorumPuanDurumu.Text = "Bir hata oluştu, lütfen tekrar deneyin";
         }
         else
         {
-            if (result[0] == 1) //Ilk defa puan verildi.
+            if (result[0] == 1) //İlk defa puan verildi.
             {
-                lblYorumPuanDurumu.Text = "Puaniniz kaydedildi";
+                lblYorumPuanDurumu.Text = "Puanınız kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                lblYorumPuanDurumu.Text = "Puaniniz guncellendi";
+                lblYorumPuanDurumu.Text = "Puanınız güncellendi";
             }
             if (result[1] > 0)
             {

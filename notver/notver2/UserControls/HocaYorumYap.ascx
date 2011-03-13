@@ -5,7 +5,8 @@
 <asp:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 
 <asp:Panel ID="pnlPuanYorum" runat="server" CssClass="HocaYorumYap">
-    <p style="color:#626262; font-size:12px;">Yapmis oldugunuz tum yorumlari goruntulemek veya degistirmek icin 
+    <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya 
+    değiştirmek için 
     <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
     <br />
     <p>Yorumunuz</p>
@@ -61,7 +62,7 @@
         </tr>
         <tr>
             <td style="width:220px; padding:20px 10px 20px 0px;">
-                Derslerinden aldiginiz not:
+                Derslerinden aldığınız not:
             </td>
             <td>
                 <asp:DropDownList ID="dropGenelPuan" runat="server">
@@ -72,7 +73,7 @@
             <td class="HocaYorumYapSutunSol" colspan="2" style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
-                    Hangi ders(ler)e yonelik : 
+                    Hangi ders(ler)e yönelik : 
                     <asp:DropDownList ID="dropHocaDersler" runat="server" AutoPostBack="true"
                         OnSelectedIndexChanged="dropHocaDersler_Secildi">
                     </asp:DropDownList>
@@ -115,11 +116,11 @@
 </asp:Panel>
 <asp:Panel ID="pnlUyeOl" runat="server" CssClass="bilgi">
     <br/><br/>
-    Yorum yapabilmek icin giris yapmaniz gereklidir.
+    Yorum yapabilmek için giriş yapmalısın.
     <br/><br/>
-    Uyeliginiz yoksa ana sayfada sag ustten hemen ucretsiz uye olabilirsiniz.
+    Üyeliğin yoksa ana sayfada sağ üstten hemen ücretsiz üye olabilirsin.
 </asp:Panel>
 <asp:Panel ID="pnlHata" runat="server" CssClass="durum">
-Bir hata olustu :(
+Bir hata oluştu :(
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>

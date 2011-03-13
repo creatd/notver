@@ -16,6 +16,29 @@ using System.Data.SqlClient;
 /// </summary>
 public class Genel
 {
+    public static DataTable Admin_IstatistikDondur()
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_IstatistikDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OnayliYorumDurumID", (int)Enums.YorumDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("OnayliDosyaDurumID", (int)Enums.DosyaDurumu.Onaylanmis);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     //Kullanilmiyor
     public static DataTable Admin_OnayBekleyenYorumlariDondur(Enums.YorumTipi YorumTipi)
     {
@@ -37,8 +60,8 @@ public class Genel
 
 
     /// <summary>
-    /// Ilk int degeri :
-    /// Eger ilk defa puan veriliyorsa 1,
+    /// İlk int degeri :
+    /// Eger İlk defa puan veriliyorsa 1,
     /// Daha once puan verilmisse 2
     /// 
     /// Ikinci int degeri : yorumun su anki alkis puani

@@ -3,7 +3,7 @@
 
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="dersYorumlar">
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
-        Sayfa basi <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
+        Sayfa başı <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
         AutoPostBack="True" CssClass="dropdownPager">
                         <asp:ListItem Text="1" Value="1"></asp:ListItem>
                         <asp:ListItem Text="2" Value="2"></asp:ListItem>
@@ -25,8 +25,8 @@
                 <asp:UpdatePanel runat="server" ID="pnlSevSevme" RenderMode="Inline">
                     <ContentTemplate>
                         <asp:Literal runat="server" ID="yorumPuan" Text=""></asp:Literal>
-                        <asp:ImageButton runat="server" ID="yorumSev" ImageUrl="~/App_Themes/Default/Images/thumbsup.png" OnClick="yorumSev_click" ToolTip="Sev"></asp:ImageButton>
-                        <asp:ImageButton runat="server" ID="yorumSevme" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" OnClick="yorumSevme_click" ToolTip="Sevme"></asp:ImageButton>
+                        <asp:ImageButton runat="server" ID="yorumSev" ImageUrl="~/App_Themes/Default/Images/thumbsup.png" OnClick="yorumSev_click" ToolTip="Sevdim"></asp:ImageButton>
+                        <asp:ImageButton runat="server" ID="yorumSevme" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" OnClick="yorumSevme_click" ToolTip="Sevmedim"></asp:ImageButton>
                         <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                     </ContentTemplate>
                 </asp:UpdatePanel>                            
@@ -37,14 +37,14 @@
             <p style="text-align:right; padding-bottom:20px;">
                 <a style="font-size:11px; font-weight:bold;" class="colorboxSikayet" 
         href="<%= Page.ResolveUrl("~/") %>YorumSikayetEt.aspx?YorumTipi=<%= ((int)Enums.YorumTipi.DersYorum).ToString() %>&YorumID=<%# DataBinder.Eval(Container.DataItem , "DERSYORUM_ID") %>">
-                    sikayet et
+                    şikayet et
                 </a>
             </p>               
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel ID="pnlPager" runat="server">
         <div id="pager" style="text-align:center;">
-            <asp:ImageButton ID="lnkOnceki" Text="Onceki" OnClick="OncekiYorumlaraGit" runat="server"
+            <asp:ImageButton ID="lnkOnceki" Text="Önceki" OnClick="OncekiYorumlaraGit" runat="server"
             ImageUrl="~/App_Themes/Default/Images/prev.png"></asp:ImageButton>
             <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
                 <ItemTemplate>
@@ -60,6 +60,6 @@
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false" CssClass="dersYorumlar">
     <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
-        Daha once yorum yapilmamis. Ilk yorum yapan siz olun
+        Daha önce yorum yapılmamış, ilk yorum yapan siz olun!
     </p>
 </asp:Panel>

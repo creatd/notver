@@ -16,8 +16,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
 <p>Yorumun ait oldugu kullanici degistirilmesi kullanici onay puanlarini etkiledigi icin buradan yapilamaz</p>
 <p>Her derse her kullanici sadece bir kere yorum yapabilir</p>
 <br />
-    <asp:Label runat="server" ID="lblDurum1"></asp:Label>
-    <br />
+    <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
+    <br /><br />
     Yorum durumu:<asp:DropDownList runat="server" ID="drpYorumDurumu" OnSelectedIndexChanged="DurumSecildi" AutoPostBack=true></asp:DropDownList>
     Okul:<asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi" AutoPostBack=true></asp:DropDownList>
     Ders:<asp:DropDownList runat="server" ID="drpDersler" OnSelectedIndexChanged="DersSecildi" AutoPostBack="true"></asp:DropDownList>
@@ -56,8 +56,9 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         </Columns>
         <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
-    Yorum silinme nedeni (256): <asp:TextBox runat="server" ID="txtSilinmeNedeni" TextMode="MultiLine" MaxLength="256"></asp:TextBox>
+    Yorum silinme nedeni (256): <asp:TextBox runat="server" ID="txtSilinmeNedeni" TextMode="MultiLine" MaxLength="256"
+    Width="400"></asp:TextBox>
     <a onclick="SilinmeNedeniTemizle();">Temizle</a>
     <br />
-    <asp:Label runat="server" ID="lblDurum2"></asp:Label>
+    <asp:Label runat="server" ID="lblDurum2" CssClass="bilgi"></asp:Label>
 </asp:Content>

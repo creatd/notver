@@ -8,7 +8,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
     AutoPostBack="true">
     </asp:DropDownList>
     <br />
-    <asp:Label runat="server" ID="lblDurum1"></asp:Label>
+    <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
+    <br /><br />
     <asp:DataGrid ID="gridHocalar" runat="server" AllowPaging="true" AllowSorting="true"
             OnPageIndexChanged="grid_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
@@ -56,7 +57,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
                 </tr>                
                 <tr>
                     <td colspan="4">
-                        <asp:Label runat="server" ID="lblDurum3"></asp:Label>
+                        <asp:Label runat="server" ID="lblDurum3" CssClass="bilgi"></asp:Label>
                     </td>
                 </tr>
             </table>      
@@ -84,14 +85,53 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
             <tr>
                 <td>Yeni</td>
                 <td><asp:DropDownList runat="server" ID="drpOkullar3"></asp:DropDownList></td>
-                <td>Baslangic yili : <asp:TextBox runat="server" ID="txtOkulBaslangicYili" 
+                <td>Baslangic yili : <asp:TextBox runat="server" ID="txtOkulBaslangicYili" Width="60"
                 ToolTip="Bilmiyosan bos birak"></asp:TextBox></td>
-                <td>Bitis yili : <asp:TextBox runat="server" ID="txtOkulBitisYili"
+                <td>Bitis yili : <asp:TextBox runat="server" ID="txtOkulBitisYili" Width="60"
                 ToolTip="Bilmiyosan bos birak, hala devam ediyosa 0 yaz"></asp:TextBox></td>
                 <td><asp:LinkButton runat="server" ID="btnHocaOkulEkle" OnClick="HocaOkulEkle" Text="Ekle"></asp:LinkButton></td>
             </tr>
         </table>
     </asp:Panel>   
     
-    <asp:Label runat="server" ID="lblDurum2"></asp:Label> 
+    <asp:Panel runat="server" ID="pnlKayitsizHocalar">
+        <h1>Kayitsiz hocalar</h1>
+        <table>
+            <tr>
+                <td>
+                    <asp:DropDownList runat="server" ID="drpKayitsizHocalar"></asp:DropDownList>
+                </td>
+                <td>
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <table>
+                                <tr><td>
+                                    <asp:DropDownList runat="server" ID="drpOkullar4" OnSelectedIndexChanged="OkulSecildi4"
+                                    AutoPostBack="true"></asp:DropDownList>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:DropDownList runat="server" ID="drpOkulHocalar"></asp:DropDownList>
+                                </td></tr>
+                                <tr><td align="center">
+                                    ya da
+                                </td></tr>
+                                <tr><td>
+                                    Hoca ID&nbsp;:&nbsp;<asp:TextBox runat="server" ID="txtHocaID"></asp:TextBox>
+                                </td></tr>
+                            </table>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+                <td>
+                    <asp:Button runat="server" Text="Iliskilendir" OnClick="KayitsizHocaIliskilendir" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="right">
+                    <asp:Label runat="server" ID="lblDurum4" CssClass="bilgi"></asp:Label>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    
+    <asp:Label runat="server" ID="lblDurum2" CssClass="bilgi"></asp:Label> 
 </asp:Content>

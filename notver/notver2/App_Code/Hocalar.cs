@@ -18,6 +18,46 @@ using System.Collections.Generic;
 /// </summary>
 public class Hocalar
 {
+    public static bool Admin_KayitsizHocaIliskilendir(int HocaID, string KayitsizHocaIsim)
+    {
+        try
+        {
+            if (HocaID < 0 || string.IsNullOrEmpty(KayitsizHocaIsim))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_KayitsizHocaIliskilendir");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("HocaID", HocaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("KayitsizHocaIsim", KayitsizHocaIsim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.NVarChar;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) >= 1;
+	    }
+	    catch (Exception ex)    {}
+        return false;
+    }
+
+    public static DataTable Admin_KayitsizHocalariDondur()
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("Admin_KayitsizHocalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     /// <summary>
     /// Yorumu yayindan kaldirir ve kullanicinin onay puanini dusurur
     /// </summary>

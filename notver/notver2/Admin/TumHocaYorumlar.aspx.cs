@@ -371,8 +371,20 @@ public partial class Admin_TumHocaYorumlar : BasePage
                 int KullaniciID = Convert.ToInt32(kullaniciID);
                 if (Hocalar.Admin_HocaYorumYayindanKaldir(hocaYorumID, KullaniciID, txtSilinmeNedeni.Text))
                 {
-                    lblDurum1.Text = "Hoca yorumu yayindan kaldirildi";
-                    lblDurum2.Text = "Hoca yorumu yayindan kaldirildi";
+                    string yorum = e.Item.Cells[7].Text;
+                    string gonderilmeTarihi = e.Item.Cells[9].Text;
+                    //DateTime donusumu patlayabilir ama patlamiycagini umabiliriz
+                    if (Mesajlar.KullaniciyaYorumSilindiEpostasiGonder(KullaniciID, yorum, txtSilinmeNedeni.Text,
+                        Convert.ToDateTime(gonderilmeTarihi)))
+                    {
+                        lblDurum1.Text = "Hoca yorumu yayindan kaldirildi";
+                        lblDurum2.Text = "Hoca yorumu yayindan kaldirildi";
+                    }
+                    else
+                    {
+                        lblDurum1.Text = "Hoca yorumu yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                        lblDurum2.Text = "Hoca yorumu yayindan kaldirildi - Kullaniciya mesaj gonderilemedi";
+                    }
                     GridDoldur();
                 }
                 else

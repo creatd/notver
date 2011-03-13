@@ -8,7 +8,9 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
 <br />
 <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi" AutoPostBack="true"></asp:DropDownList>
 <br />
-    <asp:Label runat="server" ID="lblDurum1"></asp:Label>
+<br />
+    <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
+    <br /><br />
     <asp:DataGrid ID="gridUyeler" runat="server" AllowPaging="true" AllowSorting="true"
         OnPageIndexChanged="grid_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
@@ -44,6 +46,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         </Columns>
         <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
-    <asp:Label runat="server" ID="lblDurum2"></asp:Label>
+    <asp:Label runat="server" ID="lblDurum2" CssClass="bilgi"></asp:Label>
+    <br /><br />
     <asp:Label runat="server" ID="lblAciklama"></asp:Label>
 </asp:Content>

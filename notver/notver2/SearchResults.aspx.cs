@@ -13,6 +13,22 @@ using System.Xml.Linq;
 
 public partial class SearchResults : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -39,7 +55,7 @@ public partial class SearchResults : BasePage
                             pnlDersler.Visible = false;
                             pnlSonucYok.Visible = true;
                             lblBaslik.Text = "Hoca Arama Sonucu";
-                            lblSonucYok.Text = "Isminde <strong>\'" + searchParameters + "\'</strong> gecen bir hoca inanin bilmiyoruz";
+                            lblSonucYok.Text = "İsminde <strong>\'" + searchParameters + "\'</strong> geçen bir hoca henüz bilmiyoruz";
                         }
                         break;
                     case 2: //Ders
@@ -55,7 +71,7 @@ public partial class SearchResults : BasePage
                             pnlDersler.Visible = false;
                             pnlSonucYok.Visible = true;
                             lblBaslik.Text = "Ders Arama Sonucu";
-                            lblSonucYok.Text = "Kodunda veya isminde <strong>\'" + searchParameters + "\'</strong> gecen ders bulamadik";
+                            lblSonucYok.Text = "Kodunda veya isminde <strong>\'" + searchParameters + "\'</strong> geçen ders bulamadık";
                         }
                         break;
                 }

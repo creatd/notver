@@ -3,7 +3,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <asp:ScriptManager runat="server"></asp:ScriptManager>
-<h1>Icerik Ekle</h1>
+<h1>İçerik Ekle</h1>
 <h2>Okul Ekle</h2>
 <asp:Panel runat="server" ID="pnlOkulEkle">
     <table>
@@ -15,32 +15,32 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
             </asp:DropDownList></td>
         </tr>
         <tr>
-            <td>Isim (100)</td>
-            <td><asp:TextBox runat="server" ID="txtOkulIsim" Width="50"></asp:TextBox></td>
+            <td>İsim (100)</td>
+            <td><asp:TextBox runat="server" ID="txtOkulIsim" Width="400"></asp:TextBox></td>
         </tr>
         <tr>
             <td>Adres (50)</td>
-            <td><asp:TextBox runat="server" ID="txtOkulAdres" Width="50"></asp:TextBox></td>
+            <td><asp:TextBox runat="server" ID="txtOkulAdres" Width="400"></asp:TextBox></td>
         </tr>
         <tr>
-            <td>Kurulus Tarihi</td>
-            <td><asp:TextBox runat="server" ID="txtOkulKurulusTarihi" Width="4"></asp:TextBox></td>                
+            <td>Kuruluş Tarihi</td>
+            <td><asp:TextBox runat="server" ID="txtOkulKurulusTarihi" Width="60"></asp:TextBox></td>                
         </tr>
         <tr>
-            <td>Ogrenci Sayisi</td>
-            <td><asp:TextBox runat="server" ID="txtOkulOgrenciSayisi" Width="6"></asp:TextBox></td>                
+            <td>Öğrenci Sayısı</td>
+            <td><asp:TextBox runat="server" ID="txtOkulOgrenciSayisi" Width="60"></asp:TextBox></td>                
         </tr>
         <tr>
-            <td>Akademik Sayisi</td>
-            <td><asp:TextBox runat="server" ID="txtOkulAkademikSayisi" Width="6"></asp:TextBox></td>                
+            <td>Akademik Sayısı</td>
+            <td><asp:TextBox runat="server" ID="txtOkulAkademikSayisi" Width="60"></asp:TextBox></td>                
         </tr>
         <tr>
             <td>Web adresi (256)</td>
-            <td><asp:TextBox runat="server" ID="txtOkulWebAdresi" Width="256"></asp:TextBox></td>                
+            <td><asp:TextBox runat="server" ID="txtOkulWebAdresi" Width="400"></asp:TextBox></td>                
         </tr>
         <tr>
             <td><asp:Button runat="server" Text="Okul ekle" OnClick="OkulEkle" /></td>
-            <td><asp:Label runat="server" ID="lblDurumOkulEkle"></asp:Label></td>
+            <td><asp:Label runat="server" ID="lblDurumOkulEkle" CssClass="bilgi"></asp:Label></td>
         </tr>        
     </table>
 </asp:Panel>
@@ -55,16 +55,16 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
                 </asp:DropDownList></td>
         </tr>
         <tr>
-            <td>Isim (50)</td>
-            <td><asp:TextBox runat="server" ID="txtHocaIsim" Width="50"></asp:TextBox></td>
+            <td>İsim (50)</td>
+            <td><asp:TextBox runat="server" ID="txtHocaIsim" Width="400"></asp:TextBox></td>
         </tr>
         <tr>
-            <td>Unvan (50)</td>
-            <td><asp:TextBox runat="server" ID="txtHocaUnvan" Width="50"></asp:TextBox></td>
+            <td>Ünvan (50)</td>
+            <td><asp:TextBox runat="server" ID="txtHocaUnvan" Width="400"></asp:TextBox></td>
         </tr>
         <tr>
-            <td>Yorum sayisi</td>
-            <td><asp:TextBox runat="server" ID="txtHocaYorumSayisi" Width="6">0</asp:TextBox></td>
+            <td>Yorum sayısı</td>
+            <td><asp:TextBox runat="server" ID="txtHocaYorumSayisi" Width="60">0</asp:TextBox></td>
         </tr>
         <tr><td colspan="2">Hoca-Okul</td></tr>
     </table>
@@ -73,10 +73,10 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         <table>
             <tr>
                 <td><asp:DropDownList runat="server" ID="drpHocaOkullar" runat="server"></asp:DropDownList>&nbsp;&nbsp;
-                <asp:TextBox runat="server" ID="txtHocaOkulBaslangicYili" Width="4" ToolTip="Bilmiyosan bos birak"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txtHocaOkulBaslangicYili" Width="60" ToolTip="Bilmiyosan bos birak"></asp:TextBox>
                 &nbsp;-&nbsp;
-                <asp:TextBox runat="server" ID="txtHocaOkulBitisYili" Width="4" 
-                ToolTip="Bilmiyosan bos birak, hala devam ediyosa 0 yaz"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txtHocaOkulBitisYili" Width="60" 
+                ToolTip="Bilmiyosan boş bırak, hala devam ediyosa 0 yaz"></asp:TextBox>
                 </td>
                 <td><asp:Button runat="server" ID="btnHocaOkulEkle" OnClick="HocaOkulEkle" Text="+" /></td>
             </tr>
@@ -88,7 +88,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
                 </ItemTemplate>
                 <FooterTemplate></FooterTemplate>
             </asp:Repeater>    
-            <tr><td colspan="2"><asp:Label runat="server" ID="lblHocaOkulEkleDurum"></asp:Label></td></tr>        
+            <tr><td colspan="2"><asp:Label runat="server" ID="lblHocaOkulEkleDurum" CssClass="bilgi"></asp:Label></td></tr>        
         </table>      
     </ContentTemplate>  
     </asp:UpdatePanel>    
@@ -100,7 +100,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
                 <td><asp:Button runat="server" ID="hocaDerslerGuncelle" OnClick="HocaDerslerGuncelle" 
                 Text="Dersleri guncelle" ToolTip="Secili okullarda verilen tum dersleri dropdown'a yukler"/></td>
             </tr>
-            <tr><td colspan="2">Okullarin hepsini eklemeden buraya gecmeyin</td></tr>
+            <tr><td colspan="2">Okulların hepsini eklemeden buraya geçme</td></tr>
             <tr>
                 <td><asp:DropDownList runat="server" ID="drpHocaDersler" runat="server"></asp:DropDownList></td>
                 <td><asp:Button runat="server" ID="btnHocaDersEkle" OnClick="HocaDersEkle" Text="+" /></td>
@@ -113,7 +113,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
                 </ItemTemplate>
                 <FooterTemplate></FooterTemplate>
             </asp:Repeater>  
-            <tr><td colspan="2"><asp:Label runat="server" ID="lblHocaDersEkleDurum"></asp:Label></td></tr>        
+            <tr><td colspan="2"><asp:Label runat="server" ID="lblHocaDersEkleDurum" CssClass="bilgi"></asp:Label></td></tr>        
         </table>
     </ContentTemplate>
     </asp:UpdatePanel>
@@ -140,19 +140,19 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>
         <tr>
             <td>Kod (50)</td>
-            <td><asp:TextBox runat="server" ID="txtDersKod" Width="50"></asp:TextBox></td>
+            <td><asp:TextBox runat="server" ID="txtDersKod" Width="400"></asp:TextBox></td>
         </tr>
         <tr>
-            <td>Isim (150)</td>
-            <td><asp:TextBox runat="server" ID="txtDersIsim" Width="150"></asp:TextBox></td>
+            <td>İsim (150)</td>
+            <td><asp:TextBox runat="server" ID="txtDersIsim" Width="400"></asp:TextBox></td>
         </tr>
         <tr>
-            <td>Aciklama (2000)</td>
-            <td><asp:TextBox runat="server" ID="txtDersAciklama" Width="2000" TextMode="MultiLine"></asp:TextBox></td>
+            <td>Açıklama (2000)</td>
+            <td><asp:TextBox runat="server" ID="txtDersAciklama" Width="600" TextMode="MultiLine"></asp:TextBox></td>
         </tr>
         <tr>
             <td><asp:Button runat="server" ID="btnDersEkle" Text="Ders Ekle" OnClick="DersEkle" /></td>
-            <td><asp:Label runat="server" ID="lblDurumDersEkle" /></td>
+            <td><asp:Label runat="server" ID="lblDurumDersEkle" CssClass="bilgi"/></td>
         </tr>
     </table>
 </asp:Panel>
@@ -187,11 +187,11 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
                 <td><asp:DropDownList runat="server" ID="drpDosyaHocalar"></asp:DropDownList></td>
             </tr>
             <tr>
-                <td>Aciklama (256)</td>
+                <td>Açıklama (256)</td>
                 <td><asp:TextBox runat="server" ID="txtDosyaAciklama"></asp:TextBox></td>
             </tr>
             <tr>
-                <td colspan="2"><asp:Label runat="server" ID="lblDurumDosyaYukle"></asp:Label></td>
+                <td colspan="2"><asp:Label runat="server" ID="lblDurumDosyaYukle" CssClass="bilgi"></asp:Label></td>
             </tr>
         </table>
     </ContentTemplate>

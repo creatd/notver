@@ -36,16 +36,20 @@ public partial class Admin_TumHocalar : BasePage
             drpOkullar.Items.Clear();
             drpOkullar2.Items.Clear();
             drpOkullar3.Items.Clear();
+            drpOkullar4.Items.Clear();
 
             drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             drpOkullar2.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+            drpOkullar4.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             foreach (DataRow dr in session.dtOkullar.Rows)
             {
                 drpOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
                 drpOkullar2.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
                 drpOkullar3.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+                drpOkullar4.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
             }
             GridDoldur();
+            KayitsizHocalariDoldur();
         }
     }
 
@@ -71,6 +75,22 @@ public partial class Admin_TumHocalar : BasePage
     {
         GridDoldur();
     }
+
+    protected void KayitsizHocalariDoldur()
+    {
+        drpKayitsizHocalar.Items.Clear();
+        DataTable dtKayitsizHocalar = Hocalar.Admin_KayitsizHocalariDondur();
+        if (dtKayitsizHocalar != null)
+        {
+            foreach (DataRow dr in dtKayitsizHocalar.Rows)
+            {
+                drpKayitsizHocalar.Items.Add(new ListItem(dr["KAYITSIZ_HOCA_ISIM"].ToString() + " (" + 
+                    dr["KAYITSIZ_HOCA_OKUL"].ToString() + ") " + ((Enums.YorumDurumu)(Convert.ToInt32(dr["YORUM_DURUMU"]))).ToString())); 
+            }
+        }
+    }
+
+
 
     protected void GridDoldur()
     {
@@ -228,16 +248,57 @@ public partial class Admin_TumHocalar : BasePage
     protected void OkulSecildi2(object sender, EventArgs e)
     {
         int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+        drpDersler.Items.Clear();
         if (okulID >= 0)
         {
             DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
             if (dtDersler != null)
             {
-                drpDersler.Items.Clear();
                 foreach (DataRow dr in dtDersler.Rows)
                 {
                     drpDersler.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
                 }
+            }
+        }
+    }
+
+    protected void OkulSecildi4(object sender, EventArgs e)
+    {
+        int okulID = Convert.ToInt32(drpOkullar4.SelectedValue);
+        drpOkulHocalar.Items.Clear();
+        if (okulID >= 0)
+        {
+            DataTable dtHocalar = Hocalar.OkuldakiHocalariDondur(okulID);
+            if (dtHocalar != null)
+            {
+                foreach (DataRow dr in dtHocalar.Rows)
+                {
+                    drpOkulHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                }
+            }
+        }
+    }
+
+    protected void KayitsizHocaIliskilendir(object sender, EventArgs e)
+    {
+        lblDurum4.Text = "Hoca iliskilendirilirken bir hata olustu";
+        int seciliHocaID = -1;
+        if (Util.GecerliSayi(drpOkulHocalar.SelectedValue))
+        {
+            seciliHocaID = Convert.ToInt32(drpOkulHocalar.SelectedValue);
+        }
+        if(seciliHocaID < 0 && Util.GecerliSayi(txtHocaID.Text))
+        {
+            seciliHocaID = Convert.ToInt32(txtHocaID.Text);
+        }
+        if (seciliHocaID >= 0)
+        {
+            string hoca_isim = drpKayitsizHocalar.SelectedValue;
+            hoca_isim = hoca_isim.Substring(0, hoca_isim.LastIndexOf("(")-1);
+            if (Hocalar.Admin_KayitsizHocaIliskilendir(seciliHocaID, hoca_isim))
+            {
+                lblDurum4.Text = "Hoca basariyla iliskilendirildi";
+                KayitsizHocalariDoldur();
             }
         }
     }

@@ -116,7 +116,7 @@
 
 <asp:Panel ID="pnlNotYok" runat="server" Visible="false">
     <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
-        Daha once puan verilmemis. Ilk puan veren siz olun
+        Daha önce puan verilmemiş, ilk puan veren siz olun!
     </p>
 </asp:Panel>
 

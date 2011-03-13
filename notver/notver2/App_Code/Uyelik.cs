@@ -31,6 +31,7 @@ public class Uyelik
             SqlCommand cmd = new SqlCommand("KullaniciSifreDegistir");
             cmd.CommandType = CommandType.StoredProcedure;
 
+            KullaniciEposta = KullaniciEposta.ToLowerInvariant().Trim();    //Zaten kucuk harfli olmali ama yine de koyalim, zarari yok
             SqlParameter param = new SqlParameter("KullaniciEposta", KullaniciEposta);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
@@ -127,6 +128,7 @@ public class Uyelik
         {
             return "";
         }
+        KullaniciEpostasi = KullaniciEpostasi.ToLowerInvariant().Trim();
         string hash_girdi = KullaniciIsmi + KullaniciIsmi.Length.ToString() +
             KullaniciEpostasi.Length.ToString() + KullaniciEpostasi;
         return Util.HashString(hash_girdi);
@@ -173,6 +175,7 @@ public class Uyelik
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
+            Eposta = Eposta.ToLowerInvariant().Trim();
             param = new SqlParameter("Eposta", Eposta);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
@@ -422,7 +425,6 @@ public class Uyelik
 
     public static void CikisYap()
     {
-        //TODO : birden cok kullanici ayni anda giris yaptiginda dogru calisiyor mu kontrol et
         Session session = new Session();
         session.KullaniciID = -1;
         session.IsLoggedIn = false;
@@ -438,8 +440,7 @@ public class Uyelik
             SqlCommand cmd = new SqlCommand("EpostaAdresiVarMi");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            Eposta = Eposta.Trim();
-            Eposta = Eposta.ToLowerInvariant();
+            Eposta = Eposta.Trim().ToLowerInvariant();
 
             SqlParameter param = new SqlParameter("Eposta", Eposta);
             param.Direction = ParameterDirection.Input;
@@ -608,8 +609,7 @@ public class Uyelik
             {
                 return -999;
             }
-            Eposta = Eposta.Trim();
-            Eposta = Eposta.ToLowerInvariant();
+            Eposta = Eposta.Trim().ToLowerInvariant();
             sifre = sifre.Trim();
 
             SqlCommand cmd = new SqlCommand("KullaniciSifreDogrula");

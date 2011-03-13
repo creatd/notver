@@ -13,6 +13,22 @@ using System.Xml.Linq;
 
 public partial class Yorumlarim : BasePage
 {
+    protected void Page_Error(object sender, EventArgs e)
+    {
+        Exception ex = Server.GetLastError();
+        if (ex != null)
+        {
+            if (session != null)
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            }
+            else
+            {
+                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+            }
+        }
+    }
+
     public Enums.YorumTipi YorumTipi
     {
         get
@@ -32,80 +48,88 @@ public partial class Yorumlarim : BasePage
 
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        ltrScript.Text = "";
-        if (!session.IsLoggedIn)
+        try
         {
-            GoToDefaultPage();
-        }
-        if (!Page.IsPostBack)
-        {
-            PanelleriSakla();
-            btnDersYorumlarim.Enabled = true;
-            btnHocaYorumlarim.Enabled = true;
-            btnOkulYorumlarim.Enabled = true;
+            ltrScript.Text = "";
+            if (!session.IsLoggedIn)
+            {
+                GoToDefaultPage();
+            }
+            if (!Page.IsPostBack)
+            {
+                PanelleriSakla();
+                btnDersYorumlarim.Enabled = true;
+                btnHocaYorumlarim.Enabled = true;
+                btnOkulYorumlarim.Enabled = true;
 
-            if(session.KullaniciAktifYorumSayisi >= 0)
-            {
-                lblYorumOzeti.Text = "Görüntülenen <strong>" + session.KullaniciAktifYorumSayisi + "</strong> yorumunuz bulunmaktadır";
+                if (session.KullaniciAktifYorumSayisi >= 0)
+                {
+                    lblYorumOzeti.Text = "Görüntülenen <strong>" + session.KullaniciAktifYorumSayisi + "</strong> yorumunuz bulunmaktadır";
+                }
             }
-        }
-        if (YorumTipi == Enums.YorumTipi.Gecersiz)
-        {
-            if (Query.GetInt("HocaID") > 0)
+            if (YorumTipi == Enums.YorumTipi.Gecersiz)
             {
-                HocaYorumlariniGoster(null, null);
-            }
-            else if (Query.GetInt("OkulID") > 0)
-            {
-                OkulYorumlariniGoster(null, null);
-            }
-            else if (Query.GetInt("DersID") > 0)
-            {
-                DersYorumlariniGoster(null, null);
+                if (Query.GetInt("HocaID") > 0)
+                {
+                    HocaYorumlariniGoster(null, null);
+                }
+                else if (Query.GetInt("OkulID") > 0)
+                {
+                    OkulYorumlariniGoster(null, null);
+                }
+                else if (Query.GetInt("DersID") > 0)
+                {
+                    DersYorumlariniGoster(null, null);
+                }
+                else
+                {
+                    DersYorumlariniGoster(null, null);  //Sayfa İlk acildiginda
+                    YorumTipi = Enums.YorumTipi.DersYorum;
+                }
             }
             else
             {
-                DersYorumlariniGoster(null, null);  //Sayfa ilk acildiginda
-                YorumTipi = Enums.YorumTipi.DersYorum;
+                switch (YorumTipi)
+                {
+                    case Enums.YorumTipi.DersYorum:
+                        DersYorumlariniGoster(null, null);
+                        break;
+                    case Enums.YorumTipi.OkulYorum:
+                        OkulYorumlariniGoster(null, null);
+                        break;
+                    case Enums.YorumTipi.HocaYorum:
+                        HocaYorumlariniGoster(null, null);
+                        break;
+                    default:
+                        break;
+                }
             }
-        }
-        else
-        {
+            btnDersYorumlarim.Enabled = true;
+            btnOkulYorumlarim.Enabled = true;
+            btnHocaYorumlarim.Enabled = true;
+            btnDersYorumlarim.CssClass = "";
+            btnOkulYorumlarim.CssClass = "";
+            btnHocaYorumlarim.CssClass = "";
             switch (YorumTipi)
             {
                 case Enums.YorumTipi.DersYorum:
-                    DersYorumlariniGoster(null, null);
-                    break;
-                case Enums.YorumTipi.OkulYorum:
-                    OkulYorumlariniGoster(null, null);
+                    btnDersYorumlarim.Enabled = false;
+                    btnDersYorumlarim.CssClass = "secili";
                     break;
                 case Enums.YorumTipi.HocaYorum:
-                    HocaYorumlariniGoster(null, null);
+                    btnHocaYorumlarim.Enabled = false;
+                    btnHocaYorumlarim.CssClass = "secili";
                     break;
-                default:
+                case Enums.YorumTipi.OkulYorum:
+                    btnOkulYorumlarim.Enabled = false;
+                    btnOkulYorumlarim.CssClass = "secili";
                     break;
             }
         }
-        btnDersYorumlarim.Enabled = true;
-        btnOkulYorumlarim.Enabled = true;
-        btnHocaYorumlarim.Enabled = true;
-        btnDersYorumlarim.CssClass = "";
-        btnOkulYorumlarim.CssClass = "";
-        btnHocaYorumlarim.CssClass = "";
-        switch (YorumTipi)
+        catch (Exception ex)
         {
-            case Enums.YorumTipi.DersYorum:
-                btnDersYorumlarim.Enabled = false;
-                btnDersYorumlarim.CssClass = "secili";
-                break;
-            case Enums.YorumTipi.HocaYorum:
-                btnHocaYorumlarim.Enabled = false;
-                btnHocaYorumlarim.CssClass = "secili";
-                break;
-            case Enums.YorumTipi.OkulYorum:
-                btnOkulYorumlarim.Enabled = false;
-                btnOkulYorumlarim.CssClass = "secili";
-                break;
+            Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            GoToDefaultPage();
         }
     }
 

@@ -3,7 +3,8 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <h1>Okullar</h1>
-    <asp:Label runat="server" ID="lblDurum1"></asp:Label>
+    <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
+    <br /><br />
     <asp:DataGrid ID="gridOkullar" runat="server" AllowPaging="true" AllowSorting="true"
             OnPageIndexChanged="grid_PageIndexChanged" PageSize="10"
             AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
@@ -24,5 +25,5 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         </Columns>
         <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
-    <asp:Label runat="server" ID="lblDurum2"></asp:Label>
+    <asp:Label runat="server" ID="lblDurum2" CssClass="bilgi"></asp:Label>
 </asp:Content>

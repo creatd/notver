@@ -27,13 +27,13 @@ MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" 
     width:100%; height:250px;"> 
         <tr>    
             <td style="width:300px; font-size:14px; line-height:200%; font-weight:normal; padding-left:20px;">
-                <i>Sehir :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
+                <i>Şehir :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulAdres"></asp:Label>
                 <br />
-                <i>Kurulus tarihi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
+                <i>Kuruluş tarihi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOkulKurulusTarihi"></asp:Label>
                 <br />
-                <i>Ogrenci sayisi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOgrenciSayisi"></asp:Label>
+                <i>Öğrenci sayısı :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblOgrenciSayisi"></asp:Label>
                 <br />
-                <i>Akademik personel sayisi :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblAkademikPersonelSayisi"></asp:Label>
+                <i>Akademik personel sayısı :</i>&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblAkademikPersonelSayisi"></asp:Label>
                 <br />
                 <i>Web adresi :</i>&nbsp;&nbsp;&nbsp;<asp:HyperLink runat="server" ID="hpOkulWeb" Target="_blank"></asp:HyperLink>
                 <br />

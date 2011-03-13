@@ -47,7 +47,7 @@ function Temizle(obj)
             background-image:url('App_Themes/Default/Images/buton_sol.png');"></span>
             
         <span style="height:22px;	padding-top:8px;	padding-right:10px; font-size:14px;
-	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');">Tum hocalari goster</span>
+	float:left;	background-image:url('App_Themes/Default/Images/buton_orta.png');">Tüm hocaları göster</span>
         
         <span style="width:30px;	height:30px;	float:left;	
             background-image:url('App_Themes/Default/Images/buton_sag_uzun.png');"></span>

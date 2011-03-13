@@ -145,7 +145,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                 else
                 {
                     pnlDosyaYukle.Visible = true;
-                    //Sayfa ilk acildiginda, hangi sayfadan geldiysen onu aktar
+                    //Sayfa İlk acildiginda, hangi sayfadan geldiysen onu aktar
                     if (SeciliDersID <= 0 && Query.GetInt("DersID") > 0)
                     {
                         SeciliDersID = Query.GetInt("DersID");
@@ -262,7 +262,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
         lblYuklemeDurum.Text = "";
         if (SeciliDersID <= 0 || string.IsNullOrEmpty(lblSecilenDers.Text))
         {
-            lblYuklemeDurum.Text = "Ders secmeniz gerekmektedir";
+            lblYuklemeDurum.Text = "Ders seçmeniz gerekmektedir";
             return;
         }
         if (fileUpload.HasFile)
@@ -285,11 +285,11 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                 int dosyaBoyut = fileUpload.PostedFile.ContentLength;
                 if (dosyaBoyut <= 0)
                 {
-                    lblYuklemeDurum.Text = "Sectiginiz dosyanin iceriginde bir sorun var, lutfen tekrar deneyin";
+                    lblYuklemeDurum.Text = "Sectiğiniz dosyanın içeriğinde bir sorun var, lütfen tekrar deneyin";
                 }
                 else if (dosyaBoyut > 5 * 1024 * 1024)
                 {
-                    lblYuklemeDurum.Text = "5 GB'tan buyuk bir dosya yukleyemezsiniz, lutfen daha kucuk bir dosya secin";
+                    lblYuklemeDurum.Text = "5 GB'tan büyük bir dosya yükleyemezsiniz, lütfen daha küçük bir dosya seçin";
                 }
 
                 string dosyaAdres = Path.GetFileName(fileUpload.FileName);
@@ -309,7 +309,7 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                 //Amazon'a yuklemeden once bu isimde bir dosya var mi kontrol et, yoksa uzerine yaziyo
                 if( Dersler.DersDosyaIsmiVarMi(SeciliDersID , (Enums.DosyaKategoriTipi)Convert.ToInt32(rbDosyaTipleri.SelectedValue),dosyaIsimFinal)) 
                 {
-                    lblYuklemeDurum.Text = "Ayni ders icin bu isimde bir dosya daha once yuklenmis. Lutfen baska bir isim secip tekrar deneyin";
+                    lblYuklemeDurum.Text = "Aynı ders için bu isimde bir dosya daha once yüklenmis. Lütfen başka bir isim seçip tekrar deneyin";
                     return;
                 }
 
@@ -358,18 +358,18 @@ public partial class UserControls_DersDosyaYukle : BaseUserControl
                     //TODO: Admin'e haber ver, amazon'a yukledik veritabanina yazamadik
                 }
 
-                lblYuklemeDurum.Text = "Yuklendi! Tesekkurler :)";
+                lblYuklemeDurum.Text = "Yüklendi! Teşekkürler :)";
                 ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
             }
             catch (Exception ex)
             {
                 //TODO: Admine msj
-                lblYuklemeDurum.Text = "Bir hata olustu, lutfen tekrar deneyin";
+                lblYuklemeDurum.Text = "Bir hata oluştu, lütfen tekrar deneyin";
             }
         }
         else
         {
-            lblYuklemeDurum.Text = "Dosya secmeyi unuttunuz";
+            lblYuklemeDurum.Text = "Dosya seçmeyi unuttunuz";
         }
     }
 }
