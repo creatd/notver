@@ -7,11 +7,11 @@ function DurumTemizle() {
 
 </script>
 
-<div id="UyeOl" style="padding-bottom:10px;">
+<div id="UyeOl">
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <div class="pnlUyeOl">
-                <p>Ad (*)</p>
+                <p style="margin-top:0px; padding-top:7px;">Ad (*)</p>
                 <asp:TextBox ID="txtAd" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAd"
                         ErrorMessage="İsim girmelisin" ToolTip="Isim girilmelidir" ValidationGroup="vg1">*</asp:RequiredFieldValidator>                
@@ -25,13 +25,13 @@ function DurumTemizle() {
                         ErrorMessage="E-posta adresi girmelisin" ToolTip="E-posta adresi girmelisin"
                         ValidationGroup="vg1">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
-                        ErrorMessage="E-posta adresini yanlış girdin" ToolTip="E-posta adresini yanlis girdin"
-                        ValidationExpression="^[a-zA-Z0-9.-]+@[a-zA-Z0-9.:-]+$" ValidationGroup="vg1">*</asp:RegularExpressionValidator>
-                <p class="sessiz">(Okul e-postanla kayıt olarak okulunu temsil edebilirsin)</p>
-                <p>Kullanıcı adı</p>
+                        ErrorMessage="E-posta adresini yanlış girdin" ToolTip="E-posta adresini yanlış girdin"
+                        ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+$" ValidationGroup="vg1">*</asp:RegularExpressionValidator>
+                <p class="sessiz" style="color:#000000;">(Okul e-postanla kayıt olarak okulunu temsil edebilirsin)</p>
+                <p style="font-style:italic; font-size:12px; padding-top:5px;">Kullanıcı adı (opsiyonel)</p>
                     <asp:TextBox ID="txtKullaniciAdi" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
-                <p class="sessiz">(Yorumların yayinlanırken ilk ismin yerine kullanıcı adınla yayınlansın istiyorsan)</p>
-                <p>Şifre (*)</p>
+                <p class="sessiz" style="color:#000000;">(Yorumların yayınlanırken ilk ismin yerine kullanıcı adınla yayınlansın istiyorsan)</p>
+                <p style="padding-top:5px;">Şifre (*)</p>
                     <asp:TextBox ID="txtSifre" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
                         ErrorMessage="Şifre girmelisin" ToolTip="Şifre girmelisin"

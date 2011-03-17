@@ -30,8 +30,6 @@ public partial class UserControls_LoginBox : BaseUserControl
                 lblDurum.Text = "hata oluştu - tekrar deneyin";
                 break;
         }
-        int dummy = 0;
-        dummy = dummy / dummy;
     }
 
     protected void SifremiUnuttum(object sender, EventArgs e)

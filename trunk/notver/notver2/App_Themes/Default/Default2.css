@@ -27,20 +27,21 @@ div#Main
 div#Footer
 {
 	background-color:#191919;
-	height:220px;
+	height:100%;/* 220px'di */
 	width:100%;
 }
 
 div#FooterContent
 {
 	width:960px;
-	height:220px;
+	height:100%;	
 	margin-left:auto;
 	margin-right:auto;
 	line-height:150%;
 	font-size:13px; 
 	color:#afafaf;
 	padding-top:30px;
+	padding-bottom:170px;
 }
 
 div#FooterContent p
@@ -119,6 +120,7 @@ a:hover
 	float:left;
 	margin-top:25px;
 	padding-left:5px;
+	line-height:200%;
 }
 
 .araDropdown
@@ -232,7 +234,7 @@ http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
 /* LoginBox */
 div.pnlLogin
 {
-	 background-image:url('Images/loginbg.png');
+	 background-image:url('Images/loginbg2.png');
 	 width:269px;
 	 height:189px;
 	color:#626262;
@@ -277,8 +279,7 @@ a.sifremiUnuttum
 
 span.girisDurum
 {
-	padding-top:5px;
-	padding-left:33px;
+	padding:5px 5px 10px 33px;
 }
 
 div#Header a.cikisYap
@@ -294,7 +295,7 @@ div#Header a.cikisYap:hover
 /* Uye Ol uc */
 div.pnlUyeOl
 {
-	 background-image:url('Images/registerbg2.png');
+	 background-image:url('Images/registerbg4.png');
 	 width:269px;
 	 height:569px;
 	color:#626262;
@@ -302,7 +303,6 @@ div.pnlUyeOl
 	font-weight:bold;
 	font-size:14px;
 	padding-left:25px;
-	padding-top:4px;
 }
 div.pnlUyeOl p
 {
@@ -362,6 +362,7 @@ div.dersYorumlar
 div#dersBilgi a.lnkIndir
 {
 	float:right;
+	font-size:15px;	
 }
 
 div#dersYorumlari a.lnkYorumEkle

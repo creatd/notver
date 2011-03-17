@@ -6,7 +6,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
 <br />
 <p>Kullanici adi ve epostanin essiz oldugundan emin ol!</p>
 <br />
-<asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi" AutoPostBack="true"></asp:DropDownList>
+Okul :&nbsp;&nbsp;<asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi" AutoPostBack="true"></asp:DropDownList>
 <br />
 <br />
     <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>

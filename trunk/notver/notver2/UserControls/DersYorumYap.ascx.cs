@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Linq;
+
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+
 
 public partial class UserControls_DersYorumYap : BaseUserControl
 {
@@ -145,6 +145,15 @@ public partial class UserControls_DersYorumYap : BaseUserControl
                         return;
                     }
                 }
+            }
+        }
+        //Diger sectiyse, hoca ismi bos olamaz
+        if (Util.GecerliSayi(drpDersHocalar.SelectedValue) && Convert.ToInt32(drpDersHocalar.SelectedValue) == -2)
+        {
+            if (string.IsNullOrEmpty(txtBilinmeyenHocaIsmi.Text))
+            {
+                ltrDurum.Text = "Hocanın ismini girmedin";
+                return;
             }
         }
         if (!Dersler.DersYorumKaydet(session.KullaniciID, Query.GetInt("DersID"), textYorum.Text,

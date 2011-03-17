@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Data;
 using System.Configuration;
-using System.Linq;
+
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+
 using System.Security.Cryptography;
 using System.Text;
 using System.Data.SqlClient;
@@ -300,7 +300,7 @@ public class Uyelik
             cmd.Parameters.Add(param);
 
             DataTable dt = Util.GetDataTable(cmd);
-            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Count() > 0 && Util.GecerliString(dt.Rows[0][0]))
+            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Length > 0 && Util.GecerliString(dt.Rows[0][0]))
             {
                 return dt.Rows[0][0].ToString();
             }
@@ -323,7 +323,7 @@ public class Uyelik
             cmd.Parameters.Add(param);
 
             DataTable dt = Util.GetDataTable(cmd);
-            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Count() > 0 && Util.GecerliString(dt.Rows[0][0]))
+            if (dt != null && dt.Rows.Count > 0 && dt.Rows[0].ItemArray.Length > 0 && Util.GecerliString(dt.Rows[0][0]))
             {
                 return dt.Rows[0][0].ToString();
             }
