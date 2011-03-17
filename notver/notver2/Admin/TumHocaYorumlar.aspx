@@ -42,7 +42,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
             <asp:BoundColumn DataField="HOCA_ISIM" HeaderText="Hoca Isim" ReadOnly="true"></asp:BoundColumn>
             <asp:BoundColumn DataField="KULLANICI_ID" HeaderText="Kullanici ID" ReadOnly="true"></asp:BoundColumn>
             <asp:BoundColumn DataField="YORUM" HeaderText="Yorum (2000)"></asp:BoundColumn>
-            <asp:BoundColumn DataField="KULLANICI_PUANARALIGI" HeaderText="Kullanici puan araligi [1,5]"></asp:BoundColumn>
+            <asp:BoundColumn DataField="KULLANICI_PUANARALIGI" HeaderText="Kullanici puan araligi [0,5]"></asp:BoundColumn>
             <asp:BoundColumn DataField="TARIH" HeaderText="Gonderilme tarihi"></asp:BoundColumn>
             <asp:BoundColumn DataField="ALKIS_PUANI" HeaderText="Alkis puani"></asp:BoundColumn>
             

@@ -40,32 +40,6 @@ function pageLoad() {
         else {
             $("#<%=puanDersHoca.ClientID %>").find("span").each(function() {
                 if (this.value == 1) {
-                    $(this).attr("title", "Click to rate as 1 star");
-                }
-                if (this.value == 2) {
-                    $(this).attr("title", "Click to rate as 2 stars");
-                }
-                if (this.value == 3) {
-                    $(this).attr("title", "Click to rate as 3 stars");
-                }
-                if (this.value == 4) {
-                    $(this).attr("title", "Click to rate as 4 stars");
-                }
-                if (this.value == 5) {
-                    $(this).attr("title", "Click to rate as 5 stars");
-                }
-            });
-        }    
-/* puanDersZorluk tooltip'leri */    
-        if ($find("<%=puanDersZorluk.ClientID %>" + "_RatingExtender").get_ReadOnly()) {
-            var rate = $("#<%=puanDersZorluk.ClientID %> > a").attr("title");
-            if (rate != 0) {
-                $("#<%=puanDersZorluk.ClientID %> > a").attr("title", rate + " yıldız verildi");
-            }           
-        }
-        else {
-            $("#<%=puanDersZorluk.ClientID %>").find("span").each(function() {
-                if (this.value == 1) {
                     $(this).attr("title", "Çok kötü fikir");
                 }
                 if (this.value == 2) {
@@ -79,6 +53,32 @@ function pageLoad() {
                 }
                 if (this.value == 5) {
                     $(this).attr("title", "Çok iyi fikir");
+                }
+            });
+        }    
+/* puanDersZorluk tooltip'leri */    
+        if ($find("<%=puanDersZorluk.ClientID %>" + "_RatingExtender").get_ReadOnly()) {
+            var rate = $("#<%=puanDersZorluk.ClientID %> > a").attr("title");
+            if (rate != 0) {
+                $("#<%=puanDersZorluk.ClientID %> > a").attr("title", rate + " yıldız verildi");
+            }           
+        }
+        else {
+            $("#<%=puanDersZorluk.ClientID %>").find("span").each(function() {
+                if (this.value == 1) {
+                    $(this).attr("title", "Çok kolaydı");
+                }
+                if (this.value == 2) {
+                    $(this).attr("title", "Kolaydı");
+                }
+                if (this.value == 3) {
+                    $(this).attr("title", "Orta karar");
+                }
+                if (this.value == 4) {
+                    $(this).attr("title", "Zordu");
+                }
+                if (this.value == 5) {
+                    $(this).attr("title", "Çok zordu");
                 }
             });
         }    

@@ -23,7 +23,7 @@ MaintainScrollPositionOnPostback="true" %>
     <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         <asp:Label runat="server" ID="lblDersIsim" CssClass="fltLeft"></asp:Label>
         <span style="color:#626262; padding-left:5px; float:left;">(<asp:Label runat="server" ID="lblDersOkulIsim"></asp:Label>)</span>
-        <asp:HyperLink runat="server" ID="lnkDersDosyalar" CssClass="lnkIndir">Dosya arşivi &nbsp;&nbsp;
+        <asp:HyperLink runat="server" ID="lnkDersDosyalar" CssClass="lnkIndir">Ders arşivi için tıklayın&nbsp;&nbsp;&nbsp;
         <img src="App_Themes/Default/Images/indir.png" /></asp:HyperLink>
     </p>
     <p style="background-color:#FFFFFF; color:#000000; padding:25px; font-size:11px; font-weight:bold;">

@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Linq;
+
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+
 
 using System.Text;
 
@@ -62,7 +62,7 @@ public partial class Hoca : BasePage
                     }
 
                     //Hoca okullar
-                    if (session.HocaOkulIsimleri == null || session.HocaOkulIsimleri.Count() <= 0)
+                    if (session.HocaOkulIsimleri == null || session.HocaOkulIsimleri.Length <= 0)
                     {
                         hocaOkullar.Text = "<span class=\"HocaOkullar\">(Okul bilgisi bulunamadı!)</span>";
                     }
@@ -70,7 +70,7 @@ public partial class Hoca : BasePage
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append("<span class=\"HocaOkullar\">");
-                        for (int i = 0; i < session.HocaOkulIsimleri.Count(); i++)
+                        for (int i = 0; i < session.HocaOkulIsimleri.Length; i++)
                         {
                             if (!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
                             {

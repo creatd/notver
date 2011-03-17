@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Linq;
+
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+
 using Amazon.S3;
 using System.Collections.Specialized;
 using Amazon.S3.Model;
@@ -241,6 +241,9 @@ public partial class UserControls_DersDosyalar : BaseUserControl
 
     protected void KlasorSec(object sender, CommandEventArgs e)
     {
+        lblSorun.Text = "";
+        lnkSorun.Text = "";
+        lnkSorun.NavigateUrl = "";
         int argument = Convert.ToInt32(e.CommandArgument);
         if(argument == 6)   //Hepsi secenegi
         {
@@ -290,6 +293,10 @@ public partial class UserControls_DersDosyalar : BaseUserControl
     {
         if (e.CommandName == "DosyaIndir")
         {
+            lblSorun.Text = "";
+            lnkSorun.Text = "";
+            lnkSorun.NavigateUrl = "";
+
             string dosya_anahtar = ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[3].Text;
 
             //Amazon'dan 1 saat sureli URL olustur
@@ -308,8 +315,14 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                     Expires = DateTime.Now.AddHours(1)
                 };
                 string url = client.GetPreSignedURL(url_request);
-                string response = "<script>window.open('" + url + "','_blank')</script>";
+                //string response = "<script type='text/javascript'>alert('yihu2');window.open('" + url + "','parent','toolbar=1,scrollbars=1,location=1,status=1,menubar=1,resizable=1,width=800,height=600');</script>";
+                //string response = "<script type='text/javascript'>window.open('" + url + "');</script>";
+                string response = "<script type='text/javascript'>window.open('" + url + "','_blank','','');</script>";
                 ltrScript.Text = response;
+                //Chrome ise veya pop-up engelleyici varsa sorun oluyor, bu nedenle asagiya da linki bas
+                lblSorun.Text = "Dosya yükleme başlamadıysa ";
+                lnkSorun.Text = "buraya tıkla";
+                lnkSorun.NavigateUrl = url;
                 //Response.Write(response);
             }
 

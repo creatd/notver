@@ -85,6 +85,10 @@ $(document).ready(function($) {
                     </asp:ButtonColumn>
                 </Columns>
             </asp:DataGrid> 
+            <p style="font-weight:bold; text-align:right; color:FF9202;">
+                <asp:Label runat="server" ID="lblSorun"></asp:Label>
+                <asp:HyperLink runat="server" ID="lnkSorun" Target="_blank"></asp:HyperLink>
+            </p>
         </asp:Panel> 
         <asp:Panel ID="pnlDosyaYok" runat="server" Visible="false">
             <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
