@@ -1,6 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersDosyaYukle.ascx.cs"
     Inherits="UserControls_DersDosyaYukle" %>
 <script type="text/javascript">
+    $(document).ready(function(){
+        update_size(50,55);
+    });
+    
+function update_size(w_bias,h_bias)  {
+    var w = $(document).width() + w_bias;
+    var h = $(document).height() + h_bias;
+    parent.resize(w,h);
+}
+    
 function SetFocusDersDosya(e)
 {
     var keycode;
@@ -30,26 +40,22 @@ function Temizle(obj)
 </script>
 <asp:Panel ID="pnlDosyaYukle" runat="server" Width="510" Height="380" CssClass="DersDosyaYukle">
     <p style="padding-bottom:10px; font-size:11px;">
-    Baska bir ders sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Baska bir ders seç&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <asp:TextBox runat="server" ID="txtDersKodu" Text="Ders kodu veya ismi" onclick="javascript:return Temizle(this);"
             OnKeyDown="javascript:return SetFocusDersAra(event);" CssClass="textbox"></asp:TextBox>
             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDersKodu" Display="Dynamic"
                 ErrorMessage="*" ID="reqDersIsmi" ValidationGroup="vgDersAra"></asp:RequiredFieldValidator>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:LinkButton runat="server" ID="btnDersAra" OnClick="DersAra" ValidationGroup="vgDersAra"
-                CausesValidation="true"><span style="font-size:11px;">Ara</span></asp:LinkButton>                
+    <asp:LinkButton runat="server" ID="btnDersAra" OnClick="DersAra" ValidationGroup="vgDersAra" 
+        CausesValidation="true"><span style="font-size:11px;">Ara</span></asp:LinkButton>                
     </p>
     
     <asp:Panel runat="server" ID="pnlDersAramaSonuclari" Visible="false">
         <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
             Sayfa başı <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
-            AutoPostBack="True" CssClass="dropdownPager">
-                            
-                            
-                            
+            AutoPostBack="True" CssClass="dropdownPager">                       
+                            <asp:ListItem Text="5" Value="5"></asp:ListItem>
                             <asp:ListItem Text="10" Value="10"></asp:ListItem>
-                            <asp:ListItem Text="20" Value="20"></asp:ListItem>
-                            <asp:ListItem Text="40" Value="40"></asp:ListItem>
                             <asp:ListItem Text="Hepsi" Value="0"></asp:ListItem>
                         </asp:DropDownList> ders
         </p>    
@@ -61,7 +67,7 @@ function Temizle(obj)
                 <asp:BoundColumn DataField="OKUL_ISIM" HeaderText="Universite" HeaderStyle-ForeColor="#191919"></asp:BoundColumn>
                 <asp:TemplateColumn ItemStyle-ForeColor="#191919">
                     <ItemTemplate>
-                        &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" Text="Sec" CommandName="DersSec"
+                        &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" Text="Seç" CommandName="DersSec"
                             CommandArgument='<%# DataBinder.Eval(Container,"DataItem.DERS_ID")%>'>
                         </asp:LinkButton>
                     </ItemTemplate>

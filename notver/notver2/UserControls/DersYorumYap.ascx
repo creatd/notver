@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersYorumYap.ascx.cs" Inherits="UserControls_DersYorumYap" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <script type="text/javascript">
 function HocaSecildi(obj)   {
@@ -92,13 +91,13 @@ $(document).ready(function() {
 });
 </script>
 
-<asp:ToolkitScriptManager runat="server" ScriptMode="Release"></asp:ToolkitScriptManager>
+<ajax:ToolkitScriptManager runat="server" ScriptMode="Release"></ajax:ToolkitScriptManager>
 
 <asp:Panel ID="pnlPuanYorum" runat="server" Width="510" Height="395" CssClass="DersYorumYap">
     <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya değiştirmek için
-    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tıklayın</asp:HyperLink></p>
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">buraya tıkla</asp:HyperLink></p>
     <br />
-    <p>Yorumunuz</p>
+    <p>Yorumun</p>
     <p style="margin-bottom:20px;">
         <asp:TextBox runat="server" CssClass="multitextbox" TextMode="MultiLine" MaxLength="2000" 
         ID="textYorum" Width="500" Height="220"></asp:TextBox>
@@ -111,13 +110,13 @@ $(document).ready(function() {
                 <br /><span class="bilgi">(1:kolay - 5:cok zor)</span> 
             </td>
             <td>
-                <asp:Rating ID="puanDersZorluk" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="puanDersZorluk" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz"/>
             </td>
         </tr>
         <tr id="trDersHocalar">
             <td style="width:220px; padding:10px 10px 10px 0px">
-                Hangi hocadan aldiniz (opsiyonel):
+                Hangi hocadan aldın (opsiyonel):
             </td>
             <td>
                 <asp:DropDownList runat="server" ID="drpDersHocalar" onchange="javascript:HocaSecildi(this);"></asp:DropDownList>
@@ -125,7 +124,7 @@ $(document).ready(function() {
         </tr>
         <tr id="trBilinmeyenHoca">
             <td style="width:220px; padding:10px 10px 10px 0px">
-                Hocanin ismini girin:
+                Hocanın ismini girin:
             </td>
             <td>
                 <asp:TextBox runat="server" ID="txtBilinmeyenHocaIsmi" CssClass="textbox"></asp:TextBox>
@@ -136,7 +135,7 @@ $(document).ready(function() {
                 Bu hocadan almak:
             </td>
             <td class="DersYorumYapSutunSag">
-                <asp:Rating ID="puanDersHoca" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="puanDersHoca" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz"/>
             </td>
         </tr>

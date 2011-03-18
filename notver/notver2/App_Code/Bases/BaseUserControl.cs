@@ -54,6 +54,21 @@ public class BaseUserControl : System.Web.UI.UserControl
         Page.Response.Redirect(Page.Request.Url.ToString(), true);
     }
 
+    /// <summary>
+    /// Redirect to default.aspx
+    /// </summary>
+    public void GoToDefaultPage(string queryString)
+    {
+        if (!string.IsNullOrEmpty(queryString))
+        {
+            Response.Redirect("~\\Default.aspx?" + queryString, true);
+        }
+        else
+        {
+            Response.Redirect("~\\Default.aspx", true);
+        }
+    }
+
     public string DersURLDondur(object DersID)
     {
         if (Util.GecerliString(DersID))

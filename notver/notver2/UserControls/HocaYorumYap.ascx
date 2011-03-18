@@ -4,12 +4,24 @@
 
 <ajax:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        update_size(65,70);
+    });
+    
+    function update_size(w_bias,h_bias)  {
+        var w = $(document).width() + w_bias;
+        var h = $(document).height() + h_bias;
+        parent.resize(w,h);
+    }
+</script>
+<div id="pencere" style="width:100%; height:100%;">
 <asp:Panel ID="pnlPuanYorum" runat="server" CssClass="HocaYorumYap">
     <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya 
     değiştirmek için 
-    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tiklayin</asp:HyperLink></p>
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">buraya tıkla</asp:HyperLink></p>
     <br />
-    <p>Yorumunuz</p>
+    <p>Yorumun</p>
     <p style="margin-bottom:20px;">
         <asp:TextBox runat="server" CssClass="multitextbox" TextMode="MultiLine" MaxLength="2000" 
         ID="textYorum" Width="500" Height="220"></asp:TextBox>
@@ -62,7 +74,7 @@
         </tr>
         <tr>
             <td style="width:220px; padding:20px 10px 20px 0px;">
-                Derslerinden aldığınız not:
+                Derslerinden aldığın not:
             </td>
             <td>
                 <asp:DropDownList ID="dropGenelPuan" runat="server">
@@ -73,7 +85,7 @@
             <td class="HocaYorumYapSutunSol" colspan="2" style="width:220px; padding:10px 10px 10px 0px;">
                 <asp:UpdatePanel runat="server" ID="pnlUpdate">
                     <ContentTemplate>
-                    Hangi ders(ler)e yönelik : 
+                    Hangi ders(ler)e yönelik: 
                     <asp:DropDownList ID="dropHocaDersler" runat="server" AutoPostBack="true"
                         OnSelectedIndexChanged="dropHocaDersler_Secildi">
                     </asp:DropDownList>
@@ -81,7 +93,8 @@
                     <br />
                     <asp:Label runat="server" ID="dersIsim"></asp:Label>
                     <asp:TextBox runat="server" ID="txtDersKodDiger" CssClass="textbox" ToolTip="Ders kodunu ya da ismini belirtin"></asp:TextBox>
-                    <asp:ImageButton runat="server" ID="dropDersEkle" OnClick="dropDersEkle_Click" ImageUrl="~/App_Themes/Default/Images/ekle.png"/>
+                    <asp:ImageButton runat="server" ID="dropDersEkle" OnClick="dropDersEkle_Click" 
+                    OnClientClick="javascript:update_size(55,65);" ImageUrl="~/App_Themes/Default/Images/ekle.png"/>
                     <br />
                     <asp:Repeater ID="repeaterDersler" runat="server" OnItemCommand="repeaterDersSil">
                         <HeaderTemplate>
@@ -90,7 +103,8 @@
                         <ItemTemplate>
                         <li style="padding-top:5px; padding-bottom:5px;">
                             <%# Container.DataItem %> &nbsp;&nbsp;
-                            <asp:ImageButton runat="server" ID="dersSil" ImageUrl="~/App_Themes/Default/Images/cikar.png" />
+                            <asp:ImageButton runat="server" ID="dersSil" ImageUrl="~/App_Themes/Default/Images/cikar.png" 
+                            OnClientClick="javascript:update_size(50,25);" />
                         </li>
                         </ItemTemplate>                        
                         <FooterTemplate>
@@ -137,3 +151,4 @@
 Bir hata oluştu :(
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>
+</div>

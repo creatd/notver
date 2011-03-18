@@ -156,8 +156,8 @@
             <asp:Panel runat="server" ID="pnl_login">
                 <div style="padding-top:35px; float:left; width:450px; text-align:right;">
                     Hoþgeldin <span style="color:#05d4b4; font-weight:bold;"><%= session.KullaniciAd.ToString()%></span>
-                    <asp:HyperLink ID="lnkHesabim" runat="server" Text="hesabim" CssClass="cikisYap" NavigateUrl="~/Yorumlarim.aspx"></asp:HyperLink>
-                    <asp:LinkButton runat="server" Text="cikis yap" CssClass="cikisYap" OnClick="CikisYap"></asp:LinkButton>
+                    <asp:HyperLink ID="lnkHesabim" runat="server" Text="hesabým" CssClass="cikisYap" NavigateUrl="~/Yorumlarim.aspx"></asp:HyperLink>
+                    <asp:LinkButton runat="server" Text="çýkýþ yap" CssClass="cikisYap" OnClick="CikisYap"></asp:LinkButton>
                 </div>
             </asp:Panel>
         </div>

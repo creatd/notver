@@ -28,13 +28,14 @@ public partial class _Default : BasePage
 
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        lblTimeout.Visible = false;
-        if (!session.IsLoggedIn)
+        pnlTanitim.Visible = true;
+        pnlHosgeldin.Visible = false;
+        if (!Page.IsPostBack)
         {
-            string timeout = Query.GetString("timeout");
-            if (!string.IsNullOrEmpty(timeout) && timeout == "true")
+            if (!string.IsNullOrEmpty(Query.GetString("hosgeldin")))
             {
-                lblTimeout.Visible = true;
+                pnlTanitim.Visible = false;
+                pnlHosgeldin.Visible = true;
             }
         }
     }

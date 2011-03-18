@@ -85,5 +85,6 @@ function DurumTemizle() {
             <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
         </OnUpdated>
     </Animations>
-    </ajax:UpdatePanelAnimationExtender>    
+    </ajax:UpdatePanelAnimationExtender>   
 </div>
+
