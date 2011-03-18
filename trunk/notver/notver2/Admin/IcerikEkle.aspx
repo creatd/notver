@@ -1,8 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="IcerikEkle.aspx.cs"  ValidateRequest="false"
 Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+
 <asp:Content runat="server" ContentPlaceHolderID="content">
-<asp:ScriptManager runat="server"></asp:ScriptManager>
+<ajax:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 <h1>İçerik Ekle</h1>
 <h2>Okul Ekle</h2>
 <asp:Panel runat="server" ID="pnlOkulEkle">
@@ -68,7 +70,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>
         <tr><td colspan="2">Hoca-Okul</td></tr>
     </table>
-    <asp:UpdatePanel runat="server">
+    <asp:UpdatePanel runat="server" ID="update1">
     <ContentTemplate>
         <table>
             <tr>
@@ -91,8 +93,21 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
             <tr><td colspan="2"><asp:Label runat="server" ID="lblHocaOkulEkleDurum" CssClass="bilgi"></asp:Label></td></tr>        
         </table>      
     </ContentTemplate>  
-    </asp:UpdatePanel>    
-    <asp:UpdatePanel runat="server">
+    </asp:UpdatePanel>  
+    <div id="Bekleme" class="Bekleme">
+        <img src="../Scripts/images/loading.gif" />
+    </div>
+    <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="update1">
+    <Animations>
+        <OnUpdating>
+            <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+        </OnUpdating>
+        <OnUpdated>
+            <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+        </OnUpdated>
+    </Animations>
+    </ajax:UpdatePanelAnimationExtender>                      
+    <asp:UpdatePanel runat="server" ID="update2">
     <ContentTemplate>
         <table>
             <tr>
@@ -117,6 +132,19 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </table>
     </ContentTemplate>
     </asp:UpdatePanel>
+    <div id="Bekleme2" class="Bekleme">
+        <img src="../Scripts/images/loading.gif" />
+    </div>
+    <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender2" runat="server" TargetControlID="update2">
+    <Animations>
+        <OnUpdating>
+            <StyleAction animationtarget="Bekleme2" Attribute="display" value="block" />
+        </OnUpdating>
+        <OnUpdated>
+            <StyleAction animationtarget="Bekleme2" Attribute="display" value="none" />
+        </OnUpdated>
+    </Animations>
+    </ajax:UpdatePanelAnimationExtender>     
     <table>
         <tr>
             <td><asp:Button runat="server" ID="btnHocaEkle" Text="Hoca ekle" OnClick="HocaEkle" /></td>
@@ -158,7 +186,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
 </asp:Panel>
 <h2>Ders Dosya Ekle</h2>
 <asp:Panel ID="pnlDersDosyaEkle" runat="server">
-<asp:UpdatePanel runat="server">
+<asp:UpdatePanel runat="server" ID="update3">
     <ContentTemplate>
         <table>
             <tr>
@@ -199,6 +227,19 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         <asp:PostBackTrigger ControlID="btnDosyaYukle" />
     </Triggers>
 </asp:UpdatePanel>
+<div id="Bekleme3" class="Bekleme">
+    <img src="./Scripts/images/loading.gif" />
+</div>
+<ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender3" runat="server" TargetControlID="update3">
+<Animations>
+    <OnUpdating>
+        <StyleAction animationtarget="Bekleme3" Attribute="display" value="block" />
+    </OnUpdating>
+    <OnUpdated>
+        <StyleAction animationtarget="Bekleme3" Attribute="display" value="none" />
+    </OnUpdated>
+</Animations>
+</ajax:UpdatePanelAnimationExtender> 
     <table>
         <tr>
             <td><asp:FileUpload runat="server" ID="fileUpload" EnableViewState="true" /></td>

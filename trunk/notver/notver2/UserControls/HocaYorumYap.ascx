@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HocaYorumYap.ascx.cs"
     Inherits="UserControls_HocaYorumYap" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
-<asp:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
+<ajax:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 
 <asp:Panel ID="pnlPuanYorum" runat="server" CssClass="HocaYorumYap">
     <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya 
@@ -20,7 +20,7 @@
                 <asp:Label ID="Aciklama1" runat="server"></asp:Label>
             </td>
             <td>
-                <asp:Rating ID="Puan1" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="Puan1" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz" />
             </td>
         </tr>
@@ -29,7 +29,7 @@
                 <asp:Label ID="Aciklama2" runat="server"></asp:Label>
             </td>
             <td>
-                <asp:Rating ID="Puan2" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="Puan2" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz" />
             </td>
         </tr>
@@ -38,7 +38,7 @@
                 <asp:Label ID="Aciklama3" runat="server"></asp:Label>
             </td>
             <td>
-                <asp:Rating ID="Puan3" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="Puan3" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz" />
             </td>
         </tr>
@@ -47,7 +47,7 @@
                 <asp:Label ID="Aciklama4" runat="server"></asp:Label>
             </td>
             <td>
-                <asp:Rating ID="Puan4" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="Puan4" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz" />
             </td>
         </tr>
@@ -56,7 +56,7 @@
                 <asp:Label ID="Aciklama5" runat="server"></asp:Label>
             </td>
             <td>
-                <asp:Rating ID="Puan5" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
+                <ajax:Rating ID="Puan5" runat="server" EmptyStarCssClass="bosYildiz" FilledStarCssClass="doluYildiz"
                     StarCssClass="doluYildiz" WaitingStarCssClass="bekleYildiz" />
             </td>
         </tr>
@@ -71,7 +71,7 @@
         </tr>       
         <tr>
             <td class="HocaYorumYapSutunSol" colspan="2" style="width:220px; padding:10px 10px 10px 0px;">
-                <asp:UpdatePanel runat="server">
+                <asp:UpdatePanel runat="server" ID="pnlUpdate">
                     <ContentTemplate>
                     Hangi ders(ler)e yönelik : 
                     <asp:DropDownList ID="dropHocaDersler" runat="server" AutoPostBack="true"
@@ -99,6 +99,19 @@
                     </asp:Repeater>
                     </ContentTemplate>
                 </asp:UpdatePanel>
+                <div id="Bekleme">
+                    <img src="./Scripts/images/loading.gif" />
+                </div>
+                <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="pnlUpdate">
+                <Animations>
+                    <OnUpdating>
+                        <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+                    </OnUpdating>
+                    <OnUpdated>
+                        <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+                    </OnUpdated>
+                </Animations>
+                </ajax:UpdatePanelAnimationExtender>                
             </td>
         </tr>
     </table>

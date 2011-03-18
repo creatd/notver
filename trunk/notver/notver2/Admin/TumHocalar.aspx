@@ -1,8 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumHocalar.aspx.cs" Inherits="Admin_TumHocalar" 
 MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" ValidateRequest="false" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+
+
 <asp:Content runat="server" ContentPlaceHolderID="content">
-<asp:ScriptManager runat="server"></asp:ScriptManager>
+<ajax:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 <h1>Hocalar</h1>
     <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi"
     AutoPostBack="true">
@@ -31,7 +34,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
     
     <asp:Panel ID="pnlHocaDersler" runat="server" Visible="false">
         <h2>Hoca - Dersler</h2>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <asp:UpdatePanel ID="pnlUpdate2" runat="server">
         <ContentTemplate>        
         <asp:DataGrid ID="gridHocaDersler" runat="server" AllowPaging="true" AllowSorting="true"
             OnPageIndexChanged="grid2_PageIndexChanged" PageSize="10"
@@ -63,6 +66,20 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
             </table>      
         </ContentTemplate>
         </asp:UpdatePanel>
+        <div id="Bekleme2" class="Bekleme">
+            <img src="../Scripts/images/loading.gif" />
+        </div>
+        <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender2" runat="server" 
+        TargetControlID="pnlUpdate2">
+        <Animations>
+            <OnUpdating>
+                <StyleAction animationtarget="Bekleme2" Attribute="display" value="block" />
+            </OnUpdating>
+            <OnUpdated>
+                <StyleAction animationtarget="Bekleme2" Attribute="display" value="none" />
+            </OnUpdated>
+        </Animations>
+        </ajax:UpdatePanelAnimationExtender>           
     </asp:Panel>
     
     <asp:Panel ID="pnlHocaOkullar" runat="server" Visible="false">
@@ -102,7 +119,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
                     <asp:DropDownList runat="server" ID="drpKayitsizHocalar"></asp:DropDownList>
                 </td>
                 <td>
-                    <asp:UpdatePanel runat="server">
+                    <asp:UpdatePanel runat="server" ID="pnlUpdate">
                         <ContentTemplate>
                             <table>
                                 <tr><td>
@@ -120,6 +137,20 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
                             </table>
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <div id="Bekleme" class="Bekleme">
+                        <img src="../Scripts/images/loading.gif" />
+                    </div>
+                    <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" 
+                    TargetControlID="pnlUpdate">
+                    <Animations>
+                        <OnUpdating>
+                            <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+                        </OnUpdating>
+                        <OnUpdated>
+                            <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+                        </OnUpdated>
+                    </Animations>
+                    </ajax:UpdatePanelAnimationExtender>                        
                 </td>
                 <td>
                     <asp:Button runat="server" Text="Iliskilendir" OnClick="KayitsizHocaIliskilendir" />

@@ -55,6 +55,17 @@ div#Content
 	padding-bottom:30px;
 }
 
+div#Bekleme
+{
+	position:absolute; top:0px; left:0px; width:100%; height:100%; display:none; 
+        background-color:White; opacity:0.5;	text-align:center;	vertical-align:middle;
+}
+
+div#Bekleme img
+{
+	position:absolute;	top:0px;	bottom:0px;	left:0px;	right:0px;	margin:auto;
+}
+
 .Squeeze
 {
 	width: 960px;
@@ -295,9 +306,14 @@ div#Header a.cikisYap:hover
 /* Uye Ol uc */
 div.pnlUyeOl
 {
-	 background-image:url('Images/registerbg4.png');
-	 width:269px;
-	 height:569px;
+	 background-image:url('Images/registerbg5.png');
+	 background-color:#e5e5e5;
+	 background-repeat:no-repeat;
+	 border-left:solid 2px #515151;
+	 border-right:solid 2px #515151;
+	 border-bottom:solid 2px #515151;
+	 width:265px;
+	 height:100%;	/* 569 px */
 	color:#626262;
 	line-height:100%;
 	font-weight:bold;

@@ -5,12 +5,12 @@ MasterPageFile="~/Masters/Giris.master"  MaintainScrollPositionOnPostback="true"
 <div style="text-align:center; margin-top:30px;">
 <asp:Panel runat="server" ID="pnlOnayBasari">
     <span style="font-size:18px; font-weight:bold;">
-    - E-posta adresin onaylandi -
+    - E-posta adresin onaylandı -
     </span>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlOnayBasari_UniEposta">
     <span style="font-size:18px; font-weight:bold;">
-    - Üniversite e-posta adresin onaylandi -
+    - Üniversite e-posta adresin onaylandı -
     </span>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlOnayHata">
