@@ -87,13 +87,14 @@ public partial class UserControls_UyeOl : BaseUserControl
                 Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
                     "Kullaniciya onay epostasi gonderemedik. Epostasi : " + eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             }
+
             if (Uyelik.GirisYap(eposta, sifre) != 0)
             {
                 //Yeni uyeyi giris yaptiramadin
                 Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
                     "Yeni uyeyi giris yaptiramadik. Eposta : " + eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             }
-            RefreshPage();
+            GoToDefaultPage("hosgeldin=1");
         }
     }
 }

@@ -55,6 +55,13 @@ public partial class EpostaOnayla : BasePage
                         Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), 
                             "Kullanicinin epostasini onaylamamiz gerekirken veritabanina yazamadik. Kullanici epostasi:" + kullanici_eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                     }
+                    string kullanici_isim = Uyelik.KullaniciIsminiDondur(kullanici_eposta);
+                    if (string.IsNullOrEmpty(kullanici_isim) || !Mesajlar.HosgeldinEpostasiGonder(kullanici_isim, kullanici_eposta))
+                    {
+                        //Hosgeldin epostasi gonderemedik
+                        Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(),
+                            "Kullaniciya hosgeldin epostasi gonderemedik. Epostasi : " + kullanici_eposta, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+                    }
                     pnlOnayHata.Visible = false;
                     if (universite_epostasi)
                     {

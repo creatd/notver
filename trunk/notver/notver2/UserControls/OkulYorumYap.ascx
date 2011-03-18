@@ -3,9 +3,9 @@
 
 <asp:Panel ID="pnlPuanYorum" runat="server" Width="510" Height="380" CssClass="OkulYorumYap">
     <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya değiştirmek için
-    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">tıklayın</asp:HyperLink></p>
+    <asp:HyperLink ID="lnkKullaniciYorumlar" runat="server" CssClass="lnkYorumlarim">buraya tıkla</asp:HyperLink></p>
     <br />
-    <p>Yorumunuz</p>
+    <p>Yorumun</p>
     <p>
         <asp:TextBox runat="server" CssClass="multitextbox" TextMode="MultiLine" MaxLength="2000" 
         ID="textYorum" Width="500" Height="220"></asp:TextBox>

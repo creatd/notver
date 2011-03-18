@@ -40,7 +40,7 @@ public static class Mesajlar
             {
                 icerik = icerik.Replace("!!!NEDEN!!!", SilinmeNedeni);
             }
-            string baslik = "NotVerin - Yuklediginiz bir dosya silinmistir";
+            string baslik = "NotVerin - Yüklediğiniz bir dosya silinmiştir";
             return Mesajlar.EpostaGonder(KullaniciID, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
         }
         catch (Exception ex) { }
@@ -69,7 +69,7 @@ public static class Mesajlar
             {
                 icerik = icerik.Replace("!!!NEDEN!!!", SilinmeNedeni);
             }
-            string baslik = "NotVerin - Yaptiginiz bir yorum silinmistir";
+            string baslik = "NotVerin - Yaptığınız bir yorum silinmiştir";
             return Mesajlar.EpostaGonder(KullaniciID, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
         }
         catch (Exception ex) { }
@@ -430,7 +430,7 @@ public static class Mesajlar
         {
             icerik = icerik.Replace("!!!KULLANICI_ISMI!!!", KullaniciIsmi);
         }
-        string baslik = "NotVerin - E-posta onay mesaji";
+        string baslik = "NotVerin - E-posta onay mesajı";
         return Mesajlar.EpostaGonder(KullaniciEpostasi, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
     }
 
@@ -445,7 +445,7 @@ public static class Mesajlar
         {
             icerik = icerik.Replace("!!!KULLANICI_ISMI!!!", KullaniciIsmi);
         }
-        string baslik = "NotVerin - Hosgeldin";
+        string baslik = "NotVerin - Hoşgeldin";
         return Mesajlar.EpostaGonder(KullaniciEpostasi, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
     }
 
@@ -486,20 +486,20 @@ public static class Mesajlar
                 case Enums.EpostaGonderici.bilgi:
                     gonderici_adres = "bilgi";
                     break;
-                case Enums.EpostaGonderici.duyuru:
+                /*case Enums.EpostaGonderici.duyuru:
                     gonderici_adres = "duyuru";
-                    break;
+                    break;*/
                 case Enums.EpostaGonderici.iletisim:
                     gonderici_adres = "iletisim";
                     break;
-                case Enums.EpostaGonderici.uyari:
+                /*case Enums.EpostaGonderici.uyari:
                     gonderici_adres = "uyari";
-                    break;
+                    break;*/
                 default:
-                    gonderici_adres="genel";
+                    gonderici_adres="bilgi";
                     break;
             }
-            gonderici_adres = "ege@notverin.com";
+            gonderici_adres += "@notverin.com";
 
             message.From = new MailAddress(gonderici_adres);
 
