@@ -241,6 +241,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
 
     protected void yorumSev_click(object sender, EventArgs e)
     {
+        System.Threading.Thread.Sleep(2000);
         Label lblYorumPuanDurumu = ((ImageButton)sender).Parent.FindControl("yorumPuanDurumu") as Label;
         if (!session.IsLoggedIn)
         {

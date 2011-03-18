@@ -1,8 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TumDersler.aspx.cs" Inherits="Admin_TumDersler"
     MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" ValidateRequest="false" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+
+
 <asp:Content runat="server" ContentPlaceHolderID="content">
-<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+<ajax:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" ScriptMode="Release" />
     <h1>
         Dersler</h1>
     <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi"
@@ -42,7 +45,7 @@
                     <asp:DropDownList runat="server" ID="drpKayitsizDersler"></asp:DropDownList>
                 </td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <asp:UpdatePanel ID="pnlUpdate" runat="server">
                         <ContentTemplate>
                             <table>
                                 <tr><td>
@@ -60,6 +63,20 @@
                             </table>
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <div id="Bekleme" class="Bekleme">
+                        <img src="../Scripts/images/loading.gif" />
+                    </div>
+                    <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" 
+                    TargetControlID="pnlUpdate">
+                    <Animations>
+                        <OnUpdating>
+                            <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+                        </OnUpdating>
+                        <OnUpdated>
+                            <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+                        </OnUpdated>
+                    </Animations>
+                    </ajax:UpdatePanelAnimationExtender>                     
                 </td>
                 <td>
                     <asp:Button ID="Button1" runat="server" Text="Iliskilendir" OnClick="KayitsizDersIliskilendir" />

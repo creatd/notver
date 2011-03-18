@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LoginBox.ascx.cs" Inherits="UserControls_LoginBox" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <script type="text/javascript">
 function SetFocusLogin(e)
@@ -62,4 +63,17 @@ function Temizle(obj)
         </div>
     </ContentTemplate>
     </asp:UpdatePanel>
+    <div id="Bekleme">
+        <img src="./Scripts/images/loading.gif" />
+    </div>
+    <ajax:UpdatePanelAnimationExtender runat="server" TargetControlID="pnlUP">
+    <Animations>
+        <OnUpdating>
+            <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+        </OnUpdating>
+        <OnUpdated>
+            <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+        </OnUpdated>
+    </Animations>
+    </ajax:UpdatePanelAnimationExtender>
 </div>

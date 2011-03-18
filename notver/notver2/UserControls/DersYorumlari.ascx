@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DersYorumlari.ascx.cs" Inherits="UserControls_DersYorumlari" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="dersYorumlar">
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
@@ -29,7 +29,20 @@
                         <asp:ImageButton runat="server" ID="yorumSevme" ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" OnClick="yorumSevme_click" ToolTip="Sevmedim"></asp:ImageButton>
                         <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                     </ContentTemplate>
-                </asp:UpdatePanel>                            
+                </asp:UpdatePanel>   
+                <div id="Bekleme">
+                    <img src="./Scripts/images/loading.gif" />
+                </div>
+                <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="pnlSevSevme">
+                <Animations>
+                    <OnUpdating>
+                        <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+                    </OnUpdating>
+                    <OnUpdated>
+                        <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+                    </OnUpdated>
+                </Animations>
+                </ajax:UpdatePanelAnimationExtender>                                           
             </div>
             <p style="font-weight:bold; padding:10px 10px 0px 10px; color:#313131; font-size:13px;">
                 <%# DataBinder.Eval(Container.DataItem, "YORUM")%>

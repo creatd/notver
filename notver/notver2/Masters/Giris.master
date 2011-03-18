@@ -1,5 +1,5 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeFile="Giris.master.cs" Inherits="Masters_Giris"%>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 <%@ Register TagPrefix="uc1" TagName="UyeOl" Src="~/UserControls/UyeOl.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="LoginBox" Src="~/UserControls/LoginBox.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AraHoca" Src="~/UserControls/AraHoca.ascx" %>
@@ -118,7 +118,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release"></asp:ScriptManager>  <!-- Login box'lar icin gerekli-->
+    <ajax:ToolkitScriptManager runat="server" ScriptMode="Release"></ajax:ToolkitScriptManager>
     <div id="Header">
         <div id="HeaderContent">
             <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">

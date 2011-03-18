@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HocaYorumlari.ascx.cs"
     Inherits="UserControls_HocaYorum" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>    
     
 <asp:Panel ID="pnlYorumlar" runat="server" Visible="true" CssClass="hocaYorumlar">
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
@@ -35,6 +36,19 @@
                                     <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                                 </ContentTemplate>
                             </asp:UpdatePanel>                        
+                            <div id="Bekleme">
+                                <img src="./Scripts/images/loading.gif" />
+                            </div>
+                            <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="pnlSevSevme">
+                            <Animations>
+                                <OnUpdating>
+                                    <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+                                </OnUpdating>
+                                <OnUpdated>
+                                    <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+                                </OnUpdated>
+                            </Animations>
+                            </ajax:UpdatePanelAnimationExtender>                              
                         </td>
                     </tr>
                 </table>

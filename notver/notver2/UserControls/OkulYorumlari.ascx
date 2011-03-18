@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="OkulYorumlari.ascx.cs" Inherits="UserControls_OkulYorumlari" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 <asp:Panel ID="pnlYorumlar" CssClass="okulYorumlar" runat="server" Visible="true">
     <p style="text-align:right; font-weight:bold; font-size:11px; padding-bottom:5px;">
         Sayfa başı <asp:DropDownList runat="server" ID="dropSayfaBoyutu" OnSelectedIndexChanged="SayfaBoyutuDegisti" 
@@ -29,7 +29,20 @@
                         ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" ToolTip="Sevmedim"/>
                         <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                     </ContentTemplate>
-                </asp:UpdatePanel>                    
+                </asp:UpdatePanel>  
+                <div id="Bekleme">
+                    <img src="./Scripts/images/loading.gif" />
+                </div>
+                <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="pnlSevSevme">
+                <Animations>
+                    <OnUpdating>
+                        <StyleAction animationtarget="Bekleme" Attribute="display" value="block" />
+                    </OnUpdating>
+                    <OnUpdated>
+                        <StyleAction animationtarget="Bekleme" Attribute="display" value="none" />
+                    </OnUpdated>
+                </Animations>
+                </ajax:UpdatePanelAnimationExtender>                                      
             </div>
             <p style="font-weight:bold; padding:10px 10px 0px 10px; color:#313131; font-size:13px;">
                 <%# DataBinder.Eval(Container.DataItem, "YORUM")%>
