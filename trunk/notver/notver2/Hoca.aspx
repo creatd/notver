@@ -29,6 +29,58 @@
         {
             $S('puan'+n).visibility='visible';
             $S('puan'+n).width=rating+'px';
+            if(n == 1 || n == 2 || n ==5)  {
+                if(rating <= 20) {
+                    $('li#puan' + n).attr('title' , 'Çok kötü');
+                }
+                else if(rating <= 40)    {
+                    $('li#puan' + n).attr('title' , 'Kötü');
+                }
+                else if(rating <= 60)    {
+                    $('li#puan' + n).attr('title' , 'İdare eder');
+                }
+                else if(rating <= 80)    {
+                    $('li#puan' + n).attr('title' , 'İyi');
+                }
+                else if (rating > 80)   {
+                    $('li#puan' + n).attr('title' , 'Çok iyi');
+                }
+            }
+            else if(n ==3)  {
+                if(rating <= 20) {
+                    $('li#puan' + n).attr('title' , 'Çok kıt');
+                }
+                else if(rating <= 40)    {
+                    $('li#puan' + n).attr('title' , 'Kıt');
+                }
+                else if(rating <= 60)    {
+                    $('li#puan' + n).attr('title' , 'Normal');
+                }
+                else if(rating <= 80)    {
+                    $('li#puan' + n).attr('title' , 'Bol');
+                }
+                else if (rating > 80)   {
+                    $('li#puan' + n).attr('title' , 'Çok bol');
+                }            
+            }
+            else if(n == 4) {
+                if(rating <= 20) {
+                    $('li#puan' + n).attr('title' , 'Çok yoğun');
+                }
+                else if(rating <= 40)    {
+                    $('li#puan' + n).attr('title' , 'Yoğun');
+                }
+                else if(rating <= 60)    {
+                    $('li#puan' + n).attr('title' , 'Normal');
+                }
+                else if(rating <= 80)    {
+                    $('li#puan' + n).attr('title' , 'Seyrek');
+                }
+                else if (rating > 80)   {
+                    $('li#puan' + n).attr('title' , 'Çok seyrek');
+                }            
+            }
+            
             $A('puanYazi'+n).innerHTML='% ' + Math.round(rating/100*100);
         }
     </script>

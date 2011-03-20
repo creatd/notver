@@ -25,10 +25,18 @@ function SetFocusHoca(e)
     }
 }
 
-function Temizle(obj)
-{
-    obj.value='';
+function Temizle_AraHoca(obj)   {
+    if(obj.value.indexOf('girin') != -1) {
+        obj.value='';
+    }
 }
+
+function Yukle_AraHoca(obj) {
+    if(obj.value == '')   {
+        obj.value = 'Hoca ismini girin';
+    }
+}
+
 </script>
 
 <div id="HocaAra" style="height:160px; width:265px; background-repeat:no-repeat; padding-left:25px;
@@ -37,7 +45,7 @@ function Temizle(obj)
     <p style="font-size:24px; color:#1c1c1c; font-weight:bold;
     padding-top:10px;">Hoca Ara</p>
     <asp:TextBox ID="hocaIsmi" runat="server" OnKeyDown="javascript:SetFocusHoca(event);" 
-        onclick="javascript: return Temizle(this);" BorderWidth="0"
+        onclick="javascript:Temizle_AraHoca(this);" onblur="javascript:Yukle_AraHoca(this);" BorderWidth="0"
         CssClass="araTextbox">Hoca ismini girin</asp:TextBox>
     <asp:LinkButton ID="buttonHocaAra" runat="server" Text="" OnClick="Ara" BorderWidth="0"
     CssClass="araTus"/>

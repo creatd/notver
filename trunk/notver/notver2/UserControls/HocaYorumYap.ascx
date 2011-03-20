@@ -15,6 +15,40 @@
         parent.resize(w,h);
     }
 </script>
+<!-- Yildizlarin tooltip'leri -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('span#hocaYorumYap_Puan1_Star_1').attr('title' , 'Çok kötü');
+        $('span#hocaYorumYap_Puan1_Star_2').attr('title' , 'Kötü');
+        $('span#hocaYorumYap_Puan1_Star_3').attr('title' , 'İdare eder');
+        $('span#hocaYorumYap_Puan1_Star_4').attr('title' , 'İyi');
+        $('span#hocaYorumYap_Puan1_Star_5').attr('title' , 'Çok iyi');
+        
+        $('span#hocaYorumYap_Puan2_Star_1').attr('title' , 'Çok kötü');
+        $('span#hocaYorumYap_Puan2_Star_2').attr('title' , 'Kötü');
+        $('span#hocaYorumYap_Puan2_Star_3').attr('title' , 'İdare eder');
+        $('span#hocaYorumYap_Puan2_Star_4').attr('title' , 'İyi');
+        $('span#hocaYorumYap_Puan2_Star_5').attr('title' , 'Çok iyi');
+
+        $('span#hocaYorumYap_Puan3_Star_1').attr('title' , 'Çok kıt');
+        $('span#hocaYorumYap_Puan3_Star_2').attr('title' , 'Kıt');
+        $('span#hocaYorumYap_Puan3_Star_3').attr('title' , 'İdare eder');
+        $('span#hocaYorumYap_Puan3_Star_4').attr('title' , 'Bol');
+        $('span#hocaYorumYap_Puan3_Star_5').attr('title' , 'Çok bol');
+        
+        $('span#hocaYorumYap_Puan4_Star_1').attr('title' , 'Çok yoğun');
+        $('span#hocaYorumYap_Puan4_Star_2').attr('title' , 'Yoğun');
+        $('span#hocaYorumYap_Puan4_Star_3').attr('title' , 'İdare eder');
+        $('span#hocaYorumYap_Puan4_Star_4').attr('title' , 'Seyrek');
+        $('span#hocaYorumYap_Puan4_Star_5').attr('title' , 'Çok seyrek');
+        
+        $('span#hocaYorumYap_Puan5_Star_1').attr('title' , 'Çok kötü');
+        $('span#hocaYorumYap_Puan5_Star_2').attr('title' , 'Kötü');
+        $('span#hocaYorumYap_Puan5_Star_3').attr('title' , 'İdare eder');
+        $('span#hocaYorumYap_Puan5_Star_4').attr('title' , 'İyi');
+        $('span#hocaYorumYap_Puan5_Star_5').attr('title' , 'Çok iyi');                        
+    });
+</script>
 <div id="pencere" style="width:100%; height:100%;">
 <asp:Panel ID="pnlPuanYorum" runat="server" CssClass="HocaYorumYap">
     <p style="color:#626262; font-size:12px;">Yapmış olduğun tüm yorumları görüntülemek veya 

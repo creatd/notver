@@ -39,7 +39,7 @@ public partial class UserControls_AraHoca : BaseUserControl
                 sb.Append(word + "+");
             }
             //Sonda gereksiz bir + kaldi ama onemli degil
-            Mesajlar.EpostaGonder("egeakpinar@gmail.com", Enums.EpostaGonderici.uyari, "uyari icerik", "bilgi baslik", true);
+            //Mesajlar.EpostaGonder("egeakpinar@gmail.com", Enums.EpostaGonderici.uyari, "uyari icerik", "bilgi baslik", true);
             Response.Redirect(Page.ResolveUrl("~/SearchResults.aspx") + "?SearchType=1&SearchParams=" + sb.ToString());
         }
         catch (Exception ex)
