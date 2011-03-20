@@ -75,7 +75,7 @@ public partial class UserControls_HocaPuanlari : BaseUserControl
                     script.Text = sb.ToString();
                     //   Puan1.
 
-                    lblToplamPuanSayisi.Text = "(Toplam <strong>" + puanlar[5] + "</strong> kisi puan vermis)";
+                    lblToplamPuanSayisi.Text = "(Toplam <strong>" + puanlar[5] + "</strong> kişi puan vermiş)";
                 }
                 //e: Hoca puanlarini doldur
             }

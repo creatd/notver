@@ -24,11 +24,13 @@ function SetFocusLogin(e)
     }
     document.getElementById('<%= lblDurum.ClientID %>').innerHTML='';
 }
+/* textbox : onclick ve onblur event'lerine koyabilirsin
+function Temizle(obj)   {
+    if(obj.value == 'E-posta adresi girin') {
+        obj.value='';
+    }
+} */
 
-function Temizle(obj)
-{
-    obj.value='';
-}
 </script>
 
 
@@ -38,8 +40,7 @@ function Temizle(obj)
         <div class="pnlLogin">
             <p>E-posta adresi</p>       
             <asp:TextBox runat="server" ID="txtEposta" CssClass="textbox"
-                        ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);" 
-                        onclick="javascript:Temizle(this);"></asp:TextBox>
+                        ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
                     CssClass="Hata" ErrorMessage="*" ToolTip="E-posta adresinizi girmelisiniz" ValidationGroup="vg" />
                 <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
@@ -47,8 +48,7 @@ function Temizle(obj)
                         ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+$" ValidationGroup="vg">*</asp:RegularExpressionValidator>                    
             <p>Şifre</p>
                     <asp:TextBox runat="server" ID="txtSifre" TextMode="Password" CssClass="textbox"
-                        ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);" 
-                        onclick="javascript:Temizle(this);"></asp:TextBox>
+                        ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
                         ErrorMessage="*" ToolTip="Şifre girmelisin" ValidationGroup="vg" CssClass="Hata" />
                     
