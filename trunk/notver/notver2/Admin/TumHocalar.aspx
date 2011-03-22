@@ -34,7 +34,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
     
     <asp:Panel ID="pnlHocaDersler" runat="server" Visible="false">
         <h2>Hoca - Dersler</h2>
-        <asp:UpdatePanel ID="pnlUpdate2" runat="server">
+        <asp:UpdatePanel runat="server" ID="pnlUpdate2">
         <ContentTemplate>        
         <asp:DataGrid ID="gridHocaDersler" runat="server" AllowPaging="true" AllowSorting="true"
             OnPageIndexChanged="grid2_PageIndexChanged" PageSize="10"

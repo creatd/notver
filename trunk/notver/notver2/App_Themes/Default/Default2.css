@@ -15,6 +15,14 @@ div#HeaderContent
 	margin-right:auto;
 }
 
+div#Slogan
+{
+	background-color:#212121;
+	height:50px;
+	width:100%;
+	text-align:center;
+}
+
 div#Main
 {
 	background-image:url('Images/bg.png');

@@ -11,7 +11,7 @@ function update_size(w_bias,h_bias)  {
     parent.resize(w,h);
 }
     
-function SetFocusDersDosya(e)
+function SetFocusDersAra(e)
 {
     var keycode;
     if(window.event)

@@ -2,6 +2,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <script type="text/javascript">
+/* Bu SetFocus mantigi araders arahoca'da calismiyodu, burada calisiyo gibi
+o yuzden dokunmuyorum*/
 function SetFocusLogin(e)
 {
     var keycode;
@@ -45,7 +47,7 @@ function Temizle(obj)   {
                     CssClass="Hata" ErrorMessage="*" ToolTip="E-posta adresinizi girmelisiniz" ValidationGroup="vg" />
                 <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
                         ErrorMessage="*" ToolTip="E-posta adresini yanlış girdin" CssClass="Hata"
-                        ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+$" ValidationGroup="vg">*</asp:RegularExpressionValidator>                    
+                        ValidationExpression="^[a-zA-Z0-9.-_!=+]+@[a-zA-Z0-9.:-]+[.][a-zA-Z0-9.:-]+$" ValidationGroup="vg">*</asp:RegularExpressionValidator>                    
             <p>Şifre</p>
                     <asp:TextBox runat="server" ID="txtSifre" TextMode="Password" CssClass="textbox"
                         ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);"></asp:TextBox>
