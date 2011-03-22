@@ -359,4 +359,41 @@ public class Util
         }
         return str;
     }
+
+    /// <summary>
+    /// Returns a site relative HTTP path from a partial path starting out with a ~.
+    /// Same syntax that ASP.Net internally supports but this method can be used
+    /// outside of the Page framework.
+    /// 
+    /// Works like Control.ResolveUrl including support for ~ syntax
+    /// but returns an absolute URL.
+    /// </summary>
+    /// <param name="originalUrl">Any Url including those starting with ~</param>
+    /// <returns>relative url</returns>
+    public static string ResolveUrl(string originalUrl)
+    {
+        if (originalUrl == null)
+            return null;
+
+        // *** Absolute path - just return
+        if (originalUrl.IndexOf("://") != -1)
+            return originalUrl;
+
+        // *** Fix up image path for ~ root app dir directory
+        if (originalUrl.StartsWith("~"))
+        {
+            string newUrl = "";
+            if (HttpContext.Current != null)
+                newUrl = HttpContext.Current.Request.ApplicationPath +
+                      originalUrl.Substring(1).Replace("//", "/");
+            else
+                // *** Not context: assume current directory is the base directory
+                throw new ArgumentException("Invalid URL: Relative URL not allowed.");
+
+            // *** Just to be sure fix up any double slashes
+            return newUrl;
+        }
+
+        return originalUrl;
+    }
 }

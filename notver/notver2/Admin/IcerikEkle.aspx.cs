@@ -568,7 +568,7 @@ public partial class Admin_IcerikEkle : BasePage
             }
             catch (Exception ex)
             {
-                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+                Mesajlar.AdmineHataMesajiGonder(Page.Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
                 lblDurumDosyaYukle.Text = "Bir hata oluştu, lütfen tekrar deneyin";
             }
         }

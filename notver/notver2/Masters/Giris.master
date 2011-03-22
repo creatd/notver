@@ -6,7 +6,8 @@
 <%@ Register TagPrefix="uc1" TagName="AraOkul" Src="~/UserControls/AraOkul.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AraDers" Src="~/UserControls/AraDers.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"
+xmlns:og="http://opengraphprotocol.org/schema/">
 <head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-9" />
     <title>NotVerin - Hocalarla öğrenciler yer değiştiriyor</title>
@@ -124,7 +125,9 @@
             <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">
                 <img src="App_Themes/Default/Images/logo.png" style="float:left; padding-right:15px; padding-top:10px;"/>
             </asp:HyperLink>
-            <img src="App_Themes/Default/Images/slogan.png" style="float:left; padding-right:0px; padding-top:20px;"/>
+            <div style="float:left; width:310px; padding-top:20px; padding-left:20px;">
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fnotverin&amp;layout=standard&amp;show_faces=false&amp;width=330&amp;action=like&amp;font&amp;colorscheme=dark&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+            </div>
             <asp:Panel runat="server" ID="pnl_noLogin">
                 <div style="float:left; padding-top:35px; width:450px;">
                     <div class="relative" style="float:left; padding-left:285px;">
@@ -174,6 +177,9 @@
             <div id="fix" style="clear:both; height:1px;"></div>
         </div>        
     </div>
+    <div id="Slogan">
+        <img src="App_Themes/Default/Images/slogan.png" style="padding-top:10px;"/>
+    </div>    
     <div id="Footer">
         <div id="FooterContent">
             <div id="BizeUlasin" style="width:300px; float:left; padding-left:180px; padding-top:30px;">
@@ -186,6 +192,7 @@
             <span style="background-image:url('App_Themes/Default/Images/altbar-seperator.png'); width:2px; 
             height:136px; display:block; float:left; padding-top:7px;"></span>
             <div id="BiziTakipEdin" style="width:300px; float:left; padding-left:80px; padding-top:12px;">
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fnotverin&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
                 <p>Bizi takip edin:</p>
                 <p><img src="./App_Themes/Default/Images/facebook.png" />
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://facebook.com/notverin" style="position:relative; top:-9px;">facebook.com/notverin</a>
@@ -193,8 +200,7 @@
                 <p><img src="./App_Themes/Default/Images/twitter.png" />
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/notverin" style="position:relative; top:-9px;">twitter.com/notverin</a>
                 </p>
-            </div>
-            
+            </div>            
         </div>
     </div>    
     </form>

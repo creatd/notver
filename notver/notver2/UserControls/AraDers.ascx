@@ -3,8 +3,7 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <script type="text/javascript">
-function SetFocusDers(e)
-{
+function SetFocusDers(e) {
     var keycode;
     if(window.event)
     {
@@ -19,13 +18,12 @@ function SetFocusDers(e)
         keycode = e.keyCode;
     }
 
-    if(keycode == 13)
-    {
-        document.getElementById('<%= buttonDersAra.ClientID %>').focus();
+    if (keycode == 13) {   //Enter'a basti      
+        var cmd = <%= Page.GetPostBackEventReference(buttonDersAra) %>;
     }
 }
 
-function Temizle_AraDers(obj)   {
+function Temizle_AraDers(obj) {
     if(obj.value.indexOf('girin') != -1) {
         obj.value='';
     }
@@ -34,6 +32,9 @@ function Temizle_AraDers(obj)   {
 function Yukle_AraDers(obj) {
     if(obj.value == '')   {
         obj.value = 'İsmini ya da kodunu girin';
+    }
+    else {
+        document.getElementById(' <%= buttonDersAra.ClientID %>').focus();
     }
 }
 

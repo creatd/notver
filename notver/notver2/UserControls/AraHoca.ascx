@@ -21,7 +21,7 @@ function SetFocusHoca(e)
 
     if(keycode == 13)
     {
-        document.getElementById('<%= buttonHocaAra.ClientID %>').focus();
+        var cmd = <%= Page.GetPostBackEventReference(buttonHocaAra) %>;
     }
 }
 
@@ -34,6 +34,9 @@ function Temizle_AraHoca(obj)   {
 function Yukle_AraHoca(obj) {
     if(obj.value == '')   {
         obj.value = 'Hoca ismini girin';
+    }
+    else {
+        document.getElementById(' <%= buttonHocaAra.ClientID %>').focus();
     }
 }
 

@@ -17,11 +17,11 @@ public partial class _Default : BasePage
         {
             if (session != null)
             {
-                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
+                Mesajlar.AdmineHataMesajiGonder(Page.Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             }
             else
             {
-                Mesajlar.AdmineHataMesajiGonder(((System.Web.UI.Page)(sender)).Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
+                Mesajlar.AdmineHataMesajiGonder(Page.Request.Url.ToString(), ex.Message, -1, Enums.SistemHataSeviyesi.Orta);
             }
         }
     }
