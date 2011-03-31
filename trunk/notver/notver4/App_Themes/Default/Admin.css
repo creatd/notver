@@ -1,0 +1,101 @@
+﻿*
+{
+	font-weight:bold;
+	font-size:13px;
+	font-family:Arial;
+}
+body div#Content
+{
+	background-image: url("Images/bg.png");
+    background-repeat: repeat;
+    padding-bottom: 100px;
+    width: 100%;
+    padding-left:10px;
+}
+a:disabled , a.disabled , a[disabled="disabled"], a:visited, a.visited, a[visited="visited"]
+{
+	text-decoration:none;
+	color:inherit;
+}
+a
+{
+	color:#FF9202;
+}
+a:hover
+{
+	color:#05d4b4;
+}
+h1
+{
+	font-size:18px;
+	padding:20px;
+	color:#191919;
+	text-decoration:underline;
+}
+h2
+{
+	font-size:16px;
+	padding:15px;
+	color:#626262;
+	text-decoration:underline;
+}
+p
+{
+	padding:10px 10px 15px 10px;
+}
+p#header
+{
+	background-color:#191919;
+	color:#626262;
+	height:55px;
+}
+p#header a
+{
+	position:relative;
+	top:45px;
+	padding-right:25px;
+}
+p#header a.secili
+{
+	color:#c3c3c3;
+}
+table tr td input
+{
+}
+td
+{
+	padding:5px;
+}
+
+.durum
+{
+	color:#FF0008;
+	text-align:center;
+	font-size:13px;
+	font-weight:normal;
+}
+
+.bilgi
+{
+	color:#F25755;
+	text-align:center;
+	font-size:13px;
+	font-weight:normal;
+}
+
+.sakla
+{
+	display:none;
+	width:0px;
+}
+
+div.Bekleme
+{
+	position:fixed; top:0px; left:0px; width:100%; height:100%; display:none; 
+        background-color:White; opacity:0.5;	text-align:center;	vertical-align:middle;
+}
+
+div.Bekleme img
+{
+	position:absolute;	top:0px;	bottom:0px;	left:0px;	right:0px;	margin:auto;
+}

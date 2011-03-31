@@ -1,0 +1,694 @@
+﻿div#Header
+{
+	height:70px;
+	width:100%;
+	color:#c3c3c3;
+	background-color:#191919;	/* */
+	font-size:14px;
+}
+
+div#HeaderContent
+{
+	width:960px;
+	height:70px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+div#Main
+{
+	background-image:url('Images/bg.png');
+	background-repeat:repeat;
+	width:100%;
+	padding-top:30px;
+	padding-bottom:100px;
+}
+
+div#Slogan
+{
+	background-color:#212121;
+	height:50px;
+	width:100%;
+	text-align:center;
+}
+
+div#Footer
+{
+	background-color:#191919;
+	height:100%;/* 220px'di */
+	width:100%;
+}
+
+div#FooterContent
+{
+	width:960px;
+	height:100%;	
+	margin-left:auto;
+	margin-right:auto;
+	line-height:150%;
+	font-size:13px; 
+	color:#afafaf;
+	padding-top:30px;
+	padding-bottom:170px;
+}
+
+div#FooterContent p
+{
+	margin-bottom:15px;
+	font-weight:bold;
+}
+
+div#Content
+{
+	padding-bottom:30px;
+}
+
+div#Bekleme
+{
+	position:absolute; top:0px; left:0px; width:100%; height:100%; display:none; 
+        background-color:White; opacity:0.5;	text-align:center;	vertical-align:middle;
+}
+
+div#Bekleme img
+{
+	position:absolute;	top:0px;	bottom:0px;	left:0px;	right:0px;	margin:auto;
+}
+
+.Squeeze
+{
+	width: 960px;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+*
+{
+	font-family:Arial;
+	line-height:100%;
+	background-color:Transparent;
+	font-size:13px;
+}
+
+p
+{
+	font-size:14px;
+}
+
+a
+{
+	color:inherit;
+	text-decoration:none;
+}
+
+a:hover
+{
+	color:#05d4b4;
+	cursor:pointer;
+}
+
+
+
+/* DersAra HocaAra OkulAra*/
+.araTus
+{
+	width:37px;
+	height:32px;
+	background-image:url('Images/buyutec.png');
+	float:left;
+	margin-top:25px;
+}
+
+.araLink
+{
+	display:block;
+	padding-top:75px;
+	text-decoration:none;
+	color:#626262;
+}
+
+.araTextbox
+{
+	font-size:14px;
+	color:#626262;
+	width:203px;
+	height:30px;
+	background-image:url('Images/textbox_sol.png');
+	background-color:Transparent;
+	vertical-align:middle;
+	float:left;
+	margin-top:25px;
+	padding-left:5px;
+	line-height:200%;
+}
+
+.araDropdown
+{
+	font-size:24px;
+	color:#afafaf;
+	width:245px;
+	height:32px;
+	background-image:url('Images/dropdown-large.png');
+	vertical-align:middle;
+	float:left;
+	margin-top:25px;
+	padding-left:5px;
+	border:none 0px;
+	background-color:Transparent;
+}
+
+/* Dropdown trick 
+http://cssglobe.com/post/8802/custom-styling-of-the-select-elements */
+
+	/* all form DIVs have position property set to relative so we can easily position newly created SPAN */
+	form div{position:relative;} 
+
+	/* setting the width and height of the SELECT element to match the replacing graphics */
+	select.select{
+		position:relative;
+		z-index:10;
+		width:245px !important;
+		height:32px !important;
+		line-height:26px;
+		top:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#626262;
+	}
+
+	/* dynamically created SPAN, placed below the SELECT */
+	span.select{
+		position:absolute;
+		bottom:0;
+		float:left;
+		left:0;
+		width:245px;
+		height:32px;
+		line-height:26px;
+		text-indent:10px;
+		background:url('Images/dropdown-large.png') no-repeat 0 0;
+		cursor:default;
+		z-index:1;
+		top:59px;
+		left:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#626262;
+		padding-top:4px;
+		}
+		
+	/* setting the width and height of the SELECT element to match the replacing graphics */
+	select.select2{
+		position:relative;
+		z-index:10;
+		width:233px !important;
+		height:32px !important;
+		line-height:26px;
+		top:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#1c1c1c;
+	}
+
+	/* dynamically created SPAN, placed below the SELECT */
+	span.select2{
+		position:absolute;
+		bottom:0;
+		float:left;
+		left:0;
+		width:233px;
+		height:32px;
+		line-height:26px;
+		text-indent:10px;
+		background:url('Images/dropdown-login.png') no-repeat 0 0;
+		cursor:default;
+		z-index:1;
+		top:59px;
+		left:25px;
+		vertical-align:middle;
+		font-size:14px;
+		color:#afafaf;
+		padding-top:4px;
+		}
+
+/* Dropdown menu trick */
+
+	/* dropdowns: general */
+	a.dropdown { color:#c3c3c3; cursor:pointer; font-weight:bold; padding-left:10px;}
+	a.dropdown:hover { color:#05d4b4 }
+	a.dropdown { position: relative; margin-left: 3px; }
+	a.dropdown span { background-image: url(toggle_down_light.png); background-repeat: no-repeat; 
+	                  background-position: 100% 50%; padding: 4px 16px 6px 0; }
+	a.dropdown.dropdown-active { color:#05d4b4;}
+	a.dropdown.dropdown-active span { background:url(toggle_up_dark.png) 100% 50% no-repeat; }
+	.dropdown-menu  { background:#e2e2e2; padding:0px; position:absolute;
+	                  top:35px; right:0px; display:none; z-index:5000; }
+	  .dropdown-menu p { padding-right:10px; }
+	.dropdown-menu a:link, .dropdown-menu a:visited { font-weight:bold; text-decoration:none; line-height:1.7em; }
+	.dropdown-menu a:active, .dropdown-menu a:hover {}
+
+		  * html .dropdown-menu { top:28px; }
+		  *+ html .dropdown-menu { top:28px; }
+		  
+/* LoginBox */
+div.pnlLogin
+{
+	 background-image:url('Images/loginbg2.png');
+	 width:269px;
+	 height:189px;
+	color:#626262;
+	line-height:100%;
+	font-weight:bold;
+	font-size:14px;
+	padding-left:25px;
+	padding-top:4px;
+}
+div.pnlLogin p
+{
+	margin-top:7px;
+	margin-bottom:7px;
+}
+
+input.loginTus
+{
+	margin-top:10px;
+}
+
+span.beniHatirla
+{
+	padding-left:20px;
+	padding-top:14px;
+	float:left;
+}
+
+span.beniHatirla label
+{
+	margin-left:5px;
+	font-size:12px;
+	position:relative;
+	top:-3px;
+}
+
+a.sifremiUnuttum
+{
+	color:#05d4b4;
+	text-decoration:none;
+	padding-top:5px;
+}
+
+span.girisDurum
+{
+	padding:5px 5px 10px 33px;
+}
+
+div#Header a.cikisYap
+{
+	color:#626262;
+	padding-left:20px;	
+}
+div#Header a.cikisYap:hover
+{
+	color:#05d4b4;
+}
+
+/* Uye Ol uc */
+div.pnlUyeOl
+{
+	 background-image:url('Images/registerbg5.png');
+	 background-color:#e5e5e5;
+	 background-repeat:no-repeat;
+	 border-left:solid 2px #515151;
+	 border-right:solid 2px #515151;
+	 border-bottom:solid 2px #515151;
+	 width:265px;
+	 height:100%;	/* 569 px */
+	color:#626262;
+	line-height:100%;
+	font-weight:bold;
+	font-size:14px;
+	padding-left:25px;
+}
+div.pnlUyeOl p
+{
+	margin-top:7px;
+	margin-bottom:7px;
+}
+
+input.uyeOlTus
+{
+	margin-top:10px;
+}
+
+table.rdCinsiyetler tr
+{
+	float:left;
+	width:85px;
+}
+
+table.rdCinsiyetler tr label
+{
+	padding-left:5px;
+	position:relative;
+	top:-3px;
+}
+
+select.drpOkullar
+{
+	background-color:White;
+	height:32px;
+	padding-left:5px;
+	border:none 0;
+	width:213px;
+}
+
+/* Ayrac uc*/
+div.Ayrac
+{
+	display:block;
+	margin-top:30px;
+	margin-bottom:20px;
+	width:895px;
+	padding-left:20px;
+	padding-right:15px;
+	height:45px;
+	background-image:url('Images/harfler.png');
+	margin-left:13px;
+	color:#f6f6f6;
+	font-size:13px;
+}
+
+/* Ders */
+div.dersYorumlar
+{
+	background-color:White;
+	padding:20px;
+}
+div#dersBilgi a.lnkIndir
+{
+	float:right;
+	font-size:15px;	
+}
+
+div#dersYorumlari a.lnkYorumEkle
+{
+	float:right;
+}
+
+/* Okul */
+div.okulYorumlar
+{
+	background-color:White;
+	padding:20px;
+}
+div#okulBilgi table tr td i
+{
+	text-decoration:none;
+	font-style:italic;
+	font-size:12px;
+}
+div#okulBilgi table tr td span
+{
+	font-weight:bold;
+}
+div#okulYorumlari a.lnkYorumEkle
+{
+	float:right;
+}
+
+/* Hoca */
+span.HocaIsim
+{
+	float:left;
+	display:block;
+}
+
+span.HocaOkullar
+{
+	float:left;
+	display:block;
+	color:#626262;
+	line-height:140%;
+	padding-left:5px;
+	position:relative;
+	top:-3px;
+}
+div#hocaYorumlari a.lnkYorumEkle
+{
+	float:right;
+}
+div.hocaYorumlar
+{
+	background-color:White;
+	padding:20px;
+}
+/* Yorum yap/guncelle */
+a.lnkYorumlarim
+{
+	color:#f25755;
+}
+/* Okul yorum yap/guncelle uc*/
+div.OkulYorumYap
+{
+	padding:15px;
+}
+div.OkulYorumYap p
+{
+	padding-top:10px;
+	font-weight:bold;
+}
+/* Ders yorum yap/guncelle uc*/
+div.DersYorumYap
+{
+	padding:15px;
+}
+div.DersYorumYap p
+{
+	padding-top:10px;
+	font-weight:bold;
+}
+/* Hoca yorum yap/guncelle uc*/
+div.HocaYorumYap
+{
+	padding:15px;
+	font-weight:bold;
+}
+div.HocaYorumYap p
+{
+	padding-top:10px;
+}
+
+span.yorumPuanDurumu
+{
+	float:right;
+	padding-top:5px;
+}
+
+/* DersDosyalar */
+td#divKlasorler
+{
+	width: 160px; 
+	border-right:solid 1pt #C3C3C3; 
+	font-size:13px;
+	font-weight:bold;
+	background-color:#f6f6f6; 
+	color:#191919;
+}
+td#divKlasorler a.secili
+{
+	color:#05d4b4;
+	font-size:15px;
+}
+td#divKlasorler p
+{
+	height:30px;
+	margin:5px 10px 5px 10px;
+}
+td#divKlasorler p a
+{
+	width:100%;
+	height:100%;
+	display:block;
+	padding-top:8px;
+}
+td#divKlasorler span
+{
+	height:1px;
+	width:60px;
+	margin-left:6px;
+	background-color:#C3C3C3;
+	display:block;
+}
+td.pnlDosyalar
+{
+	padding:10px;
+	background-color:White;
+	vertical-align:top;
+}
+table.gridDosyalar
+{
+	border:none 0;
+	font-weight:bold;
+	font-size:12px;
+	color:#626262;
+	margin-top:10px;
+}
+table.gridDosyalar td 
+{
+	border:none 0;
+	padding:10px;
+}
+table.gridDosyalar tr:hover
+{
+	color:#05d4b4;
+}
+/* Ders dosya yukle */
+div.DersDosyaYukle
+{
+	padding:15px;
+}
+div.DersDosyaYukle p
+{
+	padding-top:10px;
+	font-weight:bold;
+}
+div.DersDosyaYukle table td
+{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+div.DersDosyaYukle div th
+{
+	color:#191919;
+	text-decoration:none;
+	text-align:left;
+}
+div.DersDosyaYukle div tr:hover
+{
+	color:#05d4b4;
+}
+div.DersDosyaYukle div table
+{
+	border:none 0;
+	font-weight:bold;
+	font-size:12px;
+	color:#626262;
+}
+div.DersDosyaYukle div#pager
+{
+	border:none 0;
+	padding-top:5px;	/* Normalde 20 px */
+	padding-bottom:10px;
+}
+/* Yorumlarim */
+div#yorumlarim table td h1 a
+{
+	font-size:14px;
+}
+div#yorumlarim a.secili
+{
+	color:#05d4b4;
+	text-decoration:underline;
+}
+div#yorumlarim div td, div#yorumlarim div th
+{
+	padding:10px;
+}
+div#yorumlarim div th
+{
+	color:#191919;
+	text-decoration:none;
+	text-align:left;
+}
+div#yorumlarim div tr:hover
+{
+	color:#05d4b4;
+}
+div#yorumlarim div table
+{
+	border:none 0;
+	font-weight:bold;
+	font-size:12px;
+	color:#626262;
+	margin-top:10px;
+}
+
+.clear
+{
+	clear:both;
+}
+
+.textbox
+{
+	background-image:url('Images/textbox.png');
+	width:208px;
+	height:30px;
+	border:none 0px;
+	padding-left:5px;
+	font-size:12px;
+}
+
+.multitextbox
+{
+	background-color:White;
+	padding:5px;
+	border:none 0;
+	border-top:solid 1pt #afafaf;
+}
+
+.durum
+{
+	color:#FF0008;
+	text-align:center;
+	font-size:13px;
+	font-weight:normal;
+}
+
+.bilgi
+{
+	color:#F25755;
+	text-align:center;
+	font-size:13px;
+	font-weight:normal;
+}
+
+
+.line150
+{
+	line-height:150%;
+}
+
+/* Pager */
+div#pager
+{
+	border-top:solid 1pt #c3c3c3;
+	padding-top:20px;
+	color:#afafaf;
+}
+a.pager
+{
+	padding-left:7px;
+	padding-right:7px;
+	position:relative;
+	top:-3px;
+	font-weight:bold;
+	text-decoration:underline;
+}
+a.pager[disabled="disabled"]
+{
+	text-decoration:none;
+	color:#626262;
+}
+
+select.dropdownPager
+{
+	padding:0px;
+}
+
+select.dropdownPager option
+{
+	padding-right:5px;
+}
+
+
+
+

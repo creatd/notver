@@ -1,0 +1,455 @@
+﻿/** 
+{
+	font-family : Garamond;
+	font-size : 10pt;
+	line-height:100%;
+	font-weight:normal;
+}*/
+
+/*a
+{
+	color:Black;
+	text-decoration:underline;
+}*/
+
+a:disabled , a.disabled , a[disabled="disabled"]
+{
+	text-decoration:none;
+}
+
+/*p 
+{
+	padding:5px;
+	font-size: 10pt;
+}*/
+
+h1 
+{
+	font-size : 16pt;
+}
+
+h2 
+{
+	font-size : 14pt;
+}
+
+h3 
+{
+	font-size : 12pt;
+}
+
+/*td
+{
+	padding : 10px;
+} */
+
+.stretch
+{
+	width:100%;
+}
+
+.squeeze
+{
+	width: 900px;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.bitisik
+{
+	padding:0;
+	margin:0;
+}
+
+.doldur
+{
+	width:100%;
+	height:100%;
+}
+
+.bold
+{
+	font-weight:bold;
+}
+
+.underline
+{
+	text-decoration:underline;
+}
+
+.sakla
+{
+	display:none;
+	width:0px;
+}
+
+
+div#Container
+{
+	height: 100%;
+	width: 100%;
+	/*background: url(Images/tahta/1.jpg) no-repeat scroll center top transparent;*/
+	background: url(Images/pano/4.png) repeat scroll center top transparent;
+	display:block;
+	overflow:hidden;
+	position:relative;
+	padding:0;
+	margin:0;
+}
+
+/*div#Content
+{
+	width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;    
+    position: static;
+    padding:0;
+}*/
+
+div#Defter
+{
+	background-image: url(Images/defter/6.jpg);
+    background-repeat: repeat-y;
+}
+
+div#Arkaplan
+{
+	padding:15px;
+}
+
+/* s: Tum Dersler */
+
+/* e: Tum Dersler */
+
+/* s: Arama Sonuclari */
+
+table.AramaSonuclari
+{
+	border:none 0px Transparent;
+	background:url('Images/defter/11.jpg') 0 0;	
+	width:100%;
+}
+
+.AramaSonuclari td
+{
+	padding:15px;
+	border:none 0px Transparent;
+}
+
+.AramaSonuclari tr
+{
+	border:none 0px Transparent;
+}
+
+.AramaSonuclariDerslerHeader td
+{
+	color:Blue;
+	font-style:italic;
+	font-weight:bold;
+}
+
+.AramaSonuclariHocalarHeader
+{
+	color:rgb(150,150,150);
+}
+
+
+
+.AramaSonuclariHocalarRow
+{
+	color:rgb(100,100,100);
+	background-color:rgb(150,150,150);
+}
+
+.AramaSonuclariHocalarRow2
+{
+	color:rgb(200,200,200);
+	background-color:rgb(50,50,50);
+}
+/* e: Arama Sonuclari */
+
+/* s: Hoca Resmi uc */
+div.HocaResmi
+{
+	position:relative;
+	top:0;
+	width:235px;
+	height:120px;
+	padding:0;
+	margin:0;
+	text-align:left;
+}
+
+div.HocaResmi img
+{
+	margin-left:100px;
+}
+
+img.HocaResmi
+{
+	padding-top:5px;
+}
+/* e: Hoca Resmi uc */
+
+/* s: Hoca.aspx */
+/*span.HocaIsim
+{
+	display:inline;
+	background-color:Yellow;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:5px;
+	padding-right:5px;
+	font-weight:bold;
+	text-align:center;
+}*/
+/*span.HocaOkullar
+{
+	display:block;
+	text-align:right;
+	margin-top:17px;
+}*/
+/* e: Hoca.aspx */
+
+/* s: Hoca Ayni Okul uc */
+div.HocaAyniOkul
+{
+	width:30px;
+	height:100%;
+}
+ol.HocaAyniOkul
+{
+	text-align:left;
+	position:relative;
+	left:-120px;
+}
+
+li.HocaAyniOkul
+{
+	width:150px;
+	height:43px;
+	margin-bottom:10px;	
+}
+li.HocaAyniOkul a
+{
+	width:140px;
+	height:43px;
+	padding-left:28px;
+	padding-top:3px;
+	padding-right:5px;
+	display:block;
+}
+li.maviayrac
+{
+	background:url(Images/postit/ayrac_mavi2.png) no-repeat;
+}
+
+li.sariayrac
+{
+	background:url(Images/postit/ayrac_sari2.png) no-repeat;
+}
+
+li.kirmiziayrac
+{
+	background:url(Images/postit/ayrac_kirmizi.png) no-repeat;
+}
+/* e: Hoca Ayni Okul uc */
+
+/* s: Genel amacli siniflar */
+.pad
+{
+	
+}
+.fltRight
+{
+	float:right;
+}
+.fltLeft
+{
+	float:left;
+}
+.seffafTextBox
+{
+	border:hidden;
+	background-color:Transparent;
+}
+.sessiz
+{
+	font-size:9px;
+	color:#626262;
+}
+.hata
+{
+	color:Orange;
+}	
+.underline
+{
+	text-decoration:underline;
+}
+/* e: Genel amacli siniflar */
+
+ol.dizin
+{
+	width:100%;
+	height:25px;
+	font-weight:bold;
+	color:#c3c3c3;
+	
+}
+ol.dizin li	
+{
+	display:inline;
+	margin-right:22px;
+}
+
+
+/* s: Hoca Puan uc */
+
+table#HocaPuanlari
+{
+	width : 440px;
+	height: 100%;
+	margin-top:20px;
+}
+.hocaPuanSolSutun
+{
+	text-align:right;
+	width:250px;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.hocaPuanSagSutun
+{
+	padding-left:0px;
+}
+/* e: Hoca Puan uc */
+
+/* s: Ders Yorumlar */
+.DersYorumYapTextbox
+{
+	width : 500px;
+	height: 100px;
+}
+/* e: Ders Yorumlar */
+
+/* s: Hoca Yorum */
+.HocaYorumRow
+{
+}
+
+.HocaYorumRow2
+{
+}
+
+.HocaYorumHeader
+{
+}
+/* e: Hoca Yorum */
+
+/*s: HocaYorumYap user controlu */
+.HocaYorumYapSutunSol
+{
+	width:100px;
+}
+
+.HocaYorumYapSutunSag
+{
+}
+
+.HocaYorumYapTextbox
+{
+	width : 500px;
+	height: 100px;
+}
+/*e: HocaYorumYap user controlu */
+
+/*s: Loginbox uc */
+/*div#LoginBox
+{	
+	width:200px;
+	height:140px;
+}*/
+
+div#LoginBox div#LoginBox_Once
+{
+	width:100%;
+	height:100%;
+	background:url(Images/postit/giris_kutusu3.png) no-repeat;
+}
+
+div#LoginBox div#LoginBox_Sonra
+{
+	width:100%;
+	height:100%;
+	background:url(Images/postit/giris_kutusu3_sonra.png) no-repeat;
+	color:Blue;
+	padding-top:60px;
+	padding-left:18px;
+	text-align:left;
+}
+div#LoginBox div#LoginBox_Sonra span
+{
+	color:rgb(4,10,176);
+}
+div#LoginBox div#LoginBox_Sonra a
+{
+	padding-right:55px;
+	font-size:13px;
+}
+/*div#LoginBox input 
+{
+	color:rgb(4,10,176);
+	font-size:9pt;
+}*/
+/*e: Loginbox uc */
+
+/* s: Ajax Rating */
+
+	.bosYildiz { background: url(Images/yildizlar2.png) left 59px; width: 20px; height: 25px; }	/*Gri*/
+    .doluYildiz { background: url(Images/yildizlar2.png) left 33px; width: 20px; height: 25px; }	/*Sari*/
+    .bekleYildiz { background: url(Images/yildizlar2.png) left 5px; width: 20px; height: 25px;}	/*Mavi */ 
+
+/* e: Ajax Rating */
+
+/* s: Pager */
+table.pager
+{
+	width:100%;
+}
+
+table.pager li
+{
+	float:left;
+	margin-left:10px;
+}
+/* e: Pager */
+
+/* s: OkulYorumYap uc */
+/*div.OkulYorumYap
+{
+	background: url("Images/defter/bigtexture96.png") no-repeat scroll 0 0 White;
+	width:600px;
+	height:413px;
+}*/
+/* e: HocaYorumYap uc */
+
+/* s: Uye Ol sayfasi */
+div.UyeOl
+{
+	background: url("Images/optik/2007oss.jpg") no-repeat scroll 0 0 White;
+	height:1200px;
+}
+/* e: Uye Ol sayfasi */
+
+/* s: Ayrac uc */
+/*div.Ayrac
+{
+	background: url("Images/defter/lacednotebook5.png") no-repeat scroll 0 0 White;	
+	margin-bottom:20px;
+	padding-left:40px;
+}*/
+/* e: Ayrac uc */
