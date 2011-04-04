@@ -200,7 +200,7 @@ public partial class UserControls_HocaYorum : BaseUserControl
             if (Util.GecerliSayi(KullaniciPuanAraligi))
             {
                 Enums.KullaniciPuanAraligi puanAraligi = (Enums.KullaniciPuanAraligi)Convert.ToInt32(KullaniciPuanAraligi);
-                str += "&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#05d4b4'>(Aldigi Not : " + puanAraligi.ToString() + ")</span>";
+                str += "&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#05d4b4'>(Aldığı Not : " + puanAraligi.ToString() + ")</span>";
             }
             if (Util.GecerliString(DersKodu))
             {
@@ -241,7 +241,6 @@ public partial class UserControls_HocaYorum : BaseUserControl
 
     protected void yorumSev_click(object sender, EventArgs e)
     {
-        System.Threading.Thread.Sleep(2000);
         Label lblYorumPuanDurumu = ((ImageButton)sender).Parent.FindControl("yorumPuanDurumu") as Label;
         if (!session.IsLoggedIn)
         {
@@ -260,11 +259,11 @@ public partial class UserControls_HocaYorum : BaseUserControl
         {
             if (result[0] == 1) //İlk defa puan verildi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız kaydedildi";
+                lblYorumPuanDurumu.Text = "Puanın kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız güncellendi";
+                lblYorumPuanDurumu.Text = "Puanın güncellendi";
             }
             if (result[1] > 0)
             {
@@ -297,11 +296,11 @@ public partial class UserControls_HocaYorum : BaseUserControl
         {
             if (result[0] == 1) //İlk defa puan verildi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız kaydedildi";
+                lblYorumPuanDurumu.Text = "Puanın kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız güncellendi";
+                lblYorumPuanDurumu.Text = "Puanın güncellendi";
             }
             if (result[1] > 0)
             {

@@ -21,23 +21,18 @@
                     <asp:Label runat="server" ID="lblYorumOzeti"></asp:Label>
                 </td>
             </tr>
-            <tr style="width:100%;">                
+            <tr style="width:100%; height:20px;">                
                 <td style="float:right; padding-right:20px;">
                     <h1><asp:LinkButton runat="server" ID="btnOkulYorumlarim" OnClick="OkulYorumlariniGoster"
-                        Text="Okul yorumlarim"></asp:LinkButton></h1>
+                        Text="Okul yorumlarım"></asp:LinkButton></h1>
                 </td>
                 <td style="float:right; padding-right:20px;">
                     <h1><asp:LinkButton runat="server" ID="btnHocaYorumlarim" OnClick="HocaYorumlariniGoster"
-                        Text="Hoca yorumlarim"></asp:LinkButton></h1>
+                        Text="Hoca yorumlarım"></asp:LinkButton></h1>
                 </td>
                 <td style="float:right; padding-right:20px;">
                     <h1><asp:LinkButton runat="server" ID="btnDersYorumlarim" OnClick="DersYorumlariniGoster"
-                        Text="Ders yorumlarim"></asp:LinkButton></h1>
-                </td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="3" style="text-align:right;">
-                    <img src="App_Themes/Default/Images/diger/cizgi2.gif" />
+                        Text="Ders yorumlarım"></asp:LinkButton></h1>
                 </td>
             </tr>
         </table>
@@ -59,10 +54,10 @@
                                 Yorum
                             </th>
                             <th >
-                                Gonderilme tarihi
+                                Gönderilme tarihi
                             </th>
                             <th >
-                                Aldigi puan
+                                Aldığı puan
                             </th>
                             <th >
                                 Durum
@@ -108,18 +103,18 @@
                         </td>
                         <td>
                             <asp:ImageButton runat="server" ID="btnDersYorumSil" AlternateText="Sil" ImageUrl="App_Themes/Default/Images/sil.png"
-                            OnClick="DersYorumSil" ToolTip="Sil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
+                            OnClick="DersYorumSil" ToolTip="Sil" OnClientClick="return confirm('İki kere düşündün mü?');"></asp:ImageButton>
                         </td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
                     <tr>
                         <td colspan="7" class="sessiz" style="text-align:right;">
-                            <span style="Color:Green;">Goruntulenen yorumlar</span>
+                            <span style="Color:Green;">Görüntülenen yorumlar</span>
                             <br />
                             <span style="Color:Gray;">Onay bekleyen yorumlar</span>
                             <br />
-                            <span style="Color:Red;">Sizin veya bizim sildigimiz yorumlar</span>
+                            <span style="Color:Red;">Sizin veya bizim sildiğimiz yorumlar</span>
                         </td>
                     </tr>
                     </table>
@@ -138,10 +133,10 @@
                                 Yorum
                             </th>
                             <th >
-                                Gonderilme tarihi
+                                Gönderilme tarihi
                             </th>
                             <th >
-                                Aldigi puan
+                                Aldığı puan
                             </th>
                             <th >
                                 Durum
@@ -181,18 +176,18 @@
                         <td>
                             <asp:ImageButton runat="server" ID="btnOkulYorumSil" AlternateText="Sil" 
                             ImageUrl="App_Themes/Default/Images/sil.png"
-                            ToolTip="Sil" OnClick="OkulYorumSil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
+                            ToolTip="Sil" OnClick="OkulYorumSil" OnClientClick="return confirm('İki kere düşündün mü?');"></asp:ImageButton>
                         </td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
                     <tr>
                         <td colspan="7" class="sessiz" style="text-align:right;">
-                            <span style="Color:Green;">Goruntulenen yorumlar</span>
+                            <span style="Color:Green;">Görüntülenen yorumlar</span>
                             <br />
                             <span style="Color:Gray;">Onay bekleyen yorumlar</span>
                             <br />
-                            <span style="Color:Red;">Sizin veya bizim sildigimiz yorumlar</span>
+                            <span style="Color:Red;">Sizin veya bizim sildiğimiz yorumlar</span>
                         </td>
                     </tr>
                     </table>
@@ -211,10 +206,10 @@
                                 Yorum
                             </th>
                             <th >
-                                Gonderilme tarihi
+                                Gönderilme tarihi
                             </th>
                             <th >
-                                Aldigi puan
+                                Aldığı puan
                             </th>
                             <th >
                                 Durum
@@ -254,18 +249,18 @@
                         <td>
                             <asp:ImageButton runat="server" ID="btnHocaYorumSil" AlternateText="Sil" 
                             ImageUrl="App_Themes/Default/Images/sil.png"
-                            OnClick="HocaYorumSil" ToolTip="Sil" OnClientClick="return confirm('Iki kere dusundunuz mu?');"></asp:ImageButton>
+                            OnClick="HocaYorumSil" ToolTip="Sil" OnClientClick="return confirm('İki kere düşündün mü?');"></asp:ImageButton>
                         </td>                                           
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
                     <tr>
                         <td colspan="7" class="sessiz" style="text-align:right;">
-                            <span style="Color:Green;">Goruntulenen yorumlar</span>
+                            <span style="Color:Green;">Görüntülenen yorumlar</span>
                             <br />
                             <span style="Color:Gray;">Onay bekleyen yorumlar</span>
                             <br />
-                            <span style="Color:Red;">Sizin veya bizim sildigimiz yorumlar</span>
+                            <span style="Color:Red;">Sizin veya bizim sildiğimiz yorumlar</span>
                         </td>
                     </tr>
                     </table>
@@ -273,10 +268,10 @@
             </asp:Repeater>
         </asp:Panel>
         <asp:Panel runat="server" ID="pnlYorumYok">
-            <span style="padding:10px; text-align:center;">Yorumunuz bulunmamaktadir</span>
+            <span style="padding:10px; text-align:center;">Yorumun yok</span>
         </asp:Panel>
         <asp:Panel runat="server" ID="pnlHata">
-            Bir hata olustu, biz de anlamadik. Tekrar denerseniz belki duzelir.
+            Bir hata oluştu, biz de anlamadık. Tekrar deneyinz belki düzelir.
         </asp:Panel>
         <asp:Literal runat="server" ID="ltrScript"></asp:Literal>
     </div>

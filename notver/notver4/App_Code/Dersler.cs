@@ -16,6 +16,28 @@ using System.Data.SqlClient;
 /// </summary>
 public class Dersler
 {
+    public static bool DersDosyaIndirildi(int DosyaID)
+    {
+        try
+        {
+            if (DosyaID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("DersDosyaIndirildi");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("DosyaID", DosyaID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception) { }
+        return false;
+    }
+
     public static bool Admin_KayitsizDersIliskilendir(int DersID, string KayitsizDersIsim)
     {
         try

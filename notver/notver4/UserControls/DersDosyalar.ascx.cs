@@ -283,8 +283,8 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 //((System.Web.UI.WebControls.LinkButton)(((System.Web.UI.WebControls.DataGridLinkButton)(e.Item.Cells[4].Controls[0])))).Text = imgText.Replace("<img ", "img tooltip='" + dosyaTooltip + "' ");
                 //e.Item.Cells[4].Text = "deneme";
                 //e.Item.Cells[4].Controls[0];
-                string imgText = ((System.Web.UI.WebControls.LinkButton)(e.Item.Cells[4].Controls[0])).Text;
-                ((System.Web.UI.WebControls.LinkButton)(e.Item.Cells[4].Controls[0])).Text = imgText.Replace("<img ", "<img tooltip='" + dosyaTooltip + "' ");
+                string imgText = ((System.Web.UI.WebControls.LinkButton)(e.Item.Cells[5].Controls[0])).Text;
+                ((System.Web.UI.WebControls.LinkButton)(e.Item.Cells[5].Controls[0])).Text = imgText.Replace("<img ", "<img tooltip='" + dosyaTooltip + "' ");
             }
         }
     }
@@ -297,8 +297,10 @@ public partial class UserControls_DersDosyalar : BaseUserControl
             lnkSorun.Text = "";
             lnkSorun.NavigateUrl = "";
 
-            string dosya_anahtar = ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[3].Text;
+            string dosya_anahtar = ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[4].Text;
+            
 
+            
             //Amazon'dan 1 saat sureli URL olustur
             NameValueCollection appConfig = ConfigurationManager.AppSettings;
             string accessKeyID = appConfig["AWSAccessKey"];
@@ -324,6 +326,20 @@ public partial class UserControls_DersDosyalar : BaseUserControl
                 lnkSorun.Text = "buraya tıkla";
                 lnkSorun.NavigateUrl = url;
                 //Response.Write(response);
+
+                //Dosyanin indirilme sayisini 1 artir
+                string dosya_id = ((System.Web.UI.WebControls.TableRow)(e.Item)).Cells[0].Text;
+                if (Util.GecerliSayi(dosya_id))
+                {
+                    if (!Dersler.DersDosyaIndirildi(Convert.ToInt32(dosya_id)))
+                    {
+                        Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), "Dosya indirildi ancak indirme sayisini 1 artiramadik", session.KullaniciID, Enums.SistemHataSeviyesi.Dusuk);
+                    }
+                }
+                else
+                {
+                    Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), "Dosya indirildi ancak indirme sayisini 1 artiramadik cunku dosyanin ID'sini alamadik", session.KullaniciID, Enums.SistemHataSeviyesi.Dusuk);
+                }
             }
 
         }

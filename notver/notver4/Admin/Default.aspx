@@ -5,7 +5,7 @@ Inherits="Admin_Default" MasterPageFile="~/Masters/Admin.master" MaintainScrollP
 <asp:ScriptManager runat="server"></asp:ScriptManager>
 <h1>Admin paneli</h1>
 <h1>Site istatistikleri</h1>
-<p>Onaylanmış (Toplam)</p>
+<p>Toplam (Onaylanmış)</p>
 <p>
     Üye sayısı : &nbsp;&nbsp;<strong><asp:Label runat="server" ID="lblUyeSayisi1"></asp:Label></strong>
     &nbsp;&nbsp;(<asp:Label runat="server" ID="lblUyeSayisi2"></asp:Label>)

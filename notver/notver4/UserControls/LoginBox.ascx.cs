@@ -21,13 +21,13 @@ public partial class UserControls_LoginBox : BaseUserControl
                 lblDurum.Text = "";
                 break;
             case -1:    //Eposta-sifre bulunamadi
-                lblDurum.Text = "tekrar deneyin";
+                lblDurum.Text = "tekrar dene";
                 break;
             case -2:    //Kullanici engellenmis
                 lblDurum.Text = "hesabın engellenmiştir";
                 break;
             default:    //Bilinmeyen hata
-                lblDurum.Text = "hata oluştu - tekrar deneyin";
+                lblDurum.Text = "hata oluştu - tekrar dene";
                 break;
         }
     }
@@ -44,7 +44,7 @@ public partial class UserControls_LoginBox : BaseUserControl
         {
             if (Mesajlar.SifremiUnuttumEpostasiGonder(txtEposta.Text))
             {
-                lblDurum.Text = "e-posta adresini şifre talimatlari gönderildi";
+                lblDurum.Text = "e-posta adresine şifre talimatları gönderildi";
             }
             else
             {
