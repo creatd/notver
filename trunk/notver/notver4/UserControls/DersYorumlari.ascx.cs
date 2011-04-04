@@ -220,11 +220,11 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         {
             if (result[0] == 1) //İlk defa puan verildi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız kaydedildi";
+                lblYorumPuanDurumu.Text = "Puanın kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız güncellendi";
+                lblYorumPuanDurumu.Text = "Puanın güncellendi";
             }
             if (result[1] > 0)
             {
@@ -257,11 +257,11 @@ public partial class UserControls_DersYorumlari : BaseUserControl
         {
             if (result[0] == 1) //İlk defa puan verildi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız kaydedildi";
+                lblYorumPuanDurumu.Text = "Puanın kaydedildi";
             }
             else if (result[0] == 2)    //Daha once puan verilmis. Puan guncellendi.
             {
-                lblYorumPuanDurumu.Text = "Puanınız güncellendi";
+                lblYorumPuanDurumu.Text = "Puanın güncellendi";
             }
             if (result[1] > 0)
             {

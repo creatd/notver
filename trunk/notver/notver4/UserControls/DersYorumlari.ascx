@@ -30,9 +30,6 @@
                         <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                     </ContentTemplate>
                 </asp:UpdatePanel>   
-                <div id="Bekleme">
-                    <img src="./Scripts/images/loading.gif" />
-                </div>
                 <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="pnlSevSevme">
                 <Animations>
                     <OnUpdating>
@@ -70,6 +67,9 @@
             </asp:ImageButton>
         </div>
     </asp:Panel>
+    <div id="Bekleme">
+        <img src="./Scripts/images/loading.gif" />
+    </div>
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false" CssClass="dersYorumlar">
     <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">

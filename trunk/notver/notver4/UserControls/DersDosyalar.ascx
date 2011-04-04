@@ -73,6 +73,8 @@ $(document).ready(function($) {
                 AllowSorting="true" AllowPaging="false" OnItemCommand="gridDosyalar_ItemCommand" CssClass="gridDosyalar" BorderStyle="None"
                 BorderWidth="0" GridLines="None">
                 <Columns>
+                    <asp:BoundColumn DataField="DOSYA_ID" ItemStyle-CssClass="sakla" 
+                        HeaderStyle-CssClass="sakla" FooterStyle-CssClass="sakla"></asp:BoundColumn>
                     <asp:BoundColumn DataField="DOSYA_ISMI" HeaderText="Dosya İsmi" ItemStyle-Width="300px" HeaderStyle-ForeColor="Black"
                     HeaderStyle-Height="50px" HeaderStyle-Font-Size="12px"></asp:BoundColumn>
                     <asp:BoundColumn DataField="HOCA_ISIM" HeaderText="Hoca İsmi" ItemStyle-Width="150px"  HeaderStyle-ForeColor="Black"
@@ -85,14 +87,14 @@ $(document).ready(function($) {
                     </asp:ButtonColumn>
                 </Columns>
             </asp:DataGrid> 
-            <p style="font-weight:bold; text-align:right; color:FF9202;">
+            <p style="font-weight:bold; text-align:right; color:#FF9202;">
                 <asp:Label runat="server" ID="lblSorun"></asp:Label>
                 <asp:HyperLink runat="server" ID="lnkSorun" Target="_blank"></asp:HyperLink>
             </p>
         </asp:Panel> 
         <asp:Panel ID="pnlDosyaYok" runat="server" Visible="false">
             <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
-                Sectiğiniz kategoride henüz dosya eklenmemiş. Sol taraftan başka bir kategori seçin.
+                Sectiğin kategoride henüz dosya eklenmemiş. Soldaki menüden başka bir kategori seçebilirsin.
             </p>
         </asp:Panel>         
     </td>
@@ -105,7 +107,7 @@ $(document).ready(function($) {
     </td>
     <td style="background-color:White; padding-left:30px; padding-right:30px;">
         <div id="pager" style="text-align:center; height:100%;">
-            <asp:ImageButton ID="lnkOnceki" Text="Önceki" OnClick="OncekiSayfayaGit" runat="server"
+            <asp:ImageButton ID="lnkOnceki" OnClick="OncekiSayfayaGit" runat="server"
             ImageUrl="~/App_Themes/Default/Images/prev.png"></asp:ImageButton>
             <asp:Repeater runat="server" ID="rptPager" OnItemCommand="rptPager_Command" OnItemDataBound="rptPager_DataBound">
                 <ItemTemplate>
@@ -113,7 +115,7 @@ $(document).ready(function($) {
                         CommandArgument="<%# Container.DataItem %>" ID="lnkSayfa" CssClass="pager"></asp:LinkButton></li>
                 </ItemTemplate>
             </asp:Repeater>
-            <asp:ImageButton ID="lnkSonraki" Text="Sonraki" OnClick="SonrakiSayfayaGit" runat="server"
+            <asp:ImageButton ID="lnkSonraki" OnClick="SonrakiSayfayaGit" runat="server"
             ImageUrl="~/App_Themes/Default/Images/next.png">
             </asp:ImageButton>
         </div>    

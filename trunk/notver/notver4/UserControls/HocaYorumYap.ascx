@@ -5,8 +5,8 @@
 <ajax:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        update_size(65,70);
+    $(document).ready(function () {
+        update_size(70, 110);
     });
     
     function update_size(w_bias,h_bias)  {

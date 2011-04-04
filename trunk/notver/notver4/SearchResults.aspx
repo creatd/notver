@@ -35,8 +35,8 @@
             <td id="hocaOkullar" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                 <%# HocaOkullariniDondur( DataBinder.Eval(Container.DataItem, "HOCA_ID").ToString() )%>
             </td>
-            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top;">
-                <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
+            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top; padding-top:10px;">
+                <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Başa dön"/></a>
             </td>
         </tr>
         </ItemTemplate>
@@ -48,8 +48,8 @@
             <td id="hocaOkullar" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                 <%# HocaOkullariniDondur( DataBinder.Eval(Container.DataItem, "HOCA_ID").ToString() )%>
             </td>
-            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top;">
-                <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
+            <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top; padding-top:10px;">
+                <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Başa dön"/></a>
             </td>
         </tr>
         </AlternatingItemTemplate>
@@ -74,8 +74,8 @@
                     <td id="dersOkul" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                         <%# OkulLinkiniDondur( DataBinder.Eval(Container.DataItem, "OKUL_ISIM").ToString() , DataBinder.Eval(Container.DataItem, "OKUL_ID").ToString() )%>
                     </td>
-                    <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top;">
-                        <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
+                    <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top; padding-top:10px;">
+                        <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Başa dön"/></a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -87,8 +87,8 @@
                 <td id="dersOkul" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                     <%# OkulLinkiniDondur( DataBinder.Eval(Container.DataItem, "OKUL_ISIM").ToString() , DataBinder.Eval(Container.DataItem, "OKUL_ID").ToString() )%>
                 </td>
-                <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top;">
-                    <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Basa don"/></a>
+                <td id="linkBasaDon" style="width:30px;padding-left:20px; vertical-align:top; padding-top:10px;">
+                    <a href='#tepe'><img src='App_Themes/Default/Images/top.png' title="Başa dön"/></a>
                 </td>
             </tr>            
             </AlternatingItemTemplate>

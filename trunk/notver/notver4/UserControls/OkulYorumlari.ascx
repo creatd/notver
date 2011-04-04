@@ -13,6 +13,7 @@
                         <asp:ListItem Text="Hepsi" Value="0"></asp:ListItem>
                     </asp:DropDownList> yorum
     </p>
+
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
             <div style="font-weight:bold; color:#505050; padding:10px; background-color:#f6f6f6;">
@@ -29,10 +30,8 @@
                         ImageUrl="~/App_Themes/Default/Images/thumbsdown.png" ToolTip="Sevmedim"/>
                         <asp:Label runat="server" ID="yorumPuanDurumu" CssClass="yorumPuanDurumu bilgi"></asp:Label>
                     </ContentTemplate>
-                </asp:UpdatePanel>  
-                <div id="Bekleme">
-                    <img src="./Scripts/images/loading.gif" />
-                </div>
+                </asp:UpdatePanel> 
+
                 <ajax:UpdatePanelAnimationExtender ID="UpdatePanelAnimationExtender1" runat="server" TargetControlID="pnlSevSevme">
                 <Animations>
                     <OnUpdating>
@@ -70,6 +69,9 @@
             </asp:ImageButton>
         </div>
     </asp:Panel>
+    <div id="Bekleme">
+        <img src="./Scripts/images/loading.gif" />
+    </div>
 </asp:Panel>
 <asp:Panel ID="pnlYorumYok" runat="server" Visible="false" CssClass="okulYorumlar">
     <p style="font-weight:bold; padding:10px; color:#626262; font-size:13px; font-style:italic;">
