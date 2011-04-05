@@ -507,7 +507,7 @@ public class Hocalar
         return null;
     }
 
-    public static bool HocaEkle(bool IsActive, string Isim, string Unvan, int YorumSayisi,
+    public static bool HocaEkle(bool IsActive, string Isim, string Unvan, int YorumSayisi, List<int> BolumIDler,
         List<int> OkulIDler, List<int> OkulBaslangicYillari, List<int> OkulBitisYillari, List<int> DersIDler)
     {
         try
@@ -537,7 +537,12 @@ public class Hocalar
                 {
                     count3 = OkulBitisYillari.Count;
                 }
-                if (count1 != count2 || count1 != count3)
+                int count4 = 0;
+                if (BolumIDler != null)
+                {
+                    count4 = BolumIDler.Count;
+                }
+                if (count1 != count2 || count1 != count3 || count2!= count4)
                 {
                     return false;
                 }
@@ -591,6 +596,7 @@ public class Hocalar
                 {
                     int baslangicYili = OkulBaslangicYillari[i];
                     int bitisYili = OkulBitisYillari[i];
+                    int bolumID = BolumIDler[i];
 
                     cmd = new SqlCommand("Admin_HocaOkulEkle");
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -601,6 +607,11 @@ public class Hocalar
                     cmd.Parameters.Add(param);
 
                     param = new SqlParameter("OkulID", okulID);
+                    param.Direction = ParameterDirection.Input;
+                    param.SqlDbType = SqlDbType.Int;
+                    cmd.Parameters.Add(param);
+
+                    param = new SqlParameter("BolumID", bolumID);
                     param.Direction = ParameterDirection.Input;
                     param.SqlDbType = SqlDbType.Int;
                     cmd.Parameters.Add(param);
@@ -662,6 +673,34 @@ public class Hocalar
             
         }
         return false;
+    }
+
+    /// <summary>
+    /// Bir bolumdeki tum aktif hocalari dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable BolumdekiHocalariDondur(int BolumID)
+    {
+        try
+        {
+            if (BolumID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("BolumdekiHocalariDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("BolumID", BolumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     /// <summary>

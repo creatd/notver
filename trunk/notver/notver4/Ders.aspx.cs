@@ -58,9 +58,9 @@ public partial class Ders : BasePage
                         lblDersAciklama.Text = "";
                     }
                     //Ders okul isim (Dersin verildigi okulun ismi)
-                    if (!string.IsNullOrEmpty(session.DersOkulIsim))
+                    if (!string.IsNullOrEmpty(session.DersOkulIsim) && !string.IsNullOrEmpty(session.DersBolumIsim))
                     {
-                        lblDersOkulIsim.Text = session.DersOkulIsim;
+                        lblDersOkulIsim.Text = session.DersBolumIsim + " - " + session.DersOkulIsim;
                     }
                     else
                     {

@@ -16,6 +16,84 @@ using System.Data.SqlClient;
 /// </summary>
 public class Okullar
 {
+    public static bool BolumEkle(int OkulID, string BolumIsim, bool IsActive)
+    {
+        try
+        {
+            if (OkulID < 0 || string.IsNullOrEmpty(BolumIsim))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_OkulBolumEkle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("BolumIsim", BolumIsim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception) { }
+        return false;
+    }
+
+    public static DataTable BolumDondur(int BolumID)
+    {
+        try
+        {
+            //TODO : -99 Bogazici icin gecici cozum, bunu v3'te duzelt
+            if (BolumID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("OkulBolumDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("BolumID", BolumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
+    public static DataTable BolumleriDondur(int OkulID)
+    {
+        try
+        {
+            //TODO : -99 Bogazici icin gecici cozum, bunu v3'te duzelt
+            if (OkulID < 0 && OkulID != -99)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("OkulBolumleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
     //Universite epostasi mi kontrolu icin kullanilir
     public static string OkulUrlDondur(int OkulID)
     {

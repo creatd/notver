@@ -46,6 +46,30 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>        
     </table>
 </asp:Panel>
+<h2>Okul Bolum Ekle</h2>
+<asp:Panel runat="server" ID="pnlOkulBolumEkle">
+    <table>
+        <tr>
+            <td>Okul</td>
+            <td><asp:DropDownList runat="server" ID="drpOkullar"></asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Isim (256)</td>
+            <td><asp:TextBox runat="server" ID="txtBolumIsim"></asp:TextBox></td>
+        </tr>
+        <tr>
+            <td>Is Active</td>
+            <td><asp:DropDownList runat="server" ID="drpBolumEkleActive">
+                <asp:ListItem Text="Evet" Value="1" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Hayir" Value="0"></asp:ListItem>
+            </asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td><asp:Button ID="btnBolumEkle" runat="server" Text="Bolum ekle" OnClick="BolumEkle" /></td>
+            <td><asp:Label runat="server" ID="lblDurumBolumEkle" CssClass="bilgi"></asp:Label></td>
+        </tr> 
+    </table>
+</asp:Panel>
 <h2>Hoca Ekle</h2>
 <asp:Panel runat="server" ID="pnlHocaEkle">
     <table> 
@@ -74,7 +98,9 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
     <ContentTemplate>
         <table>
             <tr>
-                <td><asp:DropDownList runat="server" ID="drpHocaOkullar" runat="server"></asp:DropDownList>&nbsp;&nbsp;
+                <td><asp:DropDownList runat="server" ID="drpHocaOkullar" runat="server" OnSelectedIndexChanged="HocaEkle_OkulSecildi"
+                AutoPostBack="true"></asp:DropDownList>&nbsp;&nbsp;
+                <asp:DropDownList runat="server" ID="drpHocaEkle_Bolumler"></asp:DropDownList>
                 <asp:TextBox runat="server" ID="txtHocaOkulBaslangicYili" Width="60" ToolTip="Bilmiyosan bos birak"></asp:TextBox>
                 &nbsp;-&nbsp;
                 <asp:TextBox runat="server" ID="txtHocaOkulBitisYili" Width="60" 
@@ -157,7 +183,12 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
     <table>
         <tr>
             <td>Okul</td>
-            <td><asp:DropDownList runat="server" ID="drpDersOkullar"></asp:DropDownList></td>
+            <td><asp:DropDownList runat="server" ID="drpDersOkullar" OnSelectedIndexChanged="DersEkle_OkulSecildi"
+            AutoPostBack="true"></asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Bolum</td>
+            <td><asp:DropDownList runat="server" ID="drpDersEkle_Bolumler"></asp:DropDownList></td>
         </tr>
         <tr>
             <td>Is_Active</td>
