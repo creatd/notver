@@ -567,12 +567,12 @@ public class Dersler
         return null;
     }
 
-    public static bool DersEkle(int OkulID, bool IsActive, string DersKodu, string DersIsmi,
+    public static bool DersEkle(int OkulID, int BolumID, bool IsActive, string DersKodu, string DersIsmi,
         string DersAciklama)
     {
         try
         {
-            if (OkulID < 0 || string.IsNullOrEmpty(DersKodu))
+            if (OkulID < 0 || BolumID < 0 || string.IsNullOrEmpty(DersKodu))
             {
                 return false;
             }
@@ -589,6 +589,11 @@ public class Dersler
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("BolumID", BolumID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -914,6 +919,32 @@ public class Dersler
         {
             return true;
         }
+    }
+
+    /// <summary>
+    /// Bir bolumdeki tum aktif dersleri dondurur
+    /// </summary>
+    /// <returns></returns>
+    public static DataTable BolumdekiDersleriDondur(int BolumID)
+    {
+        try
+        {
+            if (BolumID < 0)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("BolumdekiDersleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("BolumID", BolumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception) { }
+        return null;
     }
 
     /// <summary>

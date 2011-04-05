@@ -64,7 +64,7 @@ public partial class Yorumlarim : BasePage
 
                 if (session.KullaniciAktifYorumSayisi >= 0)
                 {
-                    lblYorumOzeti.Text = "Görüntülenen <strong>" + session.KullaniciAktifYorumSayisi + "</strong> yorumunuz bulunmaktadır";
+                    lblYorumOzeti.Text = "Görüntülenen <strong>" + session.KullaniciAktifYorumSayisi + "</strong> yorumun var";
                 }
             }
             if (YorumTipi == Enums.YorumTipi.Gecersiz)
@@ -180,11 +180,11 @@ public partial class Yorumlarim : BasePage
         bool sonuc = Genel.YorumSil(session.KullaniciID, Enums.YorumTipi.DersYorum, yorumID, true);
         if (sonuc)
         {
-            ltrScript.Text = "<script type='text/javascript'>alert('Yorumunuz basariyla silinmistir');</script>";
+            ltrScript.Text = "<script type='text/javascript'>alert('Yorumunu sildik');</script>";
         }
         else
         {
-            ltrScript.Text = "<script type='text/javascript'>alert('Bir hata olustu, lutfen tekrar deneyin');</script>";
+            ltrScript.Text = "<script type='text/javascript'>alert('Bir hata oldu, lütfen tekrar dene');</script>";
         }
     }
     
@@ -199,11 +199,11 @@ public partial class Yorumlarim : BasePage
         bool sonuc = Genel.YorumSil(session.KullaniciID, Enums.YorumTipi.OkulYorum, yorumID, true);
         if (sonuc)
         {
-            ltrScript.Text = "<script type='text/javascript'>alert('Yorumunuz basariyla silinmistir');</script>";
+            ltrScript.Text = "<script type='text/javascript'>alert('Yorumunu sildik');</script>";
         }
         else
         {
-            ltrScript.Text = "<script type='text/javascript'>alert('Bir hata olustu, lutfen tekrar deneyin');</script>";
+            ltrScript.Text = "<script type='text/javascript'>alert('Bir hata oldu, lütfen tekrar dene');</script>";
         }
     }
 
@@ -218,11 +218,11 @@ public partial class Yorumlarim : BasePage
         bool sonuc = Genel.YorumSil(session.KullaniciID, Enums.YorumTipi.HocaYorum, yorumID, true);
         if (sonuc)
         {
-            ltrScript.Text = "<script type='text/javascript'>alert('Yorumunuz basariyla silinmistir');</script>";
+            ltrScript.Text = "<script type='text/javascript'>alert('Yorumunu sildik');</script>";
         }
         else
         {
-            ltrScript.Text = "<script type='text/javascript'>alert('Bir hata olustu, lutfen tekrar deneyin');</script>";
+            ltrScript.Text = "<script type='text/javascript'>alert('Bir hata oldu, lütfen tekrar dene');</script>";
         }
     }
 
@@ -405,13 +405,13 @@ public partial class Yorumlarim : BasePage
             switch (yorumDurumu)
             {
                 case Enums.YorumDurumu.KullaniciTarafindanSilinmis:
-                    return "<span style='color:Red;' title='Silmissiniz''>X</span>";
+                    return "<span style='color:Red;' title='Sildin''>X</span>";
                 case Enums.YorumDurumu.SistemTarafindanSilinmis:
                     return "<span style='color:Red;' title='Biz sildik'>X</span>";
                 case Enums.YorumDurumu.OnayBekliyor:
                     return "<span style='color:Gray;' title='Onay bekliyor'>...</span>";
                 case Enums.YorumDurumu.Onaylanmis:
-                    return "<span style='color:Green;' title='Goruntuleniyor'>+</span>";
+                    return "<span style='color:Green;' title='Görüntüleniyor'>+</span>";
             }
         }
         return "";

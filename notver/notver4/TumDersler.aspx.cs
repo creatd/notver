@@ -37,7 +37,7 @@ public partial class TumDersler : BasePage
         {
             if (!Page.IsPostBack)
             {
-                DataTable dtOkullar = null;
+                /*DataTable dtOkullar = null;
                 if (Query.GetInt("OkulID") > 0)
                 {
                     int okulID = Query.GetInt("OkulID");
@@ -51,14 +51,26 @@ public partial class TumDersler : BasePage
                 else  //Query string'de OkulID yok, tum okullar icin dondurecegiz
                 {
                     dtOkullar = Okullar.OkullariDondur();
-                }
+                }*/
 
-                if (dtOkullar != null)
+                DataTable dtBolumler = null;
+                //TODO: v3'te duzelt
+                // Okuldaki tum bolumleri dondur
+                dtBolumler = Okullar.BolumleriDondur(-99);
+
+                if (dtBolumler != null)
                 {
-                    repeaterDersler.DataSource = dtOkullar;
+                    repeaterDersler.DataSource = dtBolumler;
                     repeaterDersler.DataBind();
                     repeaterDersler.Visible = true;
-                    HarfDiziniOlustur(dtOkullar);
+                    HarfDiziniOlustur(dtBolumler);
+
+                    drpOkulBolumler.Items.Clear();
+                    drpOkulBolumler.Items.Add(new ListItem("Tümü", "-1"));
+                    foreach (DataRow dr in dtBolumler.Rows)
+                    {
+                        drpOkulBolumler.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["BOLUM_ID"].ToString()));
+                    }
                 }
                 else
                 {
@@ -71,6 +83,41 @@ public partial class TumDersler : BasePage
         {
             Mesajlar.AdmineHataMesajiGonder(Request.Url.ToString(), ex.Message, session.KullaniciID, Enums.SistemHataSeviyesi.Orta);
             GoToDefaultPage();
+        }
+    }
+
+    protected void BolumSecildi(object sender, EventArgs e)
+    {
+        if (Util.GecerliSayi(drpOkulBolumler.SelectedValue))
+        {
+            int secili_bolumID = Convert.ToInt32(drpOkulBolumler.SelectedValue);
+
+            DataTable dtBolumler = null;
+            if (secili_bolumID < 0) // Tum bolumler
+            {
+                //TODO: v3'te duzelt
+                // Okuldaki tum bolumleri dondur
+                dtBolumler = Okullar.BolumleriDondur(-99);
+
+            }
+            else    // Sadece bu bolumdeki dersleri dondur
+            {
+                //TODO: v3'te duzelt
+                // Okuldaki tum bolumleri dondur
+                dtBolumler = Okullar.BolumDondur(secili_bolumID);
+            }
+
+            if (dtBolumler != null)
+            {
+                repeaterDersler.DataSource = dtBolumler;
+                repeaterDersler.DataBind();
+                repeaterDersler.Visible = true;
+                HarfDiziniOlustur(dtBolumler);
+            }
+            else
+            {
+                repeaterDersler.Visible = false;
+            }
         }
     }
 

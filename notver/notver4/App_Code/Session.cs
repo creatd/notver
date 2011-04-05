@@ -91,6 +91,14 @@ public class Session
                 {
                     this.DersOkulIsim = "";
                 }
+                if (Util.GecerliString(dtDers.Rows[0]["BOLUM_ISIM"]))
+                {
+                    this.DersBolumIsim = dtDers.Rows[0]["BOLUM_ISIM"].ToString();
+                }
+                else
+                {
+                    this.DersBolumIsim = "";
+                }
                 if (Util.GecerliString(dtDers.Rows[0]["ISIM"]))
                 {
                     this.DersIsim = dtDers.Rows[0]["ISIM"].ToString();
@@ -115,6 +123,7 @@ public class Session
                 this.DersKod = "";
                 this.DersOkulID = -1;
                 this.DersOkulIsim = "";
+                this.DersBolumIsim = "";
                 this.DersIsim = "";
                 this.DersAciklama = "";
             }
@@ -213,6 +222,25 @@ public class Session
         set
         {
             HttpContext.Current.Session["DersOkulID"] = value;
+        }
+    }
+
+    public string DersBolumIsim
+    {
+        get
+        {
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["DersBolumIsim"] != null)
+            {
+                return HttpContext.Current.Session["DersBolumIsim"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        set
+        {
+            HttpContext.Current.Session["DersBolumIsim"] = value;
         }
     }
 
