@@ -39,18 +39,79 @@ public partial class Admin_TumDersler : BasePage
 
     protected void OkulSecildi(object sender, EventArgs e)
     {
+        drpBolumler.Items.Clear();
+        drpBolumler.Items.Add(new ListItem("-", "-1"));
+        // Okuldaki bolumleri doldur
+        if (Util.GecerliSayi(drpOkullar.SelectedValue))
+        {
+            DataTable dtBolumler = Okullar.BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
+            if (dtBolumler != null)
+            {
+                foreach (DataRow dr in dtBolumler.Rows)
+                {
+                    drpBolumler.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["BOLUM_ID"].ToString()));
+                }
+            }
+        }
         GridDoldur();
+    }
+
+    protected void BolumSecildi(object sender, EventArgs e)
+    {
+        GridDoldur();
+    }
+
+    protected void BolumSecildi2(object sender, EventArgs e)
+    {
+        drpOkulDersler.Items.Clear();
+        if (Util.GecerliSayi(drpOkulBolumler.SelectedValue))
+        {
+            int bolumID = Convert.ToInt32(drpOkulBolumler.SelectedValue);
+            if (bolumID >= 0)
+            {
+                DataTable dtDersler = Dersler.BolumdekiDersleriDondur(bolumID);
+                if (dtDersler != null)
+                {
+                    foreach (DataRow dr in dtDersler.Rows)
+                    {
+                        drpOkulDersler.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
+                    }
+                }
+            }
+            else if (bolumID == -1)
+            {
+                if (Util.GecerliSayi(drpOkullar2.SelectedValue))
+                {
+                    int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+                    DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
+                    if (dtDersler != null)
+                    {
+                        foreach (DataRow dr in dtDersler.Rows)
+                        {
+                            drpOkulDersler.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
+                        }
+                    }
+                }
+
+            }
+
+        }
     }
 
     protected void GridDoldur()
     {
+        int seciliBolumID = -1;
         int seciliOkulID = -1;
-        if(!string.IsNullOrEmpty(drpOkullar.SelectedValue) && drpOkullar.SelectedValue != "-")
+        if (!string.IsNullOrEmpty(drpBolumler.SelectedValue) && drpBolumler.SelectedValue != "-1")
+        {
+            seciliBolumID = Convert.ToInt32(drpBolumler.SelectedValue);
+        }
+        if (!string.IsNullOrEmpty(drpOkullar.SelectedValue) && drpOkullar.SelectedValue != "-1")
         {
             seciliOkulID = Convert.ToInt32(drpOkullar.SelectedValue);
         }
 
-        DataTable dtDersler = Dersler.Admin_DersleriDondur(seciliOkulID);
+        DataTable dtDersler = Dersler.Admin_DersleriDondur(seciliOkulID,seciliBolumID);
         if (dtDersler != null)
         {
             if (dtDersler.Rows.Count < gridDersler.CurrentPageIndex * gridDersler.PageSize + 1)
@@ -69,7 +130,8 @@ public partial class Admin_TumDersler : BasePage
 
     protected void Edit(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[9].Visible = false;
+        int sutun_sayisi = ((System.Web.UI.WebControls.DataGrid)(sender)).Items.Count;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[11].Visible = false;
 
         gridDersler.EditItemIndex = e.Item.ItemIndex;
         GridDoldur();
@@ -77,7 +139,8 @@ public partial class Admin_TumDersler : BasePage
 
     protected void Cancel(object sender, DataGridCommandEventArgs e)
     {
-        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[9].Visible = false;
+        int sutun_sayisi = ((System.Web.UI.WebControls.DataGrid)(sender)).Items.Count;
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[11].Visible = false;
 
         gridDersler.EditItemIndex = -1;
         GridDoldur();
@@ -87,18 +150,22 @@ public partial class Admin_TumDersler : BasePage
     {
         try
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[9].Visible = false;
+            int sutun_sayisi = ((System.Web.UI.WebControls.DataGrid)(sender)).Items.Count;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[11].Visible = false;
 
             string dersID = e.Item.Cells[0].Text;
             string isActive = (e.Item.Cells[1].Controls[0] as TextBox).Text;
             string okulID = (e.Item.Cells[2].Controls[0] as TextBox).Text;
-            string okulIsim = e.Item.Cells[3].Text;
-            string kod = (e.Item.Cells[4].Controls[0] as TextBox).Text;
-            string isim = (e.Item.Cells[5].Controls[0] as TextBox).Text;
-            string aciklama = (e.Item.Cells[6].Controls[0] as TextBox).Text;
+            //string okulIsim = e.Item.Cells[3].Text;
+            string bolumID = (e.Item.Cells[4].Controls[0] as TextBox).Text;
+            //string bolumIsim = e.Item.Cells[3].Text;
+            string kod = (e.Item.Cells[6].Controls[0] as TextBox).Text;
+            string isim = (e.Item.Cells[7].Controls[0] as TextBox).Text;
+            string aciklama = (e.Item.Cells[8].Controls[0] as TextBox).Text;
 
             int DersID = Convert.ToInt32(dersID);
             int OkulID = Convert.ToInt32(okulID);
+            int BolumID = Convert.ToInt32(bolumID);
             bool IsActive = Convert.ToBoolean(isActive);
             if (!string.IsNullOrEmpty(kod))
             {
@@ -121,7 +188,7 @@ public partial class Admin_TumDersler : BasePage
                 if (aciklama.Length > 2000)
                     aciklama = aciklama.Substring(0, 2000);
             }
-            if (Dersler.DersGuncelle(DersID,OkulID,IsActive, kod, isim, aciklama))
+            if (Dersler.DersGuncelle(DersID,OkulID,BolumID, IsActive, kod, isim, aciklama))
             {
                 lblDurum1.Text = "Ders guncellendi";
                 lblDurum2.Text = "Ders guncellendi";
@@ -143,6 +210,7 @@ public partial class Admin_TumDersler : BasePage
 
     protected void ItemCommand(object sender, DataGridCommandEventArgs e)
     {
+        int sutun_sayisi = ((System.Web.UI.WebControls.DataGrid)(sender)).Items.Count;
         if(e.CommandName == "Sil1")
         {
             DataGridItemCollection coll = ((System.Web.UI.WebControls.DataGrid)(sender)).Items;
@@ -150,18 +218,18 @@ public partial class Admin_TumDersler : BasePage
             {
                 if (i != e.Item.DataSetIndex)
                 {
-                    coll[i].Controls[9].Visible = false;
+                    coll[i].Controls[11].Visible = false;
                 }
                 else
                 {
-                    coll[i].Controls[9].Visible = true;
+                    coll[i].Controls[11].Visible = true;
                 }
             }
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[9].Visible = true;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[11].Visible = true;
         }
         else if(e.CommandName == "Sil2")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[9].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[11].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             if (Util.GecerliSayi(ID))
@@ -189,10 +257,22 @@ public partial class Admin_TumDersler : BasePage
 
     protected void OkulSecildi2(object sender, EventArgs e)
     {
-        int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+        drpOkulBolumler.Items.Clear();
+        drpOkulBolumler.Items.Add(new ListItem("-", "-1"));
         drpOkulDersler.Items.Clear();
-        if (okulID >= 0)
+        // Okuldaki bolumleri doldur
+        if (Util.GecerliSayi(drpOkullar2.SelectedValue))
         {
+            int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+            DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+            if (dtBolumler != null)
+            {
+                foreach (DataRow dr in dtBolumler.Rows)
+                {
+                    drpOkulBolumler.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["BOLUM_ID"].ToString()));
+                }
+            }
+            
             DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
             if (dtDersler != null)
             {

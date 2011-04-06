@@ -61,10 +61,14 @@ p#header a.secili
 }
 table tr td input
 {
+	width:100%;
+	margin-right:5px;
+	padding-left:0px;
+	padding-right:0px;
 }
 td
 {
-	padding:5px;
+	padding:3px;
 }
 
 .durum

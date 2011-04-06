@@ -278,11 +278,11 @@ public class Hocalar
     }
 
     //Boyle bir hoca-okul iliskisi daha once eklenmis mi kontrolu prosedur icinde yapiliyor
-    public static bool HocaOkulEkle(int HocaID, int OkulID, int BaslangicYili, int BitisYili)
+    public static bool HocaOkulEkle(int HocaID, int OkulID, int BolumID, int BaslangicYili, int BitisYili)
     {
         try
         {
-            if (HocaID < 0 || OkulID < 0)
+            if (HocaID < 0 || OkulID < 0 || BolumID < 0)
             {
                 return false;
             }
@@ -295,6 +295,11 @@ public class Hocalar
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("BolumID", BolumID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -483,14 +488,22 @@ public class Hocalar
         return false;
     }
 
-    public static DataTable Admin_HocalariDondur(int OkulID)
+    public static DataTable Admin_HocalariDondur(int OkulID, int BolumID)
     {
         try
         {
             SqlCommand cmd = new SqlCommand("Admin_HocalariDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            if (OkulID > 0)
+            if (BolumID >= 0)
+            {
+                SqlParameter param = new SqlParameter("BolumID", BolumID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            //Aslinda sadece BolumID gondermek yetmeli ama ne olur ne olmaz OkulID'yi de gonderelim, zarari yok
+            if (OkulID >= 0)
             {
                 SqlParameter param = new SqlParameter("OkulID", OkulID);
                 param.Direction = ParameterDirection.Input;
