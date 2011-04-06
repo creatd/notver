@@ -7,9 +7,13 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <ajax:ToolkitScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
 <h1>Hocalar</h1>
-    <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi"
+    <p>Okul : <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi"
     AutoPostBack="true">
     </asp:DropDownList>
+    </p>
+    <p>Bolum : <asp:DropDownList runat="server" ID="drpOkulBolumler" OnSelectedIndexChanged="BolumSecildi"
+    AutoPostBack="true"></asp:DropDownList>
+    </p>
     <br />
     <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
     <br /><br />
@@ -43,6 +47,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
                 <asp:BoundColumn DataField="DERS_ID" HeaderText="Ders ID" ReadOnly="true"></asp:BoundColumn>
                 <asp:BoundColumn DataField="KOD" HeaderText="Ders Kodu" ReadOnly="true"></asp:BoundColumn>
                 <asp:BoundColumn DataField="OKUL_ISIM" HeaderText="Okul" ReadOnly="true"></asp:BoundColumn>
+                
                 <asp:ButtonColumn ButtonType="LinkButton" Text="X" CommandName="Sil1"></asp:ButtonColumn>
                 <asp:ButtonColumn ButtonType="LinkButton" Text="Eminim" CommandName="Sil2" Visible="false"></asp:ButtonColumn>
             </Columns>
@@ -54,7 +59,9 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
                     <td>Yeni</td>
                     <td><asp:DropDownList runat="server" ID="drpOkullar2" OnSelectedIndexChanged="OkulSecildi2"
                     AutoPostBack="true"></asp:DropDownList></td>
-                    <td><asp:DropDownList runat="server" ID="drpDersler"></asp:DropDownList></td>
+                    <td><asp:DropDownList runat="server" ID="drpOkulBolumler2" OnSelectedIndexChanged="BolumSecildi2"
+                    AutoPostBack="true"></asp:DropDownList></td>
+                    <td><asp:DropDownList runat="server" ID="drpDersler2"></asp:DropDownList></td>
                     <td><asp:LinkButton runat="server" ID="btnHocaDersEkle" OnClick="HocaDersEkle" 
                     Text="Ekle"></asp:LinkButton></td>
                 </tr>                
@@ -90,6 +97,7 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
             <Columns>
                 <asp:BoundColumn DataField="OKUL_ID" HeaderText="Okul ID" ReadOnly="true"></asp:BoundColumn>
                 <asp:BoundColumn DataField="ISIM" HeaderText="Okul" ReadOnly="true"></asp:BoundColumn>
+                <asp:BoundColumn DataField="BOLUM_ISIM" HeaderText="Bolum" ReadOnly="true"></asp:BoundColumn>
                 <asp:BoundColumn DataField="START_YEAR" HeaderText="Baslangic Yili"></asp:BoundColumn>
                 <asp:BoundColumn DataField="END_YEAR" HeaderText="Bitis Yili"></asp:BoundColumn>
                 <asp:ButtonColumn ButtonType="LinkButton" Text="X" CommandName="Sil1"></asp:ButtonColumn>
@@ -101,7 +109,9 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         <table>
             <tr>
                 <td>Yeni</td>
-                <td><asp:DropDownList runat="server" ID="drpOkullar3"></asp:DropDownList></td>
+                <td><asp:DropDownList runat="server" ID="drpOkullar3" OnSelectedIndexChanged="OkulSecildi3" 
+                AutoPostBack="true"></asp:DropDownList></td>
+                <td><asp:DropDownList runat="server" ID="drpOkulBolumler3"></asp:DropDownList></td>
                 <td>Baslangic yili : <asp:TextBox runat="server" ID="txtOkulBaslangicYili" Width="60"
                 ToolTip="Bilmiyosan bos birak"></asp:TextBox></td>
                 <td>Bitis yili : <asp:TextBox runat="server" ID="txtOkulBitisYili" Width="60"
@@ -126,7 +136,10 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
                                     <asp:DropDownList runat="server" ID="drpOkullar4" OnSelectedIndexChanged="OkulSecildi4"
                                     AutoPostBack="true"></asp:DropDownList>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:DropDownList runat="server" ID="drpOkulHocalar"></asp:DropDownList>
+                                    <asp:DropDownList runat="server" ID="drpOkulBolumler4"
+                                    OnSelectedIndexChanged="BolumSecildi4" AutoPostBack="true"></asp:DropDownList>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:DropDownList runat="server" ID="drpOkulHocalar4"></asp:DropDownList>
                                 </td></tr>
                                 <tr><td align="center">
                                     ya da

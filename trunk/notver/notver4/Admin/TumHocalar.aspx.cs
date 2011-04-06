@@ -40,6 +40,7 @@ public partial class Admin_TumHocalar : BasePage
 
             drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             drpOkullar2.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+            drpOkullar3.Items.Add(new ListItem("Okul sec", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             drpOkullar4.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
             foreach (DataRow dr in session.dtOkullar.Rows)
             {
@@ -73,7 +74,97 @@ public partial class Admin_TumHocalar : BasePage
 
     protected void OkulSecildi(object sender, EventArgs e)
     {
+        drpOkulBolumler.Items.Clear();
+        drpOkulBolumler.Items.Add(new ListItem("-", "-1"));
+        // Okuldaki bolumleri doldur
+        if (Util.GecerliSayi(drpOkullar.SelectedValue))
+        {
+            DataTable dtBolumler = Okullar.BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
+            if (dtBolumler != null)
+            {
+                foreach (DataRow dr in dtBolumler.Rows)
+                {
+                    drpOkulBolumler.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["BOLUM_ID"].ToString()));
+                }
+            }
+        }
         GridDoldur();
+    }
+
+    protected void BolumSecildi(object sender, EventArgs e)
+    {
+        GridDoldur();
+    }
+
+    protected void BolumSecildi2(object sender, EventArgs e)
+    {
+        drpDersler2.Items.Clear();
+        if (Util.GecerliSayi(drpOkulBolumler2.SelectedValue))
+        {
+            int bolumID = Convert.ToInt32(drpOkulBolumler2.SelectedValue);
+            if (bolumID >= 0)
+            {
+                DataTable dtDersler = Dersler.BolumdekiDersleriDondur(bolumID);
+                if (dtDersler != null)
+                {
+                    foreach (DataRow dr in dtDersler.Rows)
+                    {
+                        drpDersler2.Items.Add(new ListItem(dr["DERS_ISIM"].ToString(), dr["DERS_ID"].ToString()));
+                    }
+                }
+            }
+            else if (bolumID == -1)
+            {
+                if (Util.GecerliSayi(drpOkullar4.SelectedValue))
+                {
+                    int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+                    DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
+                    if (dtDersler != null)
+                    {
+                        foreach (DataRow dr in dtDersler.Rows)
+                        {
+                            drpDersler2.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["DERS_ID"].ToString()));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected void BolumSecildi4(object sender, EventArgs e)
+    {
+        drpOkulHocalar4.Items.Clear();
+        if (Util.GecerliSayi(drpOkulBolumler4.SelectedValue))
+        {
+            int bolumID = Convert.ToInt32(drpOkulBolumler4.SelectedValue);
+            if (bolumID >= 0)
+            {
+                DataTable dtHocalar = Hocalar.BolumdekiHocalariDondur(bolumID);
+                if (dtHocalar != null)
+                {
+                    foreach (DataRow dr in dtHocalar.Rows)
+	                {
+                        drpOkulHocalar4.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+	                }
+                    
+                }
+            }
+            else if (bolumID == -1)
+            {
+                if (Util.GecerliSayi(drpOkullar4.SelectedValue))
+                {
+                    int okulID = Convert.ToInt32(drpOkullar4.SelectedValue);
+                    DataTable dtHocalar = Hocalar.OkuldakiHocalariDondur(okulID);
+                    if (dtHocalar != null)
+                    {
+                        foreach (DataRow dr in dtHocalar.Rows)
+                        {
+                            drpOkulHocalar4.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     protected void KayitsizHocalariDoldur()
@@ -94,13 +185,18 @@ public partial class Admin_TumHocalar : BasePage
 
     protected void GridDoldur()
     {
+        int seciliBolumID = -1;
+        if (!string.IsNullOrEmpty(drpOkulBolumler.SelectedValue) && drpOkulBolumler.SelectedValue != "-1")
+        {
+            seciliBolumID = Convert.ToInt32(drpOkulBolumler.SelectedValue);
+        }
         int seciliOkulID = -1;
-        if (!string.IsNullOrEmpty(drpOkullar.SelectedValue) && drpOkullar.SelectedValue != "-")
+        if (!string.IsNullOrEmpty(drpOkullar.SelectedValue) && drpOkullar.SelectedValue != "-1")
         {
             seciliOkulID = Convert.ToInt32(drpOkullar.SelectedValue);
         }
 
-        DataTable dtHocalar = Hocalar.Admin_HocalariDondur(seciliOkulID);
+        DataTable dtHocalar = Hocalar.Admin_HocalariDondur(seciliOkulID, seciliBolumID);
         if (dtHocalar != null)
         {
             if (dtHocalar.Rows.Count < gridHocalar.CurrentPageIndex * gridHocalar.PageSize + 1)
@@ -191,9 +287,9 @@ public partial class Admin_TumHocalar : BasePage
     //Bu ders daha once ekli mi kontrolu prosedur icinde yapiliyor
     protected void HocaDersEkle(object sender, EventArgs e)
     {
-        if (drpDersler.Items.Count > 0 && Util.GecerliSayi(drpDersler.SelectedValue))
+        if (drpDersler2.Items.Count > 0 && Util.GecerliSayi(drpDersler2.SelectedValue))
         {
-            int dersID = Convert.ToInt32(drpDersler.SelectedValue);
+            int dersID = Convert.ToInt32(drpDersler2.SelectedValue);
             if (Hocalar.HocaDersEkle(SeciliHocaID, dersID))
             {
                 lblDurum3.Text = "Hoca ders iliskisi eklendi";
@@ -213,9 +309,11 @@ public partial class Admin_TumHocalar : BasePage
     //Bu okul daha once ekli mi kontrolu prosedur icinde yapiliyor
     protected void HocaOkulEkle(object sender, EventArgs e)
     {
-        if (drpOkullar3.Items.Count > 0 && Util.GecerliSayi(drpOkullar3.SelectedValue))
+        if (drpOkullar3.Items.Count > 0 && Util.GecerliSayi(drpOkullar3.SelectedValue)
+            && drpOkulBolumler3.Items.Count > 0 && Util.GecerliSayi(drpOkulBolumler3.SelectedValue))
         {
             int okulID = Convert.ToInt32(drpOkullar3.SelectedValue);
+            int bolumID = Convert.ToInt32(drpOkulBolumler3.SelectedValue);
             int baslangicYili = -1;
             int bitisYili = -1;
             if (Util.GecerliSayi(txtOkulBaslangicYili.Text))
@@ -226,7 +324,7 @@ public partial class Admin_TumHocalar : BasePage
             {
                 bitisYili = Convert.ToInt32(txtOkulBitisYili.Text);
             }
-            if (Hocalar.HocaOkulEkle(SeciliHocaID, okulID,baslangicYili,bitisYili))
+            if (Hocalar.HocaOkulEkle(SeciliHocaID, okulID, bolumID, baslangicYili, bitisYili))
             {
                 lblDurum1.Text = "Hoca okul iliskisi eklendi";
                 lblDurum2.Text = "Hoca okul iliskisi eklendi";
@@ -247,45 +345,127 @@ public partial class Admin_TumHocalar : BasePage
 
     protected void OkulSecildi2(object sender, EventArgs e)
     {
-        int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
-        drpDersler.Items.Clear();
-        if (okulID >= 0)
+        drpDersler2.Items.Clear();
+        drpOkulBolumler2.Items.Clear();
+        if (Util.GecerliSayi(drpOkullar2.SelectedValue))
         {
-            DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
-            if (dtDersler != null)
+            int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
+            // Okuldaki bolumleri doldur
+            if (okulID >= 0)
             {
-                foreach (DataRow dr in dtDersler.Rows)
+                DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+                if (dtBolumler != null)
                 {
-                    drpDersler.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
+                    drpOkulBolumler2.Items.Add(new ListItem("-", "-1"));
+                    foreach (DataRow dr in dtBolumler.Rows)
+                    {
+                        drpOkulBolumler2.Items.Add(new ListItem(dr["ISIM"].ToString() , dr["BOLUM_ID"].ToString()));
+                    }
                 }
             }
-        }
+            else if (okulID == -1)
+            {
+                // Hicbir sey yapma
+            }
+
+            // Okuldaki dersleri doldur
+            
+            if (okulID >= 0)
+            {
+                DataTable dtDersler = Dersler.OkuldakiDersleriDondur(okulID);
+                if (dtDersler != null)
+                {
+                    foreach (DataRow dr in dtDersler.Rows)
+                    {
+                        drpDersler2.Items.Add(new ListItem(dr["KOD"].ToString(), dr["DERS_ID"].ToString()));
+                    }
+                }
+            }
+            else if (okulID == -1)
+            {
+                //Hicbir sey yapma
+            }
+        }       
+    }
+
+    protected void OkulSecildi3(object sender, EventArgs e)
+    {
+        drpOkulBolumler3.Items.Clear();
+        if (Util.GecerliSayi(drpOkullar3.SelectedValue))
+        {
+            int okulID = Convert.ToInt32(drpOkullar3.SelectedValue);
+            // Okuldaki bolumleri doldur
+            if (okulID >= 0)
+            {
+                DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+                if (dtBolumler != null)
+                {
+                    drpOkulBolumler3.Items.Add(new ListItem("-", "-1"));
+                    foreach (DataRow dr in dtBolumler.Rows)
+                    {
+                        drpOkulBolumler3.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["BOLUM_ID"].ToString()));
+                    }
+                }
+            }
+            else if (okulID == -1)
+            {
+                // Hicbir sey yapma
+            }
+        }     
     }
 
     protected void OkulSecildi4(object sender, EventArgs e)
     {
-        int okulID = Convert.ToInt32(drpOkullar4.SelectedValue);
-        drpOkulHocalar.Items.Clear();
-        if (okulID >= 0)
+        drpOkulHocalar4.Items.Clear();
+        drpOkulBolumler4.Items.Clear();
+        if (Util.GecerliSayi(drpOkullar4.SelectedValue))
         {
-            DataTable dtHocalar = Hocalar.OkuldakiHocalariDondur(okulID);
-            if (dtHocalar != null)
+            int okulID = Convert.ToInt32(drpOkullar4.SelectedValue);
+            // Okuldaki bolumleri doldur
+            if (okulID >= 0)
             {
-                foreach (DataRow dr in dtHocalar.Rows)
+                DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+                if (dtBolumler != null)
                 {
-                    drpOkulHocalar.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                    drpOkulBolumler4.Items.Add(new ListItem("-", "-1"));
+                    foreach (DataRow dr in dtBolumler.Rows)
+                    {
+                        drpOkulBolumler4.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["BOLUM_ID"].ToString()));
+                    }
                 }
             }
-        }
+            else if (okulID == -1)
+            {
+                // Hicbir sey yapma
+            }
+
+            // Okuldaki hocalari doldur
+
+            if (okulID >= 0)
+            {
+                DataTable dtHocalar = Hocalar.OkuldakiHocalariDondur(okulID);
+                if (dtHocalar != null)
+                {
+                    foreach (DataRow dr in dtHocalar.Rows)
+                    {
+                        drpOkulHocalar4.Items.Add(new ListItem(dr["HOCA_ISIM"].ToString(), dr["HOCA_ID"].ToString()));
+                    }
+                }
+            }
+            else if (okulID == -1)
+            {
+                //Hicbir sey yapma
+            }
+        }   
     }
 
     protected void KayitsizHocaIliskilendir(object sender, EventArgs e)
     {
         lblDurum4.Text = "Hoca iliskilendirilirken bir hata olustu";
         int seciliHocaID = -1;
-        if (Util.GecerliSayi(drpOkulHocalar.SelectedValue))
+        if (Util.GecerliSayi(drpOkulHocalar4.SelectedValue))
         {
-            seciliHocaID = Convert.ToInt32(drpOkulHocalar.SelectedValue);
+            seciliHocaID = Convert.ToInt32(drpOkulHocalar4.SelectedValue);
         }
         if(seciliHocaID < 0 && Util.GecerliSayi(txtHocaID.Text))
         {
@@ -416,18 +596,18 @@ public partial class Admin_TumHocalar : BasePage
             {
                 if (i != e.Item.DataSetIndex)
                 {
-                    coll[i].Controls[5].Visible = false;
+                    coll[i].Controls[6].Visible = false;
                 }
                 else
                 {
-                    coll[i].Controls[5].Visible = true;
+                    coll[i].Controls[6].Visible = true;
                 }
             }
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = true;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[6].Visible = true;
         }
         else if (e.CommandName == "Sil2")
         {
-            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = false;
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[6].Visible = false;
 
             string ID = e.Item.Cells[0].Text;
             if (Util.GecerliSayi(ID))

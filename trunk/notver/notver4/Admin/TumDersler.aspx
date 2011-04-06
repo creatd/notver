@@ -8,9 +8,10 @@
 <ajax:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" ScriptMode="Release" />
     <h1>
         Dersler</h1>
-    <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi"
-    AutoPostBack="true">
-    </asp:DropDownList>
+    <p>Okul : <asp:DropDownList runat="server" ID="drpOkullar" OnSelectedIndexChanged="OkulSecildi"
+    AutoPostBack="true" /></p>
+    <p>Bolum : <asp:DropDownList runat="server" ID="drpBolumler" OnSelectedIndexChanged="BolumSecildi"
+    AutoPostBack="true" />  </p>
     <br />
     <asp:Label runat="server" ID="lblDurum1" CssClass="bilgi"></asp:Label>
     <br />
@@ -20,13 +21,15 @@
         AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update"
         OnEditCommand="Edit" OnCancelCommand="Cancel" OnItemCommand="ItemCommand">
         <Columns>
-            <asp:BoundColumn DataField="DERS_ID" HeaderText="Ders ID" ReadOnly="true"></asp:BoundColumn>
-            <asp:BoundColumn DataField="IS_ACTIVE" HeaderText="Is Active"></asp:BoundColumn>
-            <asp:BoundColumn DataField="OKUL_ID" HeaderText="Okul ID"></asp:BoundColumn>
+            <asp:BoundColumn DataField="DERS_ID" HeaderText="Ders ID" ReadOnly="true" ItemStyle-Width="30"></asp:BoundColumn>
+            <asp:BoundColumn DataField="IS_ACTIVE" HeaderText="Is Active" ItemStyle-Width="50"></asp:BoundColumn>
+            <asp:BoundColumn DataField="OKUL_ID" HeaderText="Okul ID" ItemStyle-Width="30"></asp:BoundColumn>
             <asp:BoundColumn DataField="OKUL_ISIM" HeaderText="Okul Isim" ReadOnly="true"></asp:BoundColumn>
+            <asp:BoundColumn DataField="BOLUM_ID" HeaderText="Bolum ID" ItemStyle-Width="30"></asp:BoundColumn>
+            <asp:BoundColumn DataField="BOLUM_ISIM" HeaderText="Bolum Isim" ReadOnly="true"></asp:BoundColumn>
             <asp:BoundColumn DataField="KOD" HeaderText="Kod (50)"></asp:BoundColumn>
             <asp:BoundColumn DataField="ISIM" HeaderText="Isim (150)"></asp:BoundColumn>
-            <asp:BoundColumn DataField="ACIKLAMA" HeaderText="Aciklama (2000)"></asp:BoundColumn>
+            <asp:BoundColumn DataField="ACIKLAMA" HeaderText="Aciklama (2000)" ItemStyle-Width="300"></asp:BoundColumn>
             <asp:EditCommandColumn ButtonType="LinkButton" EditText="..." CancelText="Iptal"
                 UpdateText="Guncelle"></asp:EditCommandColumn>
             <asp:ButtonColumn ButtonType="LinkButton" Text="X" CommandName="Sil1"></asp:ButtonColumn>
@@ -50,6 +53,9 @@
                             <table>
                                 <tr><td>
                                     <asp:DropDownList runat="server" ID="drpOkullar2" OnSelectedIndexChanged="OkulSecildi2"
+                                    AutoPostBack="true"></asp:DropDownList>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:DropDownList runat="server" ID="drpOkulBolumler" OnSelectedIndexChanged="BolumSecildi2"
                                     AutoPostBack="true"></asp:DropDownList>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <asp:DropDownList runat="server" ID="drpOkulDersler"></asp:DropDownList>

@@ -486,12 +486,12 @@ public class Dersler
         return false;
     }
 
-    public static bool DersGuncelle(int DersID, int OkulID, bool IsActive, string Kod,
+    public static bool DersGuncelle(int DersID, int OkulID, int BolumID, bool IsActive, string Kod,
         string Isim, string Aciklama)
     {
         try
         {
-            if (DersID < 0 || OkulID < 0 || string.IsNullOrEmpty(Kod))
+            if (DersID < 0 || OkulID < 0 || BolumID <0 || string.IsNullOrEmpty(Kod))
             {
                 return false;
             }
@@ -505,6 +505,11 @@ public class Dersler
             cmd.Parameters.Add(param);
 
             param = new SqlParameter("OkulID", OkulID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("BolumID", BolumID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -543,14 +548,30 @@ public class Dersler
         return false;
     }
 
-    public static DataTable Admin_DersleriDondur(int OkulID)
+    /// <summary>
+    /// Ya tum dersleri (OkulID ve BolumID <0)
+    /// Ya bir okuldaki tum dersleri (sadece OkulID >= 0)
+    /// Ya da bir bolumdeki tum dersleri (BolumID >=0)
+    /// dondurur
+    /// </summary>
+    /// <param name="OkulID"></param>
+    /// <param name="BolumID"></param>
+    /// <returns></returns>
+    public static DataTable Admin_DersleriDondur(int OkulID, int BolumID)
     {
         try
         {
             SqlCommand cmd = new SqlCommand("Admin_DersleriDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            if (OkulID > 0)
+            if (BolumID >= 0)
+            {
+                SqlParameter param = new SqlParameter("BolumID", BolumID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
+            if (OkulID >= 0)
             {
                 SqlParameter param = new SqlParameter("OkulID", OkulID);
                 param.Direction = ParameterDirection.Input;
