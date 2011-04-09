@@ -7,7 +7,7 @@
     <uc1:Ayrac runat="server" ID="ayrac" />
     <a name='tepe'></a>
     <div id="divArkaplan" style="background-color:#191919; clear:both; height:36px; margin-top:30px;
-                width: 100%;" title="Okulun bas harfini secin">
+                width: 100%;" title="Bölümün baş harfini seç">
                 <!-- ltrHarfDizini'ne kod arkasinda stil veriyorum -->
         <asp:Literal runat="server" ID="ltrHarfDizini"></asp:Literal>
     </div>
@@ -23,8 +23,7 @@
         <ItemTemplate>
         <tr id="item" style="margin-bottom:20px; background-color:#f6f6f6; width:960px;">
             <td id="okulBaslik" style="width:200px;display:block; padding-left:20px; padding-top:30px; padding-bottom:30px;">
-                <%# OkulLinkBaslikDondur(Eval("ISIM"), 
-                    Eval("BOLUM_ID"))%>
+                <%# BolumBaslikDondur(Eval("ISIM"))%>
             </td>
             <td id="okulHocalar" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                 <uc1:BolumTumHocalar ID="BolumTumHocalar1" runat="server" _BolumID='<%# Eval("BOLUM_ID")%>'>
@@ -38,8 +37,7 @@
         <AlternatingItemTemplate>
         <tr id="item" style="margin-bottom:20px; background-color:#ffffff; width:960px;">
             <td id="okulBaslik" style="width:200px;display:block; padding-left:20px; padding-top:30px; padding-bottom:30px;">
-                <%# OkulLinkBaslikDondur(Eval("ISIM"), 
-                    Eval("BOLUM_ID"))%>
+                <%# BolumBaslikDondur(Eval("ISIM"))%>
             </td>
             <td id="okulHocalar" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                 <uc1:BolumTumHocalar ID="BolumTumHocalar2" runat="server" _BolumID='<%# Eval("BOLUM_ID")%>'>
