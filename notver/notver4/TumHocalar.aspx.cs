@@ -130,7 +130,6 @@ public partial class TumHocalar : BasePage
         }
 
         LinkedList<char> alfabe = Alfabe(true);
-        char curChar;
         StringBuilder sb = new StringBuilder();
         sb.Append("<ol class='dizin' style='font-weight:normal; padding:10px; text-align:center;'>");
         foreach (char ch in alfabe)
@@ -148,6 +147,21 @@ public partial class TumHocalar : BasePage
         ltrHarfDizini.Text = sb.ToString();
     }
 
+    protected string BolumBaslikDondur(object BolumIsim)
+    {
+        if (Util.GecerliString(BolumIsim) && BolumIsim.ToString().Length > 0)
+        {
+            char bas_harf = BolumIsim.ToString()[0];
+            return "<a name='" + bas_harf + "' />" +
+                BolumIsim.ToString();
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    //Kullanilmiyor
     protected string OkulLinkBaslikDondur(object OkulIsim, object OkulID)
     {
         if (Util.GecerliString(OkulIsim) && Util.GecerliString(OkulID))

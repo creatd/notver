@@ -23,7 +23,7 @@
         <ItemTemplate>
         <tr id="item" style="margin-bottom:20px; background-color:#f6f6f6; width:960px;">
             <td id="okulBaslik" style="width:200px;display:block; padding-left:20px; padding-top:30px; padding-bottom:30px;">
-                <%# Eval("ISIM") %>
+                <%# BolumBaslikDondur(Eval("ISIM"))%>
             </td>
             <td id="okulDersler" style="width:640px; padding-left:20px; color:#626262; padding-top:30px; padding-bottom:30px;">
                 <uc1:BolumTumDersler ID="BolumTumDersler1" runat="server" _BolumID='<%# Eval("BOLUM_ID")%>'>
@@ -37,7 +37,7 @@
         <AlternatingItemTemplate>
                 <tr id="item" style="margin-bottom:20px; background-color:#ffffff; width:960px;">
             <td id="okulBaslik" style="width:200px;display:block; padding-left:20px; padding-top:30px; padding-bottom:30px;">
-                <%# Eval("ISIM")%>
+                <%# BolumBaslikDondur(Eval("ISIM"))%>
             </td>
 
             <td id="okulDersler" style="width:640px; color:#626262; padding-left:20px; padding-top:30px; padding-bottom:30px;">
