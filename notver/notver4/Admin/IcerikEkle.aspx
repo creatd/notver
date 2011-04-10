@@ -70,6 +70,43 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr> 
     </table>
 </asp:Panel>
+<h2>Ders Ekle</h2>
+<asp:Panel runat="server" ID="pnlDersEkle">
+    <table>
+        <tr>
+            <td>Okul</td>
+            <td><asp:DropDownList runat="server" ID="drpDersOkullar" OnSelectedIndexChanged="DersEkle_OkulSecildi"
+            AutoPostBack="true"></asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Bolum</td>
+            <td><asp:DropDownList runat="server" ID="drpDersEkle_Bolumler"></asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Is_Active</td>
+            <td><asp:DropDownList runat="server" ID="drpDersIsActive">
+                <asp:ListItem Text="Evet" Value="1" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Hayir" Value="0"></asp:ListItem>
+                </asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Kod (50)</td>
+            <td><asp:TextBox runat="server" ID="txtDersKod" Width="400"></asp:TextBox></td>
+        </tr>
+        <tr>
+            <td>İsim (150)</td>
+            <td><asp:TextBox runat="server" ID="txtDersIsim" Width="400"></asp:TextBox></td>
+        </tr>
+        <tr>
+            <td>Açıklama (2000)</td>
+            <td><asp:TextBox runat="server" ID="txtDersAciklama" Width="600" TextMode="MultiLine"></asp:TextBox></td>
+        </tr>
+        <tr>
+            <td><asp:Button runat="server" ID="btnDersEkle" Text="Ders Ekle" OnClick="DersEkle" /></td>
+            <td><asp:Label runat="server" ID="lblDurumDersEkle" CssClass="bilgi"/></td>
+        </tr>
+    </table>
+</asp:Panel>
 <h2>Hoca Ekle</h2>
 <asp:Panel runat="server" ID="pnlHocaEkle">
     <table> 
@@ -176,43 +213,6 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
             <td><asp:Button runat="server" ID="btnHocaEkle" Text="Hoca ekle" OnClick="HocaEkle" /></td>
             <td><asp:Label runat="server" ID="lblDurumHocaEkle"></asp:Label></td>
         </tr>    
-    </table>
-</asp:Panel>
-<h2>Ders Ekle</h2>
-<asp:Panel runat="server" ID="pnlDersEkle">
-    <table>
-        <tr>
-            <td>Okul</td>
-            <td><asp:DropDownList runat="server" ID="drpDersOkullar" OnSelectedIndexChanged="DersEkle_OkulSecildi"
-            AutoPostBack="true"></asp:DropDownList></td>
-        </tr>
-        <tr>
-            <td>Bolum</td>
-            <td><asp:DropDownList runat="server" ID="drpDersEkle_Bolumler"></asp:DropDownList></td>
-        </tr>
-        <tr>
-            <td>Is_Active</td>
-            <td><asp:DropDownList runat="server" ID="drpDersIsActive">
-                <asp:ListItem Text="Evet" Value="1" Selected="True"></asp:ListItem>
-                <asp:ListItem Text="Hayir" Value="0"></asp:ListItem>
-                </asp:DropDownList></td>
-        </tr>
-        <tr>
-            <td>Kod (50)</td>
-            <td><asp:TextBox runat="server" ID="txtDersKod" Width="400"></asp:TextBox></td>
-        </tr>
-        <tr>
-            <td>İsim (150)</td>
-            <td><asp:TextBox runat="server" ID="txtDersIsim" Width="400"></asp:TextBox></td>
-        </tr>
-        <tr>
-            <td>Açıklama (2000)</td>
-            <td><asp:TextBox runat="server" ID="txtDersAciklama" Width="600" TextMode="MultiLine"></asp:TextBox></td>
-        </tr>
-        <tr>
-            <td><asp:Button runat="server" ID="btnDersEkle" Text="Ders Ekle" OnClick="DersEkle" /></td>
-            <td><asp:Label runat="server" ID="lblDurumDersEkle" CssClass="bilgi"/></td>
-        </tr>
     </table>
 </asp:Panel>
 <h2>Ders Dosya Ekle</h2>

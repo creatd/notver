@@ -18,6 +18,12 @@ public partial class Admin_TumOkullar : BasePage
         if (!Page.IsPostBack)
         {
             GridDoldur();
+            // Okullari dropdown'ini doldur
+            drpOkullar.Items.Add(new ListItem("-", "-1")); //Okul secilir secilmez dersler dolduruldugu icin - ile basliyoruz
+            foreach (DataRow dr in session.dtOkullar.Rows)
+            {
+                drpOkullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
+            }
         }
     }
 
@@ -25,6 +31,12 @@ public partial class Admin_TumOkullar : BasePage
     {
         gridOkullar.CurrentPageIndex = e.NewPageIndex;
         GridDoldur();
+    }
+
+    protected void gridBolumler_PageIndexChanged(object sender, DataGridPageChangedEventArgs e)
+    {
+        gridBolumler.CurrentPageIndex = e.NewPageIndex;
+        OkulSecildi(null,null);
     }
 
     protected void GridDoldur()
@@ -54,12 +66,72 @@ public partial class Admin_TumOkullar : BasePage
         GridDoldur();
     }
 
+    protected void Edit2(object sender, DataGridCommandEventArgs e)
+    {
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = false;
+
+        gridBolumler.EditItemIndex = e.Item.ItemIndex;
+        OkulSecildi(null,null);
+    }
+
     protected void Cancel(object sender, DataGridCommandEventArgs e)
     {
         ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[10].Visible = false;
 
         gridOkullar.EditItemIndex = -1;
         GridDoldur();
+    }
+
+    protected void Cancel2(object sender, DataGridCommandEventArgs e)
+    {
+        ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = false;
+
+        gridBolumler.EditItemIndex = -1;
+        OkulSecildi(null,null);
+    }
+
+    protected void Update2(object sender, DataGridCommandEventArgs e)
+    {
+        try
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            string isActive = (e.Item.Cells[1].Controls[0] as TextBox).Text;
+            string isim = (e.Item.Cells[2].Controls[0] as TextBox).Text;
+
+            int BolumID = Convert.ToInt32(ID);
+            bool IsActive = Convert.ToBoolean(isActive);
+            if (!string.IsNullOrEmpty(isim))
+            {
+                if (isim.Length > 256)
+                    isim = isim.Substring(0, 256);
+            }
+            else
+            {
+                lblDurum1.Text = "Isim eksik";
+                lblDurum2.Text = "Isim eksik";
+                return;
+            }
+             
+            if (Okullar.BolumGuncelle(BolumID, IsActive, isim))
+            {
+                lblDurum1.Text = "Bolum guncellendi";
+                lblDurum2.Text = "Bolum guncellendi";
+            }
+            else
+            {
+                lblDurum1.Text = "Bir hata olustu";
+                lblDurum2.Text = "Bir hata olustu";
+            }
+        }
+        catch (Exception ex)
+        {
+            lblDurum1.Text = "Hata (detay en altta)";
+            lblDurum2.Text = "Hata : " + ex.ToString();
+        }
+        gridBolumler.EditItemIndex = -1;
+        OkulSecildi(null,null);
     }
 
     protected void Update(object sender, DataGridCommandEventArgs e)
@@ -136,6 +208,52 @@ public partial class Admin_TumOkullar : BasePage
         GridDoldur();
     }
 
+    protected void ItemCommand2(object sender, DataGridCommandEventArgs e)
+    {
+        if (e.CommandName == "Sil1")
+        {
+            DataGridItemCollection coll = ((System.Web.UI.WebControls.DataGrid)(sender)).Items;
+            for (int i = 0; i < coll.Count; i++)
+            {
+                if (i != e.Item.DataSetIndex)
+                {
+                    coll[i].Controls[5].Visible = false;
+                }
+                else
+                {
+                    coll[i].Controls[5].Visible = true;
+                }
+            }
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = true;
+        }
+        else if (e.CommandName == "Sil2")
+        {
+            ((System.Web.UI.WebControls.DataGrid)(sender)).Columns[5].Visible = false;
+
+            string ID = e.Item.Cells[0].Text;
+            if (Util.GecerliSayi(ID))
+            {
+                int bolumID = Convert.ToInt32(ID);
+                if (Okullar.BolumSil(bolumID))
+                {
+                    lblDurum1.Text = "Bolum silindi";
+                    lblDurum2.Text = "Bolum silindi";
+                }
+                else
+                {
+                    lblDurum1.Text = "Bolum silerken bir hata olustu";
+                    lblDurum2.Text = "Bolum silerken bir hata olustu";
+                }
+            }
+            else
+            {
+                lblDurum1.Text = "Bolum silerken bir hata olustu (ID'yi alamadim)";
+                lblDurum2.Text = "Bolum silerken bir hata olustu (ID'yi alamadim)";
+            }
+            OkulSecildi(null,null);
+        }
+    }
+
     protected void ItemCommand(object sender, DataGridCommandEventArgs e)
     {
         if(e.CommandName == "Sil1")
@@ -180,6 +298,29 @@ public partial class Admin_TumOkullar : BasePage
                 lblDurum2.Text = "Okul silerken bir hata olustu (ID'yi alamadim)";
             }
             GridDoldur();
+        }
+    }
+
+    protected void OkulSecildi(object sender, EventArgs e)
+    {
+        if (Util.Gecerli(drpOkullar.SelectedValue) && Convert.ToInt32(drpOkullar.SelectedValue) >= 0)
+        {
+            DataTable dtBolumler = Okullar.Admin_BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
+            if (dtBolumler != null)
+            {
+                gridBolumler.DataSource = dtBolumler;
+                gridBolumler.DataBind();
+            }
+            else
+            {
+                gridBolumler.DataSource = null;
+                gridBolumler.DataBind();
+            }
+        }
+        else
+        {
+            gridBolumler.DataSource = null;
+            gridBolumler.DataBind();
         }
     }
 }
