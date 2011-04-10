@@ -16,6 +16,38 @@ using System.Data.SqlClient;
 /// </summary>
 public class Okullar
 {
+    public static bool BolumGuncelle(int BolumID, bool IsActive, string BolumIsim)
+    {
+        try
+        {
+            if (BolumID < 0 || string.IsNullOrEmpty(BolumIsim))
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_BolumGuncelle");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("BolumID", BolumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("BolumIsim", BolumIsim);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter("IsActive", IsActive);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Bit;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex) { }
+        return false;
+    }
+
     public static bool BolumEkle(int OkulID, string BolumIsim, bool IsActive)
     {
         try
@@ -61,6 +93,29 @@ public class Okullar
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlParameter param = new SqlParameter("BolumID", BolumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.GetDataTable(cmd);
+        }
+        catch (Exception ex) { }
+        return null;
+    }
+
+    public static DataTable Admin_BolumleriDondur(int OkulID)
+    {
+        try
+        {
+            //TODO : -99 Bogazici icin gecici cozum, bunu v3'te duzelt
+            if (OkulID < 0 && OkulID != -99)
+            {
+                return null;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_OkulBolumleriDondur");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("OkulID", OkulID);
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
@@ -274,6 +329,33 @@ public class Okullar
         }
         catch (Exception ex) { }
         return null;
+    }
+
+
+    //Admin
+    //Bolumun kaydini tamamen siler, inaktif yapmak icin OkulGuncelle'yi kullan
+    public static bool BolumSil(int BolumID)
+    {
+        try
+        {
+            if (BolumID < 0)
+            {
+                return false;
+            }
+            SqlCommand cmd = new SqlCommand("Admin_BolumSil");
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter param = new SqlParameter("BolumID", BolumID);
+            param.Direction = ParameterDirection.Input;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            return Util.ExecuteNonQuery(cmd) == 1;
+        }
+        catch (Exception ex)
+        {
+        }
+        return false;
     }
 
     //Admin

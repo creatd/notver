@@ -26,4 +26,24 @@ MasterPageFile="~/Masters/Admin.master" MaintainScrollPositionOnPostback="true" 
         <PagerStyle Visible="true" NextPageText="Ileri &gt;" PrevPageText="&lt; Geri" HorizontalAlign="Right" Mode="NumericPages" />
     </asp:DataGrid>
     <asp:Label runat="server" ID="lblDurum2" CssClass="bilgi"></asp:Label>
+
+    <h1>Bölümler</h1>
+    <br />
+    Okul sec : <asp:DropDownList runat="server" ID="drpOkullar" AutoPostBack="true" 
+    OnSelectedIndexChanged="OkulSecildi"></asp:DropDownList>
+    <br />
+    <asp:DataGrid runat="server" ID="gridBolumler" AllowPaging="true"
+        OnPageIndexChanged="gridBolumler_PageIndexChanged" PageSize="10"
+        AutoGenerateColumns="false" BorderWidth="0" GridLines="Both" OnUpdateCommand="Update2"
+        OnEditCommand="Edit2" OnCancelCommand="Cancel2" OnItemCommand="ItemCommand2">
+        <Columns>
+            <asp:BoundColumn DataField="BOLUM_ID" ReadOnly="true" HeaderText="Bolum ID"></asp:BoundColumn>
+            <asp:BoundColumn DataField="IS_ACTIVE" HeaderText="Is Active"></asp:BoundColumn>        
+            <asp:BoundColumn DataField="ISIM" HeaderText="Isim"></asp:BoundColumn>
+            <asp:EditCommandColumn ButtonType="LinkButton" EditText="..." CancelText="Iptal" 
+                UpdateText="Guncelle"></asp:EditCommandColumn>
+            <asp:ButtonColumn ButtonType="LinkButton" Text="X" CommandName="Sil1"></asp:ButtonColumn>
+            <asp:ButtonColumn ButtonType="LinkButton" Text="Eminim" CommandName="Sil2" Visible="false"></asp:ButtonColumn>
+        </Columns>
+    </asp:DataGrid>
 </asp:Content>
