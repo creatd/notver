@@ -633,6 +633,7 @@ public class Okullar
 
     /// <summary>
     /// Kullanici okula daha once yorum yaptiysa true dondurur; yoksa false dondurur
+    /// Not: Onay bekleyen yorum veya aktif yorum varsa true dondurur
     /// </summary>
     /// <param name="kullaniciID"></param>
     /// <param name="hocaID"></param>

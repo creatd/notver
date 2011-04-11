@@ -18,17 +18,18 @@ MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" 
         Ders alacağın hocayı yakından tanı,<br />
         yeni alacaklara sen tanıt!"</td>
         <td style="width:300px; padding-left:20px; line-height:120%;">"Okulun hakkında neler söylenmiş, incele!<br />
-        Üye ol yorum yap, okulunu tanıt!</td>
+        Üye ol yorum yap, okulunu tanıt!"</td>
     </tr>
 </table>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlHosgeldin">
 <p style="font-size:16px; color:#626262; font-weight:bold; padding-top:50px; line-height:150%; text-align:center;">
     <span style="color:Black; font-size:18px;">NotVerin'e hoşgeldin!</span><br /><br />
-    Girmiş olduğun e-posta adresine gelen onay linkiyle üyeliğini onaylatabilirsin.<br />
+    Girmiş olduğun e-posta adresine gelen onay linkiyle üyeliğini onaylatabilirsin.<br /><br />
     Henüz yeni üye olduğun için ilk yaptığın yorumlar onayıdan geçtikten sonra sistemde yayınlanmaya başlayacak.<br />
-    Yorum yaptıkça <strong>1</strong>, dosya yukledikçe <strong>5</strong> puan kazanacak; toplam 10 puan kazandıktan sonra da yaptığın yorumlar anında sistemde yayınlanmaya
-    başlayacak.<br /><br />
+    Yorum yaptıkça <span style="color:Black; font-size:17px;">1</span>, dosya yükledikçe <span style="color:Black; font-size:17px;">5</span> puan kazanacak; 
+    toplam <span style="color:Black; font-size:17px;">10</span> puan kazandıktan sonra da yaptığın yorumlar anında sistemde yayınlanmaya
+    başlayacak.<br /><br /><br />
     Tekrar hoşgeldin!
 </p>
 </asp:Panel>

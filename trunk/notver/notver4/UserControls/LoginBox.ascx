@@ -41,16 +41,20 @@ function Temizle(obj)   {
             <p>E-posta adresi</p>       
             <asp:TextBox runat="server" ID="txtEposta" CssClass="textbox"
                         ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);"></asp:TextBox>
+            <span style="display:block; overflow:hidden; float:right; width:50px;">
                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtEposta"
-                    CssClass="Hata" ErrorMessage="*" ToolTip="E-posta adresinizi girmelisiniz" ValidationGroup="vg" />
+                    CssClass="Hata" ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata' style='width:15px; float:left;'>" ToolTip="E-posta adresini girmelisin" ValidationGroup="vg" />
                 <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
-                        ErrorMessage="*" ToolTip="E-posta adresini yanlış girdin" CssClass="Hata"
-                        ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+[.][a-zA-Z0-9.:-]+$" ValidationGroup="vg">*</asp:RegularExpressionValidator>                    
+                        ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata' style='width:15px; float:left;'>" ToolTip="E-posta adresini yanlış girdin" CssClass="Hata"
+                        ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+[.][a-zA-Z0-9.:-]+$" ValidationGroup="vg" />
+                <asp:RequiredFieldValidator runat="server" ID="kullaniciAdiGir" CssClass="Hata" ControlToValidate="txtEposta"
+                    ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata' style='width:15px; float:left;'>" ToolTip="E-posta adresini girmelisin" ValidationGroup="vg2"></asp:RequiredFieldValidator>
+            </span>
             <p>Şifre</p>
                     <asp:TextBox runat="server" ID="txtSifre" TextMode="Password" CssClass="textbox"
                         ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
-                        ErrorMessage="*" ToolTip="Şifre girmelisin" ValidationGroup="vg" CssClass="Hata" />
+                        ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>" ToolTip="Şifre girmelisin" ValidationGroup="vg" CssClass="Hata" />
                     
             <br /><asp:ImageButton ID="LoginButton" OnClick="GirisYap" runat="server" ValidationGroup="vg" 
             CssClass="loginTus clear fltLeft"
@@ -58,7 +62,8 @@ function Temizle(obj)   {
             <!-- <asp:CheckBox ID="RememberMe" runat="server" Text="beni hatirla" CssClass="beniHatirla"/> -->
             <br />
             <asp:LinkButton runat="server" Text="Şifremi unuttum!" CssClass="fltLeft clear sifremiUnuttum" 
-            OnClick="SifremiUnuttum"></asp:LinkButton>
+            OnClick="SifremiUnuttum" ValidationGroup="vg2"></asp:LinkButton>
+            
             <asp:Label runat="server" ID="lblDurum" CssClass="hata fltLeft girisDurum"></asp:Label>
         </div>
     </ContentTemplate>

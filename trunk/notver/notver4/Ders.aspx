@@ -20,7 +20,7 @@ MaintainScrollPositionOnPostback="true" %>
 <uc1:Ayrac runat="server" ID="ayrac" />
 
 <div id="dersBilgi" style="display:block; width:100%;">
-    <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+    <p style="background-color:#D6D6D6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         <asp:Label runat="server" ID="lblDersIsim" CssClass="fltLeft"></asp:Label>
         <span style="color:#626262; padding-left:5px; float:left;">(<asp:Label runat="server" ID="lblDersOkulIsim"></asp:Label>)</span>
         <asp:HyperLink runat="server" ID="lnkDersDosyalar" CssClass="lnkIndir">Ders arşivi için tıklayın&nbsp;&nbsp;&nbsp;
@@ -32,7 +32,7 @@ MaintainScrollPositionOnPostback="true" %>
 </div>
 
 <div id="dersYorumlari" style="display:block; width:100%; margin-top:20px;">
-    <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+    <p style="background-color:#D6D6D6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         Yorumlar
         <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox">
         Yorum ekle&nbsp;&nbsp;

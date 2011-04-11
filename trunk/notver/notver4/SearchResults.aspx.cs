@@ -40,6 +40,7 @@ public partial class SearchResults : BasePage
                 string searchParameters = "";
                 searchType = Convert.ToInt32(Request.QueryString["SearchType"].ToString().Trim());
                 searchParameters = Request.QueryString["SearchParams"].ToString().Trim();
+                searchParameters = Util.ParametreyiTemizle(searchParameters);
                 switch (searchType)
                 {
                     case 1: //Hoca

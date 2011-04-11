@@ -16,7 +16,7 @@
 
     <asp:Repeater runat="server" ID="repeaterYorumlar" OnItemDataBound="repeaterYorumlar_ItemDataBound">
         <ItemTemplate>
-            <div style="font-weight:bold; color:#505050; padding:10px; background-color:#f6f6f6;">
+            <div style="font-weight:bold; color:#505050; padding:10px; background-color:#E6E6E6;">
                 <div style="float:left; width:830px;"><%# YorumBasligiOlustur( DataBinder.Eval(Container.DataItem, "KULLANICI_ADI") ,
                                 DataBinder.Eval(Container.DataItem, "KULLANICI_ISIM"),
                                 DataBinder.Eval(Container.DataItem, "TARIH"))%></div>

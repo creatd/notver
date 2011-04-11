@@ -1089,6 +1089,7 @@ public class Dersler
 
     /// <summary>
     /// Kullanici derse daha once yorum yaptiysa true dondurur; yoksa false dondurur
+    /// Not : Kullanilmiyor
     /// </summary>
     /// <param name="kullaniciID"></param>
     /// <param name="dersID"></param>

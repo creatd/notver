@@ -123,7 +123,7 @@ public partial class Admin_TumHocalar : BasePage
                     {
                         foreach (DataRow dr in dtDersler.Rows)
                         {
-                            drpDersler2.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["DERS_ID"].ToString()));
+                            drpDersler2.Items.Add(new ListItem(dr["DERS_ISIM"].ToString(), dr["DERS_ID"].ToString()));
                         }
                     }
                 }

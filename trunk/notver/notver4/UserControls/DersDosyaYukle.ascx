@@ -44,7 +44,8 @@ function Temizle(obj)
     <asp:TextBox runat="server" ID="txtDersKodu" Text="Ders kodu veya ismi" onclick="javascript:return Temizle(this);"
             OnKeyDown="javascript:return SetFocusDersAra(event);" CssClass="textbox"></asp:TextBox>
             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDersKodu" Display="Dynamic"
-                ErrorMessage="*" ID="reqDersIsmi" ValidationGroup="vgDersAra"></asp:RequiredFieldValidator>
+                ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>" 
+                ID="reqDersIsmi" ValidationGroup="vgDersAra" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <asp:LinkButton runat="server" ID="btnDersAra" OnClick="DersAra" ValidationGroup="vgDersAra" 
         CausesValidation="true"><span style="font-size:11px;">Ara</span></asp:LinkButton>                

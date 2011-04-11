@@ -20,16 +20,16 @@ function DurumTemizle() {
     <p>Yeni şifre</p>
         <asp:TextBox ID="txtSifre" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
         <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
-                        ErrorMessage="Şifre girmelisin" ToolTip="Şifre girmelisin"
-                        >*</asp:RequiredFieldValidator>
+                        ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>"
+                        ToolTip="Şifre girmelisin" />                        
     <p style="margin-top:20px;">Yeni şifre (tekrar)</p>
         <asp:TextBox ID="txtSifre2" runat="server" TextMode="Password" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
         <asp:RequiredFieldValidator ID="ConfirmPasswordRequired" runat="server" ControlToValidate="txtSifre2"
-                        ErrorMessage="Aynı şifreyi tekrar girmelisin" ToolTip="Aynı şifreyi tekrar girmelisin"
-                        >*</asp:RequiredFieldValidator>
+                        ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>" 
+                        ToolTip="Aynı şifreyi tekrar girmelisin" />                        
         <asp:CompareValidator runat="server" ID="Passwords" ControlToValidate="txtSifre2" ControlToCompare="txtSifre"
-                        ErrorMessage="Girdiğin iki şifre aynı olmalı" ToolTip="Girdiğin iki şifre aynı olmalı"
-                        >*</asp:CompareValidator>                        
+                        ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>"
+                        ToolTip="Girdiğin iki şifre aynı olmalı" />                              
     <br />
     <asp:ImageButton ID="btnSifreDegistir" OnClick="SifreDegistir" runat="server" CausesValidation="true"
                     CssClass="loginTus clear"

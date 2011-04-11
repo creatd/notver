@@ -90,7 +90,7 @@
     <uc1:Ayrac runat="server" ID="ayrac" />
     <div id="hocaUst" style="display:block; width:100%; margin-top:30px;">
         <table>
-            <tr style="background-color:#f6f6f6;">
+            <tr style="background-color:#D6D6D6;">
                 <td style="width:679px; border-right:solid 1pt #afafaf;">
                     <p style="color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
                         <asp:Label ID="hocaIsim" runat="server" CssClass="HocaIsim"></asp:Label>
@@ -115,7 +115,7 @@
     </div>    
     
     <div id="hocaYorumlari" style="display:block; width:100%; margin-top:20px;">
-        <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+        <p style="background-color:#D6D6D6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
             Yorumlar
             <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox">
             <asp:Literal runat="server" ID="ltrYorumYazi" /> 
