@@ -470,7 +470,7 @@ public class Uyelik
     /// <param name="username"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public static int KullaniciOlustur(string kullaniciAdi, string ad, string soyad, int okulId, string eposta,
+    public static int KullaniciOlustur(string kullaniciAdi, string ad, string soyad, int okulId, int BolumID, string eposta,
         Enums.UyelikDurumu uyelikDurumu, Enums.UyelikRol uyelikRol, string sifre, Enums.Cinsiyet cinsiyet)
     {
         try
@@ -542,13 +542,21 @@ public class Uyelik
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("OkulID",SqlDbType.Int);
-            if (okulId > 0)
+            if (okulId >= 0)
             {
-                param.Value = okulId;
+                param = new SqlParameter("OkulID", okulId);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
             }
-            param.Direction = ParameterDirection.Input;
-            cmd.Parameters.Add(param);
+
+            if (BolumID >= 0)
+            {
+                param = new SqlParameter("BolumID", BolumID);
+                param.Direction = ParameterDirection.Input;
+                param.SqlDbType = SqlDbType.Int;
+                cmd.Parameters.Add(param);
+            }
 
             param = new SqlParameter("Eposta", eposta); //Eposta adresini kucuk harf yaptik
             param.Direction = ParameterDirection.Input;
@@ -570,17 +578,17 @@ public class Uyelik
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Cinsiyet", (bool)((int)cinsiyet==1));
+            param = new SqlParameter("Cinsiyet", (bool)((int)cinsiyet == 1));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Bit;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("OnayPuani", Convert.ToInt32(ConfigurationSettings.AppSettings.Get("UyelikBaslangicOnayPuani")));
+            param = new SqlParameter("OnayPuani", Convert.ToInt32(ConfigurationManager.AppSettings.Get("UyelikBaslangicOnayPuani")));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            if (Util.ExecuteNonQuery(cmd) != -1)
+            if (Util.ExecuteNonQuery(cmd) == 1)
             {
                 return 1;
             }

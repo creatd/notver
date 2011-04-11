@@ -25,6 +25,7 @@ public partial class UserControls_UyeOl : BaseUserControl
                 {
                     Okullar.Items.Add(new ListItem(dr["ISIM"].ToString(), dr["OKUL_ID"].ToString()));
                 }
+                drpBolumler.Items.Add(new ListItem("-", "-1"));
             }
         }
         catch (Exception ex)
@@ -34,6 +35,23 @@ public partial class UserControls_UyeOl : BaseUserControl
 
     }
 
+    protected void OkulSecildi(object sender, EventArgs e)
+    {
+        drpBolumler.Items.Clear();
+        drpBolumler.Items.Add(new ListItem("-" , "-1"));
+        if (Util.GecerliSayi(ddOkullar.SelectedValue) && Convert.ToInt32(ddOkullar.SelectedValue) >=0)
+        {
+            DataTable dtBolumler = Okullar.BolumleriDondur(Convert.ToInt32(ddOkullar.SelectedValue));
+            if (dtBolumler != null)
+            {
+                foreach (DataRow dr in dtBolumler.Rows)
+                {
+                    drpBolumler.Items.Add(new ListItem(dr["ISIM"].ToString() , dr["BOLUM_ID"].ToString()));
+                }
+            }
+        }
+    }
+
     protected void KullaniciOlustur(object sender, EventArgs e)
     {
         string kullaniciAdi = txtKullaniciAdi.Text.Trim();
@@ -41,17 +59,18 @@ public partial class UserControls_UyeOl : BaseUserControl
         string ad = txtAd.Text.Trim();
         string soyad = txtSoyad.Text.Trim();
         int okulId = Convert.ToInt32(ddOkullar.SelectedValue);
+        int bolumId = Convert.ToInt32(drpBolumler.SelectedValue);
         string eposta = txtEposta.Text.Trim();
         Enums.Cinsiyet cinsiyet = (Enums.Cinsiyet)Convert.ToInt32(rdCinsiyetler.SelectedValue);
-        int result = Uyelik.KullaniciOlustur(kullaniciAdi, ad, soyad, okulId, eposta, Enums.UyelikDurumu.EpostaOnayBekliyor, Enums.UyelikRol.Kullanici, sifre, cinsiyet);
+        int result = Uyelik.KullaniciOlustur(kullaniciAdi, ad, soyad, okulId, bolumId, eposta, Enums.UyelikDurumu.EpostaOnayBekliyor, Enums.UyelikRol.Kullanici, sifre, cinsiyet);
         lblDurum.Text = "";
         if (result == -1)
         {
-            lblDurum.Text = "Girdiğin kullanıcı adı alınmış, başka bir kullanıcı adı seçin.";
+            lblDurum.Text = "Girdiğin kullanıcı adı alınmış, başka bir kullanıcı adı seçmelisin.";
         }
         else if (result == 0)
         {
-            lblDurum.Text = "Bilinmeyen hata, lütfen tekrar deneyin.";
+            lblDurum.Text = "Bilinmeyen hata, lütfen tekrar dene.";
         }
         else if (result == -2)
         {

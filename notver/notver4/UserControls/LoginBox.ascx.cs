@@ -36,7 +36,7 @@ public partial class UserControls_LoginBox : BaseUserControl
     {
         lblDurum.Text = "";
         if (string.IsNullOrEmpty(txtEposta.Text))
-        {
+        {            
             lblDurum.Text = "e-posta adresini girmelisin";
             return;
         }

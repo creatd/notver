@@ -268,7 +268,7 @@
             </asp:Repeater>
         </asp:Panel>
         <asp:Panel runat="server" ID="pnlYorumYok">
-            <span style="padding:10px; text-align:center;">Yorumun yok</span>
+            <span style="padding:10px; text-align:center; display:block;">- Yorumun yok -</span>
         </asp:Panel>
         <asp:Panel runat="server" ID="pnlHata">
             Bir hata oluştu, biz de anlamadık. Tekrar deneyinz belki düzelir.

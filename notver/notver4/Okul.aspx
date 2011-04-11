@@ -20,7 +20,7 @@ MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" 
 <uc1:Ayrac runat="server" ID="ayrac" />
 
 <div id="okulBilgi" style="display:block; width:100%; margin-top:30px;">
-    <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+    <p style="background-color:#D6D6D6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         <asp:Label runat="server" ID="lblOkulIsim" CssClass="fltLeft"></asp:Label>
     </p>
     <table style="background-color:#FFFFFF; color:#000000; padding:25px; font-size:11px; font-weight:bold;
@@ -44,7 +44,7 @@ MasterPageFile="~/Masters/Giris.master" MaintainScrollPositionOnPostback="true" 
 </div>
 
 <div id="okulYorumlari" style="display:block; width:100%; margin-top:20px;">
-    <p style="background-color:#f6f6f6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
+    <p style="background-color:#D6D6D6; color:#191919; font-weight:bold; padding:30px; padding-bottom:40px;">
         Yorumlar
         <span style="color:#626262;"><asp:HyperLink runat="server" ID="lnkYorumum" CssClass="lnkYorumEkle colorbox"> 
         <asp:Literal runat="server" ID="ltrYorumYazi" />

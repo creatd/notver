@@ -26,11 +26,11 @@ MasterPageFile="~/Masters/Giris.master"  MaintainScrollPositionOnPostback="true"
     <br />
         <asp:TextBox ID="txtEposta" runat="server" onchange="DurumTemizle();" CssClass="textbox"></asp:TextBox>
         <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="txtEposta"
-            ErrorMessage="E-posta adresini girmelisin" ToolTip="E-posta adresini girmelisin"
-            ValidationGroup="vg1">*</asp:RequiredFieldValidator>
+            ToolTip="E-posta adresini girmelisin" ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>"
+            ValidationGroup="vg1" />
     <br />
     <asp:ImageButton ID="btnSifreDegistir" OnClick="OnayEpostasiGonder" runat="server" CausesValidation="true"
-                    CssClass="loginTus clear"
+                    CssClass="loginTus clear" ValidationGroup="vg1"
                 ImageUrl="~/App_Themes/Default/Images/giris.png"/>
     <br /><br />
     <asp:Label runat="server" ID="lblDurum"></asp:Label>

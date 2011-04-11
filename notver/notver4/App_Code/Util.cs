@@ -34,6 +34,31 @@ public class Util
         return connection;
     }
 
+    /// <summary>
+    /// SQL Injection tehlikesine karsi verilen parametreyi temizler
+    /// Not : Parametreyi tamamen kucuk harfe cevirir
+    /// </summary>
+    /// <param name="parametre"></param>
+    /// <returns></returns>
+    public static string ParametreyiTemizle(string parametre)
+    {
+        if (!string.IsNullOrEmpty(parametre))
+        {
+            parametre = parametre.ToLowerInvariant();
+            parametre = parametre.Replace("'", "");
+            parametre = parametre.Replace("select", "");
+            parametre = parametre.Replace("delete", "");
+            parametre = parametre.Replace("alter", "");
+            parametre = parametre.Replace("update", "");
+            parametre = parametre.Replace("drop", "");
+            parametre = parametre.Replace("insert", "");
+            parametre = parametre.Replace("systables", "");
+            parametre = parametre.Replace("sysobjects", "");
+            parametre = parametre.Replace("*", "");
+        }
+        return parametre;
+    }
+
     public static string StringToEnglish(string input)
     {
         string output = input;
