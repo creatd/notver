@@ -199,7 +199,10 @@
     </div>
     <div id="Footer">
         <div id="FooterContent">
-            <div id="BizeUlasin" style="width:300px; float:left; padding-left:180px; padding-top:30px;">
+            <div id="BizeUlasin" style="width:300px; float:left; padding-left:180px; padding-top:10px;">
+                <p style="color:#FEE41D; padding-bottom:20px;">
+                    <a href="./SikSorulanSorular.aspx">Sýk Sorulan Sorular</a>
+                </p>
                 <p>Bize ulaþýn:</p>
                 <p><img src="./App_Themes/Default/Images/eposta.png" />
                 </p>

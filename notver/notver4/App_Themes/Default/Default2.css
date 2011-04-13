@@ -21,7 +21,7 @@ div#Main
 	background-repeat:repeat;
 	width:100%;
 	padding-top:30px;
-	padding-bottom:100px;
+	padding-bottom:70px;
 }
 
 div#Slogan
@@ -392,6 +392,12 @@ div#dersBilgi a.lnkIndir
 div#dersYorumlari a.lnkYorumEkle
 {
 	float:right;
+}
+
+/* Sik sorularn sorular */
+div#SSS p
+{
+	padding:10px;
 }
 
 /* Okul */
