@@ -32,7 +32,7 @@ function DurumTemizle() {
                     ValidationGroup="vg1" />
                 <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
                     ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>" ToolTip="E-posta adresini yanlış girdin"
-                    ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+[.][a-zA-Z0-9.:-]+$" ValidationGroup="vg1" />
+                    ValidationExpression="^[a-zA-ZçşöüğıÇŞÖÜĞİ0-9.-_]+@[a-zA-ZçşöüğıÇŞÖÜĞİ0-9.:-]+[.][a-zA-ZçşöüğıÇŞÖÜĞİ0-9.:-]+$" ValidationGroup="vg1" />
                 <p class="sessiz" style="color: #000000;">
                     (Okul e-postanla kayıt olarak okulunu temsil edebilirsin)</p>
                 <p style="font-style: italic; font-size: 12px; padding-top: 5px;">

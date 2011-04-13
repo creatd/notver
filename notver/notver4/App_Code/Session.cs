@@ -307,11 +307,13 @@ public class Session
                         int i=0;
                         foreach (DataRow dr in dtHoca.Rows)
                         {
-                            if(Util.GecerliString(dtHoca.Rows[i]["OKUL_ISIM"]) && 
-                                Util.GecerliStringSayi(dtHoca.Rows[i]["START_YEAR"]) &&
-                                Util.GecerliStringSayi(dtHoca.Rows[i]["OKUL_ID"]))
+                            if(Util.GecerliString(dtHoca.Rows[i]["OKUL_ISIM"]))
                             {
                                 hocaOkulIsimleri[i] = dtHoca.Rows[i]["OKUL_ISIM"].ToString();
+                            }
+                            if(Util.GecerliStringSayi(dtHoca.Rows[i]["START_YEAR"]) &&
+                                Util.GecerliStringSayi(dtHoca.Rows[i]["OKUL_ID"]))
+                            {
                                 hocaOkulBaslangicYillari[i] = Convert.ToInt32(dtHoca.Rows[i]["START_YEAR"]);
                                 if (Util.GecerliStringSayi(dtHoca.Rows[i]["END_YEAR"]))
                                 {

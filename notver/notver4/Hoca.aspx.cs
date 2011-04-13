@@ -72,9 +72,13 @@ public partial class Hoca : BasePage
                         sb.Append("<span class=\"HocaOkullar\">");
                         for (int i = 0; i < session.HocaOkulIsimleri.Length; i++)
                         {
-                            if (!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]) && session.HocaOkulBaslangicYillari[i] > 0)
+                            if (!string.IsNullOrEmpty(session.HocaOkulIsimleri[i]))
                             {
-                                sb.Append(session.HocaOkulIsimleri[i] + " ( " + session.HocaOkulBaslangicYillari[i] + " - ");
+                                sb.Append(session.HocaOkulIsimleri[i]);
+                            }
+                            if(session.HocaOkulBaslangicYillari[i] > 0)
+                            {
+                                sb.Append(" ( " + session.HocaOkulBaslangicYillari[i] + " - ");
                                 if (session.HocaOkulBitisYillari[i] > 0)
                                 {
                                     sb.Append(session.HocaOkulBitisYillari[i]);
@@ -83,8 +87,9 @@ public partial class Hoca : BasePage
                                 {
                                     sb.Append("...");
                                 }
-                                sb.Append(" )<br/>");
+                                sb.Append(" )");
                             }
+                            sb.Append("<br/>");
                         }
                         sb.Append("</span>");
                         hocaOkullar.Text = sb.ToString();
