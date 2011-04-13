@@ -46,7 +46,7 @@ function Temizle(obj)   {
                     CssClass="Hata" ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata' style='width:15px; float:left;'>" ToolTip="E-posta adresini girmelisin" ValidationGroup="vg" />
                 <asp:RegularExpressionValidator runat="server" ID="emailFormat" ControlToValidate="txtEposta"
                         ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata' style='width:15px; float:left;'>" ToolTip="E-posta adresini yanlış girdin" CssClass="Hata"
-                        ValidationExpression="^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.:-]+[.][a-zA-Z0-9.:-]+$" ValidationGroup="vg" />
+                        ValidationExpression="^[a-zA-ZçşöüğıÇŞÖÜĞİ0-9.-_]+@[a-zA-ZçşöüğıÇŞÖÜĞİ0-9.:-]+[.][a-zA-ZçşöüğıÇŞÖÜĞİ0-9.:-]+$" ValidationGroup="vg" />
                 <asp:RequiredFieldValidator runat="server" ID="kullaniciAdiGir" CssClass="Hata" ControlToValidate="txtEposta"
                     ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata' style='width:15px; float:left;'>" ToolTip="E-posta adresini girmelisin" ValidationGroup="vg2"></asp:RequiredFieldValidator>
             </span>
