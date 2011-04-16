@@ -536,4 +536,35 @@ public static class Mesajlar
         }
         return icerik;
     }
+
+
+    //onur: geri bildirim fonksiyonu///
+    /// <summary>
+    /// ////////////////////////////
+    /// </summary>
+    /// <param name="GeriBildirim"></param>
+    /// <param name="KullaniciIsmi"></param>
+    /// <returns></returns>
+        public static bool GeriBildirimEpostaGonder(string GeriBildirim, string KullaniciIsmi)
+        {
+            try
+            {
+                string baslik = "Kullanicidan Geri Bildirim Var!";
+                string eposta = "egeakpinar@gmail.com";
+
+                if (string.IsNullOrEmpty(KullaniciIsmi))
+                {
+                    return false;
+                }
+                string icerik = Util.TextFileToString(HttpContext.Current.Server.MapPath("~/Mesajlar/GeriBildirim.htm"));
+                while (icerik.Contains("!!!KULLANICI_ISMI!!!"))
+                {
+                    icerik = icerik.Replace("!!!KULLANICI_ISMI!!!", KullaniciIsmi);
+                }
+                GeriBildirim = icerik + "\"" + GeriBildirim + "\"";
+                return Mesajlar.EpostaGonder(eposta, Enums.EpostaGonderici.iletisim, GeriBildirim, baslik, true);
+            }
+            catch (Exception e){ }
+            return false;
+       }
 }
