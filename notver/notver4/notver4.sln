@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "notver4", ".", "{5EC6E6D3-C1B9-427D-9CEF-A1A0295D25EE}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "notver4(3)", ".", "{5EC6E6D3-C1B9-427D-9CEF-A1A0295D25EE}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = "Svn"
 		SccAuxPath = "Svn"
@@ -9,14 +9,14 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "notver4", ".", "{5EC6E6D3-C
 		SccProvider = "SubversionScc"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/notver4"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\notver\notver4\"
+		Debug.AspNetCompiler.PhysicalPath = "..\notver4(3)\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\notver4\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/notver4"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\notver\notver4\"
+		Release.AspNetCompiler.PhysicalPath = "..\notver4(3)\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\notver4\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
@@ -26,6 +26,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "notver4", ".", "{5EC6E6D3-C
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection

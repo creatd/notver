@@ -10,8 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
-
-public partial class YorumSikayetEt : BasePage
+public partial class KullaniciGeribildirimGonder : BasePage
 {
     protected void Page_Error(object sender, EventArgs e)
     {
@@ -29,22 +28,16 @@ public partial class YorumSikayetEt : BasePage
         }
     }
 
+
     protected void Page_Prerender(object sender, EventArgs e)
     {
         try
         {
             KontroluSakla();
-            int queryYorumID = Query.GetInt("YorumID");
-            int queryYorumTipi = Query.GetInt("YorumTipi");
-            Enums.YorumTipi yorumTipi = (Enums.YorumTipi)queryYorumTipi;
-            if (queryYorumID <= 0)
-            {
-                pnlHata.Visible = true;
-                return;
-            }
+          
             if (session.IsLoggedIn && session.KullaniciID >= 0)
             {
-                pnlSikayet.Visible = true;
+                pnlGeriBildirim.Visible = true;
             }
             else
             {
@@ -59,32 +52,29 @@ public partial class YorumSikayetEt : BasePage
         }
     }
 
-    /// <summary>
-    /// Sikayeti iletir
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    protected void SikayetGonder(object sender, EventArgs e)
+    protected void GeriBildirimGonder(object sender, EventArgs e)
     {
-        int queryYorumID = Query.GetInt("YorumID");
-        int queryYorumTipi = Query.GetInt("YorumTipi");
-        Enums.YorumTipi yorumTipi = (Enums.YorumTipi)queryYorumTipi;
-        
-        if (!Genel.YorumSikayetEt(queryYorumID, yorumTipi, textSikayetNeden.Text, session.KullaniciID))
+        string GeriBildirim = textGeriBildirim.Text ;
+        string userID = session.KullaniciAdi ;
+
+        textGeriBildirim.Text = userID;
+        if (!Mesajlar.GeriBildirimEpostaGonder(GeriBildirim, session.KullaniciAdi))
         {
             ltrDurum.Text = "Şikayet iletirken bir hata oldu, lütfen tekrar deneyin";
         }
         else
         {
-            ltrDurum.Text = "Şikayetini incelemeye aldık, ilgine teşekkürler";
-            ltrScript.Text = "<script type='text/javascript'>setTimeout('parent.$.fn.colorbox.close()',1500);</script>";
+            ltrDurum.Text = "Geri bildirimin için teşekkürler!";
         }
+
     }
 
     void KontroluSakla()
     {
-        pnlSikayet.Visible = false;
+        pnlGeriBildirim.Visible = false;
         pnlUyeOl.Visible = false;
         pnlHata.Visible = false;
     }
+
+
 }

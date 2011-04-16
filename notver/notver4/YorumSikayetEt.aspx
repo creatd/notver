@@ -39,7 +39,7 @@
             Şikayette bulunabilmek için giriş yapman gerekli
             <br />
             <br />
-            Üyeliğin yoksa ana sayfada sağ üstten hemen ücretsiz uye olabilirsin
+            Üyeliğin yoksa ana sayfada sağ üstten hemen ücretsiz üye olabilirsin
         </asp:Panel>
         <asp:Panel ID="pnlHata" runat="server" CssClass="durum">
             Bir hata oldu :(

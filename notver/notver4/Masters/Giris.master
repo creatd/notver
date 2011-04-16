@@ -134,6 +134,12 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
+    <!-- Geri Bildirim Linki Buraya Geldi -->
+    <asp:HyperLink ID="geriBildirimLink" runat="server" 
+            NavigateUrl="~/KullaniciGeribildirimGonder.aspx">Geri Bildirim Gonder</a> 
+    </asp:HyperLink>
+    <!-- Geri Bildirim Linki Buraya Geldi -->
     <form id="form1" runat="server">
     <ajax:ToolkitScriptManager runat="server" ScriptMode="Release"></ajax:ToolkitScriptManager>
     <div id="Header">
