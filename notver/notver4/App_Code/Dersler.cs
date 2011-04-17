@@ -54,7 +54,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("KayitsizDersIsim", KayitsizDersIsim);
+            param = new SqlParameter("KayitsizDersIsim", Util.ParametreyiTemizle(KayitsizDersIsim));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -119,7 +119,7 @@ public class Dersler
 
             if (!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -357,7 +357,7 @@ public class Dersler
 
             if (!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -369,7 +369,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -519,14 +519,14 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Kod", Kod);
+            param = new SqlParameter("Kod", Util.ParametreyiTemizle(Kod));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(Isim))
             {
-                param = new SqlParameter("Isim", Isim);
+                param = new SqlParameter("Isim", Util.ParametreyiTemizle(Isim));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -534,7 +534,7 @@ public class Dersler
 
             if (!string.IsNullOrEmpty(Aciklama))
             {
-                param = new SqlParameter("Aciklama", Aciklama);
+                param = new SqlParameter("Aciklama", Util.ParametreyiTemizle(Aciklama));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -619,14 +619,14 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Kod", DersKodu);
+            param = new SqlParameter("Kod", Util.ParametreyiTemizle(DersKodu));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(DersIsmi))
             {
-                param = new SqlParameter("Isim", DersIsmi);
+                param = new SqlParameter("Isim", Util.ParametreyiTemizle(DersIsmi));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -634,7 +634,7 @@ public class Dersler
 
             if (!string.IsNullOrEmpty(DersAciklama))
             {
-                param = new SqlParameter("Aciklama", DersAciklama);
+                param = new SqlParameter("Aciklama", Util.ParametreyiTemizle(DersAciklama));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -660,7 +660,7 @@ public class Dersler
             SqlCommand cmd = new SqlCommand("IsmeVeyaKodaGoreDersleriDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("Anahtar", Util.BuildLikeExpression(dersKodu));
+            SqlParameter param = new SqlParameter("Anahtar", Util.BuildLikeExpression(Util.ParametreyiTemizle(dersKodu)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -684,7 +684,7 @@ public class Dersler
             SqlCommand cmd = new SqlCommand("KodaGoreDersleriDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("DersKodu", Util.BuildLikeExpression(dersKodu));
+            SqlParameter param = new SqlParameter("DersKodu", Util.BuildLikeExpression(Util.ParametreyiTemizle(dersKodu)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -708,7 +708,7 @@ public class Dersler
             SqlCommand cmd = new SqlCommand("IsmeGoreDersleriDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("DersIsim", Util.BuildLikeExpression(dersIsmi));
+            SqlParameter param = new SqlParameter("DersIsim", Util.BuildLikeExpression(Util.ParametreyiTemizle(dersIsmi)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -855,7 +855,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("DosyaAdres", dosyaAdresi);
+            param = new SqlParameter("DosyaAdres", Util.ParametreyiTemizle(dosyaAdresi));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -867,7 +867,7 @@ public class Dersler
 
             if (!string.IsNullOrEmpty(aciklama))
             {
-                param = new SqlParameter("Aciklama", Util.HTMLToDB(aciklama));
+                param = new SqlParameter("Aciklama", Util.HTMLToDB(Util.ParametreyiTemizle(aciklama)));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -929,7 +929,7 @@ public class Dersler
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("DosyaIsmi", DosyaIsmi);
+            param = new SqlParameter("DosyaIsmi", Util.ParametreyiTemizle(DosyaIsmi));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -1252,7 +1252,7 @@ public class Dersler
             }
             else if (!string.IsNullOrEmpty(KayitsizHocaIsim) && HocaID == -2)
             {
-                param = new SqlParameter("KayitsizHocaIsim", KayitsizHocaIsim);
+                param = new SqlParameter("KayitsizHocaIsim", Util.ParametreyiTemizle(KayitsizHocaIsim));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -1263,7 +1263,7 @@ public class Dersler
                 cmd.Parameters.Add(param);
             }
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -1323,7 +1323,7 @@ public class Dersler
             }
             else if (!string.IsNullOrEmpty(KayitsizHocaIsim) && HocaID == -2)
             {
-                param = new SqlParameter("KayitsizHocaIsim", KayitsizHocaIsim);
+                param = new SqlParameter("KayitsizHocaIsim", Util.ParametreyiTemizle(KayitsizHocaIsim));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -1334,7 +1334,7 @@ public class Dersler
                 cmd.Parameters.Add(param);
             }
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -1403,22 +1403,22 @@ public class Dersler
 
             if (!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
-            param = new SqlParameter("DosyaIsmi", DosyaIsmi);
+            param = new SqlParameter("DosyaIsmi", Util.ParametreyiTemizle(DosyaIsmi));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("DosyaAdresi", DosyaAdresi);
+            param = new SqlParameter("DosyaAdresi", Util.ParametreyiTemizle(DosyaAdresi));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
-            param = new SqlParameter("Aciklama", Aciklama);
+            param = new SqlParameter("Aciklama", Util.ParametreyiTemizle(Aciklama));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);

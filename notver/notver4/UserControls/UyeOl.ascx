@@ -61,6 +61,10 @@ function DurumTemizle() {
                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
                     ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>" 
                     ToolTip="Şifre girmelisin" ValidationGroup="vg1" />
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtSifre" ValidationGroup="vg1"
+                    ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>"
+                    ToolTip="Şifren büyük/küçük harfler, rakamlar ve !.,_- imla karakterlerinden oluşabilir" 
+                    ValidationExpression="^[a-zA-Z0-9!.,_-]+$"></asp:RegularExpressionValidator>
                 <p>
                     Şifre tekrar (*)</p>
                 <asp:TextBox ID="txtSifre2" runat="server" TextMode="Password" onchange="DurumTemizle();"

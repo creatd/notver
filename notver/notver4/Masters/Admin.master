@@ -6,8 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-9" />
     <title>Notverin - Admin</title>
-    <link rel="icon" type="image/png" href="http://www.notverin.com/Images/klogob.png" />
-    <link rel="Shortcut Icon" type="image/png" href="http://www.notverin.com/Images/klogob.png" />
+    <link rel="Shortcut Icon" type="image/png" href="http://www.notverin.com/Images/klogob.jpg" />
+    <link rel="icon" type="image/ico" href="http://www.notverin.com/Images/klogob.jpg" />
     <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/Admin.css" rel="stylesheet" type="text/css" />
     <link href="../Scripts/colorbox.css" rel="stylesheet" type="text/css" />
@@ -23,17 +23,17 @@
             <asp:HyperLink runat="server" ID="lnkAna" Text="Ana Sayfa" NavigateUrl="~/Default.aspx">
                 <img src="../App_Themes/Default/Images/logo.png" style="float:left; padding-right:15px; padding-top:10px;"/>
             </asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkPanel" Text="Panel" NavigateUrl="~/Admin/Default.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkIcerikEkle" Text="İçerik Ekle" NavigateUrl="~/Admin/IcerikEkle.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumOkullar" Text="Okullar - Bölümler" NavigateUrl="~/Admin/TumOkullar.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumOkulYorumlar" Text="Okul Yorumları" NavigateUrl="~/Admin/TumOkulYorumlar.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumHocalar" Text="Hocalar" NavigateUrl="~/Admin/TumHocalar.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumHocaYorumlar" Text="Hoca Yorumları" NavigateUrl="~/Admin/TumHocaYorumlar.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumDersler" Text="Dersler" NavigateUrl="~/Admin/TumDersler.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumDersYorumlar" Text="Ders Yorumları" NavigateUrl="~/Admin/TumDersYorumlar.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumDosyalar" Text="Dosyalar" NavigateUrl="~/Admin/TumDosyalar.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumUyeler" Text="Üyeler" NavigateUrl="~/Admin/TumUyeler.aspx"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="lnkTumMesajlar" Text="Mesajlar" NavigateUrl="~/Admin/TumMesajlar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkPanel" Text="Panel" NavigateUrl="~/YonetimMerkezi/Default.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkIcerikEkle" Text="İçerik Ekle" NavigateUrl="~/YonetimMerkezi/IcerikEkle.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumOkullar" Text="Okullar - Bölümler" NavigateUrl="~/YonetimMerkezi/TumOkullar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumOkulYorumlar" Text="Okul Yorumları" NavigateUrl="~/YonetimMerkezi/TumOkulYorumlar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumHocalar" Text="Hocalar" NavigateUrl="~/YonetimMerkezi/TumHocalar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumHocaYorumlar" Text="Hoca Yorumları" NavigateUrl="~/YonetimMerkezi/TumHocaYorumlar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumDersler" Text="Dersler" NavigateUrl="~/YonetimMerkezi/TumDersler.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumDersYorumlar" Text="Ders Yorumları" NavigateUrl="~/YonetimMerkezi/TumDersYorumlar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumDosyalar" Text="Dosyalar" NavigateUrl="~/YonetimMerkezi/TumDosyalar.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumUyeler" Text="Üyeler" NavigateUrl="~/YonetimMerkezi/TumUyeler.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" ID="lnkTumMesajlar" Text="Mesajlar" NavigateUrl="~/YonetimMerkezi/TumMesajlar.aspx"></asp:HyperLink>
         </p>
     <div id="Content">        
         <asp:ContentPlaceHolder id="content" runat="server">

@@ -19,18 +19,11 @@ using System.Security.Cryptography;
 /// </summary>
 public class Util
 {
-    static SqlConnection connection;
+
     public static SqlConnection GetSqlConnection()
     {
-        if (connection == null)
-        {
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalSqlServer"].ToString());
-            connection.Open();
-        }
-        else if (connection.State != ConnectionState.Open)
-        {
-            connection.Open();
-        }
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LocalSqlServer"].ToString());
+        connection.Open();
         return connection;
     }
 
@@ -44,19 +37,36 @@ public class Util
     {
         if (!string.IsNullOrEmpty(parametre))
         {
-            parametre = parametre.ToLowerInvariant();
-            parametre = parametre.Replace("'", "");
-            parametre = parametre.Replace("select", "");
-            parametre = parametre.Replace("delete", "");
-            parametre = parametre.Replace("alter", "");
-            parametre = parametre.Replace("update", "");
-            parametre = parametre.Replace("drop", "");
-            parametre = parametre.Replace("insert", "");
-            parametre = parametre.Replace("systables", "");
-            parametre = parametre.Replace("sysobjects", "");
+            //parametre = parametre.ToLowerInvariant();
+            parametre = parametre.Replace("'", "''");
             parametre = parametre.Replace("*", "");
+            parametre = parametre.Replace(";", "");
+            parametre = parametre.Replace("--", "");
+            parametre = parametre.Replace("@", "");
+            parametre = ParametreCikar(parametre, "select");
+            parametre = ParametreCikar(parametre, "delete");
+            parametre = ParametreCikar(parametre, "alter");
+            parametre = ParametreCikar(parametre, "update");
+            parametre = ParametreCikar(parametre, "drop");
+            parametre = ParametreCikar(parametre, "insert");
+            parametre = ParametreCikar(parametre, "sys");   //systables, syscolumns
+            parametre = ParametreCikar(parametre, "table");
+            parametre = ParametreCikar(parametre, "kill");
+            parametre = ParametreCikar(parametre, "exec");
         }
         return parametre;
+    }
+
+    public static string ParametreCikar(string Icerik, string Parametre)
+    {
+        int parametre_uzunluk = Parametre.Length;
+        int parametre_index = Icerik.IndexOf(Parametre, StringComparison.OrdinalIgnoreCase);
+        while (parametre_index >= 0)
+        {
+            Icerik = Icerik.Remove(parametre_index, parametre_uzunluk);
+            parametre_index = Icerik.IndexOf(Parametre, StringComparison.OrdinalIgnoreCase);
+        }
+        return Icerik;
     }
 
     public static string StringToEnglish(string input)
@@ -122,15 +132,23 @@ public class Util
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
             adapter.Fill(dt);
+            return dt;
         }
         catch (Exception ex)
         {
             return null;
         }
-        return dt;
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
+        }
     }
 
-    public static DataTable GetDataTable(string SqlExpression)
+    /*public static DataTable GetDataTable(string SqlExpression)
     {
         DataTable dt = new DataTable();
         try
@@ -145,8 +163,17 @@ public class Util
         {
             return null;
         }
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
+        }
+
         return dt;
-    }
+    }*/
 
     public static int ExecuteNonQuery(SqlCommand cmd)
     {
@@ -158,6 +185,14 @@ public class Util
         catch
         {
             return -1;
+        }
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
         }
     }
 
@@ -171,6 +206,14 @@ public class Util
         catch
         {
             return null;
+        }
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
         }
     }
 
@@ -195,6 +238,14 @@ public class Util
         {
             return null;
         }
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
+        }
     }
 
     /// <summary>
@@ -217,8 +268,17 @@ public class Util
             {
                 return Convert.ToInt32(cmd.Parameters["Return_Value"].Value);
             }
+            
         }
         catch { }
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
+        }
         return -999;
     }
 
@@ -249,8 +309,17 @@ public class Util
         }
         catch
         {
-            return false;
         }
+        finally
+        {
+            if (cmd.Connection.State != ConnectionState.Closed)
+            {
+                cmd.Connection.Close();
+            }
+            cmd.Connection.Dispose();
+        }
+        return false;
+
     }
 
     public static string HashString(string input)

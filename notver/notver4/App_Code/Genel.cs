@@ -177,7 +177,7 @@ public class Genel
                 return false;
             }
 
-            return Mesajlar.AdmineYorumSikayetiGonder(YorumID, YorumTipi, SikayetNedeni, KullaniciID, Enums.SistemHataSeviyesi.Orta);
+            return Mesajlar.AdmineYorumSikayetiGonder(YorumID, YorumTipi, Util.ParametreyiTemizle(SikayetNedeni), KullaniciID, Enums.SistemHataSeviyesi.Orta);
         }
         catch (Exception) { }
         return false;

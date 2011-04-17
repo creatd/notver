@@ -33,6 +33,8 @@ public partial class UserControls_AraHoca : BaseUserControl
             }
             //Strip whitespaces and replace them with +
             string[] words = searchParams.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length < 1)   //Hic kelime yok arama parametrelerinde (ornegin bosluk girilmis)
+                return;
             StringBuilder sb = new StringBuilder();
             foreach (string word in words)
             {

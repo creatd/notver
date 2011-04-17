@@ -34,7 +34,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("KayitsizHocaIsim", KayitsizHocaIsim);
+            param = new SqlParameter("KayitsizHocaIsim", Util.ParametreyiTemizle(KayitsizHocaIsim));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -99,7 +99,7 @@ public class Hocalar
 
             if(!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -174,7 +174,7 @@ public class Hocalar
 
             if (!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -186,7 +186,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -466,7 +466,7 @@ public class Hocalar
 
             if (!string.IsNullOrEmpty(Unvan))
             {
-                param = new SqlParameter("Unvan", Unvan);
+                param = new SqlParameter("Unvan", Util.ParametreyiTemizle(Unvan));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -569,14 +569,14 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Bit;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Isim", Isim);
+            param = new SqlParameter("Isim", Util.ParametreyiTemizle(Isim));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(Unvan))
             {
-                param = new SqlParameter("Unvan", Unvan);
+                param = new SqlParameter("Unvan", Util.ParametreyiTemizle(Unvan));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -835,21 +835,21 @@ public class Hocalar
 
             if (yorumlar[0].Length > 0)
             {
-                param = new SqlParameter("YorumOlumlu", yorumlar[0]);
+                param = new SqlParameter("YorumOlumlu", Util.ParametreyiTemizle(yorumlar[0]));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
             if (yorumlar[1].Length > 0)
             {
-                param = new SqlParameter("YorumOlumsuz", yorumlar[1]);
+                param = new SqlParameter("YorumOlumsuz", Util.ParametreyiTemizle(yorumlar[1]));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
             if (yorumlar[2].Length > 0)
             {
-                param = new SqlParameter("YorumOzet", yorumlar[2]);
+                param = new SqlParameter("YorumOzet", Util.ParametreyiTemizle(yorumlar[2]));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -942,7 +942,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -985,9 +985,9 @@ public class Hocalar
                             cmd.Parameters.Add(param);
                             if (DersID == -2)  //Bilinmeyen ders ismiyle kaydet
                             {
-                                param = new SqlParameter("BilinmeyenDersIsmi", BilinmeyenDersIsimleri[i]);
+                                param = new SqlParameter("BilinmeyenDersIsmi", Util.ParametreyiTemizle(BilinmeyenDersIsimleri[i]));
                                 param.Direction = ParameterDirection.Input;
-                                param.SqlDbType = SqlDbType.NChar;
+                                param.SqlDbType = SqlDbType.NVarChar;
                                 cmd.Parameters.Add(param);
                             }
                             else  //DersID ile kaydet
@@ -1083,7 +1083,7 @@ public class Hocalar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -1127,9 +1127,9 @@ public class Hocalar
                         cmd.Parameters.Add(param);
                         if (DersID == -2)  //Bilinmeyen ders ismiyle kaydet
                         {
-                            param = new SqlParameter("BilinmeyenDersIsmi", BilinmeyenDersIsimleri[i]);
+                            param = new SqlParameter("BilinmeyenDersIsmi", Util.ParametreyiTemizle(BilinmeyenDersIsimleri[i]));
                             param.Direction = ParameterDirection.Input;
-                            param.SqlDbType = SqlDbType.NChar;
+                            param.SqlDbType = SqlDbType.NVarChar;
                             cmd.Parameters.Add(param);
                         }
                         else  //DersID ile kaydet
@@ -1659,7 +1659,7 @@ public class Hocalar
             SqlCommand cmd = new SqlCommand("IsmeGoreHocalariDondur");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param = new SqlParameter("HocaIsim", Util.BuildLikeExpression(hocaIsmi));
+            SqlParameter param = new SqlParameter("HocaIsim", Util.BuildLikeExpression(Util.ParametreyiTemizle(hocaIsmi)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);

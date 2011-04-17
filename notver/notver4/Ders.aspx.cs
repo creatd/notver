@@ -43,6 +43,7 @@ public partial class Ders : BasePage
                     if (!string.IsNullOrEmpty(session.DersKod) && !string.IsNullOrEmpty(session.DersIsim))
                     {
                         lblDersIsim.Text = session.DersKod + " - " + session.DersIsim;
+                        Page.Title = "NotVerin - " + session.DersKod + " (" + session.DersIsim + ")";
                     }
                     else
                     {

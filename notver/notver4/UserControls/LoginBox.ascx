@@ -55,6 +55,10 @@ function Temizle(obj)   {
                         ValidationGroup="vg" OnKeyDown="javascript:SetFocusLogin(event);"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtSifre"
                         ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>" ToolTip="Şifre girmelisin" ValidationGroup="vg" CssClass="Hata" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtSifre" ValidationGroup="vg"
+                        ErrorMessage="<img src='./App_Themes/Default/Images/hata.png' alt='hata'>"
+                        ToolTip="Şifren büyük/küçük harfler, rakamlar ve !.,_- imla karakterlerinden oluşabilir" 
+                        ValidationExpression="^[a-zA-Z0-9!.,_-]+$"></asp:RegularExpressionValidator>
                     
             <br /><asp:ImageButton ID="LoginButton" OnClick="GirisYap" runat="server" ValidationGroup="vg" 
             CssClass="loginTus clear fltLeft"
