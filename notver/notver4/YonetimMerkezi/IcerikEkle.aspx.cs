@@ -159,7 +159,7 @@ public partial class Admin_IcerikEkle : BasePage
         drpDersEkle_Bolumler.Items.Clear();
         if (Util.GecerliSayi(drpDersOkullar.SelectedValue))
         {
-            DataTable dtOkulBolumler = Okullar.BolumleriDondur(Convert.ToInt32(drpDersOkullar.SelectedValue));
+            DataTable dtOkulBolumler = Okullar.Admin_BolumleriDondur(Convert.ToInt32(drpDersOkullar.SelectedValue));
             if (dtOkulBolumler != null)
             {
                 foreach (DataRow dr in dtOkulBolumler.Rows)
@@ -204,7 +204,7 @@ public partial class Admin_IcerikEkle : BasePage
         drpHocaEkle_Bolumler.Items.Clear();
         if (Util.GecerliSayi(drpHocaOkullar.SelectedValue))
         {
-            DataTable dtOkulBolumler = Okullar.BolumleriDondur(Convert.ToInt32(drpHocaOkullar.SelectedValue));
+            DataTable dtOkulBolumler = Okullar.Admin_BolumleriDondur(Convert.ToInt32(drpHocaOkullar.SelectedValue));
             if (dtOkulBolumler != null)
             {
                 foreach (DataRow dr in dtOkulBolumler.Rows)

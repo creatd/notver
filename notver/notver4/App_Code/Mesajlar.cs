@@ -180,7 +180,7 @@ public static class Mesajlar
             {
                 icerik = icerik.Replace("!!!URL!!!", url);
             }
-            string baslik = "NotVerin - Sifre sifirlama mesaji";
+            string baslik = "NotVerin - Şifre sıfırlama mesajı";
             return Mesajlar.EpostaGonder(KullaniciEpostasi, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
         }
         catch (Exception ex) { }

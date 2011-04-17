@@ -44,7 +44,7 @@ public partial class Admin_TumDersler : BasePage
         // Okuldaki bolumleri doldur
         if (Util.GecerliSayi(drpOkullar.SelectedValue))
         {
-            DataTable dtBolumler = Okullar.BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
+            DataTable dtBolumler = Okullar.Admin_BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
             if (dtBolumler != null)
             {
                 foreach (DataRow dr in dtBolumler.Rows)
@@ -264,7 +264,7 @@ public partial class Admin_TumDersler : BasePage
         if (Util.GecerliSayi(drpOkullar2.SelectedValue))
         {
             int okulID = Convert.ToInt32(drpOkullar2.SelectedValue);
-            DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+            DataTable dtBolumler = Okullar.Admin_BolumleriDondur(okulID);
             if (dtBolumler != null)
             {
                 foreach (DataRow dr in dtBolumler.Rows)
