@@ -1600,49 +1600,6 @@ public class Hocalar
     }
 
     /// <summary>
-    /// Kullanici hocaya daha once puan verdiyse true dondurur; yoksa false dondurur
-    /// </summary>
-    /// <param name="kullaniciID"></param>
-    /// <param name="hocaID"></param>
-    /// <returns></returns>
-    public static bool KullaniciHocayaPuanVermis(int kullaniciID, int hocaID)
-    {
-        try
-        {
-            if (kullaniciID < 0 || hocaID < 0)
-            {
-                return false;
-            }
-            SqlCommand cmd = new SqlCommand("KullaniciHocayaPuanVermis");
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlParameter param = new SqlParameter("KullaniciID", kullaniciID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-            param = new SqlParameter("HocaID", hocaID);
-            param.Direction = ParameterDirection.Input;
-            param.SqlDbType = SqlDbType.Int;
-            cmd.Parameters.Add(param);
-
-            DataTable dt = Util.GetDataTable(cmd);
-            if (Convert.ToInt32(dt.Rows[0][0]) == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
     /// Returns data from Hocalar table performing the given like expression on their names
     /// Returns null on error
     /// </summary>

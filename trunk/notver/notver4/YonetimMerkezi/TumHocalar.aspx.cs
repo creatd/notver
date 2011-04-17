@@ -79,7 +79,7 @@ public partial class Admin_TumHocalar : BasePage
         // Okuldaki bolumleri doldur
         if (Util.GecerliSayi(drpOkullar.SelectedValue))
         {
-            DataTable dtBolumler = Okullar.BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
+            DataTable dtBolumler = Okullar.Admin_BolumleriDondur(Convert.ToInt32(drpOkullar.SelectedValue));
             if (dtBolumler != null)
             {
                 foreach (DataRow dr in dtBolumler.Rows)
@@ -353,7 +353,7 @@ public partial class Admin_TumHocalar : BasePage
             // Okuldaki bolumleri doldur
             if (okulID >= 0)
             {
-                DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+                DataTable dtBolumler = Okullar.Admin_BolumleriDondur(okulID);
                 if (dtBolumler != null)
                 {
                     drpOkulBolumler2.Items.Add(new ListItem("-", "-1"));
@@ -397,7 +397,7 @@ public partial class Admin_TumHocalar : BasePage
             // Okuldaki bolumleri doldur
             if (okulID >= 0)
             {
-                DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+                DataTable dtBolumler = Okullar.Admin_BolumleriDondur(okulID);
                 if (dtBolumler != null)
                 {
                     drpOkulBolumler3.Items.Add(new ListItem("-", "-1"));
@@ -424,7 +424,7 @@ public partial class Admin_TumHocalar : BasePage
             // Okuldaki bolumleri doldur
             if (okulID >= 0)
             {
-                DataTable dtBolumler = Okullar.BolumleriDondur(okulID);
+                DataTable dtBolumler = Okullar.Admin_BolumleriDondur(okulID);
                 if (dtBolumler != null)
                 {
                     drpOkulBolumler4.Items.Add(new ListItem("-", "-1"));

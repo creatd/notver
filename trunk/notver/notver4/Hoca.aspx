@@ -15,9 +15,11 @@
         $("a.colorbox").colorbox({iframe:true,width:'590px', height:'350px', close:''});
         $("a.colorboxSikayet").colorbox({iframe:true,width:'590px', height:'480px', close:''});
     });
-    
-    function resize(w,h)   {
-        $("a.colorbox").colorbox.resize({width:w,height:h});
+
+    function resize(w, h) {
+        alert('hoca resize');
+        $("a.colorbox").colorbox.resize();
+        //$("a.colorbox").colorbox.resize({width:w,height:h});
     }
     </script>
     
