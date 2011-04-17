@@ -32,7 +32,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("BolumIsim", BolumIsim);
+            param = new SqlParameter("BolumIsim", Util.ParametreyiTemizle(BolumIsim));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
@@ -64,7 +64,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("BolumIsim", BolumIsim);
+            param = new SqlParameter("BolumIsim", Util.ParametreyiTemizle(BolumIsim));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.VarChar;
             cmd.Parameters.Add(param);
@@ -217,7 +217,7 @@ public class Okullar
 
             if (!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -416,7 +416,7 @@ public class Okullar
 
             if (!string.IsNullOrEmpty(Adres))
             {
-                param = new SqlParameter("Adres", Adres);
+                param = new SqlParameter("Adres", Util.ParametreyiTemizle(Adres));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -448,7 +448,7 @@ public class Okullar
 
             if (!string.IsNullOrEmpty(WebAdresi))
             {
-                param = new SqlParameter("WebAdresi", WebAdresi);
+                param = new SqlParameter("WebAdresi", Util.ParametreyiTemizle(WebAdresi));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -482,14 +482,14 @@ public class Okullar
             param.SqlDbType = SqlDbType.Bit;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Isim", Isim);
+            param = new SqlParameter("Isim", Util.ParametreyiTemizle(Isim));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
             if (!string.IsNullOrEmpty(Adres))
             {
-                param = new SqlParameter("Adres", Adres);
+                param = new SqlParameter("Adres", Util.ParametreyiTemizle(Adres));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -521,7 +521,7 @@ public class Okullar
 
             if (!string.IsNullOrEmpty(WebAdresi))
             {
-                param = new SqlParameter("WebAdresi", WebAdresi);
+                param = new SqlParameter("WebAdresi", Util.ParametreyiTemizle(WebAdresi));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -762,7 +762,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -806,7 +806,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -848,7 +848,7 @@ public class Okullar
 
             if (!string.IsNullOrEmpty(SilinmeNedeni))
             {
-                param = new SqlParameter("SilinmeNedeni", SilinmeNedeni);
+                param = new SqlParameter("SilinmeNedeni", Util.ParametreyiTemizle(SilinmeNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -860,7 +860,7 @@ public class Okullar
             param.SqlDbType = SqlDbType.Int;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Yorum", Util.HTMLToDB(Yorum));
+            param = new SqlParameter("Yorum", Util.HTMLToDB(Util.ParametreyiTemizle(Yorum)));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);

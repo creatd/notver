@@ -188,7 +188,7 @@ public class Uyelik
 
             if (!string.IsNullOrEmpty(BlokNedeni))
             {
-                param = new SqlParameter("BlokNedeni", BlokNedeni);
+                param = new SqlParameter("BlokNedeni", Util.ParametreyiTemizle(BlokNedeni));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -196,18 +196,18 @@ public class Uyelik
 
             if (!string.IsNullOrEmpty(KullaniciAdi))
             {
-                param = new SqlParameter("KullaniciAdi", KullaniciAdi);
+                param = new SqlParameter("KullaniciAdi", Util.ParametreyiTemizle(KullaniciAdi));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
             }
 
-            param = new SqlParameter("Ad", Ad);
+            param = new SqlParameter("Ad", Util.ParametreyiTemizle(Ad));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Soyad", Soyad);
+            param = new SqlParameter("Soyad", Util.ParametreyiTemizle(Soyad));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -506,7 +506,7 @@ public class Uyelik
                 cmd = new SqlCommand("KullaniciAdiVarMi");
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                param = new SqlParameter("KullaniciAdi", kullaniciAdi);
+                param = new SqlParameter("KullaniciAdi", Util.ParametreyiTemizle(kullaniciAdi));
                 param.Direction = ParameterDirection.Input;
                 param.SqlDbType = SqlDbType.NVarChar;
                 cmd.Parameters.Add(param);
@@ -527,17 +527,17 @@ public class Uyelik
             cmd = new SqlCommand("KullaniciKaydet");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            param = new SqlParameter("KullaniciAdi", kullaniciAdi);
+            param = new SqlParameter("KullaniciAdi", Util.ParametreyiTemizle(kullaniciAdi));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Ad", ad);
+            param = new SqlParameter("Ad", Util.ParametreyiTemizle(ad));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
 
-            param = new SqlParameter("Soyad", soyad);
+            param = new SqlParameter("Soyad", Util.ParametreyiTemizle(soyad));
             param.Direction = ParameterDirection.Input;
             param.SqlDbType = SqlDbType.NVarChar;
             cmd.Parameters.Add(param);
@@ -637,7 +637,7 @@ public class Uyelik
             switch(sonuc)
             {
                 case 0: //Sorun yok
-                    KullaniciYukle(Eposta); 
+                    Uyelik.KullaniciYukle(Eposta); 
                     return 0;
                     break;
                 case -1:    //Eposta-sifre bulunamadi

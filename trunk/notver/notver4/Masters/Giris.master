@@ -10,8 +10,8 @@
 <head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-9" />
     <title>NotVerin - Hocalarla öğrenciler yer değiştiriyor</title>
-    <link rel="icon" type="image/png" href="http://www.notverin.com/Images/klogob.png" />
-    <link rel="Shortcut Icon" type="image/png" href="http://www.notverin.com/Images/klogob.png" />
+    <link rel="icon" type="image/jpg" href="http://www.notverin.com/Images/klogob.jpg" />
+    <link rel="Shortcut Icon" type="image/jpg" href="http://www.notverin.com/Images/klogob.jpg" />
     <link href="../App_Themes/Default/reset.css" rel="stylesheet" type="text/css" />
     <link href="../App_Themes/Default/Default.css" rel="stylesheet" type="text/css" />
     <link href="../Scripts/colorbox.css" rel="stylesheet" type="text/css" />
@@ -135,11 +135,12 @@
 </head>
 <body>
 
+    <span style="display:none;">
     <!-- Geri Bildirim Linki Buraya Geldi -->
     <asp:HyperLink ID="geriBildirimLink" runat="server" 
             NavigateUrl="~/KullaniciGeribildirimGonder.aspx">Geri Bildirim Gonder</a> 
     </asp:HyperLink>
-    <!-- Geri Bildirim Linki Buraya Geldi -->
+    </span>
     <form id="form1" runat="server">
     <ajax:ToolkitScriptManager runat="server" ScriptMode="Release"></ajax:ToolkitScriptManager>
     <div id="Header">

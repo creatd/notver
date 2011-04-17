@@ -69,7 +69,7 @@ public static class Mesajlar
             {
                 icerik = icerik.Replace("!!!NEDEN!!!", SilinmeNedeni);
             }
-            string baslik = "NotVerin - Yaptığınız bir yorum silinmiştir";
+            string baslik = "NotVerin - Yaptığın bir yorum silindi";
             return Mesajlar.EpostaGonder(KullaniciID, Enums.EpostaGonderici.bilgi, icerik, baslik, true);
         }
         catch (Exception ex) { }

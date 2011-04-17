@@ -18,11 +18,22 @@ public partial class UserControls_AraDers : BaseUserControl
     {
         try
         {
+
             string searchParams = dersIsmi.Text.ToString().Trim();
+            if (string.IsNullOrEmpty(searchParams))
+            {
+                return;
+            }
+            else if (searchParams.StartsWith("Hoca ismini"))
+            {
+                return;
+            }
             string aramaKriterleri = dersKoduAyir(searchParams);
 
             //Strip whitespaces and replace them with +
             string[] words = aramaKriterleri.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length < 1)   //Hic kelime yok arama parametrelerinde (ornegin bosluk girilmis)
+                return;
             StringBuilder sb = new StringBuilder();
             foreach (string word in words)
             {

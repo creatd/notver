@@ -44,6 +44,7 @@ public partial class Okul : BasePage
                     if (!string.IsNullOrEmpty(session.OkulIsim))
                     {
                         lblOkulIsim.Text = session.OkulIsim;
+                        Page.Title = "NotVerin - " + session.OkulIsim;
                     }
                     else
                     {

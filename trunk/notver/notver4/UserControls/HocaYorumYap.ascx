@@ -6,10 +6,43 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        update_size(70, 110);
+        //update_size(80, 110);
+        var html_h = $('div#pencere').height();
+        var html_w = $('div#pencere').width();
+        var html_str = "html : " + html_w + " x " + html_h;
+        /* alert(html_str);
+        var hidden_field = document.getElementById('has_resized');
+        alert(hidden_field.innerHTML);
+        if (hidden_field.innerHTML == 'false') {
+            document.getElementById('has_resized').innerHTML = 'true';
+            alert(hidden_field.innerHTML);
+            update_size();
+        }*/
     });
-    
-    function update_size(w_bias,h_bias)  {
+
+    function update_size() {
+        var html_h = $('div#pencere').height();
+        var html_w = $('div#pencere').width();
+        parent.resize(html_w, html_h);
+    }
+
+    function update_size(w_bias, h_bias) {
+        var doc_w = $(document).width();
+        var doc_h = $(document).height();
+        var win_w = $(window).width();
+        var win_h = $(window).height();
+        var win_str = "win : " + win_w + " x " + win_h;
+        var doc_str = "doc : " + doc_w + " x " + doc_h;
+        var wrapper_w = $('div#cboxWrapper').width();
+        var wrapper_h = $('div#cboxWrapper').height();
+        var wrapper_str = "wrapper : " + wrapper_w + " x " + wrapper_h;
+        var html_h = $('iframe html').height();
+        var html_w = $('iframe html').width();
+        var html_str = "html : " + html_w + " x " + html_h;
+        //alert(win_str);
+        //alert(doc_str);
+        //alert(wrapper_str);
+        alert(html_str);
         var w = $(document).width() + w_bias;
         var h = $(document).height() + h_bias;
         parent.resize(w,h);
@@ -128,7 +161,7 @@
                     <asp:Label runat="server" ID="dersIsim"></asp:Label>
                     <asp:TextBox runat="server" ID="txtDersKodDiger" CssClass="textbox" ToolTip="Ders kodunu ya da ismini belirtin"></asp:TextBox>
                     <asp:ImageButton runat="server" ID="dropDersEkle" OnClick="dropDersEkle_Click" 
-                    OnClientClick="javascript:update_size(55,65);" ImageUrl="~/App_Themes/Default/Images/ekle.png"/>
+                    OnClientClick="javascript:update_size();" ImageUrl="~/App_Themes/Default/Images/ekle.png"/>
                     <br />
                     <asp:Repeater ID="repeaterDersler" runat="server" OnItemCommand="repeaterDersSil">
                         <HeaderTemplate>
@@ -185,4 +218,5 @@
 Bir hata oluştu :(
 </asp:Panel>
 <asp:Literal runat="server" ID="ltrScript"></asp:Literal>
+<span id="has_resized" style="display:none;">false</span>
 </div>

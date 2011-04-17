@@ -18,7 +18,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>
         <tr>
             <td>İsim (100)</td>
-            <td><asp:TextBox runat="server" ID="txtOkulIsim" Width="400"></asp:TextBox></td>
+            <td><asp:TextBox runat="server" ID="txtOkulIsim" Width="400"></asp:TextBox><span style="color:Red; display:inline;">*</span></td>
         </tr>
         <tr>
             <td>Adres (50)</td>
@@ -55,7 +55,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>
         <tr>
             <td>Isim (256)</td>
-            <td><asp:TextBox runat="server" ID="txtBolumIsim"></asp:TextBox></td>
+            <td><asp:TextBox runat="server" ID="txtBolumIsim" Width="200"></asp:TextBox><span style="color:Red; display:inline;">*</span></td>
         </tr>
         <tr>
             <td>Is Active</td>
@@ -76,11 +76,11 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         <tr>
             <td>Okul</td>
             <td><asp:DropDownList runat="server" ID="drpDersOkullar" OnSelectedIndexChanged="DersEkle_OkulSecildi"
-            AutoPostBack="true"></asp:DropDownList></td>
+            AutoPostBack="true"></asp:DropDownList><span style="color:Red; display:inline;">*</span></td>
         </tr>
         <tr>
             <td>Bolum</td>
-            <td><asp:DropDownList runat="server" ID="drpDersEkle_Bolumler"></asp:DropDownList></td>
+            <td><asp:DropDownList runat="server" ID="drpDersEkle_Bolumler"></asp:DropDownList><span style="color:Red; display:inline;">*</span></td>
         </tr>
         <tr>
             <td>Is_Active</td>
@@ -91,7 +91,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>
         <tr>
             <td>Kod (50)</td>
-            <td><asp:TextBox runat="server" ID="txtDersKod" Width="400"></asp:TextBox></td>
+            <td><asp:TextBox runat="server" ID="txtDersKod" Width="400"></asp:TextBox><span style="color:Red; display:inline;">*</span></td>
         </tr>
         <tr>
             <td>İsim (150)</td>
@@ -119,7 +119,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
         </tr>
         <tr>
             <td>İsim (50)</td>
-            <td><asp:TextBox runat="server" ID="txtHocaIsim" Width="400"></asp:TextBox></td>
+            <td><asp:TextBox runat="server" ID="txtHocaIsim" Width="400"></asp:TextBox><span style="color:Red; display:inline;">*</span></td>
         </tr>
         <tr>
             <td>Ünvan (50)</td>
@@ -223,11 +223,11 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
             <tr>
                 <td>Okul</td>
                 <td><asp:DropDownList runat="server" ID="drpDosyaOkullar" 
-                OnSelectedIndexChanged="drpDosyaOkullar_OkulSecildi" AutoPostBack="true"></asp:DropDownList></td>
+                OnSelectedIndexChanged="drpDosyaOkullar_OkulSecildi" AutoPostBack="true"></asp:DropDownList><span style="color:Red; display:inline;">*</span></td>
             </tr>
             <tr>
                 <td>Ders</td>
-                <td><asp:DropDownList runat="server" ID="drpDosyaDersler"></asp:DropDownList></td>
+                <td><asp:DropDownList runat="server" ID="drpDosyaDersler"></asp:DropDownList><span style="color:Red; display:inline;">*</span></td>
             </tr>
             <tr>
                 <td>Dosya durum</td>
@@ -235,7 +235,7 @@ Inherits="Admin_IcerikEkle" MasterPageFile="~/Masters/Admin.master" MaintainScro
             </tr>
             <tr>
                 <td>Dosya tipi</td>
-                <td><asp:DropDownList runat="server" ID="drpDosyaTipler"></asp:DropDownList></td>
+                <td><asp:DropDownList runat="server" ID="drpDosyaTipler"></asp:DropDownList><span style="color:Red; display:inline;">*</span></td>
             </tr>
             <tr>
                 <td>Dosya isim (256)</td>
